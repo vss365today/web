@@ -2,6 +2,7 @@ import os
 
 from dotenv import dotenv_values, find_dotenv
 from flask_mail import Mail
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
 
@@ -9,6 +10,7 @@ from flask_wtf.csrf import CSRFProtect
 csrf = CSRFProtect()
 db = SQLAlchemy()
 email = Mail()
+migrate = Migrate()
 
 
 def init_extensions(app):
@@ -27,3 +29,4 @@ def init_extensions(app):
     csrf.init_app(app)
     db.init_app(app)
     email.init_app(app)
+    migrate.init_app(app, db)

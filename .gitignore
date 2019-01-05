@@ -9,3 +9,4 @@ Testing/
 *.log
 .env
 requirements.txt
+*.jpg
