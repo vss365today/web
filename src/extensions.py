@@ -1,12 +1,14 @@
 import os
-from flask_wtf.csrf import CSRFProtect
-from flask_sqlalchemy import SQLAlchemy
 
 from dotenv import dotenv_values, find_dotenv
+from flask_mail import Mail
+from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 
 
 csrf = CSRFProtect()
 db = SQLAlchemy()
+email = Mail()
 
 
 def init_extensions(app):
@@ -24,3 +26,4 @@ def init_extensions(app):
     # Load app exensions
     csrf.init_app(app)
     db.init_app(app)
+    email.init_app(app)
