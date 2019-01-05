@@ -12,6 +12,7 @@ flask = "*"
 python-dotenv = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
+tweepy = "*"
 
 [requires]
 python_version = "3.6"
