@@ -1,8 +1,8 @@
 
 from datetime import datetime
 
-from flask import Blueprint, request
-from flask import render_template, url_for
+from flask import Blueprint
+from flask import render_template
 
 bp = Blueprint("root", __name__, url_prefix="")
 
