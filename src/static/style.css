@@ -1,0 +1,85 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html { min-width: 320px; }
+
+body {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  font-family: "EB Garamond", serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgb(53, 51, 51);
+}
+
+h1, h2, h3, strong {
+  font-family: "Oswald", "EB Garamond", serif;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(70, 199, 134);
+}
+a:hover,
+a:focus,
+a:active {
+  border-bottom: 1px solid currentColor;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+header {
+  margin-bottom: 0.5em;
+
+  background-color: rgb(150, 255, 255);
+  text-align: center;
+}
+
+header h1 { margin-bottom: -0.75em; }
+header h2 { font-weight: 200; }
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  margin-right: 1em;
+  margin-left: 1em;
+  font-family: "Oswald";
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+footer {
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  text-align: center;
+  background-color: rgb(150, 255, 255);
+}
+
+.tweet {
+
+}
+
+.tweet img {
+  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
+}

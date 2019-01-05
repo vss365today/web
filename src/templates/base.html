@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#96ffff">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Oswald:200,400,500">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>VSS 365 for {{ date }}</title>
+</head>
+
+<body>
+  <header>
+    <h1>VSS 365 prompt</h1>
+    <h2>{{ date }}</h2>
+  </header>
+
+  <nav>
+    <a href="{{ url_for('root.index') }}">Yesterday</a>
+    <a href="{{ url_for('root.index') }}">Today</a>
+    <a href="{{ url_for('root.index') }}">Tomorrow</a>
+  </nav>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <div>Created 2019 Caleb Ely (<a href="https://twitter.com/cely717">@cely717</a>)</div>
+  </footer>
+</body>
+</html>
