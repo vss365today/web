@@ -11,6 +11,7 @@ bp = Blueprint("root", __name__, url_prefix="")
 def form() -> str:
     return "form"
 
+
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
