@@ -16,7 +16,7 @@ body {
   color: rgb(53, 51, 51);
 }
 
-h1, h2, h3, strong {
+h1, h2, h3, strong, label {
   font-family: "Oswald", "EB Garamond", serif;
   font-weight: 500;
 }
@@ -62,11 +62,8 @@ nav a {
 main {
   flex: 1;
   display: flex;
-  justify-content: center;
-
-  width: 90%;
-  margin-right: auto;
-  margin-left: auto;
+  flex-direction: column;
+  align-items: center;
 }
 
 footer {
@@ -83,3 +80,18 @@ footer {
 .tweet img {
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
 }
+
+form {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+input, button {
+  margin-top: 0.2em;
+  padding: 0.2em;
+  font-family: inherit;
+  font-size: 1.1em;
+}
+
+button { margin-top: 1em; }

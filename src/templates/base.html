@@ -24,6 +24,13 @@
 
   <main>
     {% block content %}{% endblock %}
+
+    <form method="POST" action="#">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="input-email">Enter your email address to receive daily notifications!</label>
+        <input type="email" name="email" id="input-email" placeholder="love.poems@email.com">
+        <button type="submit">Subscribe</button>
+    </form>
   </main>
 
   <footer>
