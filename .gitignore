@@ -1,0 +1,11 @@
+__pycache__
+.data/
+.geolocation/
+.vscode/
+Testing/
+*.db
+*.ini
+*.json
+*.log
+.env
+requirements.txt
