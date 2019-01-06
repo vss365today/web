@@ -42,13 +42,17 @@ img {
 
 header {
   margin-bottom: 0.5em;
+  padding-bottom: 1.5em;
 
   background-color: rgb(150, 255, 255);
   text-align: center;
 }
 
 header h1 { margin-bottom: -0.75em; }
-header h2 { font-weight: 200; }
+header h2 {
+  margin-bottom: 0;
+  font-weight: 200;
+}
 
 nav {
   display: flex;
@@ -77,6 +81,7 @@ footer {
   background-color: rgb(150, 255, 255);
 }
 
+.tweet.center { text-align: center; }
 .tweet img {
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
 }

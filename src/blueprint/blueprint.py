@@ -5,55 +5,55 @@ from flask import Blueprint, request
 from flask import render_template
 
 from src.core.tweets import get_tweet_today, get_tweet_by_date, find_image
-from src.core.form import add_email, remove_email
+from src.core import subscription
 
 
 bp = Blueprint("root", __name__, url_prefix="")
 
 
-@bp.route("/form", methods=["POST"])
-def form() -> str:
+@bp.route("/subscribe", methods=["POST"])
+def subscribe() -> str:
     email = request.form.get("email")
-    add_email(email)
-    tweet = {
-        "date": datetime.today(),
+    subscription.add_email(email)
+    render_opts = {
         "email": email
     }
-    return render_template("subscribe.html", tweet=tweet)
+    return render_template("subscribe.html", **render_opts)
 
 
 @bp.route("/unsubscribe", methods=["GET"])
 def unsubscribe() -> str:
     email = request.args.get("email")
-    remove_email(email)
-    tweet = {
-        "date": datetime.today(),
+    subscription.remove_email(email)
+    render_opts = {
         "email": email
     }
-    return render_template("unsubscribe.html", tweet=tweet)
+    return render_template("unsubscribe.html", **render_opts)
 
 
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
-    tweet = get_tweet_today()
-    return render_template("word.html", tweet=tweet)
+    render_opts = {
+        "page_title": "",
+        "tweet": get_tweet_today()
+    }
+    return render_template("word.html", **render_opts)
 
 
 @bp.route("/<date>")
 def date(date) -> str:
-    tweet = get_tweet_by_date(date)
-    return render_template("word.html", tweet=tweet)
+    render_opts = {
+        "page_title": "",
+        "tweet": get_tweet_by_date(date)
+    }
+    return render_template("word.html", **render_opts)
 
 
 @bp.app_errorhandler(404)
 def page_not_found(e) -> str:
-    # Create a dummy tweet object containing the requested date
     if request.endpoint != "static":
-        tweet = {
-            "date": datetime.strptime(request.path[1:], "%Y-%m-%d")
-        }
-        return render_template("404.html", tweet=tweet), 404
+        return render_template("404.html", page_title="Day not found!"), 404
 
 
 @bp.app_template_filter()

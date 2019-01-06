@@ -27,6 +27,6 @@ def get_tweet_today():
 
 
 def get_tweet_by_date(date):
-    # first_or_404() is creating an error with a favicon
-    # return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()
-    return Tweets.query.filter(Tweets.date.startswith(date)).first()
+    # TODO: Is first_or_404() is creating an error with a favicon?
+    return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()
+    # return Tweets.query.filter(Tweets.date.startswith(date)).first()

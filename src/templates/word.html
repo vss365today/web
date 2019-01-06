@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block nav %}
+{% include "partials/nav.html" %}
+{% endblock %}
+
 {% block content %}
 <div class="tweet">
   <h3>Prompt by <a href="{{ tweet.url }}">@{{ tweet.user_handle }}</a></h3>

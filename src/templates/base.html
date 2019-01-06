@@ -8,25 +8,23 @@
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Oswald:200,400,500">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <title>VSS 365 for {{ tweet.date|format_date }}</title>
+  <title>{{ page_title }} | VSS 365</title>
 </head>
 
 <body>
   <header>
     <h1>VSS 365 prompt</h1>
-    <h2>{{ tweet.date|format_date }}</h2>
+    <h2>{% if tweet %}
+        {{ tweet.date|format_date }}
+    {% endif %}</h2>
   </header>
 
-  <nav>
-    <a href="{{ url_for('root.date', date=tweet.date|yesterday) }}">Yesterday</a>
-    <a href="{{ url_for('root.index') }}">Today</a>
-    <a href="{{ url_for('root.date', date=tweet.date|tomorrow) }}">Tomorrow</a>
-  </nav>
+  {% block nav %}{% endblock %}
 
   <main>
     {% block content %}{% endblock %}
 
-    <form method="POST" action="{{ url_for('root.form') }}">
+    <form method="POST" action="{{ url_for('root.subscribe') }}">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <label for="input-email">Enter your email to receive daily notifications!</label>
       <input type="email" name="email" id="input-email" required maxlength="38" placeholder="love.poems@writing.com">
