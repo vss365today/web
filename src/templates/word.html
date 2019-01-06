@@ -2,10 +2,7 @@
 
 {% block content %}
 <div class="tweet">
-  <h3>Prompt by <a href="https://twitter.com/SalnPage">@SalnPage</a></h3>
-  <p>5th January 2019</p>
-  <p>#VSS365 #prompt</p>
-  <p>#swing</p>
-  <img width="500" src="{{ url_for('static', filename='DwIBhAmW0AAMU9s.jpg') }}">
+  <h3>Prompt by <a href="{{ tweet.url }}">@{{ tweet.user_handle }}</a></h3>
+  {{ tweet.content|format_content|safe }}
 </div>
 {% endblock %}

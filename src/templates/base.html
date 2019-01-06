@@ -7,19 +7,19 @@
   <meta name="theme-color" content="#96ffff">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Oswald:200,400,500">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <title>VSS 365 for {{ date }}</title>
+  <title>VSS 365 for {{ tweet.date|format_date }}</title>
 </head>
 
 <body>
   <header>
     <h1>VSS 365 prompt</h1>
-    <h2>{{ date }}</h2>
+    <h2>{{ tweet.date|format_date }}</h2>
   </header>
 
   <nav>
-    <a href="{{ url_for('root.index') }}">Yesterday</a>
+    <a href="{{ url_for('root.date', date=tweet.date|yesterday) }}">Yesterday</a>
     <a href="{{ url_for('root.index') }}">Today</a>
-    <a href="{{ url_for('root.index') }}">Tomorrow</a>
+    <a href="{{ url_for('root.date', date=tweet.date|tomorrow) }}">Tomorrow</a>
   </nav>
 
   <main>
@@ -27,8 +27,8 @@
 
     <form method="POST" action="{{ url_for('root.form') }}">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-      <label for="input-email">Enter your email address to receive daily notifications!</label>
-      <input type="email" name="email" id="input-email" maxlength="38" placeholder="love.poems@email.com">
+      <label for="input-email">Enter your email to receive daily notifications!</label>
+      <input type="email" name="email" id="input-email" maxlength="38" placeholder="love.poems@writing.com">
       <button type="submit">Subscribe</button>
     </form>
   </main>
