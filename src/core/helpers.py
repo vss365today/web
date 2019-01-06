@@ -14,6 +14,7 @@ def load_env_vals():
 
 def create_db_connection(config):
     connect_str = f"mysql+pymysql://{config['DB_USERNAME']}:@{config['DB_HOST']}/vss365"
+    # TODO: Use this instead of above line
     # connect_str = "mysql+pymysql://{}:{}@{}/vss365".format(
     #     config["DB_USERNAME"],
     #     config["DB_PASSWORD"],

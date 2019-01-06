@@ -1,10 +1,8 @@
-from datetime import datetime
-from datetime import timedelta
-
 from flask import Blueprint, request
 from flask import render_template
 
-from src.core.tweets import get_tweet_today, get_tweet_by_date, find_image
+from src.core.tweets import get_tweet_today, get_tweet_by_date
+from src.core import filters
 from src.core import subscription
 
 
@@ -58,23 +56,19 @@ def page_not_found(e) -> str:
 
 @bp.app_template_filter()
 def format_date(date) -> str:
-    return date.strftime("%d %B, %Y")
+    return filters.format_date(date)
 
 
 @bp.app_template_filter()
 def format_content(content) -> str:
-    return "\n".join([
-        f"<p>{find_image(para)}</p>"
-        for para in content.split("\r\n")
-        if para
-    ])
+    return filters.format_content(content)
 
 
 @bp.app_template_filter()
 def yesterday(date) -> str:
-    return datetime.strftime(date - timedelta(1), "%Y-%m-%d")
+    return filters.yesterday(date)
 
 
 @bp.app_template_filter()
 def tomorrow(date) -> str:
-    return datetime.strftime(date + timedelta(1), "%Y-%m-%d")
+    return filters.tomorrow(date)
