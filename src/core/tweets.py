@@ -1,7 +1,6 @@
 import datetime
 import re
 
-# import tweepy
 from src.extensions import alchemy
 from src.models import Tweets
 
