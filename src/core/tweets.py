@@ -25,5 +25,6 @@ def format_tweet(tweet):
 def get_tweet_today():
     return Tweets.query.order_by(Tweets.date.desc()).first()
 
+
 def get_tweet_by_date(date):
     return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()

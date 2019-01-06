@@ -29,7 +29,7 @@
     <form method="POST" action="{{ url_for('root.form') }}">
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <label for="input-email">Enter your email to receive daily notifications!</label>
-      <input type="email" name="email" id="input-email" maxlength="38" placeholder="love.poems@writing.com">
+      <input type="email" name="email" id="input-email" required maxlength="38" placeholder="love.poems@writing.com">
       <button type="submit">Subscribe</button>
     </form>
   </main>

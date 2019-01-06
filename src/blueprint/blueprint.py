@@ -27,16 +27,20 @@ def date(date) -> str:
     tweet = get_tweet_by_date(date)
     return render_template("word.html", tweet=tweet)
 
+
 @bp.app_errorhandler(404)
 def page_not_found(e) -> str:
     # Create a dummy tweet object containing the requested date
-    tweet = {}
-    tweet["date"] = datetime.strptime(request.path[1:], "%Y-%m-%d")
-    return render_template("404.html", tweet=tweet), 404
+    if request.endpoint != "static":
+        tweet = {}
+        tweet["date"] = datetime.strptime(request.path[1:], "%Y-%m-%d")
+        return render_template("404.html", tweet=tweet), 404
+
 
 @bp.app_template_filter()
 def format_date(date) -> str:
     return date.strftime("%d %B, %Y")
+
 
 @bp.app_template_filter()
 def format_content(content) -> str:
@@ -46,9 +50,11 @@ def format_content(content) -> str:
         if para
     ])
 
+
 @bp.app_template_filter()
 def yesterday(date) -> str:
     return datetime.strftime(date - timedelta(1), "%Y-%m-%d")
+
 
 @bp.app_template_filter()
 def tomorrow(date) -> str:
