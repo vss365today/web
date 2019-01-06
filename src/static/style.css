@@ -23,6 +23,8 @@ h1, h2, h3, strong, label {
   font-weight: 500;
 }
 
+strong { font-size: 0.85em; }
+
 a {
   text-decoration: none;
   color: rgb(70, 199, 134);

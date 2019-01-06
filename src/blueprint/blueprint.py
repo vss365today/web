@@ -5,6 +5,7 @@ from flask import Blueprint, request
 from flask import render_template
 
 from src.core.tweets import get_tweet_today, get_tweet_by_date, find_image
+from src.core.form import add_email, remove_email
 
 
 bp = Blueprint("root", __name__, url_prefix="")
@@ -12,7 +13,24 @@ bp = Blueprint("root", __name__, url_prefix="")
 
 @bp.route("/form", methods=["POST"])
 def form() -> str:
-    return "form"
+    email = request.form.get("email")
+    add_email(email)
+    tweet = {
+        "date": datetime.today(),
+        "email": email
+    }
+    return render_template("subscribe.html", tweet=tweet)
+
+
+@bp.route("/unsubscribe", methods=["GET"])
+def unsubscribe() -> str:
+    email = request.args.get("email")
+    remove_email(email)
+    tweet = {
+        "date": datetime.today(),
+        "email": email
+    }
+    return render_template("unsubscribe.html", tweet=tweet)
 
 
 @bp.route("/")
@@ -32,8 +50,9 @@ def date(date) -> str:
 def page_not_found(e) -> str:
     # Create a dummy tweet object containing the requested date
     if request.endpoint != "static":
-        tweet = {}
-        tweet["date"] = datetime.strptime(request.path[1:], "%Y-%m-%d")
+        tweet = {
+            "date": datetime.strptime(request.path[1:], "%Y-%m-%d")
+        }
         return render_template("404.html", tweet=tweet), 404
 
 
