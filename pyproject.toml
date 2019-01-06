@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "vss365"
-version = "0.1.0"
+version = "0.4.0"
 description = ""
-authors = ["Caleb Ely <you@example.com>"]
+authors = ["Caleb Ely <le717@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
@@ -10,7 +10,6 @@ Flask = "^1.0"
 flask-mail = "^0.9.1"
 flask-wtf = "^0.14.2"
 python-dotenv = "^0.10.1"
-records = "^0.5.2"
 tweepy = "^3.7"
 Flask-SQLAlchemy = "^2.3"
 pymysql = "^0.9.3"

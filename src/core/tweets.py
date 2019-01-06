@@ -1,7 +1,5 @@
-import datetime
 import re
 
-from src.extensions import alchemy
 from src.models import Tweets
 
 

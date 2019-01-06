@@ -31,30 +31,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "7.0"
 
 [[package]]
-category = "main"
-description = "XML bomb protection for Python stdlib modules"
-name = "defusedxml"
-optional = false
-python-versions = "*"
-version = "0.5.0"
-
-[[package]]
-category = "main"
-description = "Pythonic argument parser, that will make you smile"
-name = "docopt"
-optional = false
-python-versions = "*"
-version = "0.6.2"
-
-[[package]]
-category = "main"
-description = "An implementation of lxml.xmlfile for the standard library"
-name = "et-xmlfile"
-optional = false
-python-versions = "*"
-version = "1.0.1"
-
-[[package]]
 category = "dev"
 description = "the modular source code checker: pep8, pyflakes and co"
 name = "flake8"
@@ -136,14 +112,6 @@ version = "1.1.0"
 
 [[package]]
 category = "main"
-description = "Julian dates from proleptic Gregorian and Julian calendars."
-name = "jdcal"
-optional = false
-python-versions = "*"
-version = "1.4"
-
-[[package]]
-category = "main"
 description = "A small but fast and easy to use stand-alone template engine written in pure python."
 name = "jinja2"
 optional = false
@@ -176,29 +144,6 @@ name = "oauthlib"
 optional = false
 python-versions = "*"
 version = "2.1.0"
-
-[[package]]
-category = "main"
-description = "Python API and tools to manipulate OpenDocument files"
-name = "odfpy"
-optional = false
-python-versions = "*"
-version = "1.4.0"
-
-[package.dependencies]
-defusedxml = "*"
-
-[[package]]
-category = "main"
-description = "A Python library to read/write Excel 2010 xlsx/xlsm files"
-name = "openpyxl"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "2.5.12"
-
-[package.dependencies]
-et_xmlfile = "*"
-jdcal = "*"
 
 [[package]]
 category = "dev"
@@ -239,27 +184,6 @@ name = "python-dotenv"
 optional = false
 python-versions = "*"
 version = "0.10.1"
-
-[[package]]
-category = "main"
-description = "YAML parser and emitter for Python"
-name = "pyyaml"
-optional = false
-python-versions = "*"
-version = "3.13"
-
-[[package]]
-category = "main"
-description = "SQL for Humans"
-name = "records"
-optional = false
-python-versions = "*"
-version = "0.5.2"
-
-[package.dependencies]
-SQLAlchemy = "*"
-docopt = "*"
-tablib = "*"
 
 [[package]]
 category = "main"
@@ -313,22 +237,6 @@ version = "1.2.15"
 
 [[package]]
 category = "main"
-description = "Format agnostic tabular data library (XLS, JSON, YAML, CSV)"
-name = "tablib"
-optional = false
-python-versions = "*"
-version = "0.12.1"
-
-[package.dependencies]
-odfpy = "*"
-openpyxl = "*"
-pyyaml = "*"
-unicodecsv = "*"
-xlrd = "*"
-xlwt = "*"
-
-[[package]]
-category = "main"
 description = "Twitter library for python"
 name = "tweepy"
 optional = false
@@ -340,14 +248,6 @@ PySocks = ">=1.5.7"
 requests = ">=2.11.1"
 requests-oauthlib = ">=0.7.0"
 six = ">=1.10.0"
-
-[[package]]
-category = "main"
-description = "Python2's stdlib csv module is nice, but it doesn't support unicode. This module is a drop-in replacement which *does*."
-name = "unicodecsv"
-optional = false
-python-versions = "*"
-version = "0.14.1"
 
 [[package]]
 category = "main"
@@ -373,24 +273,8 @@ optional = false
 python-versions = "*"
 version = "2.2.1"
 
-[[package]]
-category = "main"
-description = "Library for developers to extract data from Microsoft Excel (tm) spreadsheet files"
-name = "xlrd"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.2.0"
-
-[[package]]
-category = "main"
-description = "Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+"
-name = "xlwt"
-optional = false
-python-versions = "*"
-version = "1.3.0"
-
 [metadata]
-content-hash = "0d7cb0076cee2f751ecf0e182d825e315ce7a1bc243dd95c76dc623a3d59fe7c"
+content-hash = "7f68f9761e3f77e29e202885e80494a448b894bcdbae926edf4dbf171d954c56"
 python-versions = "^3.6"
 
 [metadata.hashes]
@@ -398,9 +282,6 @@ blinker = ["471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"]
 certifi = ["47f9c83ef4c0c621eaef743f133f09fa8a74a9b75f037e8624f83bd1b6626cb7", "993f830721089fef441cdfeb4b2c8c9df86f0c63239f06bd025a76a7daddb033"]
 chardet = ["84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae", "fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"]
 click = ["2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13", "5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"]
-defusedxml = ["24d7f2f94f7f3cb6061acb215685e5125fbcdc40a857eff9de22518820b0a4f4", "702a91ade2968a82beb0db1e0766a6a273f33d4616a6ce8cde475d8e09853b20"]
-docopt = ["49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"]
-et-xmlfile = ["614d9722d572f6246302c4491846d2c393c199cfa4edc9af593437691683335b"]
 flake8 = ["6a35f5b8761f45c5513e3405f110a86bea57982c3b75b766ce7b65217abe1670", "c01f8a3963b3571a8e6bd7a4063359aff90749e160778e03817cd9b71c9e07d2"]
 flask = ["2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48", "a080b744b7e345ccfcbc77954861cb05b3c63786e93f2b3875e0913d44b43f05"]
 flask-mail = ["22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41"]
@@ -408,30 +289,21 @@ flask-sqlalchemy = ["3bc0fac969dd8c0ace01b32060f0c729565293302f0c4269beed154b46b
 flask-wtf = ["5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36", "d9a9e366b32dcbb98ef17228e76be15702cd2600675668bca23f63a7947fd5ac"]
 idna = ["c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407", "ea8b7f6188e6fa117537c3df7da9fc686d485087abf6ac197f9c46432f7e4a3c"]
 itsdangerous = ["321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f19", "b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749"]
-jdcal = ["948fb8d079e63b4be7a69dd5f0cd618a0a57e80753de8248fd786a8a20658a07", "ea0a5067c5f0f50ad4c7bdc80abad3d976604f6fb026b0b3a17a9d84bb9046c9"]
 jinja2 = ["74c935a1b8bb9a3947c50a54766a969d4846290e1e788ea44c1392163723c3bd", "f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"]
 markupsafe = ["048ef924c1623740e70204aa7143ec592504045ae4429b59c30054cb31e3c432", "130f844e7f5bdd8e9f3f42e7102ef1d49b2e6fdf0d7526df3f87281a532d8c8b", "19f637c2ac5ae9da8bfd98cef74d64b7e1bb8a63038a3505cd182c3fac5eb4d9", "1b8a7a87ad1b92bd887568ce54b23565f3fd7018c4180136e1cf412b405a47af", "1c25694ca680b6919de53a4bb3bdd0602beafc63ff001fea2f2fc16ec3a11834", "1f19ef5d3908110e1e891deefb5586aae1b49a7440db952454b4e281b41620cd", "1fa6058938190ebe8290e5cae6c351e14e7bb44505c4a7624555ce57fbbeba0d", "31cbb1359e8c25f9f48e156e59e2eaad51cd5242c05ed18a8de6dbe85184e4b7", "3e835d8841ae7863f64e40e19477f7eb398674da6a47f09871673742531e6f4b", "4e97332c9ce444b0c2c38dd22ddc61c743eb208d916e4265a2a3b575bdccb1d3", "525396ee324ee2da82919f2ee9c9e73b012f23e7640131dd1b53a90206a0f09c", "52b07fbc32032c21ad4ab060fec137b76eb804c4b9a1c7c7dc562549306afad2", "52ccb45e77a1085ec5461cde794e1aa037df79f473cbc69b974e73940655c8d7", "5c3fbebd7de20ce93103cb3183b47671f2885307df4a17a0ad56a1dd51273d36", "5e5851969aea17660e55f6a3be00037a25b96a9b44d2083651812c99d53b14d1", "5edfa27b2d3eefa2210fb2f5d539fbed81722b49f083b2c6566455eb7422fd7e", "7d263e5770efddf465a9e31b78362d84d015cc894ca2c131901a4445eaa61ee1", "83381342bfc22b3c8c06f2dd93a505413888694302de25add756254beee8449c", "857eebb2c1dc60e4219ec8e98dfa19553dae33608237e107db9c6078b1167856", "98e439297f78fca3a6169fd330fbe88d78b3bb72f967ad9961bcac0d7fdd1550", "bf54103892a83c64db58125b3f2a43df6d2cb2d28889f14c78519394feb41492", "d9ac82be533394d341b41d78aca7ed0e0f4ba5a2231602e2f05aa87f25c51672", "e982fe07ede9fada6ff6705af70514a52beb1b2c3d25d4e873e82114cf3c5401", "edce2ea7f3dfc981c4ddc97add8a61381d9642dc3273737e756517cc03e84dd6", "efdc45ef1afc238db84cb4963aa689c0408912a0239b0721cb172b4016eb31d6", "f137c02498f8b935892d5c0172560d7ab54bc45039de8805075e19079c639a9c", "f82e347a72f955b7017a39708a3667f106e6ad4d10b25f237396a7115d8ed5fd", "fb7c206e01ad85ce57feeaaa0bf784b97fa3cad0d4a5737bc5295785f5c613a1"]
 mccabe = ["ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42", "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"]
 oauthlib = ["ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162", "d883b36b21a6ad813953803edfa563b1b579d79ca758fe950d1bc9e8b326025b"]
-odfpy = ["596021f0519623ca8717331951c95e3b8d7b21e86edc7efe8cb650a0d0f59a2b", "863746b87121d9e4017c32b6c318f7229a588f189c122a9613116c55a47e276d"]
-openpyxl = ["7bcf019a0be528673a8aec1e60b5c863342c3231962dbf7922fd4da42a49a91a"]
 pycodestyle = ["74abc4e221d393ea5ce1f129ea6903209940c1ecd29e002e8c6933c2b21026e0", "cbc619d09254895b0d12c2c691e237b2e91e9b2ecf5e84c26b35400f93dcfb83", "cbfca99bd594a10f674d0cd97a3d802a1fdef635d4361e1a2658de47ed261e3a"]
 pyflakes = ["9a7662ec724d0120012f6e29d6248ae3727d821bba522a0e6b356eff19126a49", "f661252913bc1dbe7fcfcbf0af0db3f42ab65aabd1a6ca68fe5d466bace94dae"]
 pymysql = ["3943fbbbc1e902f41daf7f9165519f140c4451c179380677e6a848587042561a", "d8c059dcd81dedb85a9f034d5e22dcb4442c0b201908bede99e306d65ea7c8e7"]
 pysocks = ["3fe52c55890a248676fd69dc9e3c4e811718b777834bcaab7a8125cf9deac672"]
 python-dotenv = ["a84569d0e00d178bc5b957f7ff208bf49287cbf61857c31c258c4a91f571527b", "c9b1ddd3cdbe75c7d462cb84674d87130f4b948f090f02c7d7144779afb99ae0"]
-pyyaml = ["3d7da3009c0f3e783b2c873687652d83b1bbfd5c88e9813fb7e5b03c0dd3108b", "3ef3092145e9b70e3ddd2c7ad59bdd0252a94dfe3949721633e41344de00a6bf", "40c71b8e076d0550b2e6380bada1f1cd1017b882f7e16f09a65be98e017f211a", "558dd60b890ba8fd982e05941927a3911dc409a63dcb8b634feaa0cda69330d3", "a7c28b45d9f99102fa092bb213aa12e0aaf9a6a1f5e395d36166639c1f96c3a1", "aa7dd4a6a427aed7df6fb7f08a580d68d9b118d90310374716ae90b710280af1", "bc558586e6045763782014934bfaf39d48b8ae85a2713117d16c39864085c613", "d46d7982b62e0729ad0175a9bc7e10a566fc07b224d2c79fafb5e032727eaa04", "d5eef459e30b09f5a098b9cea68bebfeb268697f78d647bd255a085371ac7f3f", "e01d3203230e1786cd91ccfdc8f8454c8069c91bee3962ad93b87a4b2860f537", "e170a9e6fcfd19021dd29845af83bb79236068bf5fd4df3327c1be18182b2531"]
-records = ["238cba35e8efbb724493bbb195bd027d9e78db4a978597969a7af0f722ac3686", "6d060a2b44ecc198d4e86efd5dab8558a2581b4019970bd8839e1604a243f57e"]
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 requests-oauthlib = ["8886bfec5ad7afb391ed5443b1f697c6f4ae98d0e5620839d8b4499c032ada3f", "e21232e2465808c0e892e0e4dbb8c2faafec16ac6dc067dd546e9b466f3deac8", "fe3282f48fb134ee0035712159f5429215459407f6d5484013343031ff1a400d"]
 rope = ["a108c445e1cd897fe19272ab7877d172e7faf3d4148c80e7d20faba42ea8f7b2"]
 six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 sqlalchemy = ["809547455d012734b4252081db1e6b4fc731de2299f3755708c39863625e1c77"]
-tablib = ["b8cf50a61d66655229993f2ee29220553fb2c80403479f8e6de77c0c24649d87"]
 tweepy = ["de56db37181e6ba2a375a7a81845ee6b2aee0e39a7bc8fb96a60c0370062f0a2", "fe85a79f58a01dd335968523b91c5fce760e7fe78bf25a6e71c72204fe499d0b"]
-unicodecsv = ["018c08037d48649a0412063ff4eda26eaa81eff1546dbffa51fa5293276ff7fc"]
 urllib3 = ["61bf29cada3fc2fbefad4fdf059ea4bd1b4a86d2b6d15e1c7c0b582b9752fe39", "de9529817c93f27c8ccbfead6985011db27bd0ddfcdb2d86f3f663385c6a9c22"]
 werkzeug = ["c3fd7a7d41976d9f44db327260e263132466836cef6f91512889ed60ad26557c", "d5da73735293558eb1651ee2fddc4d0dedcfa06538b8813a2e20011583c9e49b"]
 wtforms = ["0cdbac3e7f6878086c334aa25dc5a33869a3954e9d1e015130d65a69309b3b61", "e3ee092c827582c50877cdbd49e9ce6d2c5c1f6561f849b3b068c1b8029626f1"]
-xlrd = ["546eb36cee8db40c3eaa46c351e67ffee6eeb5fa2650b71bc4c758a29a1b29b2", "e551fb498759fa3a5384a94ccd4c3c02eb7c00ea424426e212ac0c57be9dfbde"]
-xlwt = ["a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e", "c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88"]
