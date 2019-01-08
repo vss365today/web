@@ -15,7 +15,10 @@ def subscribe() -> str:
     email = request.form.get("email")
     subscription.add_email(email)
 
-    render_opts = {"email": email}
+    render_opts = {
+        "email": email,
+        "page_title": "Get email notifications"
+    }
     return render_template("subscribe.html", **render_opts)
 
 
@@ -25,7 +28,10 @@ def unsubscribe() -> str:
     email = request.args.get("email")
     subscription.remove_email(email)
 
-    render_opts = {"email": email}
+    render_opts = {
+        "email": email,
+        "page_title": "Remove email notifications"
+    }
     return render_template("unsubscribe.html", **render_opts)
 
 
