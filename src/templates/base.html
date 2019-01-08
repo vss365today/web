@@ -8,12 +8,12 @@
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=EB+Garamond:400,700|Oswald:200,400,500">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <title>{{ page_title }} | VSS 365</title>
+  <title>{{ page_title }} | {{ site_title }}</title>
 </head>
 
 <body>
   <header>
-    <h1>VSS 365 today</h1>
+    <h1>{{ site_title }}</h1>
     <h2>{% if tweet %}{{ tweet.date|format_date }}{% else %}{{ page_title }}{% endif %}</h2>
   </header>
 

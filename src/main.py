@@ -9,4 +9,8 @@ def create_app():
     app.register_blueprint(blueprint.bp)
     init_extensions(app)
 
+    @app.context_processor
+    def inject_site_title():
+        return {"site_title": app.config["SITE_TITLE"]}
+
     return app
