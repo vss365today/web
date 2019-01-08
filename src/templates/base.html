@@ -13,10 +13,8 @@
 
 <body>
   <header>
-    <h1>VSS 365 prompt</h1>
-    <h2>{% if tweet %}
-        {{ tweet.date|format_date }}
-    {% endif %}</h2>
+    <h1>VSS 365 today</h1>
+    <h2>{% if tweet %}{{ tweet.date|format_date }}{% else %}{{ page_title }}{% endif %}</h2>
   </header>
 
   {% block nav %}{% endblock %}

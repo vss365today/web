@@ -5,7 +5,7 @@
 ## Install
 
 1. Python 3.6+
-1. get poetry
+1. [Poetry](https://poetry.eustace.io/)
 1. `poetry install`
 1. Throw MySQL/MariaDB instance at it
 1. Run sql scheme files to create tables

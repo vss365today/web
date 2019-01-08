@@ -32,18 +32,20 @@ def unsubscribe() -> str:
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
+    tweet = get_tweet_today()
     render_opts = {
-        "page_title": "",
-        "tweet": get_tweet_today()
+        "page_title": filters.format_date(tweet.date),
+        "tweet": tweet
     }
     return render_template("word.html", **render_opts)
 
 
 @bp.route("/<date>")
 def date(date) -> str:
+    tweet = get_tweet_by_date(date)
     render_opts = {
-        "page_title": "",
-        "tweet": get_tweet_by_date(date)
+        "page_title": filters.format_date(tweet.date),
+        "tweet": tweet
     }
     return render_template("word.html", **render_opts)
 
