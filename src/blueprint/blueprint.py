@@ -52,8 +52,7 @@ def date(date) -> str:
 
 @bp.app_errorhandler(404)
 def page_not_found(e) -> str:
-    if request.endpoint != "static":
-        return render_template("404.html", page_title="Day not found!"), 404
+    return render_template("404.html", page_title="Day not available"), 404
 
 
 @bp.app_template_filter()
