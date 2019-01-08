@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from flask import render_template
 
-from src.core.tweets import get_tweet_today, get_tweet_by_date
+from src.core.tweets import get_latest_word, get_word_by_date
 from src.core import filters
 from src.core import subscription
 
@@ -32,7 +32,7 @@ def unsubscribe() -> str:
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
-    tweet = get_tweet_today()
+    tweet = get_latest_word()
     render_opts = {
         "page_title": filters.format_date(tweet.date),
         "tweet": tweet
@@ -42,7 +42,7 @@ def index() -> str:
 
 @bp.route("/<date>")
 def date(date) -> str:
-    tweet = get_tweet_by_date(date)
+    tweet = get_word_by_date(date)
     render_opts = {
         "page_title": filters.format_date(tweet.date),
         "tweet": tweet
