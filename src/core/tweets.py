@@ -2,6 +2,9 @@ from src.extensions import alchemy
 from src.models import Tweets
 
 
+__all__ = ["add_word_to_db", "get_latest_word", "get_word_by_date"]
+
+
 def get_latest_word():
     return Tweets.query.order_by(Tweets.date.desc()).first()
 
