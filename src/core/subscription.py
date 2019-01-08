@@ -2,6 +2,9 @@ from src.extensions import alchemy
 from src.models import Emails
 
 
+__all__ = ["add_email", "remove_email", "get_existing_email"]
+
+
 def get_existing_email(addr: str):
     """Find an existing email in the database."""
     return Emails.query.filter(Emails.email == addr).first()
@@ -18,6 +21,7 @@ def add_email(addr: str) -> bool:
     email = Emails(email=addr)
     alchemy.session.add(email)
     alchemy.session.commit()
+    # TODO I don't think is a proper return value?
     return bool(email)
 
 
