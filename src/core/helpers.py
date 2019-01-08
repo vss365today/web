@@ -3,9 +3,8 @@ from sqlalchemy import create_engine
 
 
 def load_env_vals():
-    vals = {}
-
     # Load the variables from the .env file
+    vals = {}
     env_vals = dotenv_values(find_dotenv())
     for key, value in env_vals.items():
         vals[key] = (value if value != "" else None)
