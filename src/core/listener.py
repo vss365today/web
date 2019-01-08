@@ -1,8 +1,9 @@
 import tweepy
 
-from filters import create_proper_image_url
-from helpers import load_env_vals
-from tweets import add_word_to_db
+from src.core.filters import create_proper_image_url
+from src.core.helpers import load_env_vals
+from src.core.tweets import add_word_to_db
+# from src.core.emails.sender import send_emails
 
 
 __all__ = ["Listener"]
@@ -36,7 +37,8 @@ class StreamListener(tweepy.StreamListener):
         # Add the tweet to the database
         add_word_to_db(tweet)
 
-        # TODO Kick off the email
+        # TODO Kick off the emails
+        # send_emails(tweet)
         return True
 
     def on_error(self, status_code):
@@ -66,10 +68,8 @@ class Listener:
         stream = tweepy.Stream(auth=self.__api.auth, listener=stream_listener)
         # TODO I don't like having to hard-code the user IDs
         # http://gettwitterid.com/?user_name=SalnPage&submit=GET+USER+ID
-        stream.filter(follow=["227230837"], track=["#vss365", "#prompt"])
-
-
-# Start the scraper if we are running the script directly
-if __name__ == "__main__":
-    listener = Listener()
-    listener.start()
+        stream.filter(
+            follow=["227230837", "2704693854"]
+            # ,
+            # track=["#vss365", "#prompt"]
+        )
