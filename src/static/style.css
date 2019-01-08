@@ -40,15 +40,18 @@ img {
   height: auto;
 }
 
-header {
+header,
+.header {
   margin-bottom: 0.5em;
 
   background-color: rgb(150, 255, 255);
   text-align: center;
 }
 
-header h1 { margin-bottom: -0.75em; }
-header h2 { font-weight: 200; }
+header h1,
+.header h1 { margin-bottom: -0.75em; }
+header h2,
+.header h2 { font-weight: 200; }
 
 nav {
   display: flex;
@@ -63,14 +66,16 @@ nav a {
   font-size: 1.2em;
 }
 
-main {
+main,
+.main {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-footer {
+footer,
+.footer {
   margin-top: 1em;
   padding: 0.5em 1em;
   text-align: center;
