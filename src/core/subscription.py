@@ -10,7 +10,7 @@ def get_existing_email(addr: str):
     return Emails.query.filter(Emails.email == addr).first()
 
 
-def add_email(addr: str) -> bool:
+def add_email(addr: str) -> None:
     """Add an email address to the email notifications."""
     # Don't try to add the email if it already exists
     # However, tell the user that it was added
@@ -21,8 +21,6 @@ def add_email(addr: str) -> bool:
     email = Emails(email=addr)
     alchemy.session.add(email)
     alchemy.session.commit()
-    # TODO I don't think is a proper return value?
-    return bool(email)
 
 
 def remove_email(addr: str):
