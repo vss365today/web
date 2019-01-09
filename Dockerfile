@@ -1,4 +1,4 @@
-FROM python:alpine3.6
+FROM python:alpine3.7
 
 # Set any env values we need
 EXPOSE 5001
