@@ -1,3 +1,4 @@
 .vscode/
 .git/
 __pycache__/
+sql/
