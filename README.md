@@ -6,7 +6,6 @@
 ## Required Keys
 
 * Flask secret key
-* MySQL/MariaDB credentials
 * Twitter App credentials
 * Twitter Developer credentials
 * MailJet credentials
@@ -14,7 +13,6 @@
 ## Install
 
 1. Install Python 3.6+ and [Poetry](https://poetry.eustace.io/)
-1. Start MySQL/MariaDB instance
 1. Run sql scheme files to create tables
 1. Rename `oss.env` to `.env`
 1. Set missing environment variables

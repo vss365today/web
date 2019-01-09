@@ -1,7 +1,7 @@
 from flask import Flask
 
-from src.extensions import init_extensions
 from src.blueprint import blueprint
+from src.extensions import init_extensions
 
 
 def create_app():
