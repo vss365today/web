@@ -3,6 +3,7 @@ __pycache__
 .geolocation/
 .vscode/
 Testing/
+sql/
 *.db
 *.ini
 *.json

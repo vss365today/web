@@ -38,7 +38,7 @@ def format_image_url(text: str) -> str:
 def format_content(text: str) -> str:
     return "\n".join([
         f"<p>{format_image_url(para)}</p>"
-        for para in text.split("\r\n")
+        for para in text.split("\n")
         if para
     ])
 
