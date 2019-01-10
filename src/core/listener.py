@@ -12,25 +12,25 @@ __all__ = ["Listener"]
 class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
         # Take out retweets
-        if status.retweeted_status:
+        if status.retweeted:
             return False
 
         # If we have media in our tweet, get a proper URL to it
-        tweet_text = status.tweet_text
-        if status.entities.media:
-            media = status.entities.media
+        tweet_text = status.text
+        if status.entities.get("media"):
+            media = status.entities["media"]
             tweet_text = create_proper_image_url(
                 tweet_text,
-                media.url, media.media_url_https
+                media[0]["url"], media[0]["media_url_https"]
             )
 
         # Construct a dictionary with just the info we need
         tweet = {
-            "date": status.created,
-            "user_handle": f"@{status.user_name}",
+            "date": status.created_at,
+            "user_handle": f"@{status.author.screen_name}",
             "content": tweet_text,
             "url": "https://twitter.com/{}/status/{}".format(
-                status.user_name, status.id_str
+                status.author.screen_name, status.id_str
             )
         }
 
