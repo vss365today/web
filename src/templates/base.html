@@ -13,7 +13,7 @@
 
 <body>
   <header>
-    <h1><a href="{{ url_for('root.index') }}">{{ site_title }}</a></h1>
+    <h1>📖 <a href="{{ url_for('root.index') }}">{{ site_title }}</a></h1>
     <h2>{% if tweet %}{{ tweet.date|format_date }}{% else %}{{ page_title }}{% endif %}</h2>
   </header>
 
