@@ -9,11 +9,11 @@ COPY . /app
 WORKDIR /app
 
 # Install required deps
-RUN pip3 install --no-cache-dir toml
-RUN python3 ./get_requirements.py
-RUN pip3 install --no-cache-dir -r requirements.txt
-RUN rm ./requirements.txt
+RUN pip3 install --no-cache-dir toml && \
+    python3 ./get_requirements.py && \
+    pip3 install --no-cache-dir -r requirements.txt && \
+    rm ./requirements.txt && \
+    chmod +x ./run-app.sh
 
 # Start the gunicorn service to run the app
-RUN chmod +x ./run-app.sh
 ENTRYPOINT ["sh", "./run-app.sh" ]
