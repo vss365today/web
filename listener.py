@@ -62,7 +62,7 @@ class StreamListener(tweepy.StreamListener):
             return False
 
 
-# Connect to the Twitter API
+# Connect to the Twitter api
 config = load_env_vals()
 auth = tweepy.OAuthHandler(
     config["TWITTER_APP_KEY"],
@@ -74,11 +74,10 @@ auth.set_access_token(
 )
 __api = tweepy.API(auth)
 
+# Use the streaming api to listen for the prompt tweet
 stream_listener = StreamListener()
 stream = tweepy.Stream(auth=__api.auth, listener=stream_listener)
-# # TODO I don't like having to hard-code the user IDs
-# # http://gettwitterid.com/?user_name=SalnPage&submit=GET+USER+ID
-# stream.filter(follow=["2704693854"])
-# "227230837",
-# ,
-# track=["#vss365", "#prompt"]
+# TODO I don't like having to hard-code the user IDs,
+# much less update this code monthly
+# http://gettwitterid.com/?user_name=SalnPage&submit=GET+USER+ID
+stream.filter(follow=["227230837"])
