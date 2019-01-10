@@ -1,3 +1,4 @@
+from datetime import date
 from src.extensions import alchemy
 from src.models import Tweets
 
@@ -16,7 +17,7 @@ def get_word_by_date(date):
 def add_word_to_db(tweet: dict):
     """Add a word to the database."""
     word = Tweets(
-        date=tweet["date"],
+        date=date(*tweet["date"]),
         user_handle=tweet["user_handle"],
         url=tweet["url"],
         content=tweet["content"]
