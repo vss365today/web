@@ -1,9 +1,16 @@
+import json
+
 from flask import Blueprint, request
 from flask import render_template
 
-from src.core.tweets import get_latest_word, get_word_by_date
+from src.core.tweets import (
+    add_word_to_db,
+    get_latest_word,
+    get_word_by_date
+)
 from src.core import filters
 from src.core import subscription
+from src.extensions import csrf
 
 
 bp = Blueprint("root", __name__, url_prefix="")
@@ -54,6 +61,14 @@ def date(date) -> str:
         "page_title": filters.format_date(tweet.date)
     }
     return render_template("word.html", **render_opts)
+
+
+@csrf.exempt
+@bp.route("/api/add", methods=["POST"])
+def add_to_db() -> str:
+    tweet = json.loads(request.json)
+    add_word_to_db(tweet)
+    return ""
 
 
 @bp.app_errorhandler(404)
