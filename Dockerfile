@@ -9,12 +9,10 @@ COPY . /app
 WORKDIR /app
 
 # Install required deps
-RUN apk update && apk add curl
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
-
-# Disable poetry's virtualenvs before installing the app
-RUN $HOME/.poetry/bin/poetry config settings.virtualenvs.create false
-RUN $HOME/.poetry/bin/poetry install --no-dev
+RUN pip3 install --no-cache-dir toml
+RUN python3 ./get_requirements.py
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN rm ./requirements.txt
 
 # Start the gunicorn service to run the app
 RUN chmod +x ./run-app.sh
