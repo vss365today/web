@@ -4,15 +4,8 @@ import tweepy
 from requests import post
 
 from src.core.filters import create_proper_image_url
-from src.core.helpers import load_env_vals
+from src.core.helpers import find_prompt_tweet, load_env_vals
 # from src.core.emails.sender import send_emails
-
-
-def find_prompt_tweet(text: str) -> bool:
-    return all(
-        hashtag in text.upper()
-        for hashtag in ("#VSS365", "#PROMPT")
-    )
 
 
 class StreamListener(tweepy.StreamListener):
