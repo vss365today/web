@@ -1,7 +1,7 @@
-import json
+from json import dumps
 
 import tweepy
-import requests
+from requests import post
 
 from src.core.filters import create_proper_image_url
 from src.core.helpers import load_env_vals
@@ -42,7 +42,7 @@ class StreamListener(tweepy.StreamListener):
         ]
 
         # Construct a dictionary with only the info we need
-        tweet = json.dumps({
+        tweet = dumps({
             "date": tweet_date,
             "user_handle": f"{status.author.screen_name}",
             "content": tweet_text,
@@ -52,7 +52,7 @@ class StreamListener(tweepy.StreamListener):
         })
 
         # Add the tweet to the database
-        requests.post("http://127.0.0.1:5000/api/add", json=tweet)
+        post("http://127.0.0.1:5000/api/add", json=tweet)
 
         # TODO Kick off the emails
         # send_emails(tweet)
@@ -73,6 +73,7 @@ auth.set_access_token(
     config["TWITTER_SECRET"]
 )
 __api = tweepy.API(auth)
+print("Successfully connected to Twitter API")
 
 # Use the streaming api to listen for the prompt tweet
 stream_listener = StreamListener()
@@ -80,4 +81,5 @@ stream = tweepy.Stream(auth=__api.auth, listener=stream_listener)
 # TODO I don't like having to hard-code the user IDs,
 # much less update this code monthly
 # http://gettwitterid.com/?user_name=SalnPage&submit=GET+USER+ID
+print("Listening for tweet...")
 stream.filter(follow=["227230837"])
