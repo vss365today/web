@@ -5,12 +5,13 @@ from requests import post
 
 from src.core.filters import create_proper_image_url
 from src.core.helpers import find_prompt_tweet, load_env_vals
-# from src.core.emails.sender import send_emails
+from src.core.emails.sender import send_emails
 
 
 class StreamListener(tweepy.StreamListener):
     """Based on https://www.dataquest.io/blog/streaming-data-python/"""
     def on_status(self, status):
+        print("We have a tweet")
         # Take out retweets
         if status.retweeted:
             return False
@@ -35,20 +36,21 @@ class StreamListener(tweepy.StreamListener):
         ]
 
         # Construct a dictionary with only the info we need
-        tweet = dumps({
+        tweet = {
             "date": tweet_date,
             "user_handle": f"{status.author.screen_name}",
             "content": tweet_text,
             "url": "https://twitter.com/{}/status/{}".format(
                 status.author.screen_name, status.id_str
             )
-        })
+        }
 
         # Add the tweet to the database
+        tweet = dumps(tweet)
         post("http://127.0.0.1:5000/api/add", json=tweet)
 
         # TODO Kick off the emails
-        # send_emails(tweet)
+        send_emails(tweet)
 
     def on_error(self, status_code):
         if status_code == 420:  # blaze it
@@ -65,12 +67,12 @@ auth.set_access_token(
     config["TWITTER_KEY"],
     config["TWITTER_SECRET"]
 )
-__api = tweepy.API(auth)
+api = tweepy.API(auth)
 print("Successfully connected to Twitter API")
 
 # Use the streaming api to listen for the prompt tweet
 stream_listener = StreamListener()
-stream = tweepy.Stream(auth=__api.auth, listener=stream_listener)
+stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
 # TODO I don't like having to hard-code the user IDs,
 # much less update this code monthly
 # http://gettwitterid.com/?user_name=SalnPage&submit=GET+USER+ID
