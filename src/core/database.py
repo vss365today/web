@@ -28,7 +28,7 @@ def get_all_emails():
 
 
 def get_latest_word():
-    return Tweets.query.order_by(Tweets.date.desc()).first()
+    return Tweets.query.order_by(Tweets.date.desc()).first_or_404()
 
 
 def get_word_by_date(date):
