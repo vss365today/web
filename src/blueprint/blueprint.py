@@ -3,7 +3,7 @@ import json
 from flask import Blueprint, request
 from flask import render_template
 
-from src.core.tweets import (
+from src.core.database import (
     add_word_to_db,
     get_latest_word,
     get_word_by_date

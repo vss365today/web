@@ -1,9 +1,18 @@
 from datetime import date
 from src.extensions import alchemy
-from src.models import Tweets
+from src.models import Emails, Tweets
 
 
-__all__ = ["add_word_to_db", "get_latest_word", "get_word_by_date"]
+__all__ = [
+    "add_word_to_db",
+    "get_all_emails",
+    "get_latest_word",
+    "get_word_by_date"
+]
+
+
+def get_all_emails():
+    return Emails.query.all()
 
 
 def get_latest_word():

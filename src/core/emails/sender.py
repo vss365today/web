@@ -1,8 +1,8 @@
 from mailjet_rest import Client
 
+from src.core.database import get_all_emails
 from src.core.filters import format_date
 from src.core.helpers import load_env_vals
-from src.models import Emails
 from src.core.emails.generator import render_email_base, render_email_addr
 
 
@@ -15,7 +15,7 @@ def send_emails(tweet):
     ), version="v3.1")
 
     # Get the email addresses to send to
-    email_list = Emails.query.all()
+    email_list = get_all_emails()
 
     # Render a base email template
     base_template = render_email_base(tweet)
