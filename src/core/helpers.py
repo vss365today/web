@@ -9,8 +9,9 @@ def create_db_connection(config):
     return connect_str, create_engine(connect_str)
 
 
-def find_prompt_tweet(text: str) -> bool:
-    return all(
+def find_prompt_tweet(handle: str, text: str) -> bool:
+    # TODO Don't hard code the handle
+    return handle == "SalnPage" and all(
         hashtag in text.upper()
         for hashtag in ("#VSS365", "#PROMPT")
     )

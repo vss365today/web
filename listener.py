@@ -16,7 +16,7 @@ class StreamListener(tweepy.StreamListener):
             return False
 
         # Don't do anything if this isn't the prompt tweet
-        if not find_prompt_tweet(status.text):
+        if not find_prompt_tweet(status.author.screen_name, status.text):
             return False
 
         # If we have media in our tweet, get a proper URL to it
