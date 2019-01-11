@@ -2,7 +2,7 @@ from mailjet_rest import Client
 
 from src.core.database import get_all_emails
 from src.core.filters import format_date
-from src.core.helpers import load_env_vals
+from src.core.helpers import create_db_connection, load_env_vals
 from src.core.emails.generator import render_email_base, render_email_addr
 
 

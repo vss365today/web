@@ -1,6 +1,9 @@
-from datetime import date
+from sqlalchemy.orm import sessionmaker
+
 from src.extensions import alchemy
 from src.models import Emails, Tweets
+from src.core.helpers import create_db_connection, load_env_vals
+from src.core.filters import create_date
 
 
 __all__ = [
@@ -12,7 +15,16 @@ __all__ = [
 
 
 def get_all_emails():
-    return Emails.query.all()
+    # Connect to the database
+    config = load_env_vals()
+    _, db = create_db_connection(config)
+
+    # Make a database session
+    Session = sessionmaker(bind=db)
+    session = Session()
+
+    # Get all the emails
+    return session.query(Emails).all()
 
 
 def get_latest_word():
@@ -26,7 +38,7 @@ def get_word_by_date(date):
 def add_word_to_db(tweet: dict):
     """Add a word to the database."""
     word = Tweets(
-        date=date(*tweet["date"]),
+        date=create_date(tweet["date"]),
         user_handle=tweet["user_handle"],
         url=tweet["url"],
         content=tweet["content"]
