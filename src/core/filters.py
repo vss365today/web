@@ -1,14 +1,18 @@
-from datetime import datetime
-from datetime import timedelta
+from datetime import date, datetime, timedelta
 import re
 
 
 __all__ = [
+    "create_date",
     "create_proper_image_url",
     "format_content",
     "format_date",
     "format_image_url"
 ]
+
+
+def create_date(date_l: list) -> date:
+    return date(*date_l)
 
 
 def create_proper_image_url(
