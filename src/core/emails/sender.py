@@ -14,13 +14,11 @@ def send_emails(tweet):
         config["MJ_APIKEY_PRIVATE"]
     ), version="v3.1")
 
-    # Get the email addresses to send to
+    # Get the email addresses to send to,
+    # render a base email template, and
+    # go through each address and send an email
     email_list = get_all_emails()
-
-    # Render a base email template
     base_template = render_email_base(tweet)
-
-    # Go through each address and create an email
     email_data = {"Messages": []}
     for addr in email_list:
         msg = {
