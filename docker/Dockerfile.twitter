@@ -8,7 +8,7 @@ RUN mkdir -p /app
 COPY . /app
 WORKDIR /app
 
-# TODO write comment
+# Install supervisor for service restarting
 RUN apk update && apk add supervisor
 
 # Install required deps
@@ -19,8 +19,6 @@ RUN pip3 install --no-cache-dir toml && \
     chmod +x ./run-listener.sh && \
     mkdir -p /var/log/supervisor
 
-# Setup supervisord
+# Setup and run supervisor
 COPY docker/supervisord.conf /etc/supervisord.conf
-
-# TODO write comment
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
