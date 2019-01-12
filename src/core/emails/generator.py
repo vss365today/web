@@ -10,15 +10,12 @@ from src.core.filters import (
 
 
 def render_email_base(tweet: dict) -> str:
-    # Get the site/email CSS
-    with open(abspath("src/static/style.css"), "rt") as f:
-        css_styles = f.read()
-
     # Render the base email content
     render_vals = {
+        "tweet_url": tweet["url"],
+        "user_handle": tweet["user_handle"],
         "date": format_date(create_date(tweet["date"])),
-        "content": format_content(tweet["content"]),
-        "css_styles": css_styles
+        "content": format_content(tweet["content"])
     }
     return render_template(
         abspath("src/templates/email.html"),
