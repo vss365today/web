@@ -35,14 +35,18 @@ def subscribe() -> str:
 
 @bp.route("/unsubscribe", methods=["GET"])
 def unsubscribe() -> str:
-    removal_success = False
-    email = request.args.get("email")
-
     # If we have a valid email, attempt to remove it
     # We don't need to worry about it not existing,
     # that is handled in the removal method
+    email = request.args.get("email")
     if email and validate_email(email):
-        removal_success = subscription.remove_email(email)
+        removal_success = True
+        subscription.remove_email(email)
+
+    # This is not a valid email address
+    else:
+        removal_success = False
+        email = "an unspecified email"
 
     render_opts = {
         "email": email,
