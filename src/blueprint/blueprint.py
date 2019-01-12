@@ -8,8 +8,9 @@ from src.core.database import (
     get_latest_word,
     get_word_by_date
 )
-from src.core.form import SubscribeForm
 from src.core import filters
+from src.core.form import SubscribeForm
+from src.core.helpers import validate_email
 from src.core import subscription
 from src.extensions import csrf
 
@@ -25,6 +26,11 @@ def subscribe() -> str:
         email = request.form.get("email")
         subscription.add_email(email)
 
+    # We could not validate the email
+    # TODO: Implement failure text
+    else:
+        print("failed validation")
+
     render_opts = {
         "email": email,
         "form": subscribe_form,
@@ -35,9 +41,15 @@ def subscribe() -> str:
 
 @bp.route("/unsubscribe", methods=["GET"])
 def unsubscribe() -> str:
-    # TODO Validate form data
+    # Validate the email given
     email = request.args.get("email")
-    subscription.remove_email(email)
+    if email and validate_email(email):
+        subscription.remove_mail(email)
+
+    # We could not validate the email
+    # TODO: Implement failure text
+    else:
+        print("failed validation")
 
     render_opts = {
         "email": email,

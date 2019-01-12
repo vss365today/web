@@ -1,3 +1,4 @@
+import re
 from os.path import abspath
 
 from dotenv import dotenv_values, find_dotenv
@@ -24,3 +25,10 @@ def load_env_vals():
     for key, value in env_vals.items():
         vals[key] = (value if value != "" else None)
     return vals
+
+
+def validate_email(addr: str) -> bool:
+    return (
+        re.fullmatch(r"[a-z0-9.-_]+@[a-z0-9.-_]+\.[a-z0-9.-_]+", addr)
+        is not None
+    )
