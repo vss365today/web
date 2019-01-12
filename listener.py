@@ -1,8 +1,8 @@
-from json import dumps
+from datetime import date
 
 import tweepy
-from requests import post
 
+from src.core.database import add_word_to_db
 from src.core.filters import create_proper_image_url
 from src.core.helpers import find_prompt_tweet, load_env_vals
 from src.core.emails.sender import send_emails
@@ -46,10 +46,8 @@ class StreamListener(tweepy.StreamListener):
         }
 
         # Add the tweet to the database
-        tweet = dumps(tweet)
-        post("http://127.0.0.1:5000/api/add", json=tweet)
-
-        # TODO Kick off the emails
+        # and send the email notifications
+        add_word_to_db(tweet)
         send_emails(tweet)
 
     def on_error(self, status_code):
