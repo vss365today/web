@@ -21,7 +21,7 @@
 
 ## Build/Deploy
 
-1. `docker build -f "Dockerfile" -t vss365today:latest .`
+1. `docker build -f "docker/Dockerfile" -t vss365today:latest .`
 1. `docker run -d --name vss365today -p 5000:5000 -t vss365today:latest`
 
 
