@@ -16,10 +16,10 @@ RUN pip3 install --no-cache-dir toml && \
     python3 ./get_requirements.py && \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm ./requirements.txt && \
-    chmod +x ./run-listener.sh
+    chmod +x ./run-listener.sh && \
+    mkdir -p /var/log/supervisor
 
 # Setup supervisord
-RUN mkdir -p /var/log/supervisor
 COPY docker/supervisord.conf /etc/supervisord.conf
 
 # TODO write comment
