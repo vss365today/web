@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+  vss365today-web:
+    image: vss365today:latest
+    restart: unless-stopped
+    volumes:
+      - /usr/codetri/vss-365-today:/app
+    ports:
+      - 127.0.0.1:5001:5000
+    entrypoint:
+      - sh
+      - ./run-flask.sh
+
+  vss365today-twitter:
+    image: vss365today:latest
+    restart: unless-stopped
+    volumes:
+      - /usr/codetri/vss-365-today:/app
+    entrypoint:
+      - /usr/bin/supervisord
+      - -c
+      - /etc/supervisord.conf

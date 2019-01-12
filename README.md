@@ -21,10 +21,8 @@
 
 ## Build/Deploy
 
-1. `docker build -f "docker/Dockerfile" -t vss365today-web:latest .`
-1. `docker build -f "docker/Dockerfile.twitter" -t vss365today-twitter:latest .`
-1. `docker run -d --name vss365today-web -p 5000:5000 -t vss365today-web:latest`
-1. `docker run -d --name vss365today-twitter -t vss365today-twitter:latest`
+1. `docker build -f "docker/Dockerfile" -t vss365today:latest .`
+1. `docker-compose up -d`
 
 ## Known Issues
 
