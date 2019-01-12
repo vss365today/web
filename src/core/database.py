@@ -23,17 +23,19 @@ def __connect_to_db_sqlalchemy():
     return Session()
 
 
-def get_all_emails():
+def get_all_emails() -> list:
     # Get all the emails
     session = __connect_to_db_sqlalchemy()
-    return session.query(Emails).all()
+    all_emails = session.query(Emails).all()
+    session.close()
+    return all_emails
 
 
 def get_latest_word():
     return Tweets.query.order_by(Tweets.date.desc()).first_or_404()
 
 
-def get_word_by_date(date):
+def get_word_by_date(date: str):
     return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()
 
 
@@ -48,3 +50,4 @@ def add_word_to_db(tweet: dict):
     session = __connect_to_db_sqlalchemy()
     session.add(word)
     session.commit()
+    session.close()
