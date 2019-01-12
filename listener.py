@@ -47,7 +47,9 @@ class StreamListener(tweepy.StreamListener):
 
         # Add the tweet to the database
         # and send the email notifications
+        print("Adding tweet to database")
         add_word_to_db(tweet)
+        print("Sending out notification emails")
         send_emails(tweet)
 
     def on_error(self, status_code):
