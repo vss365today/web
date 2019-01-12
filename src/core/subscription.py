@@ -23,7 +23,7 @@ def add_email(addr: str) -> None:
     alchemy.session.commit()
 
 
-def remove_email(addr: str):
+def remove_email(addr: str) -> bool:
     """Remove an email address from the email notifications."""
     # Find the record with this email (it will be unique)
     email = get_existing_email(addr)
@@ -34,3 +34,4 @@ def remove_email(addr: str):
     if email is not None:
         alchemy.session.delete(email)
         alchemy.session.commit()
+    return bool(email)

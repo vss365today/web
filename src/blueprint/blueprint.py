@@ -41,20 +41,20 @@ def subscribe() -> str:
 
 @bp.route("/unsubscribe", methods=["GET"])
 def unsubscribe() -> str:
-    # Validate the email given
+    removal_success = False
     email = request.args.get("email")
-    if email and validate_email(email):
-        subscription.remove_mail(email)
 
-    # We could not validate the email
-    # TODO: Implement failure text
-    else:
-        print("failed validation")
+    # If we have a valid email, attempt to remove it
+    # We don't need to worry about it not existing,
+    # that is handled in the removal method
+    if email and validate_email(email):
+        removal_success = subscription.remove_mail(email)
 
     render_opts = {
+        "removal_success": removal_success,
         "email": email,
         "form": SubscribeForm(),
-        "page_title": "Remove email notifications"
+        "page_title": "Cancel email notifications"
     }
     return render_template("unsubscribe.html", **render_opts)
 
