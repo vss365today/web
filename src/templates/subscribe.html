@@ -6,9 +6,14 @@
 
 {% block content %}
 <div class="tweet center">
-  <h3>&OpenCurlyDoubleQuote;An informed poet is better than a pompous author&CloseCurlyDoubleQuote;</h3>
+  <h3>&OpenCurlyDoubleQuote;An informed poet is better than a pompous author.&CloseCurlyDoubleQuote;</h3>
+  {% if addition_success %}
   <p>The email <strong>{{ email }}</strong> has been successfully added!<br>
     You will now be recieving an email with the latest prompt each morning.<br>
     We look forward to reading your writing!</p>
+  {% else %}
+  <p>We were unable to add <strong>{{ email }}</strong> to the subscription list.<br>
+    We're terribly sorry about this! Please try to subscribe again in a few minutes.</p>
+  {% endif %}
 </div>
 {% endblock %}

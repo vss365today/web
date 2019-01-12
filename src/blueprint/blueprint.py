@@ -20,20 +20,18 @@ bp = Blueprint("root", __name__, url_prefix="")
 
 @bp.route("/subscribe", methods=["POST"])
 def subscribe() -> str:
-    # Get the email submitted for subscription
+    addition_success = False
     subscribe_form = SubscribeForm()
-    if subscribe_form.validate_on_submit():
-        email = request.form.get("email")
-        subscription.add_email(email)
+    email = request.form.get("email")
 
-    # We could not validate the email
-    # TODO: Implement failure text
-    else:
-        print("failed validation")
+    # Get the email submitted for subscription
+    if subscribe_form.validate_on_submit():
+        addition_success = subscription.add_email(email)
 
     render_opts = {
         "email": email,
         "form": subscribe_form,
+        "addition_success": addition_success,
         "page_title": "Get email notifications"
     }
     return render_template("subscribe.html", **render_opts)
@@ -48,12 +46,12 @@ def unsubscribe() -> str:
     # We don't need to worry about it not existing,
     # that is handled in the removal method
     if email and validate_email(email):
-        removal_success = subscription.remove_mail(email)
+        removal_success = subscription.remove_email(email)
 
     render_opts = {
-        "removal_success": removal_success,
         "email": email,
         "form": SubscribeForm(),
+        "removal_success": removal_success,
         "page_title": "Cancel email notifications"
     }
     return render_template("unsubscribe.html", **render_opts)

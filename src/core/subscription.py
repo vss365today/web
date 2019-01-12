@@ -10,10 +10,9 @@ def get_existing_email(addr: str):
     return Emails.query.filter(Emails.email == addr).first()
 
 
-def add_email(addr: str) -> None:
+def add_email(addr: str) -> bool:
     """Add an email address to the email notifications."""
     # Don't try to add the email if it already exists
-    # However, tell the user that it was added
     if get_existing_email(addr) is not None:
         return False
 
@@ -21,6 +20,7 @@ def add_email(addr: str) -> None:
     email = Emails(email=addr)
     alchemy.session.add(email)
     alchemy.session.commit()
+    return True
 
 
 def remove_email(addr: str) -> bool:
