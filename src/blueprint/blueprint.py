@@ -8,6 +8,7 @@ from src.core.database import (
     get_latest_word,
     get_word_by_date
 )
+from src.core.form import SubscribeForm
 from src.core import filters
 from src.core import subscription
 from src.extensions import csrf
@@ -19,11 +20,13 @@ bp = Blueprint("root", __name__, url_prefix="")
 @bp.route("/subscribe", methods=["POST"])
 def subscribe() -> str:
     # TODO Validate form data
+    subscribe_form = SubscribeForm()
     email = request.form.get("email")
     subscription.add_email(email)
 
     render_opts = {
         "email": email,
+        "form": subscribe_form,
         "page_title": "Get email notifications"
     }
     return render_template("subscribe.html", **render_opts)
@@ -37,6 +40,7 @@ def unsubscribe() -> str:
 
     render_opts = {
         "email": email,
+        "form": SubscribeForm(),
         "page_title": "Remove email notifications"
     }
     return render_template("unsubscribe.html", **render_opts)
@@ -48,6 +52,7 @@ def index() -> str:
     tweet = get_latest_word()
     render_opts = {
         "tweet": tweet,
+        "form": SubscribeForm(),
         "page_title": filters.format_date(tweet.date)
     }
     return render_template("word.html", **render_opts)
@@ -58,6 +63,7 @@ def date(date) -> str:
     tweet = get_word_by_date(date)
     render_opts = {
         "tweet": tweet,
+        "form": SubscribeForm(),
         "page_title": filters.format_date(tweet.date)
     }
     return render_template("word.html", **render_opts)
@@ -72,8 +78,12 @@ def add_to_db() -> str:
 
 
 @bp.app_errorhandler(404)
-def page_not_found(e) -> str:
-    return render_template("404.html", page_title="Day not available"), 404
+def page_not_found(e) -> tuple:
+    render_opts = {
+        "form": SubscribeForm(),
+        "page_title": "Day not available"
+    }
+    return render_template("404.html", **render_opts), 404
 
 
 @bp.app_template_filter()
