@@ -19,10 +19,11 @@ bp = Blueprint("root", __name__, url_prefix="")
 
 @bp.route("/subscribe", methods=["POST"])
 def subscribe() -> str:
-    # TODO Validate form data
+    # Get the email submitted for subscription
     subscribe_form = SubscribeForm()
-    email = request.form.get("email")
-    subscription.add_email(email)
+    if subscribe_form.validate_on_submit():
+        email = request.form.get("email")
+        subscription.add_email(email)
 
     render_opts = {
         "email": email,
