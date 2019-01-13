@@ -70,6 +70,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 1.02em;
 }
 
 footer {
@@ -80,7 +81,7 @@ footer {
 }
 
 .tweet.small {
-  width: 50%;
+  width: 55%;
   margin-right: 0;
   margin-left: 0;
 }
