@@ -80,6 +80,15 @@ def date(date) -> str:
     return render_template("word.html", **render_opts)
 
 
+@bp.route("/about")
+def about() -> str:
+    render_opts = {
+        "form": SubscribeForm(),
+        "page_title": "About VSS 365"
+    }
+    return render_template("about.html", **render_opts)
+
+
 @bp.app_errorhandler(404)
 def page_not_found(e) -> tuple:
     render_opts = {
