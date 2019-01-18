@@ -17,7 +17,7 @@ COPY [
 WORKDIR /app
 
 # Install supervisor for service restarting
-RUN apk update && apk add supervisor
+RUN apk update && apk add cron supervisor
 
 # Install required deps
 RUN pip3 install --no-cache-dir toml && \
