@@ -1,3 +1,5 @@
+from html import escape
+
 import tweepy
 
 from src.core.database import add_word_to_db
@@ -45,10 +47,11 @@ class StreamListener(tweepy.StreamListener):
         # Construct a dictionary with only the info we need
         tweet = {
             "date": tweet_date,
-            "user_handle": f"{status.author.screen_name}",
-            "content": tweet_text,
+            "user_handle": escape(f"{status.author.screen_name}"),
+            "content": escape(tweet_text),
             "url": "https://twitter.com/{}/status/{}".format(
-                status.author.screen_name, status.id_str
+                escape(status.author.screen_name),
+                escape(status.id_str)
             )
         }
 
