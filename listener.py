@@ -2,7 +2,11 @@ import tweepy
 
 from src.core.database import add_word_to_db
 from src.core.filters import create_proper_image_url
-from src.core.helpers import find_prompt_tweet, load_env_vals
+from src.core.helpers import (
+    confirm_prompt_account,
+    find_prompt_tweet,
+    load_env_vals
+)
 from src.core.emails.sender import send_emails
 
 
@@ -11,11 +15,16 @@ class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
         print("We have a tweet")
         # Take out retweets
+        # TODO: This may not work????
         if status.retweeted:
             return False
 
-        # Don't do anything if this isn't the prompt tweet
-        if not find_prompt_tweet(status.author.screen_name, status.text):
+        # Don't do anything if this isn't the prompt giver and tweet
+        # TODO: Don't hard code the handle
+        if (
+            not confirm_prompt_account(status.author.screen_name, "SalnPage")
+            and not find_prompt_tweet(status.text)
+        ):
             return False
 
         # If we have media in our tweet, get a proper URL to it
