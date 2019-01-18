@@ -17,6 +17,7 @@ def render_email_base(tweet: dict) -> str:
         "date": format_date(create_date(tweet["date"])),
         "content": format_content(tweet["content"])
     }
+    # TODO: https://stackoverflow.com/a/31831773
     return render_template(
         abspath("src/templates/email.html"),
         render_vals

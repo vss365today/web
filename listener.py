@@ -1,5 +1,3 @@
-from datetime import date
-
 import tweepy
 
 from src.core.database import add_word_to_db
