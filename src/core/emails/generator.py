@@ -1,15 +1,17 @@
-from os.path import abspath
+import jinja2
 
 from src.core.filters import (
     create_date,
     format_content,
-    format_date,
-    render_template,
-    render_template_string
+    format_date
 )
 
 
 def render_email_base(tweet: dict) -> str:
+    templateLoader = jinja2.FileSystemLoader(searchpath="src/templates")
+    templateEnv = jinja2.Environment(loader=templateLoader)
+    template = templateEnv.get_template("email.html")
+
     # Render the base email content
     render_vals = {
         "tweet_url": tweet["url"],
@@ -17,13 +19,9 @@ def render_email_base(tweet: dict) -> str:
         "date": format_date(create_date(tweet["date"])),
         "content": format_content(tweet["content"])
     }
-    # TODO: https://stackoverflow.com/a/31831773
-    return render_template(
-        abspath("src/templates/email.html"),
-        render_vals
-    )
+    return template.render(**render_vals).replace(r"{\{", "{{")
 
 
 def render_email_addr(template: str, email: str) -> str:
     """Render an email address into an email template."""
-    return render_template_string(template, {"email": email})
+    return jinja2.Template(template).render(**{"email": email})

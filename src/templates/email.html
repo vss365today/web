@@ -3,15 +3,12 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>||date|| | VSS 365 Today</title>
+    <title>{{ date }} | VSS 365 Today</title>
     <!-- Based on template from https://foundation.zurb.com/emails.html -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,500|EB+Garamond:400,700">
     <style>
-      .wrapper {
-  width: 100%; }
-
-#outlook a {
-  padding: 0; }
+      .wrapper { width: 100%; }
+#outlook a { padding: 0; }
 
 body {
   width: 100% !important;
@@ -55,16 +52,11 @@ center {
   width: 100%;
   min-width: 580px; }
 
-a img {
-  border: none; }
+a img { border: none; }
 
-p {
-  margin: 0 0 0 10px;
-  Margin: 0 0 0 10px; }
+p { margin: 0 0 0 10px; Margin: 0 0 0 10px; }
 
-table {
-  border-spacing: 0;
-  border-collapse: collapse; }
+table { border-spacing: 0; border-collapse: collapse; }
 
 td {
   word-wrap: break-word;
@@ -1404,7 +1396,7 @@ body.outlook p {
                       <tr>
                         <th>
                           <h1 class="text-center">VSS 365 Today</h1>
-                          <h2 class="text-center">||date||</h2>
+                          <h2 class="text-center">{{ date }}</h2>
                           </th>
                       </tr>
                     </tbody>
@@ -1431,8 +1423,8 @@ body.outlook p {
                               <tr>
                                 <th>
                                   <p>Greetings! It is time for the daily VSS 365 prompt. Get your writing mind on and get ready to tell the word your story!</p>
-                                  <h3>Prompt by <a href="||tweet_url||">@||user_handle||</a></h3>
-                                  ||content||
+                                  <h3>Prompt by <a href="{{ tweet_url }}">@{{ user_handle }}</a></h3>
+                                  {{ content }}
                                 </th>
                                 <th class="expander"></th>
                               </tr>
@@ -1461,8 +1453,8 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th class="menu-item float-center">
-                                  This email has been sent to <strong>||email||</strong> by <a href="https://vss365today.com">VSS 365 Today</a>.
-                                  If you believe you have received this email in error or no longer wish to receive them, feel free to <a href="https://vss365today.com/unsubscribe?email=||email||">unsubscribe</a>.
+                                  This email has been sent to <strong>{{ email }}</strong> by <a href="https://vss365today.com">VSS 365 Today</a>.
+                                  If you believe you have received this email in error or no longer wish to receive them, feel free to <a href="https://vss365today.com/unsubscribe?email={\{ email }}">unsubscribe</a>.
                                 </th>
                               </tr>
                             </table>
@@ -1479,5 +1471,4 @@ body.outlook p {
       </tr>
     </table>
   </body>
-
 </html>

@@ -8,9 +8,7 @@ __all__ = [
     "create_proper_image_url",
     "format_content",
     "format_date",
-    "format_image_url",
-    "render_template",
-    "render_template_string"
+    "format_image_url"
 ]
 
 
@@ -155,18 +153,6 @@ def format_content(text: str) -> str:
 
 def format_date(date) -> str:
     return date.strftime("%d %B, %Y")
-
-
-def render_template_string(template: str, render_vals: dict) -> str:
-    for key, val in render_vals.items():
-        template = template.replace("||{}||".format(key), val)
-    return template
-
-
-def render_template(fi: str, render_vals: dict) -> str:
-    with open(fi, "rt") as f:
-        template = f.read()
-    return render_template_string(template, render_vals)
 
 
 def yesterday(date) -> str:
