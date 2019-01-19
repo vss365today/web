@@ -31,7 +31,5 @@ def load_env_vals():
 
 
 def validate_email(addr: str) -> bool:
-    return (
-        re.fullmatch(r"[a-z0-9.-_]+@[a-z0-9.-_]+\.[a-z0-9.-_]+", addr)
-        is not None
-    )
+    regex = r"[a-z0-9.-_]+@[a-z0-9.-_]+\.[a-z0-9.-_]+"
+    return re.fullmatch(regex, addr) is not None

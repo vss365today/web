@@ -1,3 +1,5 @@
+from html import escape
+from urllib.parse import quote
 from pprint import pprint
 
 
@@ -18,10 +20,10 @@ if tweet_image.strip():
 
 # Construct the tweet object
 tweet = {
-    "url": tweet_url,
+    "url": quote(tweet_url),
     "date": [int(d) for d in tweet_date.split("-")],
-    "user_handle": user_handle,
-    "content": tweet_text
+    "user_handle": escape(user_handle),
+    "content": escape(tweet_text)
 }
 pprint(tweet)
 

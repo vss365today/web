@@ -1,4 +1,5 @@
 from html import escape
+from urllib.parse import quote
 
 import tweepy
 
@@ -50,8 +51,8 @@ class StreamListener(tweepy.StreamListener):
             "user_handle": escape(f"{status.author.screen_name}"),
             "content": escape(tweet_text),
             "url": "https://twitter.com/{}/status/{}".format(
-                escape(status.author.screen_name),
-                escape(status.id_str)
+                quote(status.author.screen_name),
+                quote(status.id_str)
             )
         }
 
