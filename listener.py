@@ -3,13 +3,13 @@ from html import escape
 import tweepy
 
 from src.core.database import add_word_to_db
+from src.core.emails.sender import send_emails
 from src.core.filters import create_proper_image_url
 from src.core.helpers import (
     confirm_prompt_account,
     find_prompt_tweet,
     load_env_vals
 )
-from src.core.emails.sender import send_emails
 
 
 class StreamListener(tweepy.StreamListener):
