@@ -80,12 +80,13 @@ footer {
   background-color: rgb(150, 255, 255);
 }
 
-.tweet.center { text-align: center; }
-.tweet.small {
+.page {
   width: 56%;
   margin-right: 0;
   margin-left: 0;
 }
+.page.center { text-align: center; }
+
 .tweet img {
   display: block;
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
@@ -123,7 +124,7 @@ button:focus {
 
 @media (max-width: 800px) {
   .tweet,
-  .tweet.small {
+  .page {
     width: 85%;
     margin-right: 0;
     margin-left: 0;
