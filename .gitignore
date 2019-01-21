@@ -2,7 +2,7 @@ __pycache__
 .data/
 .geolocation/
 .vscode/
-Testing/
+testing/
 *.db
 *.ini
 *.json

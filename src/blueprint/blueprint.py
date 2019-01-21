@@ -66,7 +66,7 @@ def index() -> str:
         "form": SubscribeForm(),
         "page_title": filters.format_date(tweet.date)
     }
-    return render_template("word.html", **render_opts)
+    return render_template("tweet.html", **render_opts)
 
 
 @bp.route("/<date>")
@@ -77,7 +77,7 @@ def date(date) -> str:
         "form": SubscribeForm(),
         "page_title": filters.format_date(tweet.date)
     }
-    return render_template("word.html", **render_opts)
+    return render_template("tweet.html", **render_opts)
 
 
 @bp.route("/about")
