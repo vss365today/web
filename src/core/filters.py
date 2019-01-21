@@ -94,8 +94,8 @@ def format_date(date) -> str:
 
 
 def yesterday(date) -> str:
-    return datetime.strftime(date - timedelta(1), "%Y-%m-%d")
+    return (date - timedelta(1)).isoformat()
 
 
 def tomorrow(date) -> str:
-    return datetime.strftime(date + timedelta(1), "%Y-%m-%d")
+    return (date + timedelta(1)).isoformat()
