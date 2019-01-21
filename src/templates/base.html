@@ -18,10 +18,10 @@
     <h2>{{ page_title }}</h2>
   </header>
 
-  {% block nav %}{% endblock %}
+  {% include "partials/nav.html" %}
 
   <main>
-    {% block content %}{% endblock %}
+    {%- block content %}{% endblock %}
     {% include "partials/form.html" %}
   </main>
 
