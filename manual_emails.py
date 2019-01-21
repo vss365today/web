@@ -7,8 +7,8 @@ from src.core.emails.sender import send_emails
 from src.core.filters import create_date, find_prompt_word
 
 
-user_handle = input("Enter the prompt giver handle: ")
 tweet_date = input("Enter the tweet date (YYYY-MM-DD): ")
+user_handle = input("Enter the prompt giver handle: ")
 tweet_url = input("Enter the tweet url: ")
 tweet_text = input("Enter the tweet text: ")
 tweet_image = input("Enter the tweet image (leave blank for none): ")
