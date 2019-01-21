@@ -3,7 +3,9 @@ from flask import render_template
 
 from src.core.database import (
     get_latest_word,
-    get_word_by_date
+    get_prompt_givers,
+    get_word_by_date,
+    get_words_by_prompt_giver
 )
 from src.core import filters
 from src.core.form import SubscribeForm
@@ -57,13 +59,34 @@ def unsubscribe() -> str:
     return render_template("unsubscribe.html", **render_opts)
 
 
+@bp.route("/about")
+def about() -> str:
+    render_opts = {
+        "form": SubscribeForm(),
+        "page_title": "About VSS 365"
+    }
+    return render_template("about.html", **render_opts)
+
+
 @bp.route("/browse")
 def browse() -> str:
     render_opts = {
         "form": SubscribeForm(),
+        "prompt_givers": get_prompt_givers(),
         "page_title": "Browse VSS prompts"
     }
     return render_template("browse.html", **render_opts)
+
+
+@bp.route("/browse/<name>")
+def browse_by_name(name) -> str:
+    render_opts = {
+        "form": SubscribeForm(),
+        "tweets": get_words_by_prompt_giver(name),
+        "prompt_giver": name,
+        "page_title": "Browse VSS prompts"
+    }
+    return render_template("browse-name.html", **render_opts)
 
 
 @bp.route("/")
@@ -87,15 +110,6 @@ def date(date) -> str:
         "page_title": filters.format_date(tweet.date)
     }
     return render_template("tweet.html", **render_opts)
-
-
-@bp.route("/about")
-def about() -> str:
-    render_opts = {
-        "form": SubscribeForm(),
-        "page_title": "About VSS 365"
-    }
-    return render_template("about.html", **render_opts)
 
 
 @bp.app_errorhandler(404)

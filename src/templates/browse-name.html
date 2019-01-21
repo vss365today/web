@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="page center">
+  <h3>View prompts by {{ prompt_giver }}</h3>
+
+  <ul>
+    {% for tweet in tweets %}
+    <li>
+      <a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.date|format_date }} &mdash; <strong>{{ tweet.word }}</strong></a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
