@@ -5,7 +5,11 @@ import tweepy
 
 from src.core.database import add_word_to_db
 from src.core.emails.sender import send_emails
-from src.core.filters import create_proper_image_url, find_prompt_word
+from src.core.filters import (
+    create_date,
+    create_proper_image_url,
+    find_prompt_word
+)
 from src.core.helpers import (
     confirm_prompt_account,
     find_prompt_tweet,
@@ -39,15 +43,9 @@ class StreamListener(tweepy.StreamListener):
                 media[0]["url"], media[0]["media_url_https"]
             )
 
-        # Rewrite the date format for proper database addition
-        tweet_date = [
-            int(d)
-            for d in status.created_at.strftime("%Y-%m-%d").split("-")
-        ]
-
         # Construct a dictionary with only the info we need
         tweet = {
-            "date": tweet_date,
+            "date": create_date(status.created_at.isoformat()),
             "user_handle": escape(f"{status.author.screen_name}"),
             "content": escape(tweet_text),
             "word": find_prompt_word(tweet_text),

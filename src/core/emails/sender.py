@@ -1,7 +1,7 @@
 from mailjet_rest import Client
 
 from src.core.database import get_all_emails
-from src.core.filters import create_date, format_date
+from src.core.filters import format_date
 from src.core.helpers import load_env_vals
 from src.core.emails.generator import render_email_base, render_email_addr
 
@@ -23,7 +23,7 @@ def send_emails(tweet):
     for addr in email_list:
         msg = {
             "Subject": "VSS 365 Today for {}".format(
-                format_date(create_date(tweet['date']))
+                format_date(tweet['date'])
             ),
             "HTMLPart": render_email_addr(base_template, addr.email),
             "From": {

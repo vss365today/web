@@ -12,8 +12,8 @@ __all__ = [
 ]
 
 
-def create_date(date_l: list) -> date:
-    return date(*date_l)
+def create_date(date_str: str) -> date:
+    return date(*[int(d) for d in date_str.split("-")])
 
 
 def create_proper_image_url(

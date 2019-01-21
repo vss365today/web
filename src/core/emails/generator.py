@@ -1,10 +1,6 @@
 import jinja2
 
-from src.core.filters import (
-    create_date,
-    format_content,
-    format_date
-)
+from src.core.filters import format_content, format_date
 
 
 def render_email_base(tweet: dict) -> str:
@@ -16,7 +12,7 @@ def render_email_base(tweet: dict) -> str:
     render_vals = {
         "tweet_url": tweet["url"],
         "user_handle": tweet["user_handle"],
-        "date": format_date(create_date(tweet["date"])),
+        "date": format_date(tweet["date"]),
         "content": format_content(tweet["content"])
     }
     return template.render(**render_vals).replace(r"{\{", "{{")
