@@ -16,7 +16,7 @@ tweet_image = input("Enter the tweet image (leave blank for none): ")
 # Add the image to the tweet content if one was given
 tweet_text = tweet_text.replace("\\n", "\n")
 if tweet_image.strip():
-    tweet_text = f"{tweet_text}\n\n{tweet_url}"
+    tweet_text = f"{tweet_text}\n\n{tweet_image}"
 
 # Construct the tweet object
 tweet = {
