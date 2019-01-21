@@ -1,5 +1,4 @@
 from html import escape
-from urllib.parse import quote
 from pprint import pprint
 
 

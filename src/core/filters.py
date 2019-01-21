@@ -3,7 +3,6 @@ import re
 
 
 __all__ = [
-    "create_curly_quotes",
     "create_date",
     "create_proper_image_url",
     "find_prompt_word",
@@ -11,68 +10,6 @@ __all__ = [
     "format_date",
     "format_image_url"
 ]
-
-
-def __curly_replace_double_quotes(text):
-    """https://stackoverflow.com/a/44336227"""
-    # 1. Replace "space followed by straight double quote"
-    # by "space followed by opening curly":
-    text = text.replace(' "', " “")
-
-    # 2. Replace "straight double quote followed by space"
-    # by "closing curly followed by space":
-    text = text.replace('" ', "” ")
-
-    # 3. Replace "straight double quote followed by comma"
-    # by "closing curly followed by comma":
-    text = text.replace('",', "”,")
-
-    # 4. Replace "straight double quote followed by semicolon"
-    # by "closing curly followed by semicolon":
-    text = text.replace('";', "”;")
-
-    # 5. Replace "straight double quote followed by fullstop"
-    # by "closing curly followed by fullstop":
-    text = text.replace('".', "”.")
-    return text
-
-
-def __curly_replace_single_quotes(text):
-    """https://stackoverflow.com/a/44336227"""
-    # 1. Replace "space followed by straight single quote"
-    # by "space followed by opening curly":
-    text = text.replace(" '", " ‘")
-
-    # 2. Replace "straight single quote followed by space"
-    # by "closing curly followed by space":
-    text = text.replace('" ', "” ")
-
-    # 3. Replace "straight single quote followed by comma"
-    # by "closing curly followed by comma":
-    text = text.replace("',", "’,")
-
-    # 4. Replace "straight single quote followed by semicolon"
-    # by "closing curly followed by semicolon":
-    text = text.replace("';", "’”;")
-
-    # 5. Replace "straight single quote followed by fullstop"
-    # by "closing curly followed by fullstop":
-    text = text.replace("'.", "’.")
-    return text
-
-
-def create_curly_quotes(text):
-    # text = body[0].decode()
-
-    # https://stackoverflow.com/a/44336227
-    # https://stackoverflow.com/a/2202835
-    # regex_single_quotes = re.compile(r"", re.MULTILINE)
-    # regex_double_quotes = re.compile(r"", re.MULTILINE)
-    text = __curly_replace_double_quotes(text)
-    text = __curly_replace_single_quotes(text)
-
-    # body[0] = text.encode()
-    return text
 
 
 def create_date(date_l: list) -> date:
