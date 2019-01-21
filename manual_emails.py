@@ -20,7 +20,7 @@ if tweet_image.strip():
 
 # Construct the tweet object
 tweet = {
-    "url": quote(tweet_url),
+    "url": tweet_url,
     "date": [int(d) for d in tweet_date.split("-")],
     "user_handle": escape(user_handle),
     "content": escape(tweet_text)
