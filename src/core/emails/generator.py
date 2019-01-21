@@ -10,6 +10,7 @@ def render_email_base(tweet: dict) -> str:
 
     # Render the base email content
     render_vals = {
+        "word": tweet["word"],
         "tweet_url": tweet["url"],
         "user_handle": tweet["user_handle"],
         "date": format_date(tweet["date"]),
