@@ -87,4 +87,4 @@ stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
 # much less update this code monthly
 # http://gettwitterid.com/?user_name=SalnPage&submit=GET+USER+ID
 print("Listening for tweet...")
-stream.filter(follow=["227230837"])
+stream.filter(follow=["227230837"], is_async=True)
