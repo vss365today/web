@@ -1,3 +1,4 @@
+from datetime import date
 from flask import Flask
 
 from src.blueprint import blueprint
@@ -12,5 +13,9 @@ def create_app():
     @app.context_processor
     def inject_site_title():
         return {"site_title": app.config["SITE_TITLE"]}
+
+    @app.context_processor
+    def inject_current_year():
+        return {"current_year": date.today().year}
 
     return app
