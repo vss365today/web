@@ -45,7 +45,8 @@ def add_word_to_db(tweet: dict):
         date=create_date(tweet["date"]),
         user_handle=tweet["user_handle"],
         url=tweet["url"],
-        content=tweet["content"]
+        content=tweet["content"],
+        word=tweet["word"]
     )
     session = __connect_to_db_sqlalchemy()
     session.add(word)

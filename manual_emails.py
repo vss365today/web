@@ -5,6 +5,7 @@ from pprint import pprint
 
 from src.core.database import add_word_to_db
 from src.core.emails.sender import send_emails
+from src.core.filters import find_prompt_word
 
 
 user_handle = input("Enter the prompt giver handle: ")
@@ -23,7 +24,8 @@ tweet = {
     "url": tweet_url,
     "date": [int(d) for d in tweet_date.split("-")],
     "user_handle": escape(user_handle),
-    "content": escape(tweet_text)
+    "content": escape(tweet_text),
+    "word": find_prompt_word(tweet_text)
 }
 pprint(tweet)
 

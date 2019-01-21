@@ -5,7 +5,7 @@ import tweepy
 
 from src.core.database import add_word_to_db
 from src.core.emails.sender import send_emails
-from src.core.filters import create_proper_image_url
+from src.core.filters import create_proper_image_url, find_prompt_word
 from src.core.helpers import (
     confirm_prompt_account,
     find_prompt_tweet,
@@ -50,6 +50,7 @@ class StreamListener(tweepy.StreamListener):
             "date": tweet_date,
             "user_handle": escape(f"{status.author.screen_name}"),
             "content": escape(tweet_text),
+            "word": find_prompt_word(tweet_text),
             "url": "https://twitter.com/{}/status/{}".format(
                 quote(status.author.screen_name),
                 quote(status.id_str)

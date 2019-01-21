@@ -6,6 +6,7 @@ __all__ = [
     "create_curly_quotes",
     "create_date",
     "create_proper_image_url",
+    "find_prompt_word",
     "format_content",
     "format_date",
     "format_image_url"
