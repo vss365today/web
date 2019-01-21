@@ -13,14 +13,19 @@ body {
   font-family: "EB Garamond", serif;
   font-size: 18px;
   line-height: 1.6;
-  color: rgb(53, 51, 51);
+  color: #353333;
 
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, strong, label {
+h1, h2, h3, h4, h5, h6, strong {
   font-family: "Oswald", "EB Garamond", serif;
   font-weight: 500;
+}
+
+label {
+  font-family: "Oswald", "EB Garamond", serif;
+  font-weight: 400;
 }
 
 strong { font-size: 0.85em; }
@@ -61,8 +66,8 @@ nav a {
   margin-right: 1em;
   margin-left: 1em;
   font-family: "Oswald";
-  font-weight: 400;
-  font-size: 1.2em;
+  font-weight: 300;
+  font-size: 1.25em;
 }
 
 main {
@@ -70,15 +75,16 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 1.02em;
 }
 
 footer {
   margin-top: 1em;
   padding: 0.5em 1em;
   text-align: center;
-  background-color: rgb(150, 255, 255);
+  background-color: #96ffff;
+  font-size: 0.9em;
 }
+footer a { color: inherit; }
 
 .page {
   width: 58%;
@@ -102,7 +108,7 @@ input, button {
   margin-top: 0.2em;
   padding: 0.2em;
   font-family: inherit;
-  font-size: 1.1em;
+  font-size: 0.95em;
   border: 1px solid lightgrey;
   border-radius: 2px;
 }
