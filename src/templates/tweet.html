@@ -5,8 +5,12 @@
 {% endblock %}
 
 {% block content %}
-<div class="tweet">
-  <h3>Prompt by <a href="{{ tweet.url }}">@{{ tweet.user_handle }}</a></h3>
-  {{ tweet.content|format_content|safe }}
+<div class="content">
+  <h3 class="center">Today's writing prompt is: {{ tweet.word }}</h3>
+
+  <div class="tweet">
+    {{ tweet.content|format_content|safe }}
+    <p>Prompt by <a href="{{ tweet.url }}">@{{ tweet.user_handle }}</a></p>
+  </div>
 </div>
 {% endblock %}

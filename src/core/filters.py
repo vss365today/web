@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 import re
 
 
@@ -8,7 +8,9 @@ __all__ = [
     "find_prompt_word",
     "format_content",
     "format_date",
-    "format_image_url"
+    "format_image_url",
+    "yesterday",
+    "tomorrow"
 ]
 
 
@@ -72,12 +74,6 @@ def format_image_url(text: str) -> str:
 def format_content(text: str) -> str:
     # Start by forming a proper image URL
     text = format_image_url(text)
-
-    # Get the prompt word, format it differently,
-    # and put it back into the content
-    prompt_word = find_prompt_word(text)
-    formatted_word = format_prompt_word(prompt_word)
-    text = text.replace(prompt_word, formatted_word)
 
     # Wrap all non-blank lines in paragraphs
     split_text = text.split("\n")
