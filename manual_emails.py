@@ -1,5 +1,6 @@
 from html import escape
 from pprint import pprint
+from re import match
 
 
 from src.core.database import add_word_to_db
@@ -7,8 +8,11 @@ from src.core.emails.sender import send_emails
 from src.core.filters import create_date, find_prompt_word
 
 
+def extract_user_handle(url: str) -> str:
+    return match(r"^https://twitter\.com/(\w+)/status", url)[1]
+
+
 tweet_date = input("Enter the tweet date (YYYY-MM-DD): ")
-user_handle = input("Enter the prompt giver handle: ")
 tweet_url = input("Enter the tweet url: ")
 tweet_text = input("Enter the tweet text: ")
 tweet_image = input("Enter the tweet image (leave blank for none): ")
@@ -22,7 +26,7 @@ if tweet_image.strip():
 tweet = {
     "url": tweet_url,
     "date": create_date(tweet_date.strip()),
-    "user_handle": escape(user_handle),
+    "user_handle": escape(extract_user_handle(tweet_url)),
     "content": escape(tweet_text),
     "word": find_prompt_word(tweet_text)
 }
