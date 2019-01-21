@@ -12,3 +12,4 @@ class Tweets(alchemy.Model):
     user_handle = alchemy.Column(alchemy.String(30))
     url = alchemy.Column(alchemy.String(128))
     content = alchemy.Column(alchemy.String(512))
+    word = alchemy.Column(alchemy.String(30))
