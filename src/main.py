@@ -18,4 +18,11 @@ def create_app():
     def inject_current_year():
         return {"current_year": date.today().year}
 
+    @app.context_processor
+    def nav_page_indicator():
+        return {
+            "nav_page_indicator":
+                lambda title, has: ("active" if has in title.lower() else "")
+        }
+
     return app

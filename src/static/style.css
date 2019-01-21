@@ -33,11 +33,13 @@ strong { font-size: 0.85em; }
 a {
   text-decoration: none;
   color: rgb(70, 199, 134);
+  border-bottom: 2px solid transparent;
 }
 a:hover,
 a:focus,
-a:active {
-  border-bottom: 1px solid currentColor;
+a:active,
+nav a.active {
+  border-bottom-color: currentColor;
 }
 
 img {
