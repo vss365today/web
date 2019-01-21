@@ -57,6 +57,15 @@ def unsubscribe() -> str:
     return render_template("unsubscribe.html", **render_opts)
 
 
+@bp.route("/browse")
+def browse() -> str:
+    render_opts = {
+        "form": SubscribeForm(),
+        "page_title": "Browse VSS prompts"
+    }
+    return render_template("browse.html", **render_opts)
+
+
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
