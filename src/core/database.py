@@ -32,7 +32,6 @@ def get_all_emails() -> list:
 
 def get_uid_by_handle(handle: str):
     session = __connect_to_db_sqlalchemy()
-
     uid = session.query(Users.uid).filter_by(handle=handle).first()
     session.close()
     return uid

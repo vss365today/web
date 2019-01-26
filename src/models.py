@@ -13,7 +13,7 @@ class Tweets(alchemy.Model):
         unique=True
     )
     date = alchemy.Column(alchemy.Date)
-    uid = alchemy.Column(alchemy.String(30))
+    uid = alchemy.Column(alchemy.String(30), alchemy.ForeignKey("users.uid"))
     content = alchemy.Column(alchemy.String(512))
     word = alchemy.Column(alchemy.String(25))
 
@@ -21,3 +21,4 @@ class Tweets(alchemy.Model):
 class Users(alchemy.Model):
     uid = alchemy.Column(alchemy.String(30), primary_key=True, unique=True)
     handle = alchemy.Column(alchemy.String(20))
+    tweets = alchemy.relationship("Tweets", backref="user", lazy="dynamic")
