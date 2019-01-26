@@ -10,7 +10,7 @@
 
   <div class="tweet">
     {{ tweet.content|format_content|safe }}
-    <p>Prompt by <a href="{{ create_url(tweet) }}">@{{ tweet.user.handle }}</a></p>
+    <p>Prompt by <a href="{{ create_url(tweet) }}">@{{ tweet.giver.handle }}</a></p>
   </div>
 </div>
 {% endblock %}

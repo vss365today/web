@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 
-from src.models import Emails, Tweets, Users
+from src.models import Emails, Tweets, Givers
 from src.core.helpers import create_db_connection, load_env_vals
 
 
@@ -32,7 +32,7 @@ def get_all_emails() -> list:
 
 def get_uid_by_handle(handle: str):
     session = __connect_to_db_sqlalchemy()
-    uid = session.query(Users.uid).filter_by(handle=handle).first()
+    uid = session.query(Givers.uid).filter_by(handle=handle).first()
     session.close()
     return uid
 
@@ -45,14 +45,14 @@ def get_word_by_date(date: str):
     return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()
 
 
-def add_user_to_db(user_dict: dict):
-    """Add a user to the database."""
-    user = Users(
-        uid=user_dict["uid"],
-        handle=user_dict["handle"]
+def add_giver_to_db(giver_dict: dict):
+    """Add a giver to the database."""
+    giver = Givers(
+        uid=giver_dict["uid"],
+        handle=giver_dict["handle"]
     )
     session = __connect_to_db_sqlalchemy()
-    session.add(user)
+    session.add(giver)
     session.commit()
     session.close()
 
