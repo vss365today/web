@@ -1,9 +1,10 @@
 from html import escape
+from pprint import pprint
 from urllib.parse import quote
 
 import tweepy
 
-from src.core.database import add_word_to_db
+from src.core.database import add_tweet_to_db, get_uid_by_handle
 from src.core.emails.sender import send_emails
 from src.core.filters import (
     create_date,
@@ -45,20 +46,19 @@ class StreamListener(tweepy.StreamListener):
 
         # Construct a dictionary with only the info we need
         tweet = {
+            "tweet_id": quote(status.id_str),
             "date": create_date(status.created_at.isoformat()),
-            "user_handle": escape(f"{status.author.screen_name}"),
+            "uid": escape(get_uid_by_handle(status.author.screen_name)),
+            "handle": escape(status.author.screen_name),
             "content": escape(tweet_text),
-            "word": find_prompt_word(tweet_text),
-            "url": "https://twitter.com/{}/status/{}".format(
-                quote(status.author.screen_name),
-                quote(status.id_str)
-            )
+            "word": find_prompt_word(tweet_text)
         }
+        pprint(tweet)
 
         # Add the tweet to the database
         # and send the email notifications
         print("Adding tweet to database")
-        add_word_to_db(tweet)
+        add_tweet_to_db(tweet)
         print("Sending out notification emails")
         send_emails(tweet)
 

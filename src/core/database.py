@@ -5,7 +5,7 @@ from src.core.helpers import create_db_connection, load_env_vals
 
 
 __all__ = [
-    "add_word_to_db",
+    "add_tweet_to_db",
     "get_all_emails",
     "get_latest_word",
     "get_word_by_date"
@@ -57,8 +57,8 @@ def add_giver_to_db(giver_dict: dict):
     session.close()
 
 
-def add_word_to_db(tweet: dict):
-    """Add a word to the database."""
+def add_tweet_to_db(tweet: dict):
+    """Add a tweet to the database."""
     word = Tweets(
         tweet_id=tweet["tweet_id"],
         date=tweet["date"],

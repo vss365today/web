@@ -3,7 +3,7 @@ from pprint import pprint
 from re import match
 
 
-from src.core.database import add_word_to_db, get_uid_by_handle
+from src.core.database import add_tweet_to_db, get_uid_by_handle
 from src.core.emails.sender import send_emails
 from src.core.filters import create_date, find_prompt_word
 
@@ -40,6 +40,6 @@ pprint(tweet)
 
 # Add the tweet to the database and send the emails
 print("Adding tweet to database")
-add_word_to_db(tweet)
+add_tweet_to_db(tweet)
 print("Sending out notification emails")
 send_emails(tweet)
