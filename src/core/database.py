@@ -30,6 +30,14 @@ def get_all_emails() -> list:
     return all_emails
 
 
+def get_uid_by_handle(handle: str):
+    session = __connect_to_db_sqlalchemy()
+
+    uid = session.query(Users.uid).filter_by(handle=handle).first()
+    session.close()
+    return uid
+
+
 def get_latest_word():
     return Tweets.query.order_by(Tweets.date.desc()).first_or_404()
 
