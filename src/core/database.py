@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 
-from src.models import Emails, Tweets
+from src.models import Emails, Tweets, Users
 from src.core.helpers import create_db_connection, load_env_vals
 
 
@@ -38,12 +38,24 @@ def get_word_by_date(date: str):
     return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()
 
 
+def add_user_to_db(user_dict: dict):
+    """Add a user to the database."""
+    user = Users(
+        uid=user_dict["uid"],
+        handle=user_dict["handle"]
+    )
+    session = __connect_to_db_sqlalchemy()
+    session.add(user)
+    session.commit()
+    session.close()
+
+
 def add_word_to_db(tweet: dict):
     """Add a word to the database."""
     word = Tweets(
+        tweet_id=tweet["tweet_id"],
         date=tweet["date"],
-        user_handle=tweet["user_handle"],
-        url=tweet["url"],
+        uid=tweet["uid"],
         content=tweet["content"],
         word=tweet["word"]
     )
