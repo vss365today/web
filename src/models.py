@@ -2,14 +2,22 @@ from src.extensions import alchemy
 
 
 class Emails(alchemy.Model):
-    id = alchemy.Column(alchemy.Integer, primary_key=True)
+    id = alchemy.Column(alchemy.Integer, primary_key=True, unique=True)
     email = alchemy.Column(alchemy.String(50), unique=True)
 
 
 class Tweets(alchemy.Model):
-    id = alchemy.Column(alchemy.Integer, primary_key=True)
+    tweet_id = alchemy.Column(
+        alchemy.String(25),
+        primary_key=True,
+        unique=True
+    )
     date = alchemy.Column(alchemy.Date)
-    user_handle = alchemy.Column(alchemy.String(30))
-    url = alchemy.Column(alchemy.String(128))
+    uid = alchemy.Column(alchemy.String(30))
     content = alchemy.Column(alchemy.String(512))
-    word = alchemy.Column(alchemy.String(30))
+    word = alchemy.Column(alchemy.String(25))
+
+
+class Users(alchemy.Model):
+    uid = alchemy.Column(alchemy.String(30), primary_key=True, unique=True)
+    handle = alchemy.Column(alchemy.String(20))
