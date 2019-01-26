@@ -27,6 +27,10 @@ def create_proper_image_url(
     return text.replace(img_short_url, img_full_url)
 
 
+def create_tweet_url(tweet: dict) -> str:
+    return f"https://twitter.com/{tweet.giver.handle}/status/{tweet.tweet_id}"
+
+
 def find_prompt_word(text: str) -> str:
     prompt_word = ""
 

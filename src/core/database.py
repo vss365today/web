@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 
-from src.models import Emails, Tweets
+from src.models import Emails, Tweets, Givers
 from src.core.helpers import create_db_connection, load_env_vals
 
 
@@ -30,6 +30,13 @@ def get_all_emails() -> list:
     return all_emails
 
 
+def get_uid_by_handle(handle: str):
+    session = __connect_to_db_sqlalchemy()
+    uid = session.query(Givers.uid).filter_by(handle=handle).first()
+    session.close()
+    return uid
+
+
 def get_latest_word():
     return Tweets.query.order_by(Tweets.date.desc()).first_or_404()
 
@@ -38,12 +45,24 @@ def get_word_by_date(date: str):
     return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()
 
 
+def add_giver_to_db(giver_dict: dict):
+    """Add a giver to the database."""
+    giver = Givers(
+        uid=giver_dict["uid"],
+        handle=giver_dict["handle"]
+    )
+    session = __connect_to_db_sqlalchemy()
+    session.add(giver)
+    session.commit()
+    session.close()
+
+
 def add_word_to_db(tweet: dict):
     """Add a word to the database."""
     word = Tweets(
+        tweet_id=tweet["tweet_id"],
         date=tweet["date"],
-        user_handle=tweet["user_handle"],
-        url=tweet["url"],
+        uid=tweet["uid"],
         content=tweet["content"],
         word=tweet["word"]
     )
