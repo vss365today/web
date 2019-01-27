@@ -48,7 +48,7 @@ class StreamListener(tweepy.StreamListener):
         tweet = {
             "tweet_id": quote(status.id_str),
             "date": create_date(status.created_at.isoformat()),
-            "uid": escape(get_uid_by_handle(status.author.screen_name)),
+            "uid": get_uid_by_handle(escape(status.author.screen_name))[0],
             "handle": escape(status.author.screen_name),
             "content": escape(tweet_text),
             "word": find_prompt_word(tweet_text)
