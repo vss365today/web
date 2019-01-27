@@ -22,7 +22,11 @@ from src.core.helpers import (
 )
 
 
-def process_tweets(uid, tweet_id=None):
+def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
+    # If we recurse too many times, stop searching
+    if recur_count > 7:
+        return None
+
     # Get the latest tweets from the prompt giver
     statuses = api.user_timeline(uid, max_id=tweet_id, count=20)
 
@@ -41,7 +45,7 @@ def process_tweets(uid, tweet_id=None):
     # We didn't find the prompt tweet, so we need to search again,
     # but this time, older than the oldest tweet we currently have
     if prompt_tweet is None:
-        return process_tweets(uid, own_tweets[-1].id_str)
+        return process_tweets(uid, own_tweets[-1].id_str, recur_count + 1)
     return prompt_tweet
 
 
@@ -51,9 +55,9 @@ latest_tweet = get_latest_tweet(in_flask=True)
 today = date.today()
 
 # We already have latest tweet, don't do anything
-if latest_tweet.date == today:
-    print(f"Tweet for {today} already found. Aborting...")
-    raise SystemExit(0)
+# if latest_tweet.date == today:
+#     print(f"Tweet for {today} already found. Aborting...")
+#     raise SystemExit(0)
 
 # Connect to the Twitter API
 config = load_env_vals()
@@ -70,9 +74,13 @@ print("Successfully connected to the Twitter API")
 
 # Get an initial round of tweets to search
 # TODO: Don't hard-code the uid
-# TODO: What if we never find it?
 print("Searching for the latest prompt tweet")
 prompt_tweet = process_tweets("227230837")  # SalnPage
+
+# The tweet was not found at all :(
+if prompt_tweet is None:
+    print("Search limit reached without finding prompt tweet! Aborting...")
+    raise SystemExit(0)
 
 # We already have the latest tweet, don't do anything
 # This condition is hit when it is _technnically_ the next day
