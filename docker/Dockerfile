@@ -6,7 +6,7 @@ ENV PYTHONPATH=/app
 # Copy the app files into the container
 RUN mkdir -p /app
 COPY ./docker /app/docker
-COPY [ "get_requirements.py", "poetry.lock", "pyproject.toml", "run-flask.sh", "run-listener.sh", "/app/" ]
+COPY [ "get-requirements.py", "poetry.lock", "pyproject.toml", "run-flask.sh", "run-listener.sh", "/app/" ]
 WORKDIR /app
 
 # Install supervisor for service restarting
@@ -14,7 +14,7 @@ RUN apk update && apk add supervisor && rm -rf /var/cache/apk/*
 
 # Install required deps
 RUN pip3 install --no-cache-dir toml && \
-    python3 ./get_requirements.py && \
+    python3 ./get-requirements.py && \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm ./requirements.txt && \
     chmod +x ./run-listener.sh && \
