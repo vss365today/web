@@ -7,8 +7,8 @@ from src.core.helpers import create_db_connection, load_env_vals
 __all__ = [
     "add_tweet_to_db",
     "get_all_emails",
-    "get_latest_word",
-    "get_word_by_date"
+    "get_latest_tweet",
+    "get_tweet_by_date"
 ]
 
 
@@ -37,11 +37,11 @@ def get_uid_by_handle(handle: str):
     return uid
 
 
-def get_latest_word():
+def get_latest_tweet():
     return Tweets.query.order_by(Tweets.date.desc()).first_or_404()
 
 
-def get_word_by_date(date: str):
+def get_tweet_by_date(date: str):
     return Tweets.query.filter(Tweets.date.startswith(date)).first_or_404()
 
 

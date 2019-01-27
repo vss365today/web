@@ -2,8 +2,8 @@ from flask import Blueprint, request
 from flask import render_template
 
 from src.core.database import (
-    get_latest_word,
-    get_word_by_date
+    get_latest_tweet,
+    get_tweet_by_date
 )
 from src.core import filters
 from src.core.form import SubscribeForm
@@ -60,7 +60,7 @@ def unsubscribe() -> str:
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
-    tweet = get_latest_word()
+    tweet = get_latest_tweet()
     render_opts = {
         "tweet": tweet,
         "form": SubscribeForm(),
@@ -71,7 +71,7 @@ def index() -> str:
 
 @bp.route("/<date>")
 def date(date) -> str:
-    tweet = get_word_by_date(date)
+    tweet = get_tweet_by_date(date)
     render_opts = {
         "tweet": tweet,
         "form": SubscribeForm(),
