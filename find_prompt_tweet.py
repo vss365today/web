@@ -1,0 +1,109 @@
+from datetime import date
+from html import escape
+from pprint import pprint
+from urllib.parse import quote
+
+import tweepy
+
+from src.core.database import (
+    add_tweet_to_db,
+    get_latest_tweet,
+    get_uid_by_handle
+)
+from src.core.emails.sender import send_emails
+from src.core.filters import (
+    create_date,
+    create_proper_image_url,
+    find_prompt_word
+)
+from src.core.helpers import (
+    find_prompt_tweet,
+    load_env_vals
+)
+
+
+def process_tweets(uid, tweet_id=None):
+    # Get the latest tweets from the prompt giver
+    statuses = api.user_timeline(uid, max_id=tweet_id, count=20)
+
+    # Start by filtering out any retweets
+    own_tweets = list(filter(lambda status: not status.retweeted, statuses))
+
+    prompt_tweet = None
+    for tweet in own_tweets:
+        # Try to find the prompt tweet among the pulled tweets
+        if not find_prompt_tweet(tweet.text):
+            continue
+        else:
+            prompt_tweet = tweet
+            break
+
+    # We didn't find the prompt tweet, so we need to search again,
+    # but this time, older than the oldest tweet we currently have
+    if prompt_tweet is None:
+        return process_tweets(uid, own_tweets[-1].id_str)
+    return prompt_tweet
+
+
+# Get the latest tweet in the database
+# to see if we need to do anything
+latest_tweet = get_latest_tweet(in_flask=True)
+today = date.today()
+
+# We already have latest tweet, don't do anything
+if latest_tweet.date == today:
+    print(f"Tweet for {today} already found. Aborting...")
+    raise SystemExit(0)
+
+# Connect to the Twitter API
+config = load_env_vals()
+auth = tweepy.OAuthHandler(
+    config["TWITTER_APP_KEY"],
+    config["TWITTER_APP_SECRET"]
+)
+auth.set_access_token(
+    config["TWITTER_KEY"],
+    config["TWITTER_SECRET"]
+)
+api = tweepy.API(auth)
+print("Successfully connected to the Twitter API")
+
+# Get an initial round of tweets to search
+# TODO: Don't hard-code the uid
+# TODO: What if we never find it?
+print("Searching for the latest prompt tweet")
+prompt_tweet = process_tweets("227230837")  # SalnPage
+
+# We already have the latest tweet, don't do anything
+# This condition is hit when it is _technnically_ the next day
+# but the newest tweet hasn't been sent out
+tweet_date = create_date(prompt_tweet.created_at.strftime("%Y-%m-%d"))
+if tweet_date == latest_tweet.date:
+    print(f"The latest tweet for {tweet_date} has already found. Aborting...")
+    raise SystemExit(0)
+
+# If we have media in our tweet, get a proper URL to it
+tweet_text = prompt_tweet.text
+if prompt_tweet.entities.get("media"):
+    media = prompt_tweet.entities["media"]
+    tweet_text = create_proper_image_url(
+        tweet_text,
+        media[0]["url"], media[0]["media_url_https"]
+    )
+
+# Construct a dictionary with only the info we need
+tweet = {
+    "tweet_id": quote(prompt_tweet.id_str),
+    "date": tweet_date,
+    "uid": get_uid_by_handle(escape(prompt_tweet.author.screen_name))[0],
+    "handle": escape(prompt_tweet.author.screen_name),
+    "content": escape(tweet_text),
+    "word": find_prompt_word(tweet_text)
+}
+pprint(tweet)
+
+# Add the tweet to the database and send the email notifications
+print("Adding tweet to database")
+add_tweet_to_db(tweet)
+print("Sending out notification emails")
+send_emails(tweet)
