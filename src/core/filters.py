@@ -71,7 +71,7 @@ def format_image_url(text: str) -> str:
     # If we have one, put it in an HTML img tag
     if match:
         url = match.group(0)
-        text = text.replace(url, f'<img width="500" src="{url}">')
+        text = text.replace(url, f'\n<img width="500" src="{url}">')
     return text
 
 
@@ -82,7 +82,7 @@ def format_content(text: str) -> str:
     # Wrap all non-blank lines in paragraphs
     split_text = text.split("\n")
     split_text = [
-        f"<p>{para}</p>"
+        f"<p>{para.strip()}</p>"
         for para in split_text
         if para  # false-y value means blank line
     ]
