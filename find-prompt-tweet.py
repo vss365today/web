@@ -55,9 +55,9 @@ latest_tweet = get_latest_tweet(in_flask=True)
 today = date.today()
 
 # We already have latest tweet, don't do anything
-# if latest_tweet.date == today:
-#     print(f"Tweet for {today} already found. Aborting...")
-#     raise SystemExit(0)
+if latest_tweet.date == today:
+    print(f"Tweet for {today} already found. Aborting...")
+    raise SystemExit(0)
 
 # Connect to the Twitter API
 config = load_env_vals()
