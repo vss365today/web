@@ -1,7 +1,7 @@
 version: '3.6'
 
 services:
-  vss365today-web:
+  vss365today:
     image: vss365today:latest
     restart: unless-stopped
     volumes:
