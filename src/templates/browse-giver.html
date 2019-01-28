@@ -11,12 +11,17 @@
   {# We have tweets, give links to them #}
   {%- else %}
   <ul>
-    {% for tweet in tweets %}
+    {%- for tweet in tweets %}
     <li>
       <a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.date|format_date }} &mdash; <strong>{{ tweet.word }}</strong></a>
     </li>
-    {% endfor %}
+    {%- if loop.index % 5 == 0 %}
   </ul>
+
+  <ul>
     {%- endif %}
+    {%- endfor %}
+  </ul>
+  {%- endif %}
 </section>
 {% endblock %}
