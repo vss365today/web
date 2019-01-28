@@ -18,16 +18,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5, h6, strong {
-  font-family: "Oswald", "EB Garamond", serif;
+h1, h2, h3, h4, h5, h6, strong, label {
+  font-family: "Oswald", "EB Garamond", sans-serif;
   font-weight: 500;
 }
 
-label {
-  font-family: "Oswald", "EB Garamond", serif;
-  font-weight: 400;
-}
-
+label { font-weight: 400; }
 strong { font-size: 0.85em; }
 
 a {
@@ -67,8 +63,8 @@ nav {
 nav a {
   margin-right: 1em;
   margin-left: 1em;
-  font-family: "Oswald";
-  font-weight: 300;
+  font-family: "Oswald", "EB Garamond", sans-serif;
+  font-weight: 200;
   font-size: 1.25em;
 }
 
@@ -81,10 +77,12 @@ main {
 
 footer {
   margin-top: 1em;
-  padding: 0.5em 1em;
+  padding: 0.5em;
   text-align: center;
   background-color: #96ffff;
-  font-size: 0.9em;
+  font-size: 0.95em;
+  font-family: "Oswald", "EB Garamond", sans-serif;
+  font-weight: 200;
 }
 footer a { color: inherit; }
 
