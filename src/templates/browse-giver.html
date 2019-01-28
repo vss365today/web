@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="page center">
+<section class="page center">
   <h3>View VSS prompts by {{ giver }}</h3>
 
   {% if not tweets %}
@@ -15,5 +15,5 @@
     {% endfor %}
   </ul>
   {% endif %}
-</div>
+</section>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="page center">
+<section class="page center">
   <h3>&OpenCurlyDoubleQuote;To live more alone is a dream we only have at home.&CloseCurlyDoubleQuote;</h3>
   {% if removal_success %}
   <p>The email <strong>{{ email }}</strong> has been successfully removed.<br>
@@ -10,5 +10,5 @@
   <p>We were unable to remove <strong>{{ email }}</strong> from the subscription list.<br>
     We're terribly sorry about this! Please try to unsubscribe again in a few minutes.</p>
   {% endif %}
-</div>
+</section>
 {% endblock %}
