@@ -60,9 +60,8 @@ def get_all_givers():
     return Givers.query.distinct().order_by(Givers.handle).all()
 
 
-def get_tweets_by_month(month: str):
-    pass
-    # return Tweets.query.filter(Tweets.date.month == 1).all()
+def get_tweets_by_year(year: str):
+    return Tweets.query.filter(Tweets.date.startswith(year)).all()
 
 
 def get_tweets_by_giver(handle: str):

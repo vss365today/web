@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page center browse-giver">
+  <h3>View {{ year }} prompts</h3>
+
+  {% if not tweets -%}
+  <p>No VSS prompts for {{ year }} were found!</p>
+
+  {%- else %}
+  <ul>
+    {%- for tweet in tweets %}
+    <li>
+      <a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.date|format_date }} &mdash; <strong>{{ tweet.word }}</strong></a>
+    </li>
+    {%- if loop.index % 5 == 0 %}
+  </ul>
+
+  <ul>
+    {%- endif %}
+    {%- endfor %}
+  </ul>
+  {%- endif %}
+
+</section>
+{% endblock %}

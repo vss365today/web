@@ -8,13 +8,19 @@
   <div>
     <div>
       <h4>Browse by prompters</h4>
-    <ul>
-      {% for giver in givers -%}
-      <li><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">{{ giver.handle }}</a></li>
-      {% endfor  %}
-    </ul>
+      <ul>
+        {% for giver in givers -%}
+        <li><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">{{ giver.handle }}</a></li>
+        {% endfor  %}
+      </ul>
     </div>
 
-</div>
+    {# <div>
+      <h4>Browse by year</h4>
+      <ul>
+        <li><a href="{{ url_for('root.browse_by_year', year='2019') }}">2019</a></li>
+      </ul>
+    </div> #}
+  </div>
 </section>
 {% endblock %}

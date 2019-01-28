@@ -84,6 +84,17 @@ def browse_by_giver(giver) -> str:
     return render_template("browse-giver.html", **render_opts)
 
 
+# @bp.route("/browse/year/<year>")
+# def browse_by_year(year) -> str:
+#     render_opts = {
+#         "form": SubscribeForm(),
+#         "tweets": database.get_tweets_by_year(year),
+#         "year": year,
+#         "page_title": f"{year} VSS prompts"
+#     }
+#     return render_template("browse-year.html", **render_opts)
+
+
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
@@ -132,4 +143,3 @@ def format_date(date) -> str:
 @bp.app_template_filter()
 def format_content(content) -> str:
     return filters.format_content(content)
-
