@@ -38,10 +38,10 @@ def get_uid_by_handle(handle: str):
     return uid
 
 
-def get_latest_tweet(in_flask: bool = False):
+def get_latest_tweet(in_flask: bool = True):
     # Use the appropriate database api depending on
     # if we are inside a Flask context or not
-    if not in_flask:
+    if in_flask:
         return Tweets.query.order_by(Tweets.date.desc()).first_or_404()
     else:
         session = __connect_to_db_sqlalchemy()

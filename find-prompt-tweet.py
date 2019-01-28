@@ -51,7 +51,7 @@ def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
 
 # Get the latest tweet in the database
 # to see if we need to do anything
-latest_tweet = get_latest_tweet(in_flask=True)
+latest_tweet = get_latest_tweet(in_flask=False)
 today = date.today()
 
 # We already have latest tweet, don't do anything
