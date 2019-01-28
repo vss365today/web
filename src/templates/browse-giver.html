@@ -2,8 +2,11 @@
 
 {% block content %}
 <div class="page center">
-  <h3>View prompts by {{ prompt_giver }}</h3>
+  <h3>View VSS prompts by {{ giver }}</h3>
 
+  {% if not tweets %}
+  <p>No VSS prompts from {{ giver }} were found!</p>
+  {% else %}
   <ul>
     {% for tweet in tweets %}
     <li>
@@ -11,5 +14,6 @@
     </li>
     {% endfor %}
   </ul>
+  {% endif %}
 </div>
 {% endblock %}

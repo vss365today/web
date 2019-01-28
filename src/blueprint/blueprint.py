@@ -83,10 +83,10 @@ def browse_by_giver(giver) -> str:
     render_opts = {
         "form": SubscribeForm(),
         "tweets": get_tweets_by_giver(giver),
-        "prompt_giver": giver,
+        "giver": giver,
         "page_title": "Browse VSS prompts"
     }
-    return render_template("browse-name.html", **render_opts)
+    return render_template("browse-giver.html", **render_opts)
 
 
 @bp.route("/")
