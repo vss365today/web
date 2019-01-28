@@ -133,12 +133,3 @@ def format_date(date) -> str:
 def format_content(content) -> str:
     return filters.format_content(content)
 
-
-@bp.app_template_filter()
-def yesterday(date) -> str:
-    return filters.yesterday(date)
-
-
-@bp.app_template_filter()
-def tomorrow(date) -> str:
-    return filters.tomorrow(date)

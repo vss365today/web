@@ -8,9 +8,7 @@ __all__ = [
     "find_prompt_word",
     "format_content",
     "format_date",
-    "format_image_url",
-    "yesterday",
-    "tomorrow"
+    "format_image_url"
 ]
 
 
@@ -91,11 +89,3 @@ def format_content(text: str) -> str:
 
 def format_date(date) -> str:
     return date.strftime("%d %B, %Y")
-
-
-def yesterday(date) -> str:
-    return (date - timedelta(1)).isoformat()
-
-
-def tomorrow(date) -> str:
-    return (date + timedelta(1)).isoformat()
