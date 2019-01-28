@@ -84,7 +84,7 @@ def browse_by_giver(giver) -> str:
         "form": SubscribeForm(),
         "tweets": get_tweets_by_giver(giver),
         "giver": giver,
-        "page_title": "Browse VSS prompts"
+        "page_title": f"Prompts by {giver}"
     }
     return render_template("browse-giver.html", **render_opts)
 
