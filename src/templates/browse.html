@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="page">
+<section class="page browse-page">
   <h3 class="center">&OpenCurlyDoubleQuote;Those who forget history are doomed to repeat it.&CloseCurlyDoubleQuote;</h3>
   <p>Did you miss a VSS prompt? Do you want to view the previous prompts and perhaps gain some writing inspriation? You've come to the right place, as this is where you'll find all the daily prompts! Happy browsing!</p>
 
-  <!-- style="display: flex; flex-direction: row; align-items: center; justify-content: center;" -->
   <div>
-    <h4>Browse by prompt givers</h4>
+    <div>
+      <h4>Browse by prompters</h4>
     <ul>
       {% for giver in givers -%}
       <li><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">{{ giver.handle }}</a></li>
       {% endfor  %}
     </ul>
+    </div>
 
 </div>
 </section>

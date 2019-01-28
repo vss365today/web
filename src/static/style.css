@@ -108,6 +108,13 @@ footer a { color: inherit; }
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
 }
 
+.browse-page > div:first-of-type {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
 .browse-giver ul {
   display: inline-block;
   vertical-align: top;
@@ -155,6 +162,6 @@ button:focus {
 
   .browse-giver li {
     font-size: 1.15em;
-    line-height: 1.8;
+    line-height: 2;
   }
 }
