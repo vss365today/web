@@ -110,11 +110,6 @@ footer a { color: inherit; }
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
 }
 
-.tweet {
-  line-height: 0.5;
-  font-size: 0.95em;
-}
-
 form {
   margin-top: 1em;
   display: flex;

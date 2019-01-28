@@ -9,9 +9,9 @@
   <div>
     <h4>Browse by prompt givers</h4>
     <ul>
-      {% for giver in givers %}
+      {% for giver in givers -%}
       <li><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">{{ giver.handle }}</a></li>
-      {% endfor %}
+      {% endfor  %}
     </ul>
 
     <!-- <h4>Browse by month</h4>
