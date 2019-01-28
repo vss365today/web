@@ -103,7 +103,9 @@ if prompt_tweet.entities.get("media"):
 tweet = {
     "tweet_id": quote(prompt_tweet.id_str),
     "date": tweet_date,
-    "uid": get_uid_by_handle(escape(prompt_tweet.author.screen_name))[0],
+    "uid": get_uid_by_handle(
+        escape(prompt_tweet.author.screen_name), in_flask=False
+    )[0],
     "handle": escape(prompt_tweet.author.screen_name),
     "content": escape(tweet_text),
     "word": find_prompt_word(tweet_text)

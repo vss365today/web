@@ -10,7 +10,7 @@ from src.core.filters import create_date, find_prompt_word
 
 def extract_uid(url: str) -> str:
     handle = match(r"^https://twitter\.com/(\w+)/status", url)[1]
-    uid = get_uid_by_handle(handle)
+    uid = get_uid_by_handle(handle, in_flask=False)
     return uid[0] if uid is not None else None
 
 
