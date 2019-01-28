@@ -7,9 +7,10 @@ from src.core.helpers import create_db_connection, load_env_vals
 __all__ = [
     "add_tweet_to_db",
     "get_all_emails",
-    "get_prompt_givers",
+    "get_all_givers",
     "get_latest_tweet",
-    "get_tweet_by_date"
+    "get_tweet_by_date",
+    "get_tweets_by_giver"
 ]
 
 
@@ -31,11 +32,16 @@ def get_all_emails() -> list:
     return all_emails
 
 
-def get_uid_by_handle(handle: str):
-    session = __connect_to_db_sqlalchemy()
-    uid = session.query(Givers.uid).filter_by(handle=handle).first()
-    session.close()
-    return uid
+def get_uid_by_handle(handle: str, in_flask: bool = True):
+    # Use the appropriate database api depending on
+    # if we are inside a Flask context or not
+    if in_flask:
+        return Givers.query.filter_by(handle=handle).first()
+    else:
+        session = __connect_to_db_sqlalchemy()
+        uid = session.query(Givers.uid).filter_by(handle=handle).first()
+        session.close()
+        return uid
 
 
 def get_latest_tweet(in_flask: bool = True):
@@ -50,17 +56,18 @@ def get_latest_tweet(in_flask: bool = True):
         return tweet
 
 
-def get_prompt_givers():
-    return Tweets.query.with_entities(Tweets.user_handle.distinct()).all()
+def get_all_givers():
+    return Givers.query.distinct().all()
 
 
-def get_words_by_month(month: str):
+def get_tweets_by_month(month: str):
     pass
     # return Tweets.query.filter(Tweets.date.month == 1).all()
 
 
-def get_words_by_prompt_giver(handle: str):
-    return Tweets.query.filter_by(user_handle=handle).all()
+def get_tweets_by_giver(handle: str):
+    uid = get_uid_by_handle(handle)
+    return Tweets.query.filter_by(uid=uid.uid).all()
 
 
 def get_tweet_by_date(date: str):
@@ -79,16 +86,16 @@ def add_giver_to_db(giver_dict: dict):
     session.close()
 
 
-def add_tweet_to_db(tweet: dict):
+def add_tweet_to_db(tweet_dict: dict):
     """Add a tweet to the database."""
-    word = Tweets(
-        tweet_id=tweet["tweet_id"],
-        date=tweet["date"],
-        uid=tweet["uid"],
-        content=tweet["content"],
-        word=tweet["word"]
+    tweet = Tweets(
+        tweet_id=tweet_dict["tweet_id"],
+        date=tweet_dict["date"],
+        uid=tweet_dict["uid"],
+        content=tweet_dict["content"],
+        word=tweet_dict["word"]
     )
     session = __connect_to_db_sqlalchemy()
-    session.add(word)
+    session.add(tweet)
     session.commit()
     session.close()

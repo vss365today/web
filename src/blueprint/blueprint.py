@@ -2,10 +2,10 @@ from flask import Blueprint, request
 from flask import render_template
 
 from src.core.database import (
-    get_prompt_givers,
+    get_all_givers,
     get_latest_tweet,
     get_tweet_by_date,
-    get_words_by_prompt_giver
+    get_tweets_by_giver
 )
 from src.core import filters
 from src.core.form import SubscribeForm
@@ -72,18 +72,18 @@ def about() -> str:
 def browse() -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "prompt_givers": get_prompt_givers(),
+        "givers": get_all_givers(),
         "page_title": "Browse VSS prompts"
     }
     return render_template("browse.html", **render_opts)
 
 
-@bp.route("/browse/<name>")
-def browse_by_name(name) -> str:
+@bp.route("/browse/<giver>")
+def browse_by_giver(giver) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": get_words_by_prompt_giver(name),
-        "prompt_giver": name,
+        "tweets": get_tweets_by_giver(giver),
+        "prompt_giver": giver,
         "page_title": "Browse VSS prompts"
     }
     return render_template("browse-name.html", **render_opts)

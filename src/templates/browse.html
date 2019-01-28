@@ -9,8 +9,8 @@
   <div>
     <h4>Browse by prompt givers</h4>
     <ul>
-      {% for name in prompt_givers %}
-      <li><a href="{{ url_for('root.browse_by_name', name=name[0]) }}">{{ name[0]|e }}</a></li>
+      {% for giver in givers %}
+      <li><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">{{ giver.handle }}</a></li>
       {% endfor %}
     </ul>
 
