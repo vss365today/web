@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Email
 
 class SubscribeForm(FlaskForm):
     email = EmailField(
-        "Enter your email to receive daily notifications!",
+        "Subscribe to daily VSS 365 notifications",
         id="input-email",
         validators=[DataRequired(), Email()]
     )
