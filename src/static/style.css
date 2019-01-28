@@ -13,6 +13,7 @@ body {
   font-family: "EB Garamond", serif;
   font-size: 18px;
   line-height: 1.6;
+  font-weight: 400;
   color: #353333;
 
   text-rendering: optimizeLegibility;
@@ -23,7 +24,7 @@ h1, h2, h3, h4, h5, h6, strong, label {
   font-weight: 500;
 }
 
-label { font-weight: 400; }
+label { font-size: 0.9em; }
 strong { font-size: 0.85em; }
 
 a {
