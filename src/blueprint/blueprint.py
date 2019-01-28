@@ -1,12 +1,7 @@
 from flask import Blueprint, request
 from flask import render_template
 
-from src.core.database import (
-    get_all_givers,
-    get_latest_tweet,
-    get_tweet_by_date,
-    get_tweets_by_giver
-)
+from src.core import database
 from src.core import filters
 from src.core.form import SubscribeForm
 from src.core.helpers import validate_email
@@ -72,17 +67,17 @@ def about() -> str:
 def browse() -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "givers": get_all_givers(),
+        "givers": database.get_all_givers(),
         "page_title": "Browse VSS prompts"
     }
     return render_template("browse.html", **render_opts)
 
 
-@bp.route("/browse/<giver>")
+@bp.route("/browse/name/<giver>")
 def browse_by_giver(giver) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": get_tweets_by_giver(giver),
+        "tweets": database.get_tweets_by_giver(giver),
         "giver": giver,
         "page_title": f"Prompts by {giver}"
     }
@@ -92,7 +87,7 @@ def browse_by_giver(giver) -> str:
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
-    tweet = get_latest_tweet()
+    tweet = database.get_latest_tweet()
     render_opts = {
         "tweet": tweet,
         "form": SubscribeForm(),
@@ -103,7 +98,7 @@ def index() -> str:
 
 @bp.route("/<date>")
 def date(date) -> str:
-    tweet = get_tweet_by_date(date)
+    tweet = database.get_tweet_by_date(date)
     render_opts = {
         "tweet": tweet,
         "form": SubscribeForm(),
