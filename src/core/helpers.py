@@ -10,10 +10,6 @@ def create_db_connection(config):
     return connect_str, create_engine(connect_str)
 
 
-def confirm_prompt_account(given: str, expected: str) -> bool:
-    return given.upper() == expected.upper()
-
-
 def find_prompt_tweet(text: str) -> bool:
     return all(
         hashtag in text.upper()

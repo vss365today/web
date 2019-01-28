@@ -2,6 +2,7 @@ from datetime import date
 from flask import Flask
 
 from src.blueprint import blueprint
+from src.core.filters import create_tweet_url
 from src.extensions import init_extensions
 
 
@@ -24,5 +25,9 @@ def create_app():
             "nav_page_indicator":
                 lambda title, has: ("active" if has in title.lower() else "")
         }
+
+    @app.context_processor
+    def create_url():
+        return {"create_url": lambda tweet: create_tweet_url(tweet)}
 
     return app

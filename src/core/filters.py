@@ -27,6 +27,10 @@ def create_proper_image_url(
     return text.replace(img_short_url, img_full_url)
 
 
+def create_tweet_url(tweet: dict) -> str:
+    return f"https://twitter.com/{tweet.giver.handle}/status/{tweet.tweet_id}"
+
+
 def find_prompt_word(text: str) -> str:
     prompt_word = ""
 
@@ -47,7 +51,7 @@ def find_prompt_word(text: str) -> str:
         # If there are any hashtags left, get the first one
         # and remove the prefixed pound sign
         if remaining:
-            prompt_word = remaining[0]
+            prompt_word = remaining[0][1:]
     return prompt_word
 
 
@@ -67,7 +71,7 @@ def format_image_url(text: str) -> str:
     # If we have one, put it in an HTML img tag
     if match:
         url = match.group(0)
-        text = text.replace(url, f'<img width="500" src="{url}">')
+        text = text.replace(url, f'\n<img width="500" src="{url}">')
     return text
 
 
@@ -78,7 +82,7 @@ def format_content(text: str) -> str:
     # Wrap all non-blank lines in paragraphs
     split_text = text.split("\n")
     split_text = [
-        f"<p>{para}</p>"
+        f"<p>{para.strip()}</p>"
         for para in split_text
         if para  # false-y value means blank line
     ]
