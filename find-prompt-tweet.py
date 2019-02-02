@@ -94,6 +94,8 @@ tweet_media = None
 
 # This tweet was posted with TweetDeck,
 # which changes the API response
+# TODO: See if something can be done to handle this
+# Might have to dl page the parse the image out (see: bs4)
 if prompt_tweet.source == "TweetDeck":
     pass
 
