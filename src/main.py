@@ -20,9 +20,9 @@ def create_app():
         return {"current_year": date.today().year}
 
     @app.context_processor
-    def nav_page_indicator():
+    def nav_cur_page():
         return {
-            "nav_page_indicator":
+            "nav_cur_page":
                 lambda title, has: ("active" if has in title.lower() else "")
         }
 
