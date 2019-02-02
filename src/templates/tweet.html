@@ -6,6 +6,7 @@
 
   <div class="tweet">
     {{ tweet.content|format_content|safe }}
+    <img width="500" alt="" src="{{ tweet.media }}">
     <p>Prompt by <a href="{{ create_url(tweet) }}">@{{ tweet.giver.handle }}</a></p>
   </div>
 </section>

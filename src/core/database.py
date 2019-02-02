@@ -92,7 +92,8 @@ def add_tweet_to_db(tweet_dict: dict):
         date=tweet_dict["date"],
         uid=tweet_dict["uid"],
         content=tweet_dict["content"],
-        word=tweet_dict["word"]
+        word=tweet_dict["word"],
+        media=tweet_dict["media"]
     )
     session = __connect_to_db_sqlalchemy()
     session.add(tweet)

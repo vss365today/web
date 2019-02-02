@@ -75,7 +75,7 @@ def format_image_url(text: str) -> str:
 
 def format_content(text: str) -> str:
     # Start by forming a proper image URL
-    text = format_image_url(text)
+    # text = format_image_url(text)
 
     # Wrap all non-blank lines in paragraphs
     split_text = text.split("\n")

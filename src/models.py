@@ -16,6 +16,7 @@ class Tweets(alchemy.Model):
     uid = alchemy.Column(alchemy.String(30), alchemy.ForeignKey("givers.uid"))
     content = alchemy.Column(alchemy.String(512))
     word = alchemy.Column(alchemy.String(25))
+    media = alchemy.Column(alchemy.String(512))
 
 
 class Givers(alchemy.Model):
