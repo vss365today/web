@@ -42,11 +42,6 @@ def find_prompt_word(text: str) -> str:
     return prompt_word
 
 
-def format_prompt_word(word: str) -> str:
-    # TODO: Do this better
-    return f"<h3>{word}</h3>"
-
-
 def format_content(text: str) -> str:
     # Wrap all non-blank lines in paragraphs
     split_text = text.split("\n")
