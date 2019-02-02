@@ -1,5 +1,6 @@
 from datetime import date
 from flask import Flask
+from werkzeug.contrib.fixers import ProxyFix
 
 from src.blueprint import blueprint
 from src.core.filters import create_tweet_url
@@ -8,6 +9,8 @@ from src.extensions import init_extensions
 
 def create_app():
     app = Flask(__name__)
+    # https://stackoverflow.com/a/45333882
+    app.wsgi_app = ProxyFix(app.wsgi_app)
     app.register_blueprint(blueprint.bp)
     init_extensions(app)
 
