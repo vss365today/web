@@ -13,7 +13,6 @@ from src.core.database import (
 from src.core.emails.sender import send_emails
 from src.core.filters import (
     create_date,
-    create_proper_image_url,
     find_prompt_word
 )
 from src.core.helpers import (
@@ -90,25 +89,36 @@ if tweet_date == latest_tweet.date:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
 
-# If we have media in our tweet, get a proper URL to it
 tweet_text = prompt_tweet.text
-if prompt_tweet.entities.get("media"):
+tweet_media = None
+
+# This tweet was posted with TweetDeck,
+# which changes the API response
+if prompt_tweet.source == "TweetDeck":
+    pass
+
+# This tweet was not posted with TweetDeck
+# If we have media in our tweet, get a proper URL to it
+elif prompt_tweet.entities.get("media"):
+    # Get the media in the tweet
     media = prompt_tweet.entities["media"]
-    tweet_text = create_proper_image_url(
-        tweet_text,
-        media[0]["url"], media[0]["media_url_https"]
-    )
+
+    # Remove the media url from the tweet
+    tweet_text = tweet_text.replace(media[0]["url"], "")
+    tweet_media = quote(media[0]["media_url_https"])
 
 # Construct a dictionary with only the info we need
 tweet = {
     "tweet_id": quote(prompt_tweet.id_str),
     "date": tweet_date,
     "uid": get_uid_by_handle(
-        escape(prompt_tweet.author.screen_name), in_flask=False
+        escape(prompt_tweet.author.screen_name),
+        in_flask=False
     )[0],
     "handle": escape(prompt_tweet.author.screen_name),
     "content": escape(tweet_text),
-    "word": find_prompt_word(tweet_text)
+    "word": find_prompt_word(tweet_text),
+    "media": tweet_media
 }
 pprint(tweet)
 

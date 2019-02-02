@@ -1,6 +1,7 @@
 from html import escape
 from pprint import pprint
 from re import match
+from urllib.parse import quote
 
 
 from src.core.database import add_tweet_to_db, get_uid_by_handle
@@ -21,12 +22,9 @@ def extract_tweet_id(url: str) -> str:
 tweet_date = input("Enter the tweet date (YYYY-MM-DD): ")
 tweet_url = input("Enter the tweet url: ")
 tweet_text = input("Enter the tweet text: ")
-tweet_image = input("Enter the tweet image (leave blank for none): ")
-
-# Add the image to the tweet content if one was given
+tweet_media = input("Enter the tweet image (leave blank for none): ")
 tweet_text = tweet_text.replace("\\n", "\n")
-if tweet_image.strip():
-    tweet_text = f"{tweet_text}\n\n{tweet_image}"
+tweet_media = quote(tweet_media) if tweet_media.strip() else None
 
 # Construct the tweet object
 tweet = {
@@ -34,7 +32,8 @@ tweet = {
     "date": create_date(tweet_date.strip()),
     "uid": escape(extract_uid(tweet_url)),
     "content": escape(tweet_text),
-    "word": find_prompt_word(tweet_text)
+    "word": find_prompt_word(tweet_text),
+    "media": tweet_media
 }
 pprint(tweet)
 
