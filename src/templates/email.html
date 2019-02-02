@@ -1425,6 +1425,9 @@ body.outlook p {
                                   <p>It's time for the VSS 365 prompt! Prepare to tell the word your story!</p>
                                   <h4 class="text-center">Today's writing prompt is: {{ word }}</h4>
                                   {{ content }}
+                                  {% if media %}
+                                      <img width="500" alt="" src="{{ media }}">
+                                  {% endif %}
                                   <p>Prompt by <a href="{{ tweet_url }}">@{{ user_handle }}</a></p>
                                 </th>
                                 <th class="expander"></th>

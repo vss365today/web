@@ -18,7 +18,8 @@ def render_email_base(tweet: dict) -> str:
         "user_handle": tweet["handle"],
         "date": format_date(tweet["date"]),
         "tweet_url": create_tweet_url(tweet),
-        "content": format_content(tweet["content"])
+        "content": format_content(tweet["content"]),
+        "media": tweet["media"]
     }
     return template.render(**render_vals).replace(r"{\{", "{{")
 
