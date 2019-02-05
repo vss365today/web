@@ -35,11 +35,10 @@ def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
     prompt_tweet = None
     for tweet in own_tweets:
         # Try to find the prompt tweet among the pulled tweets
-        if not find_prompt_tweet(tweet.text):
-            continue
-        else:
+        if find_prompt_tweet(tweet.text):
             prompt_tweet = tweet
             break
+        continue
 
     # We didn't find the prompt tweet, so we need to search again,
     # but this time, older than the oldest tweet we currently have
@@ -89,6 +88,7 @@ if tweet_date == latest_tweet.date:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
 
+# TODO: .text keeps getting truncated data
 tweet_text = prompt_tweet.text
 tweet_media = None
 
