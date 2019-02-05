@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime, timedelta
 import re
 
 
@@ -7,6 +7,8 @@ __all__ = [
     "find_prompt_word",
     "format_content",
     "format_date",
+    "previous",
+    "next"
 ]
 
 
@@ -55,3 +57,13 @@ def format_content(text: str) -> str:
 
 def format_date(date) -> str:
     return date.strftime("%d %B, %Y")
+
+
+def previous(date) -> str:
+    # TODO: .isoformat() ?
+    return datetime.strftime(date - timedelta(1), "%Y-%m-%d")
+
+
+def next(date) -> str:
+    # TODO: .isoformat() ?
+    return datetime.strftime(date + timedelta(1), "%Y-%m-%d")
