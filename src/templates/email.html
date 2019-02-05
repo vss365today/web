@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width">
     <title>{{ date }} | VSS 365 Today</title>
     <!-- Based on template from https://foundation.zurb.com/emails.html -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,500|EB+Garamond:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,500|Noto+Serif+SC:400,700">
     <style>
       .wrapper { width: 100%; }
 #outlook a { padding: 0; }
@@ -829,7 +829,7 @@ td,
 th,
 a {
   color: #353333;
-  font-family: "EB Garamond", Helvetica, Arial, sans-serif;
+  font-family: "Noto Serif SC", Helvetica, Arial, sans-serif;
   font-weight: normal;
   padding: 0;
   margin: 0;
@@ -1423,7 +1423,7 @@ body.outlook p {
                               <tr>
                                 <th>
                                   <p>It's time for the VSS 365 prompt! Prepare to tell the word your story!</p>
-                                  <h4 class="text-center">Today's writing prompt is: {{ word }}</h4>
+                                  <h4 class="text-center">Today's writing prompt is<br>{{ word }}</h4>
                                   {{ content }}
                                   {% if media %}
                                       <img width="500" alt="" src="{{ media }}">

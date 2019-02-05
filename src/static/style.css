@@ -10,7 +10,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
 
-  font-family: "EB Garamond", serif;
+  font-family: "Noto Serif SC", serif;
   font-size: 18px;
   line-height: 1.6;
   font-weight: 400;
@@ -20,12 +20,12 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, strong, label {
-  font-family: "Oswald", "EB Garamond", sans-serif;
+  font-family: "Oswald", "Noto Serif SC", sans-serif;
   font-weight: 500;
 }
 
 label { font-size: 0.9em; }
-strong { font-size: 0.85em; }
+strong { font-size: 0.93em; }
 
 a {
   text-decoration: none;
@@ -64,7 +64,7 @@ nav {
 nav a {
   margin-right: 1em;
   margin-left: 1em;
-  font-family: "Oswald", "EB Garamond", sans-serif;
+  font-family: "Oswald", "Noto Serif SC", sans-serif;
   font-weight: 200;
   font-size: 1.25em;
 }
@@ -82,7 +82,7 @@ footer {
   text-align: center;
   background-color: #96ffff;
   font-size: 0.95em;
-  font-family: "Oswald", "EB Garamond", sans-serif;
+  font-family: "Oswald", "Noto Serif SC", sans-serif;
   font-weight: 200;
 }
 footer a { color: inherit; }
@@ -92,14 +92,15 @@ footer a { color: inherit; }
   width: 58%;
   margin-right: 0;
   margin-left: 0;
+  font-size: 0.84em;
 }
 .page h3,
 .page h4 { margin-bottom: -0.5em; }
 
 .center { text-align: center; }
 .tweet {
-  line-height: 1;
-  font-size: 0.95em;
+  line-height: 1.3;
+  font-size: 0.8em;
 }
 
 .content img {
@@ -132,7 +133,7 @@ input, button {
   margin-top: 0.2em;
   padding: 0.2em;
   font-family: inherit;
-  font-size: 0.95em;
+  font-size: 0.85em;
   border: 1px solid lightgrey;
   border-radius: 2px;
 }
