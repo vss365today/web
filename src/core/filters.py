@@ -55,15 +55,16 @@ def format_content(text: str) -> str:
     return "\n".join(split_text)
 
 
-def format_date(date) -> str:
+def format_date(date: date) -> str:
+    """Nicely format the date in a non ISO 8601 manner."""
     return date.strftime("%d %B, %Y")
 
 
-def previous(date) -> str:
-    # TODO: .isoformat() ?
-    return datetime.strftime(date - timedelta(1), "%Y-%m-%d")
+def previous(date: date) -> str:
+    """Get the date prior to the given date."""
+    return (date - timedelta(1)).isoformat()
 
 
-def next(date) -> str:
-    # TODO: .isoformat() ?
-    return datetime.strftime(date + timedelta(1), "%Y-%m-%d")
+def next(date: date) -> str:
+    """Get the date after to the given date."""
+    return (date + timedelta(1)).isoformat()

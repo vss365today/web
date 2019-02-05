@@ -4,6 +4,9 @@
 <section class="content">
   <h3 class="center">Today's writing prompt is<br><span class="word">{{ tweet.word }}</span></h3>
 
+  {# <a href="{{ url_for('root.date', date=tweet.date|previous)}}">Previous</a>
+  <a href="{{ url_for('root.date', date=tweet.date|next)}}">Next</a> -#}
+
   <div class="tweet">
     {{ tweet.content|format_content|safe }}
     {% if tweet.media %}

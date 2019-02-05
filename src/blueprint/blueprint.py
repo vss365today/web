@@ -143,3 +143,13 @@ def format_date(date) -> str:
 @bp.app_template_filter()
 def format_content(content) -> str:
     return filters.format_content(content)
+
+
+@bp.app_template_filter()
+def previous(date: date) -> str:
+    return filters.previous(date)
+
+
+@bp.app_template_filter()
+def next(date: date) -> str:
+    return filters.next(date)
