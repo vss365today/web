@@ -58,7 +58,7 @@ def unsubscribe() -> str:
 def about() -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "page_title": "About VSS 365"
+        "page_title": "About #vss365"
     }
     return render_template("about.html", **render_opts)
 
@@ -68,7 +68,7 @@ def browse() -> str:
     render_opts = {
         "form": SubscribeForm(),
         "givers": database.get_all_givers(),
-        "page_title": "Browse VSS prompts"
+        "page_title": "Browse #vss365 prompts"
     }
     return render_template("browse.html", **render_opts)
 
@@ -90,7 +90,7 @@ def browse_by_giver(giver) -> str:
 #         "form": SubscribeForm(),
 #         "tweets": database.get_tweets_by_year(year),
 #         "year": year,
-#         "page_title": f"{year} VSS prompts"
+#         "page_title": f"{year} #vss365 prompts"
 #     }
 #     return render_template("browse-year.html", **render_opts)
 
