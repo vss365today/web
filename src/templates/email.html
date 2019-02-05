@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>{{ date }} | VSS 365 Today</title>
+    <title>{{ tweet.date }} | VSS 365 Today</title>
     <!-- Based on template from https://foundation.zurb.com/emails.html -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,500|Noto+Serif+SC:400,700">
     <style>
@@ -1396,7 +1396,7 @@ body.outlook p {
                       <tr>
                         <th>
                           <h1 class="text-center">VSS 365 Today</h1>
-                          <h2 class="text-center">{{ date }}</h2>
+                          <h2 class="text-center">{{ tweet.date }}</h2>
                           </th>
                       </tr>
                     </tbody>
@@ -1422,13 +1422,13 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th>
-                                  <p>It's time for the VSS 365 prompt! Prepare to tell the word your story!</p>
-                                  <h4 class="text-center">Today's writing prompt is<br>{{ word }}</h4>
-                                  {{ content }}
-                                  {% if media %}
-                                      <img width="500" alt="" src="{{ media }}">
+                                  <p>It's time for the #vss365 prompt! Prepare to tell the word your story!</p>
+                                  <h4 class="text-center">Today's writing prompt is<br>{{ tweet.word }}</h4>
+                                  {{ tweet.content }}
+                                  {% if tweet.media %}
+                                      <img width="500" alt="" src="{{ tweet.media }}">
                                   {% endif %}
-                                  <p>Prompt by <a href="{{ tweet_url }}">@{{ user_handle }}</a></p>
+                                  <p>Prompt by <a href="{{ tweet.url }}">@{{ tweet.handle }}</a></p>
                                 </th>
                                 <th class="expander"></th>
                               </tr>
@@ -1457,7 +1457,7 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th class="menu-item float-center">
-                                  This email has been sent to <strong>{{ email }}</strong> by <a href="https://vss365today.com">VSS 365 Today</a>.
+                                  This email has been sent to <strong>{\{ email }}</strong> by <a href="https://vss365today.com">VSS 365 Today</a>.
                                   If you believe you have received this email in error or no longer wish to receive them, feel free to <a href="https://vss365today.com/unsubscribe?email={\{ email }}">unsubscribe</a>.
                                 </th>
                               </tr>

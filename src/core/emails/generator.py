@@ -12,16 +12,12 @@ def render_email_base(tweet: dict) -> str:
     templateEnv = jinja2.Environment(loader=templateLoader)
     template = templateEnv.get_template("email.html")
 
-    # Render the base email content
-    render_vals = {
-        "word": tweet["word"],
-        "user_handle": tweet["handle"],
-        "date": format_date(tweet["date"]),
-        "tweet_url": create_tweet_url(tweet),
-        "content": format_content(tweet["content"]),
-        "media": tweet["media"]
-    }
-    return template.render(**render_vals).replace(r"{\{", "{{")
+    # Render the base email content,
+    # formatting all information as needed
+    tweet["date"] = format_date(tweet["date"])
+    tweet["content"] = format_content(tweet["content"])
+    tweet["url"] = create_tweet_url(tweet),
+    return template.render(**{"tweet": tweet}).replace(r"{\{", "{{")
 
 
 def render_email_addr(template: str, email: str) -> str:
