@@ -107,6 +107,12 @@ footer a { color: inherit; }
   font-size: 0.8em;
 }
 
+.btns-prev-next {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1.2em;
+}
+
 .content img {
   display: block;
   margin-top: 1em;
