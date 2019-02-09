@@ -19,8 +19,8 @@ def create_app():
         return {"site_title": app.config["SITE_TITLE"]}
 
     @app.context_processor
-    def inject_current_year():
-        return {"current_year": date.today().year}
+    def inject_current_date():
+        return {"current_date": date.today()}
 
     @app.context_processor
     def nav_cur_page():
