@@ -109,8 +109,9 @@ footer a { color: inherit; }
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
 }
 
+.content > h3 { font-family: "Noto Serif SC", serif; }
 .content .word {
-  font-family: "EB Garamond", "Noto Serif SC", serif;
+  font-family: "Oswald", "Noto Serif SC", sans-serif;
   font-size: 1.5em;
 }
 
