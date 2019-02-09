@@ -58,6 +58,10 @@ header {
 header h1 { margin-bottom: -0.75em; }
 header h1 a { color: inherit; }
 header h2 { font-weight: 200; }
+header img {
+  position: relative;
+  top: 0.2em;
+}
 
 nav {
   display: flex;
