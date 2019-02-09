@@ -65,7 +65,7 @@ nav {
   justify-content: center;
 }
 
-nav a {
+nav.primary a {
   margin-right: 1em;
   margin-left: 1em;
   font-family: "Oswald", "Noto Serif SC", sans-serif;

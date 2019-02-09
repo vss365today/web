@@ -1355,7 +1355,7 @@ body.outlook p {
 
     <style>
       .header {
-        background: #96ffff;
+        background: #82eeee;
       }
 
       .header .columns {
@@ -1373,12 +1373,15 @@ body.outlook p {
       }
 
       .header .container {
-        background: #96ffff;
+        background: #82eeee;
       }
 
       .wrapper.secondary {
         background: #f3f3f3;
       }
+
+      .prompt-highlight { font-family: "Noto Serif SC", serif; }
+      .prompt-highlight > .word { font-family: "Oswald", sans-serif; }
     </style>
   </head>
 
@@ -1422,8 +1425,8 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th>
-                                  <p>It's time for the #vss365 prompt! Prepare to tell the word your story!</p>
-                                  <h4 class="text-center">Today's writing prompt is<br>{{ tweet.word }}</h4>
+                                  <p>It's time for the #vss365 prompt!</p>
+                                  <h4 class="prompt-highlight text-center">Today's writing prompt is<br><span class="word">{{ tweet.word }}</span></h4>
                                   {{ tweet.content }}
                                   {% if tweet.media %}
                                       <img width="400" alt="" src="{{ tweet.media }}">
