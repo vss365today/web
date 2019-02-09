@@ -1,3 +1,7 @@
+:root {
+  --primary-bg-accent: #82eeee;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { min-width: 320px; }
@@ -29,7 +33,7 @@ strong { font-size: 0.93em; }
 
 a {
   text-decoration: none;
-  color: rgb(70, 199, 134);
+  color: rgb(58, 184, 121);
   border-bottom: 2px solid transparent;
 }
 a:hover,
@@ -47,7 +51,7 @@ img {
 header {
   margin-bottom: 0.5em;
 
-  background-color: rgb(150, 255, 255);
+  background-color: rgb(130, 238, 238);
   text-align: center;
 }
 
@@ -65,7 +69,7 @@ nav a {
   margin-right: 1em;
   margin-left: 1em;
   font-family: "Oswald", "Noto Serif SC", sans-serif;
-  font-weight: 200;
+  font-weight: 300;
   font-size: 1.25em;
 }
 
@@ -80,10 +84,10 @@ footer {
   margin-top: 1em;
   padding: 0.5em;
   text-align: center;
-  background-color: #96ffff;
-  font-size: 0.95em;
+  background-color: rgb(130, 238, 238);
+  font-size: 0.96em;
   font-family: "Oswald", "Noto Serif SC", sans-serif;
-  font-weight: 200;
+  font-weight: 300;
 }
 footer a { color: inherit; }
 
@@ -109,7 +113,7 @@ footer a { color: inherit; }
   filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
 }
 
-.content > h3 { font-family: "Noto Serif SC", serif; }
+.content .prompt-highlight { font-family: "Noto Serif SC", serif; }
 .content .word {
   font-family: "Oswald", "Noto Serif SC", sans-serif;
   font-size: 1.5em;
