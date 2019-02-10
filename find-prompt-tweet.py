@@ -27,7 +27,13 @@ def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
         return None
 
     # Get the latest tweets from the prompt giver
-    statuses = api.user_timeline(uid, max_id=tweet_id, count=20)
+    # We need to enable extended mode to get tweets > 140 characters
+    statuses = api.user_timeline(
+        uid,
+        max_id=tweet_id,
+        count=20,
+        tweet_mode="extended"
+    )
 
     # Start by filtering out any retweets
     own_tweets = list(filter(lambda status: not status.retweeted, statuses))
@@ -35,7 +41,7 @@ def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
     prompt_tweet = None
     for tweet in own_tweets:
         # Try to find the prompt tweet among the pulled tweets
-        if find_prompt_tweet(tweet.text):
+        if find_prompt_tweet(tweet.full_text):
             prompt_tweet = tweet
             break
         continue
@@ -88,8 +94,10 @@ if tweet_date == latest_tweet.date:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
 
-# TODO: .text keeps getting truncated data
-tweet_text = prompt_tweet.text
+# Because we're accessing "extended" tweets (> 140 chars),
+# we need to be sure to access the correct property
+# that holds a non-truncated version of the text
+tweet_text = prompt_tweet.full_text
 tweet_media = None
 
 # This tweet was posted with TweetDeck,
