@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from flask import render_template
+from flask import abort, render_template
 
 from src.core import database
 from src.core import filters
@@ -101,6 +101,8 @@ def index() -> str:
     tweet = database.get_latest_tweet()
     render_opts = {
         "tweet": tweet,
+        "exists_previous_day": True,
+        "exists_next_day": False,
         "form": SubscribeForm(),
         "page_title": filters.format_date(tweet.date)
     }
@@ -110,8 +112,25 @@ def index() -> str:
 @bp.route("/<date>")
 def date(date) -> str:
     tweet = database.get_tweet_by_date(date)
+
+    # Abort if we don't have a tweet for this day
+    if tweet is None:
+        abort(404)
+
+    # Check if a tweet for the previous day exists
+    exists_previous_day = database.get_tweet_by_date(
+        filters.previous(tweet.date)
+    ) is not None
+
+    # Check if a tweet for the next day even exists
+    exists_next_day = database.get_tweet_by_date(
+        filters.next(tweet.date)
+    ) is not None
+
     render_opts = {
         "tweet": tweet,
+        "exists_previous_day": exists_previous_day,
+        "exists_next_day": exists_next_day,
         "form": SubscribeForm(),
         "page_title": filters.format_date(tweet.date)
     }

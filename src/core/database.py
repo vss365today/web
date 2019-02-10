@@ -70,7 +70,7 @@ def get_tweets_by_giver(handle: str):
 
 
 def get_tweet_by_date(date: str):
-    return Tweets.query.filter(Tweets.date == date).first_or_404()
+    return Tweets.query.filter(Tweets.date == date).first()
 
 
 def add_giver_to_db(giver_dict: dict):

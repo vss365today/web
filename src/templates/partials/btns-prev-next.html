@@ -1,5 +1,8 @@
 <nav class="btns-prev-next">
-  {# TODO: Conditional hide/show #}
+  {% if exists_previous_day -%}
   <a href="{{ url_for('root.date', date=tweet.date|previous) }}">⬅ Previous</a>
+  {% endif -%}
+  {% if exists_next_day -%}
   <a href="{{ url_for('root.date', date=tweet.date|next) }}">Next ➡️</a>
+  {% endif -%}
 </nav>
