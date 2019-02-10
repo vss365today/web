@@ -100,16 +100,8 @@ if tweet_date == latest_tweet.date:
 tweet_text = prompt_tweet.full_text
 tweet_media = None
 
-# This tweet was posted with TweetDeck,
-# which changes the API response
-# TODO: See if something can be done to handle this
-# Might have to dl page the parse the image out (see: bs4)
-if prompt_tweet.source == "TweetDeck":
-    pass
-
-# This tweet was not posted with TweetDeck
 # If we have media in our tweet, get a proper URL to it
-elif prompt_tweet.entities.get("media"):
+if prompt_tweet.entities.get("media"):
     # Get the media in the tweet
     media = prompt_tweet.entities["media"]
 
