@@ -1,7 +1,6 @@
 from datetime import date
 from html import escape
 from pprint import pprint
-from urllib.parse import quote
 
 import tweepy
 
@@ -107,11 +106,11 @@ if prompt_tweet.entities.get("media"):
 
     # Remove the media url from the tweet
     tweet_text = tweet_text.replace(media[0]["url"], "")
-    tweet_media = quote(media[0]["media_url_https"])
+    tweet_media = media[0]["media_url_https"]
 
 # Construct a dictionary with only the info we need
 tweet = {
-    "tweet_id": quote(prompt_tweet.id_str),
+    "tweet_id": prompt_tweet.id_str,
     "date": tweet_date,
     "uid": get_uid_by_handle(
         escape(prompt_tweet.author.screen_name),

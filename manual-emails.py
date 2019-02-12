@@ -1,7 +1,6 @@
 from html import escape
 from pprint import pprint
 from re import match
-from urllib.parse import quote
 
 
 from src.core.database import add_tweet_to_db, get_uid_by_handle
@@ -24,11 +23,11 @@ tweet_url = input("Enter the tweet url: ")
 tweet_text = input("Enter the tweet text: ")
 tweet_media = input("Enter the tweet image (leave blank for none): ")
 tweet_text = tweet_text.replace("\\n", "\n")
-tweet_media = quote(tweet_media) if tweet_media.strip() else None
+tweet_media = tweet_media if tweet_media.strip() else None
 
 # Construct the tweet object
 tweet = {
-    "tweet_id": escape(extract_tweet_id(tweet_url)),
+    "tweet_id": extract_tweet_id(tweet_url),
     "date": create_date(tweet_date.strip()),
     "uid": escape(extract_uid(tweet_url)),
     "content": escape(tweet_text),
