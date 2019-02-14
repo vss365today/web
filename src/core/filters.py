@@ -55,7 +55,6 @@ def format_content(text: str) -> str:
     ]
     new_text = "\n".join(split_text)
     new_text = make_urls(new_text)
-    print(new_text)
     return new_text
 
 
