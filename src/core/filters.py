@@ -7,6 +7,7 @@ __all__ = [
     "find_prompt_word",
     "format_content",
     "format_date",
+    "make_urls",
     "previous",
     "next"
 ]
@@ -52,12 +53,29 @@ def format_content(text: str) -> str:
         for para in split_text
         if para  # false-y value means blank line
     ]
-    return "\n".join(split_text)
+    new_text = "\n".join(split_text)
+    new_text = make_urls(new_text)
+    print(new_text)
+    return new_text
 
 
 def format_date(date: date) -> str:
     """Nicely format the date in a non ISO 8601 manner."""
     return date.strftime("%d %B, %Y")
+
+
+def make_urls(text: str) -> str:
+    """Convert all text links in a tweet into an HTML link."""
+    # Start by finding all possible t.co text links
+    matches = re.findall(r"(https://t\.co/[a-z0-9]+)", text, re.I)
+    if matches is None:
+        return text
+
+    # Go through each url and wrap it in an HTML a tag
+    for match in matches:
+        url = f'<a href="{match}">{match}</a>'
+        text = text.replace(match, url)
+    return text
 
 
 def previous(date: date) -> str:
