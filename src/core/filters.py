@@ -53,6 +53,8 @@ def format_content(text: str) -> str:
         for para in split_text
         if para  # false-y value means blank line
     ]
+
+    # Rejoin the lines and make all links clickable
     new_text = "\n".join(split_text)
     new_text = make_urls(new_text)
     return new_text
