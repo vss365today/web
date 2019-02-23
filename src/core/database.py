@@ -9,6 +9,7 @@ __all__ = [
     "get_all_emails",
     "get_all_givers",
     "get_latest_tweet",
+    "get_giver_by_date",
     "get_tweet_by_date",
     "get_tweets_by_giver"
 ]
@@ -60,6 +61,13 @@ def get_all_givers():
     return Givers.query.distinct().order_by(Givers.handle).all()
 
 
+def get_giver_by_date(date: str):
+    session = __connect_to_db_sqlalchemy()
+    giver = session.query(Givers).filter_by(date=date).first()
+    session.close()
+    return giver
+
+
 def get_tweets_by_year(year: str):
     return Tweets.query.filter(Tweets.date.startswith(year)).all()
 
@@ -77,7 +85,8 @@ def add_giver_to_db(giver_dict: dict):
     """Add a giver to the database."""
     giver = Givers(
         uid=giver_dict["uid"],
-        handle=giver_dict["handle"]
+        handle=giver_dict["handle"],
+        date=giver_dict["date"]
     )
     session = __connect_to_db_sqlalchemy()
     session.add(giver)
