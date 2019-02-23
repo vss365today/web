@@ -7,6 +7,7 @@ import tweepy
 from src.core.database import (
     add_tweet_to_db,
     get_latest_tweet,
+    get_giver_by_date,
     get_uid_by_handle
 )
 from src.core.emails.sender import send_emails
@@ -54,23 +55,23 @@ def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
 
 # Get the latest tweet in the database
 # to see if we need to do anything
-latest_tweet = get_latest_tweet(in_flask=False)
-today = date.today()
+LATEST_TWEET = get_latest_tweet(in_flask=False)
+TODAY = date.today()
 
 # We already have latest tweet, don't do anything
-if latest_tweet.date == today:
-    print(f"Tweet for {today} already found. Aborting...")
+if LATEST_TWEET.date == TODAY:
+    print(f"Tweet for {TODAY} already found. Aborting...")
     raise SystemExit(0)
 
 # Connect to the Twitter API
-config = load_env_vals()
+CONFIG = load_env_vals()
 auth = tweepy.OAuthHandler(
-    config["TWITTER_APP_KEY"],
-    config["TWITTER_APP_SECRET"]
+    CONFIG["TWITTER_APP_KEY"],
+    CONFIG["TWITTER_APP_SECRET"]
 )
 auth.set_access_token(
-    config["TWITTER_KEY"],
-    config["TWITTER_SECRET"]
+    CONFIG["TWITTER_KEY"],
+    CONFIG["TWITTER_SECRET"]
 )
 api = tweepy.API(auth)
 print("Successfully connected to the Twitter API")
@@ -89,7 +90,7 @@ if prompt_tweet is None:
 # This condition is hit when it is _technnically_ the next day
 # but the newest tweet hasn't been sent out
 tweet_date = create_date(prompt_tweet.created_at.strftime("%Y-%m-%d"))
-if tweet_date == latest_tweet.date:
+if tweet_date == LATEST_TWEET.date:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
 
