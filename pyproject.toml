@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "vss365"
-version = "0.4.0"
+name = "vss-365-today"
+version = "0.6.0"
 description = ""
 authors = ["Caleb Ely <le717@users.noreply.github.com>"]
 
