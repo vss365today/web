@@ -58,7 +58,7 @@ def get_latest_tweet(in_flask: bool = True):
 
 
 def get_all_givers():
-    return Givers.query.distinct().order_by(Givers.handle).all()
+    return Givers.query.distinct().order_by(Givers.date).all()
 
 
 def get_giver_by_date(date: str):

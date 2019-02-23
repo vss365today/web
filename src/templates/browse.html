@@ -10,7 +10,8 @@
       <h4 class="center">Browse by prompters</h4>
       <ul>
         {% for giver in givers -%}
-        <li><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">@{{ giver.handle }}</a></li>
+        <li>
+          <a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">@{{ giver.handle }}</a> - {{ giver.date }}</li>
         {% endfor  %}
       </ul>
     </div>
