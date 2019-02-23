@@ -41,4 +41,9 @@ class Givers(alchemy.Model):
         unique=True,
         nullable=False
     )
+    date = alchemy.Column(
+        alchemy.String(7),
+        unique=True,
+        nullable=False
+    )
     tweets = alchemy.relationship("Tweets", backref="giver", lazy="dynamic")
