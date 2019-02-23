@@ -77,9 +77,11 @@ api = tweepy.API(auth)
 print("Successfully connected to the Twitter API")
 
 # Get an initial round of tweets to search
-# TODO: Don't hard-code the uid
 print("Searching for the latest prompt tweet")
-prompt_tweet = process_tweets("936441426954653697")  # ArthurUnkTweets
+
+# Get the giver for this month and attempt to find the prompt
+CURRENT_GIVER = get_giver_by_date(TODAY.strftime("%Y-%m"))
+prompt_tweet = process_tweets(CURRENT_GIVER.uid)
 
 # The tweet was not found at all :(
 if prompt_tweet is None:
