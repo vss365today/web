@@ -38,10 +38,10 @@ def find_prompt_word(text: str) -> str:
             matches
         ))
 
-        # If there are any hashtags left, get the first one
+        # If there are any hashtags left, get the second one
         # and remove the prefixed pound sign
         if remaining:
-            prompt_word = remaining[0][1:]
+            prompt_word = remaining[1][1:]
     return prompt_word
 
 
