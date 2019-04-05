@@ -5,7 +5,8 @@ from re import match
 
 from src.core.database import add_tweet_to_db, get_uid_by_handle
 from src.core.emails.sender import send_emails
-from src.core.filters import create_date, find_prompt_word
+from src.core.filters import create_date
+from src.core.helpers import find_prompt_word
 
 
 def extract_uid(url: str) -> str:

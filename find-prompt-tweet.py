@@ -11,12 +11,10 @@ from src.core.database import (
     get_uid_by_handle
 )
 from src.core.emails.sender import send_emails
-from src.core.filters import (
-    create_date,
-    find_prompt_word
-)
+from src.core.filters import create_date
 from src.core.helpers import (
     find_prompt_tweet,
+    find_prompt_word,
     load_env_vals
 )
 
