@@ -15,8 +15,8 @@ mailjet_rest = "^1.3"
 gunicorn = "^19.9"
 
 [tool.poetry.dev-dependencies]
-rope = "^0.11.0"
-flake8 = "^3.6"
+rope = "^0.14.0"
+flake8 = "^3.7"
 
 [build-system]
 requires = ["poetry>=0.12"]
