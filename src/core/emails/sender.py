@@ -36,5 +36,4 @@ def send_emails(tweet):
 
     # Send the emails via MailJet
     result = mailjet.send.create(data=email_data)
-    print(result.status_code)
-    print(result.json())
+    print(f"Mail status: {result.status_code}")
