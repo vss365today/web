@@ -2,13 +2,12 @@ from src.extensions import alchemy
 
 
 class Emails(alchemy.Model):
-    id = alchemy.Column(
-        alchemy.Integer,
+    email = alchemy.Column(
+        alchemy.String(50),
         primary_key=True,
         unique=True,
         nullable=False
     )
-    email = alchemy.Column(alchemy.String(50), unique=True, nullable=False)
 
 
 class Tweets(alchemy.Model):
