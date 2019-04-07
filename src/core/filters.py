@@ -1,48 +1,24 @@
 from datetime import date, timedelta
-import re
+
+from src.core.helpers import make_urls
 
 
 __all__ = [
     "create_date",
-    "find_prompt_word",
     "format_content",
     "format_date",
-    "make_urls",
     "previous",
     "next"
 ]
 
 
 def create_date(date_str: str) -> date:
+    # TODO Remove in favor of date.fromisoformat(), py3.7+
     return date(*[int(d) for d in date_str.split("-")])
 
 
 def create_tweet_url(tweet: dict) -> str:
     return f"https://twitter.com/{tweet.giver.handle}/status/{tweet.tweet_id}"
-
-
-def find_prompt_word(text: str) -> str:
-    prompt_word = ""
-
-    # Find all hashtags in the tweet
-    regex = re.compile(
-        r"(#\w+)",
-        re.MULTILINE
-    )
-    matches = re.findall(regex, text)
-
-    # We have hashtags
-    if matches:
-        remaining = list(filter(
-            lambda hashtag: hashtag.upper() not in ("#VSS365", "#PROMPT"),
-            matches
-        ))
-
-        # If there are any hashtags left, get the first one
-        # and remove the prefixed pound sign
-        if remaining:
-            prompt_word = remaining[0][1:]
-    return prompt_word
 
 
 def format_content(text: str) -> str:
@@ -61,22 +37,8 @@ def format_content(text: str) -> str:
 
 
 def format_date(date: date) -> str:
-    """Nicely format the date in a non ISO 8601 manner."""
-    return date.strftime("%d %B, %Y")
-
-
-def make_urls(text: str) -> str:
-    """Convert all text links in a tweet into an HTML link."""
-    # Start by finding all possible t.co text links
-    matches = re.findall(r"(https://t\.co/[a-z0-9]+)", text, re.I)
-    if matches is None:
-        return text
-
-    # Go through each url and wrap it in an HTML a tag
-    for match in matches:
-        url = f'<a href="{match}">{match}</a>'
-        text = text.replace(match, url)
-    return text
+    """Nicely format the date as MM DD, YYYY."""
+    return date.strftime("%B %d, %Y")
 
 
 def previous(date: date) -> str:

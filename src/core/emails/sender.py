@@ -21,8 +21,7 @@ def send_emails(tweet):
     email_data = {"Messages": []}
     for addr in email_list:
         msg = {
-            # "Subject": "VSS 365 Today for {}".format(
-            "Subject": f"VSS 365 Today for {tweet['date']}",
+            "Subject": f"#vss365 prompt for {tweet['date']}",
             "HTMLPart": render_email_addr(base_template, addr.email),
             "From": {
                 "Email": "noreply@vss365today.com",
@@ -37,5 +36,4 @@ def send_emails(tweet):
 
     # Send the emails via MailJet
     result = mailjet.send.create(data=email_data)
-    print(result.status_code)
-    print(result.json())
+    print(f"Mail status: {result.status_code}")

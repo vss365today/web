@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from html import escape
 from pprint import pprint
 
@@ -7,15 +7,14 @@ import tweepy
 from src.core.database import (
     add_tweet_to_db,
     get_latest_tweet,
+    get_giver_by_date,
     get_uid_by_handle
 )
 from src.core.emails.sender import send_emails
-from src.core.filters import (
-    create_date,
-    find_prompt_word
-)
+from src.core.filters import create_date
 from src.core.helpers import (
     find_prompt_tweet,
+    find_prompt_word,
     load_env_vals
 )
 
@@ -54,42 +53,59 @@ def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
 
 # Get the latest tweet in the database
 # to see if we need to do anything
-latest_tweet = get_latest_tweet(in_flask=False)
-today = date.today()
+LATEST_TWEET = get_latest_tweet(in_flask=False)
+TODAY = date.today()
 
 # We already have latest tweet, don't do anything
-if latest_tweet.date == today:
-    print(f"Tweet for {today} already found. Aborting...")
+if LATEST_TWEET.date == TODAY:
+    print(f"Tweet for {TODAY} already found. Aborting...")
     raise SystemExit(0)
 
 # Connect to the Twitter API
-config = load_env_vals()
+CONFIG = load_env_vals()
 auth = tweepy.OAuthHandler(
-    config["TWITTER_APP_KEY"],
-    config["TWITTER_APP_SECRET"]
+    CONFIG["TWITTER_APP_KEY"],
+    CONFIG["TWITTER_APP_SECRET"]
 )
 auth.set_access_token(
-    config["TWITTER_KEY"],
-    config["TWITTER_SECRET"]
+    CONFIG["TWITTER_KEY"],
+    CONFIG["TWITTER_SECRET"]
 )
 api = tweepy.API(auth)
 print("Successfully connected to the Twitter API")
 
 # Get an initial round of tweets to search
-# TODO: Don't hard-code the uid
 print("Searching for the latest prompt tweet")
-prompt_tweet = process_tweets("936441426954653697")  # ArthurUnkTweets
+
+# Get the giver for this month and attempt to find the prompt
+CURRENT_GIVER = get_giver_by_date(TODAY.strftime("%Y-%m"))
+prompt_tweet = process_tweets(CURRENT_GIVER.uid)
 
 # The tweet was not found at all :(
 if prompt_tweet is None:
     print("Search limit reached without finding prompt tweet! Aborting...")
     raise SystemExit(0)
 
+# Construct a `date` object for the tweet
+# The API returns a `datetime` object, which cannot be
+# compared to a `date` object via operators
+tweet_date = create_date(prompt_tweet.created_at.strftime("%Y-%m-%d"))
+
+# The found tweet date is yesterday's date, indicating a
+# time zone difference. Tweet datetimes are always expressed
+# in UTC, so attempt to get to tomorrow's date
+# and see if it matches the expected tweet date
+if tweet_date < TODAY:
+    next_day_hour_difference = 24 - prompt_tweet.created_at.hour
+    tweet_date_tomorrow = prompt_tweet.created_at + timedelta(
+        hours=next_day_hour_difference
+    )
+    tweet_date = create_date(tweet_date_tomorrow.strftime("%Y-%m-%d"))
+
 # We already have the latest tweet, don't do anything
 # This condition is hit when it is _technnically_ the next day
 # but the newest tweet hasn't been sent out
-tweet_date = create_date(prompt_tweet.created_at.strftime("%Y-%m-%d"))
-if tweet_date == latest_tweet.date:
+if tweet_date == LATEST_TWEET.date:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
 
@@ -117,7 +133,7 @@ tweet = {
         in_flask=False
     )[0],
     "handle": escape(prompt_tweet.author.screen_name),
-    "content": escape(tweet_text),
+    "content": escape(tweet_text.strip()),
     "word": find_prompt_word(tweet_text),
     "media": tweet_media
 }

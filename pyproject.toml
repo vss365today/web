@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "vss365"
-version = "0.4.0"
+name = "vss-365-today"
+version = "0.6.0"
 description = ""
 authors = ["Caleb Ely <le717@users.noreply.github.com>"]
 
@@ -15,8 +15,8 @@ mailjet_rest = "^1.3"
 gunicorn = "^19.9"
 
 [tool.poetry.dev-dependencies]
-rope = "^0.11.0"
-flake8 = "^3.6"
+rope = "^0.14.0"
+flake8 = "^3.7"
 
 [build-system]
 requires = ["poetry>=0.12"]
