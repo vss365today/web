@@ -13,6 +13,7 @@ __all__ = [
 
 
 def create_date(date_str: str) -> date:
+    # TODO Remove in favor of date.fromisoformat(), py3.7+
     return date(*[int(d) for d in date_str.split("-")])
 
 

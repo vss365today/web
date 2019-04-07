@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 from html import escape
 from pprint import pprint
 
@@ -86,10 +86,25 @@ if prompt_tweet is None:
     print("Search limit reached without finding prompt tweet! Aborting...")
     raise SystemExit(0)
 
+# Construct a `date` object for the tweet
+# The API returns a `datetime` object, which cannot be
+# compared to a `date` object via operators
+tweet_date = create_date(prompt_tweet.created_at.strftime("%Y-%m-%d"))
+
+# The found tweet date is yesterday's date, indicating a
+# time zone difference. Tweet datetimes are always expressed
+# in UTC, so attempt to get to tomorrow's date
+# and see if it matches the expected tweet date
+if tweet_date < TODAY:
+    next_day_hour_difference = 24 - prompt_tweet.created_at.hour
+    tweet_date_tomorrow = prompt_tweet.created_at + timedelta(
+        hours=next_day_hour_difference
+    )
+    tweet_date = create_date(tweet_date_tomorrow.strftime("%Y-%m-%d"))
+
 # We already have the latest tweet, don't do anything
 # This condition is hit when it is _technnically_ the next day
 # but the newest tweet hasn't been sent out
-tweet_date = create_date(prompt_tweet.created_at.strftime("%Y-%m-%d"))
 if tweet_date == LATEST_TWEET.date:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
@@ -118,7 +133,7 @@ tweet = {
         in_flask=False
     )[0],
     "handle": escape(prompt_tweet.author.screen_name),
-    "content": escape(tweet_text),
+    "content": escape(tweet_text.strip()),
     "word": find_prompt_word(tweet_text),
     "media": tweet_media
 }
