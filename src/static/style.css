@@ -175,7 +175,6 @@ button:focus {
 }
 
 @media (max-width: 800px) {
-  .content,
   .page {
     width: 85%;
     margin-right: 0;
