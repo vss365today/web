@@ -10,8 +10,10 @@ __all__ = [
     "get_all_givers",
     "get_latest_tweet",
     "get_giver_by_date",
+    "get_givers_by_year",
     "get_tweet_by_date",
-    "get_tweets_by_giver"
+    "get_tweets_by_giver",
+    "get_tweet_years"
 ]
 
 
@@ -68,8 +70,25 @@ def get_giver_by_date(date: str):
     return giver
 
 
-def get_tweets_by_year(year: str):
-    return Tweets.query.filter(Tweets.date.startswith(year)).all()
+def get_tweet_years() -> list:
+    distinct_years = []
+    all_givers = Givers.query.with_entities(Givers.date).all()
+
+    # The years we have been running is best
+    # bdetermined y the givers we've had
+    for giver in all_givers:
+        # Get the distinct years
+        year = giver[0][:4]
+        if year not in distinct_years:
+            distinct_years.append(year)
+
+    # Put the latest year on top
+    distinct_years.sort(reverse=True)
+    return distinct_years
+
+
+def get_givers_by_year(year: str):
+    return Givers.query.filter(Givers.date.startswith(year)).all()
 
 
 def get_tweets_by_giver(handle: str):

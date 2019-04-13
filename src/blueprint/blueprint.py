@@ -67,7 +67,7 @@ def about() -> str:
 def browse() -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "givers": database.get_all_givers(),
+        "years": database.get_tweet_years(),
         "page_title": "Browse #vss365 prompts"
     }
     return render_template("browse.html", **render_opts)
@@ -84,15 +84,15 @@ def browse_by_giver(giver) -> str:
     return render_template("browse-giver.html", **render_opts)
 
 
-# @bp.route("/browse/year/<year>")
-# def browse_by_year(year) -> str:
-#     render_opts = {
-#         "form": SubscribeForm(),
-#         "tweets": database.get_tweets_by_year(year),
-#         "year": year,
-#         "page_title": f"{year} #vss365 prompts"
-#     }
-#     return render_template("browse-year.html", **render_opts)
+@bp.route("/browse/year/<year>")
+def browse_by_year(year) -> str:
+    render_opts = {
+        "form": SubscribeForm(),
+        "givers": database.get_givers_by_year(year),
+        "year": year,
+        "page_title": f"{year} #vss365 prompts"
+    }
+    return render_template("browse-year.html", **render_opts)
 
 
 @bp.route("/")
@@ -155,12 +155,17 @@ def server_error(e) -> tuple:
 
 
 @bp.app_template_filter()
-def format_date(date) -> str:
+def create_date(date: str) -> str:
+    return filters.create_date(date)
+
+
+@bp.app_template_filter()
+def format_date(date: date) -> str:
     return filters.format_date(date)
 
 
 @bp.app_template_filter()
-def format_content(content) -> str:
+def format_content(content: str) -> str:
     return filters.format_content(content)
 
 

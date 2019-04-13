@@ -2,18 +2,19 @@
 
 {% block content %}
 <section class="page center browse-giver">
-  <h3>View {{ year }} prompts</h3>
+  <h3>View {{ year }} prompters</h3>
 
-  {% if not tweets -%}
-  <p>No VSS prompts for {{ year }} were found!</p>
+  {%- if not givers -%}
+  <p>No #vss365 prompters for {{ year }} were found!</p>
 
   {%- else %}
   <ul>
-    {%- for tweet in tweets %}
+    {%- for giver in givers %}
     <li>
-      <a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.date|format_date }} &mdash; <strong>{{ tweet.word }}</strong></a>
+      {% set giver_date = (giver.date ~ '-01')|create_date %}
+      <a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">@{{ giver.handle }} &mdash; <strong>{{ giver_date.strftime("%B %Y") }}</strong></a>
     </li>
-    {%- if loop.index % 5 == 0 %}
+    {%- if loop.index % 6 == 0 %}
   </ul>
 
   <ul>

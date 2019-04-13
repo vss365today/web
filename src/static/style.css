@@ -100,7 +100,7 @@ footer a { color: inherit; }
   width: 58%;
   margin-right: 0;
   margin-left: 0;
-  font-size: 0.84em;
+  font-size: 0.85em;
 }
 .page h3,
 .page h4 { margin-bottom: -0.5em; }
@@ -141,6 +141,7 @@ footer a { color: inherit; }
   vertical-align: top;
   text-align: left;
   margin-bottom: 0.3em;
+  line-height: 1.85;
 }
 
 form {
