@@ -12,7 +12,7 @@
 
 ## Install
 
-1. Install Python 3.6+ and [Poetry](https://poetry.eustace.io/)
+1. Install Python 3.7+ and [Poetry](https://poetry.eustace.io/)
 1. Rename `oss.env` to `.env`
 1. Set missing environment variables
 1. `poetry install`
@@ -22,7 +22,7 @@
 ## Build/Deploy
 
 1. `docker build -f "docker/Dockerfile" -t vss365today:latest .`
-1. ` docker-compose -f "docker/docker-compose.yml" up -d`
+1. `docker-compose -f "docker/docker-compose.yml" up -d`
 
 ## Known Issues
 

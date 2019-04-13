@@ -7,7 +7,7 @@ services:
     volumes:
       - /usr/codetri/vss-365-today:/app
     ports:
-      - 127.0.0.1:5001:5000
+      - 127.0.0.1:5002:5000
     entrypoint:
       - sh
       - ./run-flask.sh
