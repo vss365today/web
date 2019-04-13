@@ -6,15 +6,21 @@ from sqlalchemy import create_engine
 
 
 __all__ = [
+    "IDENTIFYING_HASHTAGS",
     "create_db_connection",
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
     "load_env_vals",
     "make_hashtags",
+    "make_mentions",
     "make_urls",
     "validate_email"
 ]
+
+
+# The hashtags that identify a prompt tweet
+IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
 
 
 def create_db_connection(config):
@@ -25,12 +31,12 @@ def create_db_connection(config):
 def find_prompt_tweet(text: str) -> bool:
     return all(
         hashtag in text.upper()
-        for hashtag in ("#VSS365", "#PROMPT")
+        for hashtag in IDENTIFYING_HASHTAGS
     )
 
 
 def get_all_hashtags(text: str) -> list:
-    regex = re.compile(r"(#\w+)", re.MULTILINE)
+    regex = re.compile(r"(#\w+)", re.I)
     matches = re.findall(regex, text)
     return matches if matches else None
 
@@ -45,7 +51,7 @@ def find_prompt_word(text: str) -> str:
 
     # Remove all identifying hashtags
     remaining = list(filter(
-        lambda hashtag: hashtag.upper() not in ("#VSS365", "#PROMPT"),
+        lambda ht: ht.upper() not in IDENTIFYING_HASHTAGS,
         hashtags
     ))
 
@@ -71,24 +77,37 @@ def make_hashtags(text: str) -> str:
     if hashtags is None:
         return text
 
-    # Go through each url and wrap it in an HTML a tag
+    # Go through each hashtag and make it a clickable link
     for ht in hashtags:
-        url = f'<a href="https://twitter.com/hashtag/{ht[1:]}">{ht}</a>'
-        text = text.replace(ht, url)
+        html = f'<a href="https://twitter.com/hashtag/{ht[1:]}">{ht}</a>'
+        text = text.replace(ht, html)
+    return text
+
+
+def make_mentions(text: str) -> str:
+    # Start by finding all possible @mentions
+    mentions = re.findall(r"(@\w+)", text, re.I)
+    if mentions is None:
+        return text
+
+    # Go through each mention and make it a clickable link
+    for mention in mentions:
+        html = f'<a href="https://twitter.com/{mention[1:]}">{mention}</a>'
+        text = text.replace(mention, html)
     return text
 
 
 def make_urls(text: str) -> str:
     """Convert all text links in a tweet into an HTML link."""
     # Start by finding all possible t.co text links
-    matches = re.findall(r"(https://t\.co/[a-z0-9]+)", text, re.I)
-    if matches is None:
+    links = re.findall(r"(https://t\.co/[a-z0-9]+)", text, re.I)
+    if links is None:
         return text
 
-    # Go through each url and wrap it in an HTML a tag
-    for match in matches:
-        url = f'<a href="{match}">{match}</a>'
-        text = text.replace(match, url)
+    # Go through each url and make it a clickable link
+    for link in links:
+        html = f'<a href="{link}">{link}</a>'
+        text = text.replace(link, html)
     return text
 
 
