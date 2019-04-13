@@ -9,7 +9,9 @@ __all__ = [
     "create_db_connection",
     "find_prompt_tweet",
     "find_prompt_word",
+    "get_all_hashtags",
     "load_env_vals",
+    "make_hashtags",
     "make_urls",
     "validate_email"
 ]
@@ -27,27 +29,30 @@ def find_prompt_tweet(text: str) -> bool:
     )
 
 
+def get_all_hashtags(text: str) -> list:
+    regex = re.compile(r"(#\w+)", re.MULTILINE)
+    matches = re.findall(regex, text)
+    return matches if matches else None
+
+
 def find_prompt_word(text: str) -> str:
     prompt_word = ""
 
     # Find all hashtags in the tweet
-    regex = re.compile(
-        r"(#\w+)",
-        re.MULTILINE
-    )
-    matches = re.findall(regex, text)
+    hashtags = get_all_hashtags(text)
+    if hashtags is None:
+        return prompt_word
 
-    # We have hashtags
-    if matches:
-        remaining = list(filter(
-            lambda hashtag: hashtag.upper() not in ("#VSS365", "#PROMPT"),
-            matches
-        ))
+    # Remove all identifying hashtags
+    remaining = list(filter(
+        lambda hashtag: hashtag.upper() not in ("#VSS365", "#PROMPT"),
+        hashtags
+    ))
 
-        # If there are any hashtags left, get the second one
-        # and remove the prefixed pound sign
-        if remaining:
-            prompt_word = remaining[1][1:]
+    # If there are any hashtags left, get the second one
+    # and remove the prefixed pound sign
+    if remaining:
+        prompt_word = remaining[1][1:]
     return prompt_word
 
 
@@ -58,6 +63,19 @@ def load_env_vals():
     for key, value in env_vals.items():
         vals[key] = (value if value != "" else None)
     return vals
+
+
+def make_hashtags(text: str) -> str:
+    # Start by finding all hashtags
+    hashtags = get_all_hashtags(text)
+    if hashtags is None:
+        return text
+
+    # Go through each url and wrap it in an HTML a tag
+    for ht in hashtags:
+        url = f'<a href="https://twitter.com/hashtag/{ht[1:]}">{ht}</a>'
+        text = text.replace(ht, url)
+    return text
 
 
 def make_urls(text: str) -> str:

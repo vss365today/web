@@ -1,6 +1,9 @@
 from datetime import date, timedelta
 
-from src.core.helpers import make_urls
+from src.core.helpers import (
+    make_hashtags,
+    make_urls
+)
 
 
 __all__ = [
@@ -32,6 +35,7 @@ def format_content(text: str) -> str:
 
     # Rejoin the lines and make all links clickable
     new_text = "\n".join(split_text)
+    new_text = make_hashtags(new_text)
     new_text = make_urls(new_text)
     return new_text
 
