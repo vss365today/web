@@ -273,8 +273,8 @@ python-versions = "*"
 version = "2.2.1"
 
 [metadata]
-content-hash = "5cf90750a5f57ad6034678181e930fedd94560b06e9ea0cc575a1f8709b1018e"
-python-versions = "^3.6"
+content-hash = "06c389c932b36d5238318cafb12e8ae57766b61f76b7b7666a1135ee8c97db7a"
+python-versions = "^3.7"
 
 [metadata.hashes]
 certifi = ["47f9c83ef4c0c621eaef743f133f09fa8a74a9b75f037e8624f83bd1b6626cb7", "993f830721089fef441cdfeb4b2c8c9df86f0c63239f06bd025a76a7daddb033"]
