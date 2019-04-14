@@ -109,7 +109,7 @@ def index() -> str:
     return render_template("tweet.html", **render_opts)
 
 
-@bp.route("/<date>")
+@bp.route("/browse/<date>")
 def date(date) -> str:
     tweet = database.get_tweet_by_date(date)
 
