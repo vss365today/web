@@ -25,11 +25,11 @@ def send_emails(tweet):
             "HTMLPart": render_email_addr(base_template, addr.email),
             "From": {
                 "Email": "noreply@vss365today.com",
-                "Name": "VSS 365 Today"
+                "Name": "#vss365 today"
             },
             "To": [{
                 "Email": addr.email,
-                "Name": "VSS 365 Today Subscriber"
+                "Name": "#vss365 today Subscriber"
             }]
         }
         email_data["Messages"].append(msg)

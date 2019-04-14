@@ -1,6 +1,6 @@
 import jinja2
 
-from src.core.filters import format_content, format_date
+from src.core.filters import format_date
 
 
 def create_tweet_url(tweet: dict) -> str:
@@ -15,7 +15,6 @@ def render_email_base(tweet: dict) -> str:
     # Render the base email content,
     # formatting all information as needed
     tweet["date"] = format_date(tweet["date"])
-    tweet["content"] = format_content(tweet["content"])
     tweet["url"] = create_tweet_url(tweet),
     return template.render(**{"tweet": tweet}).replace(r"{\{", "{{")
 

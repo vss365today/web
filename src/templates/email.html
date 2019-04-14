@@ -3,9 +3,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>{{ tweet.date }} | VSS 365 Today</title>
+    <title>{{ tweet.date }} | #vss365 today</title>
     <!-- Based on template from https://foundation.zurb.com/emails.html -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,500|Noto+Serif+SC:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:400,700|Bad+Script:400|Josefin+Slab:400,700">
     <style>
       .wrapper { width: 100%; }
 #outlook a { padding: 0; }
@@ -43,8 +43,8 @@ img {
   outline: none;
   text-decoration: none;
   -ms-interpolation-mode: bicubic;
-  width: auto;
-  max-width: 100%;
+  /*width: auto;
+  max-width: 100%;*/
   clear: both;
   display: block; }
 
@@ -846,10 +846,33 @@ h6,
 h2 > a {
   color: inherit;
   word-wrap: normal;
-  font-family: "Oswald", Helvetica, Arial, sans-serif;
+  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
   font-weight: 500;
   margin-bottom: 10px;
   Margin-bottom: 10px; }
+
+  #vss365 {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+
+  #today {
+    font-family: "Bad Script";
+    margin-left: 0.2em;
+    font-size: 0.8em;
+    font-weight: 700;
+  }
+
+  #date {
+    font-size: 1.35em;
+    font-weight: 400;
+  }
+
+  #logo {
+    margin-right: auto;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+  }
 
 h1 {
   font-size: 34px; }
@@ -1380,8 +1403,16 @@ body.outlook p {
         background: #f3f3f3;
       }
 
-      .prompt-highlight { font-family: "Noto Serif SC", serif; }
-      .prompt-highlight > .word { font-family: "Oswald", sans-serif; }
+      .prompt-highlight {
+        font-family: "Bad Script", "Noto Serif SC", serif;
+        font-size: 1.5em;
+        font-weight: 400;
+      }
+      .prompt-highlight > .word {
+        line-height: 1.5;
+        font-size: 2em;
+        font-weight: 700;
+      }
     </style>
   </head>
 
@@ -1398,9 +1429,13 @@ body.outlook p {
                     <tbody>
                       <tr>
                         <th>
-                          <h1 class="text-center">VSS 365 Today</h1>
-                          <h2 class="text-center">{{ tweet.date }}</h2>
-                          </th>
+                          <h1 class="text-center">
+                            <span id="vss365">#vss365</span><span id="today">today</span>
+                          </h1>
+                          <img id="logo" width="20" alt="Image of opened book"
+                              src="https://vss365today.com/static/open-book.png">
+                          <h2 class="text-center" id="date">{{ tweet.date }}</h2>
+                        </th>
                       </tr>
                     </tbody>
                   </table>
@@ -1425,12 +1460,11 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th>
-                                  <h4 class="prompt-highlight text-center">Today's writing prompt is<br><span class="word">{{ tweet.word }}</span></h4>
-                                  {{ tweet.content }}
+                                  <h4 class="prompt-highlight text-center">Today's writing prompt is:<br><span class="word">{{ tweet.word }}</span></h4>
                                   {% if tweet.media %}
-                                      <img width="400" alt="" src="{{ tweet.media }}">
+                                      <img width="400" alt="" style="margin-right: auto; margin-left: auto;" src="{{ tweet.media }}">
                                   {% endif %}
-                                  <p>Prompt by <a href="{{ tweet.url }}">@{{ tweet.handle }}</a></p>
+                                  <p><a href="{{ tweet.url }}">View full prompt from @{{ tweet.handle }}</a></p>
                                 </th>
                                 <th class="expander"></th>
                               </tr>
@@ -1459,7 +1493,7 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th class="menu-item float-center">
-                                  This email has been sent to <strong>{\{ email }}</strong> by <a href="https://vss365today.com">VSS 365 Today</a>.
+                                  This email has been sent to <strong>{\{ email }}</strong> by <a href="https://vss365today.com">#vss365 today</a>.
                                   If you believe you have received this email in error or no longer wish to receive them, feel free to <a href="https://vss365today.com/unsubscribe?email={\{ email }}">unsubscribe</a>.
                                 </th>
                               </tr>
