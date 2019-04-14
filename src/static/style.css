@@ -24,12 +24,9 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, strong, label {
-  font-family: "Oswald", "Noto Serif SC", sans-serif;
-  font-weight: 500;
+  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
+  font-weight: 700;
 }
-
-label { font-size: 0.9em; }
-strong { font-size: 0.93em; }
 
 a {
   text-decoration: none;
@@ -49,18 +46,40 @@ img {
 }
 
 header {
-  margin-bottom: 0.5em;
-
+  margin-bottom: 1.5em;
   background-color: rgb(130, 238, 238);
   text-align: center;
 }
 
-header h1 { margin-bottom: -0.75em; }
-header h1 a { color: inherit; }
-header h2 { font-weight: 200; }
+header h1 {
+  margin-bottom: -0.75em;
+}
+
+header a {
+  color: inherit;
+}
+
 header img {
   position: relative;
-  top: 0.2em;
+  top: 1em;
+}
+
+header #vss365 {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+header #today {
+  font-family: "Bad Script";
+  margin-left: 0.2em;
+  font-size: 0.8em;
+  font-weight: 700;
+}
+
+header h2 {
+  font-size: 1.2em;
+  font-weight: 400;
+  cursor: default;
 }
 
 nav {
@@ -72,9 +91,10 @@ nav {
 nav.primary a {
   margin-right: 1em;
   margin-left: 1em;
-  font-family: "Oswald", "Noto Serif SC", sans-serif;
-  font-weight: 300;
+  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
+  font-weight: 400;
   font-size: 1.25em;
+  text-transform: uppercase;
 }
 
 main {
@@ -84,14 +104,31 @@ main {
   align-items: center;
 }
 
+details {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  padding: 1em 1.5em;
+  background-color: #e9e9e9;
+  border-radius: 3px;
+}
+
+summary {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+details img {
+  margin-right: auto;
+  margin-bottom: 1em;
+  margin-left: auto;
+}
+
 footer {
   margin-top: 1em;
   padding: 0.5em;
   text-align: center;
   background-color: rgb(130, 238, 238);
-  font-size: 0.96em;
-  font-family: "Oswald", "Noto Serif SC", sans-serif;
-  font-weight: 300;
+  font-size: 0.8em;
 }
 footer a { color: inherit; }
 
@@ -100,12 +137,10 @@ footer a { color: inherit; }
   width: 58%;
   margin-right: 0;
   margin-left: 0;
-  font-size: 0.85em;
 }
 .page h3,
 .page h4 { margin-bottom: -0.5em; }
 
-.center { text-align: center; }
 .tweet {
   line-height: 1.3;
   font-size: 0.8em;
@@ -117,16 +152,29 @@ footer a { color: inherit; }
   margin-top: 1.2em;
 }
 
+.btns-prev-next a {
+  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
+  font-weight: 400;
+}
+
 .content img {
   display: block;
   margin-top: 1em;
-  filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.5));
+  border: 1px solid #d1caca;
+  border-radius: 6px;
 }
 
-.content .prompt-highlight { font-family: "Noto Serif SC", serif; }
-.content .word {
-  font-family: "Oswald", "Noto Serif SC", sans-serif;
+.content .prompt-highlight {
+  font-family: "Bad Script", "Noto Serif SC", serif;
   font-size: 1.5em;
+  font-weight: 400;
+}
+
+.content .word {
+  line-height: 1.5;
+  font-family: "Bad Script", "Noto Serif SC", sans-serif;
+  font-size: 2em;
+  font-weight: 700;
 }
 
 .browse-page > div:first-of-type {
@@ -170,8 +218,19 @@ button {
 
 button:hover,
 button:focus {
+  /* TODO don't have such a dark color */
   background-color: rgb(53, 51, 51);
   color: #fff;
+}
+
+@media (max-width: 500px) {
+  .content {
+    width: 87%;
+  }
+
+  input, button {
+    font-size: 0.73em;
+  }
 }
 
 @media (max-width: 800px) {

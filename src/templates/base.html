@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="theme-color" content="#82eeee">
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,500|Noto+Serif+SC:400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:400,700|Bad+Script:400|Josefin+Slab:400,700">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <title>{{ page_title }} | {{ site_title }}</title>
   {% include "partials/social-media.html" %}
@@ -16,12 +16,13 @@
   <header>
     <h1>
       <a href="{{ url_for('root.index') }}">
-        <img class="logo"
-             width="40"
-             alt="Image of opened book"
-             src="{{ url_for('static', filename='open-book.png') }}">
-      {{ site_title }}</a>
+        <span id="vss365">#vss365</span><span id="today">today</span>
+      </a>
     </h1>
+
+    <img class="logo" width="20" alt="Image of opened book"
+         src="{{ url_for('static', filename='open-book.png') }}">
+
     <h2>{{ page_title }}</h2>
   </header>
 

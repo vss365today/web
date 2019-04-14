@@ -5,13 +5,20 @@
 
   {% include "partials/btns-prev-next.html" %}
 
-  <h3 class="prompt-highlight center">Today's writing prompt is<br><span class="word">{{ tweet.word }}</span></h3>
+  <h3 class="prompt-highlight center">Today's writing prompt is:<br><span class="word">{{ tweet.word }}</span></h3>
   <div class="tweet">
-    {{ tweet.content|format_content|safe }}
     {% if tweet.media %}
     <img width="400" alt="" src="{{ tweet.media }}">
     {% endif %}
-    <p>Prompt by <a href="{{ create_url(tweet) }}">@{{ tweet.giver.handle }}</a></p>
+    <p><a href="{{ create_url(tweet) }}">Prompt by @{{ tweet.giver.handle }}</a></p>
+
+    <details>
+      <summary>View tweet</summary>
+      {{ tweet.content|format_content|safe }}
+      {% if tweet.media %}
+      <img width="300" alt="" src="{{ tweet.media }}">
+      {% endif %}
+    </details>
   </div>
 </section>
 {% endblock %}
