@@ -134,7 +134,7 @@ footer a { color: inherit; }
 
 .center { text-align: center; }
 .page {
-  width: 58%;
+  width: 60%;
   margin-right: 0;
   margin-left: 0;
 }
@@ -240,7 +240,6 @@ button:focus {
   }
 
   .browse-giver li {
-    font-size: 1.15em;
-    line-height: 2;
+    font-size: 1em;
   }
 }
