@@ -16,7 +16,7 @@ def create_app():
 
     @app.context_processor
     def inject_site_title():
-        return {"site_title": app.config["SITE_TITLE"]}
+        return {"site_title": "#vss365 today"}
 
     @app.context_processor
     def inject_current_date():

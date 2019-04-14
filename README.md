@@ -1,6 +1,6 @@
-# VSS 365 Today
+# #vss365 today
 
-> VSS 365 Today website
+> Source code to #vss365 today
 
 
 ## Required Keys
