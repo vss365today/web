@@ -43,10 +43,13 @@ img {
   outline: none;
   text-decoration: none;
   -ms-interpolation-mode: bicubic;
-  /*width: auto;
-  max-width: 100%;*/
   clear: both;
   display: block; }
+
+#tweet-image {
+  width: auto;
+  max-width: 100%;
+}
 
 center {
   width: 100%;
@@ -1462,7 +1465,7 @@ body.outlook p {
                                 <th>
                                   <h4 class="prompt-highlight text-center">Today's writing prompt is:<br><span class="word">{{ tweet.word }}</span></h4>
                                   {% if tweet.media %}
-                                      <img width="400" alt="" style="margin-right: auto; margin-left: auto;" src="{{ tweet.media }}">
+                                      <img id="tweet-media" width="400" alt="" style="margin-right: auto; margin-left: auto;" src="{{ tweet.media }}">
                                   {% endif %}
                                   <p><a href="{{ tweet.url }}">View full prompt from @{{ tweet.handle }}</a></p>
                                 </th>

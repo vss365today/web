@@ -4,7 +4,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { min-width: 375px; }
+html { min-width: 320px; }
 
 body {
   margin: 0;
