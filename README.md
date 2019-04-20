@@ -1,6 +1,6 @@
 # #vss365 today
 
-> Source code to #vss365 today
+> Get the latest #vss365 prompt
 
 
 ## Required Keys
