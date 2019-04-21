@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from html import unescape
 
 from src.core.helpers import (
     make_hashtags,
@@ -36,6 +37,7 @@ def format_content(text: str) -> str:
 
     # Rejoin the lines and make all links clickable
     new_text = "\n".join(split_text)
+    new_text = unescape(new_text)
     new_text = make_hashtags(new_text)
     new_text = make_mentions(new_text)
     new_text = make_urls(new_text)
