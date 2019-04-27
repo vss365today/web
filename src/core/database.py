@@ -71,20 +71,16 @@ def get_giver_by_date(date: str):
 
 
 def get_tweet_years() -> list:
-    distinct_years = []
+    distinct_years = set()
     all_givers = Givers.query.with_entities(Givers.date).all()
 
     # The years we have been running is best
-    # bdetermined y the givers we've had
+    # determined by the givers we've had
     for giver in all_givers:
-        # Get the distinct years
-        year = giver[0][:4]
-        if year not in distinct_years:
-            distinct_years.append(year)
+        distinct_years.add(giver[0][:4])
 
     # Put the latest year on top
-    distinct_years.sort(reverse=True)
-    return distinct_years
+    return sorted(distinct_years, reverse=True)
 
 
 def get_givers_by_year(year: str):
