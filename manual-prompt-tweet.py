@@ -1,16 +1,22 @@
-from html import escape
 from pprint import pprint
 from re import match
-
 
 from src.core.database import add_tweet_to_db, get_uid_by_handle
 from src.core.emails.sender import send_emails
 from src.core.filters import create_date
-from src.core.helpers import find_prompt_word
+from src.core.helpers import (
+    create_twitter_connection,
+    find_prompt_word,
+    get_tweet_media,
+    get_tweet_text
+)
 
 
 def extract_handle(url: str) -> str:
-    return match(r"^https://twitter\.com/(\w+)/status", url)[1]
+    return match(
+        r"^https://(?:mobile\.|www\.)?twitter\.com/(\w+)/status",
+        url
+    )[1].strip()
 
 
 def extract_uid(handle: str) -> str:
@@ -19,24 +25,36 @@ def extract_uid(handle: str) -> str:
 
 
 def extract_tweet_id(url: str) -> str:
-    return match(r"^https://twitter\.com/\w+/status/(\d+)", url)[1]
+    return match(
+        r"^https://(?:mobile\.|www\.)?twitter\.com/\w+/status/(\d+)",
+        url
+    )[1]
 
 
+# Get the base information we need from the user to start
 tweet_date = input("Enter the tweet date (YYYY-MM-DD): ")
 tweet_url = input("Enter the tweet url: ")
-tweet_text = input("Enter the tweet text: ")
-tweet_media = input("Enter the tweet image (leave blank for none): ")
-tweet_text = tweet_text.replace("\\n", "\n")
-tweet_media = tweet_media.strip() if tweet_media.strip() else None
+tweet_id = extract_tweet_id(tweet_url)
+user_handle = extract_handle(tweet_url)
 
-# Construct the tweet object
-user_handle = extract_handle(tweet_url).strip()
+# Connect to the Twitter API and get the specified tweet
+# We're assuming/trusting the url is to the prompt tweet so we'll
+# not perform validity checks
+api = create_twitter_connection()
+prompt_tweet = api.get_status(tweet_id, tweet_mode="extended")
+
+# Extract the tweet content
+media_url, tweet_media = get_tweet_media(prompt_tweet)
+tweet_text = get_tweet_text(prompt_tweet, media_url)
+del media_url
+
+# Construct a tweet object
 tweet = {
-    "tweet_id": extract_tweet_id(tweet_url),
+    "tweet_id": tweet_id,
     "date": create_date(tweet_date.strip()),
-    "uid": escape(extract_uid(user_handle)),
+    "uid": extract_uid(user_handle),
     "handle": user_handle,
-    "content": escape(tweet_text),
+    "content": tweet_text,
     "word": find_prompt_word(tweet_text),
     "media": tweet_media
 }

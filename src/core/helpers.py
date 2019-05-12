@@ -33,7 +33,7 @@ def create_db_connection(config: dict) -> tuple:
     return connect_str, create_engine(connect_str)
 
 
-def create_twitter_connection() -> tweepy.api.API:
+def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
     CONFIG = load_env_vals()
     auth = tweepy.OAuthHandler(
