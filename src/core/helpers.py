@@ -40,8 +40,8 @@ def get_all_hashtags(text: str) -> list:
     return matches if matches else None
 
 
-def find_prompt_word(text: str) -> str:
-    prompt_word = ""
+def find_prompt_word(text: str) -> str or None:
+    prompt_word = None
 
     # Find all hashtags in the tweet
     hashtags = get_all_hashtags(text)

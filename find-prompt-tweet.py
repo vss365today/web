@@ -124,6 +124,12 @@ if prompt_tweet.entities.get("media"):
     tweet_text = tweet_text.replace(media[0]["url"], "")
     tweet_media = media[0]["media_url_https"]
 
+# Attempt to extract the prompt word and back out if we can't
+prompt_word = find_prompt_word(tweet_text)
+if prompt_word is None:
+    print(f"Cannot find prompt word in tweet {prompt_tweet.id_str}!")
+    raise SystemExit(0)
+
 # Construct a dictionary with only the info we need
 tweet = {
     "tweet_id": prompt_tweet.id_str,
@@ -134,7 +140,7 @@ tweet = {
     )[0],
     "handle": escape(prompt_tweet.author.screen_name),
     "content": escape(tweet_text.strip()),
-    "word": find_prompt_word(tweet_text),
+    "word": prompt_word,
     "media": tweet_media
 }
 pprint(tweet)
