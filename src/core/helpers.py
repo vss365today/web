@@ -54,10 +54,10 @@ def find_prompt_word(text: str) -> str or None:
         hashtags
     ))
 
-    # If there are any hashtags left, get the second one
+    # If there are any hashtags left, get the first one
     # and remove the prefixed pound sign
     if remaining:
-        prompt_word = remaining[1][1:]
+        prompt_word = remaining[0].replace("#", "")
     return prompt_word
 
 
