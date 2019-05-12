@@ -4,12 +4,13 @@ from os.path import abspath
 
 from dotenv import dotenv_values, find_dotenv
 from sqlalchemy import create_engine
-from tweepy import Status
+import tweepy
 
 
 __all__ = [
     "IDENTIFYING_HASHTAGS",
     "create_db_connection",
+    "create_twitter_connection",
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
@@ -30,6 +31,22 @@ IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
 def create_db_connection(config: dict) -> tuple:
     connect_str = f"sqlite:///{abspath(config['DB_PATH'])}"
     return connect_str, create_engine(connect_str)
+
+
+def create_twitter_connection() -> tweepy.api.API:
+    # Connect to the Twitter API
+    CONFIG = load_env_vals()
+    auth = tweepy.OAuthHandler(
+        CONFIG["TWITTER_APP_KEY"],
+        CONFIG["TWITTER_APP_SECRET"]
+    )
+    auth.set_access_token(
+        CONFIG["TWITTER_KEY"],
+        CONFIG["TWITTER_SECRET"]
+    )
+    api = tweepy.API(auth)
+    print("Successfully connected to the Twitter API")
+    return api
 
 
 def find_prompt_tweet(text: str) -> bool:
@@ -65,7 +82,7 @@ def find_prompt_word(text: str) -> str or None:
     return prompt_word
 
 
-def get_tweet_media(tweet: Status) -> tuple:
+def get_tweet_media(tweet: tweepy.Status) -> tuple:
     """Get the tweet's media if it exists."""
     media_url = ""
     tweet_media = None
@@ -78,7 +95,7 @@ def get_tweet_media(tweet: Status) -> tuple:
     return media_url, tweet_media
 
 
-def get_tweet_text(tweet: Status, media_url: str) -> str:
+def get_tweet_text(tweet: tweepy.Status, media_url: str) -> str:
     """Get the tweet's complete text."""
     # Because we're accessing "extended" tweets (> 140 chars),
     # we need to be sure to access the property

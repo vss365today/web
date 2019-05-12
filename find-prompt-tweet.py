@@ -13,9 +13,11 @@ from src.core.database import (
 from src.core.emails.sender import send_emails
 from src.core.filters import create_date
 from src.core.helpers import (
+    create_twitter_connection,
     find_prompt_tweet,
     find_prompt_word,
-    load_env_vals
+    get_tweet_media,
+    get_tweet_text
 )
 
 
@@ -74,17 +76,7 @@ if LATEST_TWEET.date == TODAY:
     raise SystemExit(0)
 
 # Connect to the Twitter API
-CONFIG = load_env_vals()
-auth = tweepy.OAuthHandler(
-    CONFIG["TWITTER_APP_KEY"],
-    CONFIG["TWITTER_APP_SECRET"]
-)
-auth.set_access_token(
-    CONFIG["TWITTER_KEY"],
-    CONFIG["TWITTER_SECRET"]
-)
-api = tweepy.API(auth)
-print("Successfully connected to the Twitter API")
+api = create_twitter_connection()
 
 # Get an initial round of tweets to search
 print("Searching for the latest prompt tweet")
