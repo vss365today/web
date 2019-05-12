@@ -121,20 +121,10 @@ if tweet_date == LATEST_TWEET.date:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
 
-# Because we're accessing "extended" tweets (> 140 chars),
-# we need to be sure to access the property
-# that holds the non-truncated text
-tweet_text = prompt_tweet.full_text
-tweet_media = None
-
-# If we have media in our tweet, get a proper URL to it
-if prompt_tweet.entities.get("media"):
-    # Get the media in the tweet
-    media = prompt_tweet.entities["media"]
-
-    # Remove the media url from the tweet
-    tweet_text = tweet_text.replace(media[0]["url"], "")
-    tweet_media = media[0]["media_url_https"]
+# Pull out the tweet media and text content
+media_url, tweet_media = get_tweet_media(prompt_tweet)
+tweet_text = get_tweet_text(prompt_tweet, media_url)
+del media_url
 
 # Attempt to extract the prompt word and back out if we can't
 prompt_word = find_prompt_word(tweet_text)
@@ -151,7 +141,7 @@ tweet = {
         in_flask=False
     )[0],
     "handle": escape(prompt_tweet.author.screen_name),
-    "content": escape(tweet_text.strip()),
+    "content": tweet_text,
     "word": prompt_word,
     "media": tweet_media
 }

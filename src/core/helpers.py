@@ -1,8 +1,10 @@
+from html import escape
 import re
 from os.path import abspath
 
 from dotenv import dotenv_values, find_dotenv
 from sqlalchemy import create_engine
+from tweepy import Status
 
 
 __all__ = [
@@ -11,6 +13,8 @@ __all__ = [
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
+    "get_tweet_media",
+    "get_tweet_text",
     "load_env_vals",
     "make_hashtags",
     "make_mentions",
@@ -23,7 +27,7 @@ __all__ = [
 IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
 
 
-def create_db_connection(config):
+def create_db_connection(config: dict) -> tuple:
     connect_str = f"sqlite:///{abspath(config['DB_PATH'])}"
     return connect_str, create_engine(connect_str)
 
@@ -61,8 +65,29 @@ def find_prompt_word(text: str) -> str or None:
     return prompt_word
 
 
+def get_tweet_media(tweet: Status) -> tuple:
+    """Get the tweet's media if it exists."""
+    media_url = ""
+    tweet_media = None
+
+    # If we have media in our tweet, get a proper URL to it
+    media = tweet.entities.get("media")
+    if media:
+        media_url = media[0]["url"]
+        tweet_media = media[0]["media_url_https"]
+    return media_url, tweet_media
+
+
+def get_tweet_text(tweet: Status, media_url: str) -> str:
+    """Get the tweet's complete text."""
+    # Because we're accessing "extended" tweets (> 140 chars),
+    # we need to be sure to access the property
+    # that holds the non-truncated text
+    return escape(tweet.full_text.replace(media_url, "").strip())
+
+
 def load_env_vals():
-    # Load the variables from the .env file
+    """Load the env variables from file."""
     vals = {}
     env_vals = dotenv_values(find_dotenv())
     for key, value in env_vals.items():
