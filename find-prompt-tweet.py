@@ -19,7 +19,19 @@ from src.core.helpers import (
 )
 
 
-def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
+def is_prompters_own_tweet(status: tweepy.Status) -> bool:
+    """Identify if this tweet is original to the prompter.
+
+    Currently, this means removing both retweets and
+    retweeted quote tweets of the prompter's tweets.
+    """
+    return (
+        not status.retweeted and
+        not hasattr(status, "retweeted_status")
+    )
+
+
+def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
     # If we recurse too many times, stop searching
     if recur_count > 7:
         return None
@@ -33,8 +45,8 @@ def process_tweets(uid: str, tweet_id=None, recur_count: int = 0):
         tweet_mode="extended"
     )
 
-    # Start by filtering out any retweets
-    own_tweets = list(filter(lambda status: not status.retweeted, statuses))
+    # Start by collecting _only_ the prompter's original tweets
+    own_tweets = list(filter(is_prompters_own_tweet, statuses))
 
     prompt_tweet = None
     for tweet in own_tweets:
@@ -110,8 +122,8 @@ if tweet_date == LATEST_TWEET.date:
     raise SystemExit(0)
 
 # Because we're accessing "extended" tweets (> 140 chars),
-# we need to be sure to access the correct property
-# that holds a non-truncated version of the text
+# we need to be sure to access the property
+# that holds the non-truncated text
 tweet_text = prompt_tweet.full_text
 tweet_media = None
 
