@@ -5,7 +5,7 @@ from src.core.helpers import load_env_vals
 from src.core.emails.generator import render_email_base, render_email_addr
 
 
-def send_emails(tweet):
+def send_emails(tweet: dict):
     # Connect to the Mailjet Send API
     config = load_env_vals()
     mailjet = Client(auth=(
