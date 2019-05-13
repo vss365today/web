@@ -5,15 +5,18 @@ from src.core.helpers import create_db_connection, load_env_vals
 
 
 __all__ = [
+    "add_giver_to_db",
     "add_tweet_to_db",
     "get_all_emails",
     "get_all_givers",
     "get_latest_tweet",
     "get_giver_by_date",
+    "get_giver_by_uid",
     "get_givers_by_year",
     "get_tweet_by_date",
     "get_tweets_by_giver",
-    "get_tweet_years"
+    "get_tweet_years",
+    "get_uid_by_handle"
 ]
 
 
@@ -70,6 +73,14 @@ def get_giver_by_date(date: str):
     return giver
 
 
+def get_giver_by_uid(uid: str):
+    """"Only works outside Flask context."""
+    session = __connect_to_db_sqlalchemy()
+    giver = session.query(Givers).filter_by(uid=uid).first()
+    session.close()
+    return giver
+
+
 def get_tweet_years() -> list:
     distinct_years = set()
     all_givers = Givers.query.with_entities(Givers.date).all()
@@ -92,8 +103,14 @@ def get_tweets_by_giver(handle: str):
     return Tweets.query.filter_by(uid=uid.uid).all()
 
 
-def get_tweet_by_date(date: str):
-    return Tweets.query.filter(Tweets.date == date).first()
+def get_tweet_by_date(date: str, in_flask: bool = True):
+    if in_flask:
+        return Tweets.query.filter(Tweets.date == date).first()
+    else:
+        session = __connect_to_db_sqlalchemy()
+        tweet = session.query(Tweets).filter_by(date=date).first()
+        session.close()
+        return tweet
 
 
 def add_giver_to_db(giver_dict: dict):
