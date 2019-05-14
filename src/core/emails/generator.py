@@ -15,10 +15,10 @@ def render_email_base(tweet: dict) -> str:
     # Render the base email content,
     # formatting all information as needed
     tweet["date"] = format_date(tweet["date"])
-    tweet["url"] = create_tweet_url(tweet),
-    return template.render(**{"tweet": tweet}).replace(r"{\{", "{{")
+    tweet["url"] = create_tweet_url(tweet)
+    return template.render(tweet=tweet).replace(r"{\{", "{{")
 
 
 def render_email_addr(template: str, email: str) -> str:
     """Render an email address into an email template."""
-    return jinja2.Template(template).render(**{"email": email})
+    return jinja2.Template(template).render(email=email)
