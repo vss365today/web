@@ -179,6 +179,16 @@ footer > div {
   line-height: 1.5;
   font-size: 1.85em;
   font-weight: 700;
+  color: inherit;
+  text-decoration-style: dashed;
+  text-decoration-line: underline;
+  text-decoration-color: #d1caca;
+}
+.content .word:hover,
+.content .word:focus,
+.content .word:active {
+  border-bottom-color: transparent;
+  text-decoration-color: inherit;
 }
 
 .browse-page > div:first-of-type {
