@@ -1,14 +1,13 @@
 import sqlite3
-from typing import List
+from typing import List, Union
 from sqlalchemy.orm import sessionmaker
 
-from src.models import Tweets, Givers
+from src.models import Tweets
 from src.core.helpers import create_db_connection, flatten_tuple_list, load_env_vals
 
 
 __all__ = [
     "get_all_emails",
-    "add_giver_to_db",
     "add_tweet_to_db",
     "get_latest_tweet",
     "get_giver_by_date",
@@ -61,16 +60,20 @@ def get_uid_by_handle(handle: str) -> str:
         return db.execute(sql, {"handle": handle}).fetchone()["uid"]
 
 
-def get_latest_tweet(in_flask: bool = True):
-    # Use the appropriate database api depending on
-    # if we are inside a Flask context or not
-    if in_flask:
-        return Tweets.query.order_by(Tweets.date.desc()).first_or_404()
-    else:
-        session = __connect_to_db_sqlalchemy()
-        tweet = session.query(Tweets).order_by(Tweets.date.desc()).first()
-        session.close()
-        return tweet
+def get_latest_tweet() -> dict:
+    """Get the newest archived tweet."""
+    # To preserve compat across the rest of the codebase,
+    # we also include the tweet Giver's handle in the result set.
+    sql = """
+    SELECT tweets.*, givers.handle AS giver_handle
+    FROM tweets
+        INNER JOIN givers ON tweets.uid = givers.uid
+    ORDER BY date DESC
+    """
+
+    # Execute our query
+    with __connect_to_db() as db:
+        return dict(db.execute(sql).fetchone())
 
 
 def get_giver_by_date(date: str) -> sqlite3.Row:
@@ -138,7 +141,7 @@ def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"handle": handle}).fetchall()
 
 
-def get_tweet_by_date(date: str) -> sqlite3.Row:
+def get_tweet_by_date(date: str) -> Union[dict, None]:
     """Get a prompt tweet by the date it was posted."""
     # To preserve compat across the rest of the codebase,
     # we also include the tweet Giver's handle in the result set.
@@ -151,20 +154,8 @@ def get_tweet_by_date(date: str) -> sqlite3.Row:
 
     # Execute our query
     with __connect_to_db() as db:
-        return db.execute(sql, {"date": date}).fetchone()
-
-
-def add_giver_to_db(giver_dict: dict):
-    """Add a giver to the database."""
-    giver = Givers(
-        uid=giver_dict["uid"],
-        handle=giver_dict["handle"],
-        date=giver_dict["date"]
-    )
-    session = __connect_to_db_sqlalchemy()
-    session.add(giver)
-    session.commit()
-    session.close()
+        r = db.execute(sql, {"date": date}).fetchone()
+    return dict(r) if r is not None else None
 
 
 def add_tweet_to_db(tweet_dict: dict):

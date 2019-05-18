@@ -65,13 +65,13 @@ def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
     return prompt_tweet
 
 
-# Get the latest tweet in the database
-# to see if we need to do anything
-LATEST_TWEET = get_latest_tweet(in_flask=False)
+# Get the latest tweet in the database to see if we need to do anything
+LATEST_TWEET = get_latest_tweet()
+LATEST_TWEET["date"] = create_date(LATEST_TWEET["date"])
 TODAY = date.today()
 
 # We already have latest tweet, don't do anything
-if LATEST_TWEET.date == TODAY:
+if LATEST_TWEET["date"] == TODAY:
     print(f"Tweet for {TODAY} already found. Aborting...")
     raise SystemExit(0)
 
@@ -109,7 +109,7 @@ if tweet_date < TODAY:
 # We already have the latest tweet, don't do anything
 # This condition is hit when it is _technnically_ the next day
 # but the newest tweet hasn't been sent out
-if tweet_date == LATEST_TWEET.date:
+if tweet_date == LATEST_TWEET["date"]:
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
 

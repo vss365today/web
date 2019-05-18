@@ -98,13 +98,16 @@ def browse_by_year(year) -> str:
 @bp.route("/")
 @bp.route("/today")
 def index() -> str:
+    # Create a proper date object
     tweet = database.get_latest_tweet()
+    tweet["date"] = create_date(tweet["date"])
+
     render_opts = {
         "tweet": tweet,
         "exists_previous_day": True,
         "exists_next_day": False,
         "form": SubscribeForm(),
-        "page_title": format_date(tweet.date)
+        "page_title": format_date(tweet["date"])
     }
     return render_template("tweet.html", **render_opts)
 
@@ -117,9 +120,7 @@ def date(date) -> str:
     if tweet is None:
         abort(404)
 
-    # Converting the resulting row to a dictionary
-    # in order to create a proper date object
-    tweet = dict(tweet)
+    # Create a proper date object
     tweet["date"] = create_date(tweet["date"])
 
     # Check if a tweet for the previous day exists
