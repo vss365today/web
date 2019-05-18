@@ -104,7 +104,7 @@ def index() -> str:
         "exists_previous_day": True,
         "exists_next_day": False,
         "form": SubscribeForm(),
-        "page_title": filters.format_date(tweet.date)
+        "page_title": format_date(tweet.date)
     }
     return render_template("tweet.html", **render_opts)
 
@@ -117,14 +117,19 @@ def date(date) -> str:
     if tweet is None:
         abort(404)
 
+    # Converting the resulting row to a dictionary
+    # in order to create a proper date object
+    tweet = dict(tweet)
+    tweet["date"] = create_date(tweet["date"])
+
     # Check if a tweet for the previous day exists
     exists_previous_day = database.get_tweet_by_date(
-        filters.previous(tweet.date)
+        previous(tweet["date"])
     ) is not None
 
     # Check if a tweet for the next day even exists
     exists_next_day = database.get_tweet_by_date(
-        filters.next(tweet.date)
+        next(tweet["date"])
     ) is not None
 
     render_opts = {
@@ -132,7 +137,7 @@ def date(date) -> str:
         "exists_previous_day": exists_previous_day,
         "exists_next_day": exists_next_day,
         "form": SubscribeForm(),
-        "page_title": filters.format_date(tweet.date)
+        "page_title": format_date(tweet["date"])
     }
     return render_template("tweet.html", **render_opts)
 

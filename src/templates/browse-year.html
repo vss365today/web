@@ -11,7 +11,7 @@
   <ul>
     {%- for giver in givers %}
     <li>
-      {% set giver_date = (giver.date ~ '-01')|create_date %}
+      {% set giver_date = giver.date|create_date %}
       <a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">@{{ giver.handle }} &mdash; <strong>{{ giver_date.strftime("%B %Y") }}</strong></a>
     </li>
     {%- if loop.index % 6 == 0 %}

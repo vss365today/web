@@ -56,9 +56,9 @@ def get_uid_by_handle(handle: str) -> str:
     """Get a Giver's user ID from their Twitter handle."""
     sql = "SELECT uid FROM givers WHERE handle = :handle"
 
-    # Execute our query
+    # Execute our query, returning the uid directly
     with __connect_to_db() as db:
-        return db.execute(sql, {"handle": handle}).fetchone()[0]
+        return db.execute(sql, {"handle": handle}).fetchone()["uid"]
 
 
 def get_latest_tweet(in_flask: bool = True):
@@ -108,8 +108,17 @@ def get_tweet_years() -> List[str]:
     return flatten_tuple_list(r)
 
 
-def get_givers_by_year(year: str):
-    return Givers.query.filter(Givers.date.startswith(year)).all()
+def get_givers_by_year(year: str) -> List[sqlite3.Row]:
+    """Get a list of all Givers for a particular year."""
+    sql = """
+    SELECT uid, handle, date || '-01' AS date
+    FROM givers
+    WHERE SUBSTR(date, 1, 4) = :year
+    """
+
+    # Execute our query
+    with __connect_to_db() as db:
+        return db.execute(sql, {"year": year}).fetchall()
 
 
 def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
@@ -129,14 +138,20 @@ def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"handle": handle}).fetchall()
 
 
-def get_tweet_by_date(date: str, in_flask: bool = True):
-    if in_flask:
-        return Tweets.query.filter(Tweets.date == date).first()
-    else:
-        session = __connect_to_db_sqlalchemy()
-        tweet = session.query(Tweets).filter_by(date=date).first()
-        session.close()
-        return tweet
+def get_tweet_by_date(date: str) -> sqlite3.Row:
+    """Get a prompt tweet by the date it was posted."""
+    # To preserve compat across the rest of the codebase,
+    # we also include the tweet Giver's handle in the result set.
+    sql = """
+    SELECT tweets.*, givers.handle AS giver_handle
+    FROM tweets
+        INNER JOIN givers ON tweets.uid = givers.uid
+    WHERE tweets.date = :date
+    """
+
+    # Execute our query
+    with __connect_to_db() as db:
+        return db.execute(sql, {"date": date}).fetchone()
 
 
 def add_giver_to_db(giver_dict: dict):

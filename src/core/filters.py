@@ -23,7 +23,9 @@ def create_date(date_str: str) -> date:
 
 
 def create_tweet_url(tweet: dict) -> str:
-    return f"https://twitter.com/{tweet.giver.handle}/status/{tweet.tweet_id}"
+    return "https://twitter.com/{giver_handle}/status/{tweet_id}".format_map(
+        tweet
+    )
 
 
 def format_content(text: str) -> str:
