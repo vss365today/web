@@ -1,3 +1,5 @@
+import sqlite3
+from typing import List
 from sqlalchemy.orm import sessionmaker
 
 from src.models import Emails, Tweets, Givers
@@ -5,10 +7,10 @@ from src.core.helpers import create_db_connection, load_env_vals
 
 
 __all__ = [
-    "add_giver_to_db",
-    "add_tweet_to_db",
     "get_all_emails",
     "get_all_givers",
+    "add_giver_to_db",
+    "add_tweet_to_db",
     "get_latest_tweet",
     "get_giver_by_date",
     "get_giver_by_uid",
@@ -30,12 +32,23 @@ def __connect_to_db_sqlalchemy():
     return Session()
 
 
-def get_all_emails() -> list:
-    # Get all the emails
-    session = __connect_to_db_sqlalchemy()
-    all_emails = session.query(Emails).all()
-    session.close()
-    return all_emails
+def __connect_to_db() -> sqlite3.Connection:
+    """Create a connection to the database."""
+    config = load_env_vals()
+    return sqlite3.connect(config["DB_PATH"])
+
+
+def get_all_emails() -> List[str]:
+    """Get all emails in the subscription list."""
+    sql = "SELECT email FROM emails"
+
+    # Execute our query
+    with __connect_to_db() as db:
+        r = db.execute(sql).fetchall()
+
+    # Flatten the list of tuples into a list
+    # of strings containing just the email addresses
+    return [addr[0] for addr in r]
 
 
 def get_uid_by_handle(handle: str, in_flask: bool = True):

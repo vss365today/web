@@ -22,13 +22,13 @@ def send_emails(tweet: dict):
     for addr in email_list:
         msg = {
             "Subject": f"#vss365 prompt for {tweet['date']}",
-            "HTMLPart": render_email_addr(base_template, addr.email),
+            "HTMLPart": render_email_addr(base_template, addr),
             "From": {
                 "Email": "noreply@vss365today.com",
                 "Name": "#vss365 today"
             },
             "To": [{
-                "Email": addr.email,
+                "Email": addr,
                 "Name": "#vss365 today Subscriber"
             }]
         }
