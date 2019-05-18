@@ -5,7 +5,6 @@ from src.core import database
 from src.core import filters
 from src.core.form import SubscribeForm
 from src.core.helpers import validate_email
-from src.core import subscription
 
 
 bp = Blueprint("root", __name__, url_prefix="")
@@ -19,7 +18,7 @@ def subscribe() -> str:
 
     # Get the email submitted for subscription
     if subscribe_form.validate_on_submit():
-        addition_success = subscription.add_email(email)
+        addition_success = database.add_subscribe_email(email)
 
     render_opts = {
         "email": email,
@@ -38,7 +37,7 @@ def unsubscribe() -> str:
     email = request.args.get("email")
     if email and validate_email(email):
         removal_success = True
-        subscription.remove_email(email)
+        database.remove_subscribe_email(email)
 
     # This is not a valid email address
     else:

@@ -7,8 +7,10 @@ from src.core.helpers import create_db_connection, flatten_tuple_list, load_env_
 
 
 __all__ = [
-    "get_all_emails",
+    "add_subscribe_email",
     "add_tweet_to_db",
+    "get_all_emails",
+    "get_existing_email",
     "get_latest_tweet",
     "get_giver_by_date",
     "get_giver_by_uid",
@@ -16,7 +18,8 @@ __all__ = [
     "get_tweet_by_date",
     "get_tweets_by_giver",
     "get_tweet_years",
-    "get_uid_by_handle"
+    "get_uid_by_handle",
+    "remove_subscribe_email"
 ]
 
 
@@ -38,6 +41,19 @@ def __connect_to_db() -> sqlite3.Connection:
     return conn
 
 
+def add_subscribe_email(addr: str) -> bool:
+    """Add a subscription email address."""
+    # Don't try to add the email if it already exists
+    if get_existing_email(addr):
+        return False
+
+    # Add the email to the database
+    sql = "INSERT INTO emails VALUES (:email)"
+    with __connect_to_db() as db:
+        db.execute(sql)
+    return True
+
+
 def get_all_emails() -> List[str]:
     """Get all emails in the subscription list."""
     sql = "SELECT email FROM emails"
@@ -49,6 +65,15 @@ def get_all_emails() -> List[str]:
     # Flatten the list of tuples into a list
     # of strings containing just the email addresses
     return flatten_tuple_list(r)
+
+
+def get_existing_email(addr: str) -> bool:
+    """Find an existing subscription email."""
+    sql = "SELECT 1 FROM emails WHERE email = :addr"
+
+    # Execute our query
+    with __connect_to_db() as db:
+        return bool(db.execute(sql, {"addr": addr}).fetchone())
 
 
 def get_uid_by_handle(handle: str) -> str:
@@ -158,17 +183,32 @@ def get_tweet_by_date(date: str) -> Union[dict, None]:
     return dict(r) if r is not None else None
 
 
-def add_tweet_to_db(tweet_dict: dict):
+def add_tweet_to_db(tweet_dict: dict) -> None:
     """Add a tweet to the database."""
-    tweet = Tweets(
-        tweet_id=tweet_dict["tweet_id"],
-        date=tweet_dict["date"],
-        uid=tweet_dict["uid"],
-        content=tweet_dict["content"],
-        word=tweet_dict["word"],
-        media=tweet_dict["media"]
+    sql = """
+    INSERT INTO tweets (
+        tweet_id, date, uid, content, word, media
     )
-    session = __connect_to_db_sqlalchemy()
-    session.add(tweet)
-    session.commit()
-    session.close()
+    VALUES (
+        :tweet_id, :date, :uid, :content, :word, :media
+    )
+    """
+
+    # Execute our query
+    with __connect_to_db() as db:
+        db.execute(sql, tweet_dict)
+
+
+def remove_subscribe_email(addr: str) -> bool:
+    """Remove a subscription email address."""
+    # Find the record with this email (it will be unique)
+    email = get_existing_email(addr)
+
+    # Remove the email from the database,
+    # still telling the user it was successful
+    # even if it was already removed
+    if email:
+        sql = "DELETE FROM emails WHERE email = :addr"
+        with __connect_to_db() as db:
+            db.execute(sql, {"addr": addr})
+    return bool(email)
