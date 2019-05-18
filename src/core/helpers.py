@@ -1,16 +1,14 @@
 from html import escape
 import re
-from os.path import abspath
 
 from dotenv import dotenv_values, find_dotenv
-from sqlalchemy import create_engine
 import tweepy
 
 
 __all__ = [
     "IDENTIFYING_HASHTAGS",
-    "create_db_connection",
     "create_twitter_connection",
+    "flatten_tuple_list",
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
@@ -28,11 +26,6 @@ __all__ = [
 IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
 
 
-def create_db_connection(config: dict) -> tuple:
-    connect_str = f"sqlite:///{abspath(config['DB_PATH'])}"
-    return connect_str, create_engine(connect_str)
-
-
 def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
     CONFIG = load_env_vals()
@@ -47,6 +40,11 @@ def create_twitter_connection() -> tweepy.API:
     api = tweepy.API(auth)
     print("Successfully connected to the Twitter API")
     return api
+
+
+def flatten_tuple_list(tup) -> list:
+    """Flatten a list of tuples into a list of actual data."""
+    return [item[0] for item in tup]
 
 
 def find_prompt_tweet(text: str) -> bool:

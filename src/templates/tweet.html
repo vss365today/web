@@ -14,7 +14,7 @@
     {% if tweet.media %}
     <img width="400" alt="" src="{{ tweet.media }}">
     {% endif %}
-    <p class="center"><a href="{{ create_url(tweet) }}">Prompt by @{{ tweet.giver.handle }}</a></p>
+    <p class="center"><a href="{{ create_url(tweet) }}">Prompt by @{{ tweet.giver_handle }}</a></p>
 
     <details>
       <summary>View tweet</summary>
