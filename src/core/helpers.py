@@ -11,6 +11,7 @@ __all__ = [
     "IDENTIFYING_HASHTAGS",
     "create_db_connection",
     "create_twitter_connection",
+    "flatten_tuple_list",
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
@@ -47,6 +48,11 @@ def create_twitter_connection() -> tweepy.API:
     api = tweepy.API(auth)
     print("Successfully connected to the Twitter API")
     return api
+
+
+def flatten_tuple_list(tup) -> list:
+    """Flatten a list of tuples into a list of actual data."""
+    return [item[0] for item in tup]
 
 
 def find_prompt_tweet(text: str) -> bool:

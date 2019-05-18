@@ -2,13 +2,12 @@ import sqlite3
 from typing import List
 from sqlalchemy.orm import sessionmaker
 
-from src.models import Emails, Tweets, Givers
-from src.core.helpers import create_db_connection, load_env_vals
+from src.models import Tweets, Givers
+from src.core.helpers import create_db_connection, flatten_tuple_list, load_env_vals
 
 
 __all__ = [
     "get_all_emails",
-    "get_all_givers",
     "add_giver_to_db",
     "add_tweet_to_db",
     "get_latest_tweet",
@@ -48,7 +47,7 @@ def get_all_emails() -> List[str]:
 
     # Flatten the list of tuples into a list
     # of strings containing just the email addresses
-    return [addr[0] for addr in r]
+    return flatten_tuple_list(r)
 
 
 def get_uid_by_handle(handle: str, in_flask: bool = True):
@@ -75,10 +74,6 @@ def get_latest_tweet(in_flask: bool = True):
         return tweet
 
 
-def get_all_givers():
-    return Givers.query.distinct().order_by(Givers.date).all()
-
-
 def get_giver_by_date(date: str):
     session = __connect_to_db_sqlalchemy()
     giver = session.query(Givers).filter_by(date=date).first()
@@ -94,17 +89,22 @@ def get_giver_by_uid(uid: str):
     return giver
 
 
-def get_tweet_years() -> list:
-    distinct_years = set()
-    all_givers = Givers.query.with_entities(Givers.date).all()
+def get_tweet_years() -> List[str]:
+    """Get a list of years of recorded tweets."""
+    # We only need a descending (newest on top) list
+    # of the years we've been running.
+    # This is done quickly by looking at the prompters list.
+    sql = """
+    SELECT
+        DISTINCT SUBSTR(date, 1, 4)
+    FROM
+        givers
+    ORDER BY date DESC"""
 
-    # The years we have been running is best
-    # determined by the givers we've had
-    for giver in all_givers:
-        distinct_years.add(giver[0][:4])
-
-    # Put the latest year on top
-    return sorted(distinct_years, reverse=True)
+    # Execute our query
+    with __connect_to_db() as db:
+        r = db.execute(sql).fetchall()
+    return flatten_tuple_list(r)
 
 
 def get_givers_by_year(year: str):
