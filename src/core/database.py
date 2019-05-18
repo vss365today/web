@@ -1,5 +1,5 @@
 import sqlite3
-from typing import Dict, List
+from typing import List
 from sqlalchemy.orm import sessionmaker
 
 from src.models import Tweets, Givers
@@ -34,7 +34,9 @@ def __connect_to_db_sqlalchemy():
 def __connect_to_db() -> sqlite3.Connection:
     """Create a connection to the database."""
     config = load_env_vals()
-    return sqlite3.connect(config["DB_PATH"])
+    conn = sqlite3.connect(config["DB_PATH"])
+    conn.row_factory = sqlite3.Row
+    return conn
 
 
 def get_all_emails() -> List[str]:
@@ -71,22 +73,13 @@ def get_latest_tweet(in_flask: bool = True):
         return tweet
 
 
-def get_giver_by_date(date: str) -> Dict[str, str]:
+def get_giver_by_date(date: str) -> sqlite3.Row:
     """Get a Giver by the month-year they delievered the prompts. """
     sql = "SELECT uid, handle, date FROM givers WHERE date = :date"
 
     # Execute our query
     with __connect_to_db() as db:
-        r = db.execute(sql, {"date": date}).fetchone()
-
-    # Create a dictionary from the giver's info
-    # for easier consumption
-    giver = {
-        "uid": r[0],
-        "handle": r[1],
-        "date": r[2],
-    }
-    return giver
+        return db.execute(sql, {"date": date}).fetchone()
 
 
 def get_giver_by_uid(uid: str):
@@ -121,7 +114,7 @@ def get_givers_by_year(year: str):
     return Givers.query.filter(Givers.date.startswith(year)).all()
 
 
-def get_tweets_by_giver(handle: str) -> List[dict]:
+def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
     """Get all tweets given out by a Giver."""
     # Because we are querying the db using raw SQL,
     # and because the tables are _properly_ normalized,
@@ -139,21 +132,7 @@ def get_tweets_by_giver(handle: str) -> List[dict]:
 
     # Execute our query
     with __connect_to_db() as db:
-        r = db.execute(sql, {"handle": handle}).fetchall()
-
-    # Convert the results into a dict for easier consumption
-    tweets = [
-        {
-            "tweet_id": tweet[0],
-            "date": tweet[1],
-            "uid": tweet[2],
-            "content": tweet[3],
-            "word": tweet[4],
-            "media": tweet[4]
-        }
-        for tweet in r
-    ]
-    return tweets
+        return db.execute(sql, {"handle": handle}).fetchall()
 
 
 def get_tweet_by_date(date: str, in_flask: bool = True):
