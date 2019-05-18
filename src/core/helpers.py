@@ -1,15 +1,12 @@
 from html import escape
 import re
-from os.path import abspath
 
 from dotenv import dotenv_values, find_dotenv
-from sqlalchemy import create_engine
 import tweepy
 
 
 __all__ = [
     "IDENTIFYING_HASHTAGS",
-    "create_db_connection",
     "create_twitter_connection",
     "flatten_tuple_list",
     "find_prompt_tweet",
@@ -27,11 +24,6 @@ __all__ = [
 
 # The hashtags that identify a prompt tweet
 IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
-
-
-def create_db_connection(config: dict) -> tuple:
-    connect_str = f"sqlite:///{abspath(config['DB_PATH'])}"
-    return connect_str, create_engine(connect_str)
 
 
 def create_twitter_connection() -> tweepy.API:

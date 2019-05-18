@@ -1,9 +1,7 @@
 import sqlite3
 from typing import List, Union
-from sqlalchemy.orm import sessionmaker
 
-from src.models import Tweets
-from src.core.helpers import create_db_connection, flatten_tuple_list, load_env_vals
+from src.core.helpers import flatten_tuple_list, load_env_vals
 
 
 __all__ = [
@@ -21,16 +19,6 @@ __all__ = [
     "get_uid_by_handle",
     "remove_subscribe_email"
 ]
-
-
-def __connect_to_db_sqlalchemy():
-    # Connect to the database
-    config = load_env_vals()
-    _, db = create_db_connection(config)
-
-    # Make a database session
-    Session = sessionmaker(bind=db)
-    return Session()
 
 
 def __connect_to_db() -> sqlite3.Connection:
