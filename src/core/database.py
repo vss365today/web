@@ -36,9 +36,9 @@ def add_subscribe_email(addr: str) -> bool:
         return False
 
     # Add the email to the database
-    sql = "INSERT INTO emails VALUES (:email)"
+    sql = "INSERT INTO emails VALUES (:addr)"
     with __connect_to_db() as db:
-        db.execute(sql)
+        db.execute(sql, {"addr": addr})
     return True
 
 
