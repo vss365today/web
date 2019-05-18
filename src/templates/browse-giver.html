@@ -13,7 +13,7 @@
   <ul>
     {%- for tweet in tweets %}
     <li>
-      <a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.date|format_date }} &mdash; <strong>{{ tweet.word }}</strong></a>
+      <a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.date|create_date|format_date }} &mdash; <strong>{{ tweet.word }}</strong></a>
     </li>
     {%- if loop.index % 5 == 0 %}
   </ul>

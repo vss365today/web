@@ -1,5 +1,5 @@
 import sqlite3
-from typing import List
+from typing import Dict, List
 from sqlalchemy.orm import sessionmaker
 
 from src.models import Tweets, Givers
@@ -50,16 +50,13 @@ def get_all_emails() -> List[str]:
     return flatten_tuple_list(r)
 
 
-def get_uid_by_handle(handle: str, in_flask: bool = True):
-    # Use the appropriate database api depending on
-    # if we are inside a Flask context or not
-    if in_flask:
-        return Givers.query.filter_by(handle=handle).first()
-    else:
-        session = __connect_to_db_sqlalchemy()
-        uid = session.query(Givers.uid).filter_by(handle=handle).first()
-        session.close()
-        return uid
+def get_uid_by_handle(handle: str) -> str:
+    """Get a giver's user ID from their Twitter handle."""
+    sql = "SELECT uid FROM givers WHERE handle = :handle"
+
+    # Execute our query
+    with __connect_to_db() as db:
+        return db.execute(sql, {"handle": handle}).fetchone()[0]
 
 
 def get_latest_tweet(in_flask: bool = True):
@@ -74,10 +71,21 @@ def get_latest_tweet(in_flask: bool = True):
         return tweet
 
 
-def get_giver_by_date(date: str):
-    session = __connect_to_db_sqlalchemy()
-    giver = session.query(Givers).filter_by(date=date).first()
-    session.close()
+def get_giver_by_date(date: str) -> Dict[str, str]:
+    """Get a Giver by the month-year they delievered the prompts. """
+    sql = "SELECT uid, handle, date FROM givers WHERE date = :date"
+
+    # Execute our query
+    with __connect_to_db() as db:
+        r = db.execute(sql, {"date": date}).fetchone()
+
+    # Create a dictionary from the giver's info
+    # for easier consumption
+    giver = {
+        "uid": r[0],
+        "handle": r[1],
+        "date": r[2],
+    }
     return giver
 
 
@@ -99,7 +107,9 @@ def get_tweet_years() -> List[str]:
         DISTINCT SUBSTR(date, 1, 4)
     FROM
         givers
-    ORDER BY date DESC"""
+    ORDER BY
+        date DESC
+    """
 
     # Execute our query
     with __connect_to_db() as db:
@@ -111,9 +121,39 @@ def get_givers_by_year(year: str):
     return Givers.query.filter(Givers.date.startswith(year)).all()
 
 
-def get_tweets_by_giver(handle: str):
-    uid = get_uid_by_handle(handle)
-    return Tweets.query.filter_by(uid=uid.uid).all()
+def get_tweets_by_giver(handle: str) -> List[dict]:
+    """Get all tweets given out by a Giver."""
+    # Because we are querying the db using raw SQL,
+    # and because the tables are _properly_ normalized,
+    # we can do a simple join to get the correct data set. :D
+    sql = """
+    SELECT
+        tweets.*
+    FROM
+        tweets
+    INNER JOIN
+        givers ON tweets.uid = givers.uid
+    WHERE
+        givers.handle = :handle
+    """
+
+    # Execute our query
+    with __connect_to_db() as db:
+        r = db.execute(sql, {"handle": handle}).fetchall()
+
+    # Convert the results into a dict for easier consumption
+    tweets = [
+        {
+            "tweet_id": tweet[0],
+            "date": tweet[1],
+            "uid": tweet[2],
+            "content": tweet[3],
+            "word": tweet[4],
+            "media": tweet[4]
+        }
+        for tweet in r
+    ]
+    return tweets
 
 
 def get_tweet_by_date(date: str, in_flask: bool = True):

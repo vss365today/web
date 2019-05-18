@@ -83,7 +83,7 @@ print("Searching for the latest prompt tweet")
 
 # Get the giver for this month and attempt to find the prompt
 CURRENT_GIVER = get_giver_by_date(TODAY.strftime("%Y-%m"))
-prompt_tweet = process_tweets(CURRENT_GIVER.uid)
+prompt_tweet = process_tweets(CURRENT_GIVER["uid"])
 
 # The tweet was not found at all :(
 if prompt_tweet is None:
@@ -128,10 +128,7 @@ if prompt_word is None:
 tweet = {
     "tweet_id": prompt_tweet.id_str,
     "date": tweet_date,
-    "uid": get_uid_by_handle(
-        escape(prompt_tweet.author.screen_name),
-        in_flask=False
-    )[0],
+    "uid": get_uid_by_handle(prompt_tweet.author.screen_name),
     "handle": escape(prompt_tweet.author.screen_name),
     "content": tweet_text,
     "word": prompt_word,

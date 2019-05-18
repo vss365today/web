@@ -19,11 +19,6 @@ def extract_handle(url: str) -> str:
     )[1].strip()
 
 
-def extract_uid(handle: str) -> str:
-    uid = get_uid_by_handle(handle, in_flask=False)
-    return uid[0] if uid is not None else None
-
-
 def extract_tweet_id(url: str) -> str:
     return match(
         r"^https://(?:mobile\.|www\.)?twitter\.com/\w+/status/(\d+)",
@@ -52,7 +47,7 @@ del media_url
 tweet = {
     "tweet_id": tweet_id,
     "date": create_date(tweet_date.strip()),
-    "uid": extract_uid(user_handle),
+    "uid": get_uid_by_handle(user_handle),
     "handle": user_handle,
     "content": tweet_text,
     "word": find_prompt_word(tweet_text),
