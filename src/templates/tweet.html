@@ -5,7 +5,10 @@
 
   {% include "partials/btns-prev-next.html" %}
 
-  <h3 class="prompt-highlight center">Today's writing prompt is:<br><span class="word">{{ tweet.word }}</span></h3>
+  <h3 class="prompt-highlight center">Today's writing prompt is:
+    <br>
+    <a class="word" target="_blank" href="https://www.dictionary.com/browse/{{ tweet.word|lower }}">{{ tweet.word }}</a>
+  </h3>
 
   <div class="tweet">
     {% if tweet.media %}

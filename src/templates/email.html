@@ -1461,10 +1461,15 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th>
-                                  <h4 class="prompt-highlight text-center">Today's writing prompt is:<br><span class="word">{{ tweet.word }}</span></h4>
+                                  <h4 class="prompt-highlight text-center">Today's writing prompt is:
+                                    <br>
+                                    <a class="word" target="_blank" href="https://www.dictionary.com/browse/{{ tweet.word|lower }}">{{ tweet.word }}</a>
+                                  </h4>
+
                                   {% if tweet.media %}
                                       <img id="tweet-media" width="400" alt="" style="margin-right: auto; margin-left: auto;" src="{{ tweet.media }}">
                                   {% endif %}
+
                                   <p><a href="{{ tweet.url }}">View full prompt from @{{ tweet.handle }}</a></p>
                                 </th>
                                 <th class="expander"></th>
