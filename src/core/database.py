@@ -53,7 +53,7 @@ def get_all_emails() -> List[str]:
 
 
 def get_uid_by_handle(handle: str) -> str:
-    """Get a giver's user ID from their Twitter handle."""
+    """Get a Giver's user ID from their Twitter handle."""
     sql = "SELECT uid FROM givers WHERE handle = :handle"
 
     # Execute our query
@@ -75,33 +75,31 @@ def get_latest_tweet(in_flask: bool = True):
 
 def get_giver_by_date(date: str) -> sqlite3.Row:
     """Get a Giver by the month-year they delievered the prompts. """
-    sql = "SELECT uid, handle, date FROM givers WHERE date = :date"
+    sql = "SELECT uid, handle FROM givers WHERE date = :date"
 
     # Execute our query
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
 
 
-def get_giver_by_uid(uid: str):
-    """"Only works outside Flask context."""
-    session = __connect_to_db_sqlalchemy()
-    giver = session.query(Givers).filter_by(uid=uid).first()
-    session.close()
-    return giver
+def get_giver_by_uid(uid: str) -> sqlite3.Row:
+    """Get a Giver by their user ID."""
+    sql = "SELECT handle, date FROM givers WHERE uid = :uid"
+
+    # Execute our query
+    with __connect_to_db() as db:
+        return db.execute(sql, {"uid": uid}).fetchone()
 
 
 def get_tweet_years() -> List[str]:
     """Get a list of years of recorded tweets."""
     # We only need a descending (newest on top) list
     # of the years we've been running.
-    # This is done quickly by looking at the prompters list.
+    # This is done quickly by looking at the Giver's list.
     sql = """
-    SELECT
-        DISTINCT SUBSTR(date, 1, 4)
-    FROM
-        givers
-    ORDER BY
-        date DESC
+    SELECT DISTINCT SUBSTR(date, 1, 4)
+    FROM givers
+    ORDER BY date DESC
     """
 
     # Execute our query
@@ -120,14 +118,10 @@ def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
     # and because the tables are _properly_ normalized,
     # we can do a simple join to get the correct data set. :D
     sql = """
-    SELECT
-        tweets.*
-    FROM
-        tweets
-    INNER JOIN
-        givers ON tweets.uid = givers.uid
-    WHERE
-        givers.handle = :handle
+    SELECT tweets.*
+    FROM tweets
+        INNER JOIN givers ON tweets.uid = givers.uid
+    WHERE givers.handle = :handle
     """
 
     # Execute our query
