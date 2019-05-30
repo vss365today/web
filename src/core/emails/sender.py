@@ -16,8 +16,9 @@ def send_emails(tweet: dict):
     # Get the email addresses to send to,
     # render a base email template, and
     # go through each address and send an email
+    # TODO Flatte this into a render for each email
     email_list = get_all_emails()
-    base_template = render_email_base(tweet)
+    base_template = render_email_base(tweet)  # TODO remove this
     email_data = {"Messages": []}
     for addr in email_list:
         msg = {
