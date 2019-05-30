@@ -1,3 +1,4 @@
+import os.path
 import sqlite3
 from typing import List, Union
 
@@ -7,6 +8,7 @@ from src.core.helpers import flatten_tuple_list, load_env_vals
 __all__ = [
     "add_subscribe_email",
     "add_tweet_to_db",
+    "create_new_database",
     "get_all_emails",
     "get_existing_email",
     "get_latest_tweet",
@@ -42,6 +44,27 @@ def add_subscribe_email(addr: str) -> bool:
     return True
 
 
+def create_new_database() -> None:
+    """Create a new database if needed."""
+    try:
+        # If the database exists and is loaded, this will succeed
+        sql = "SELECT COUNT(*) FROM givers"
+        with __connect_to_db() as db:
+            db.execute(sql)
+
+    # The database doesn't exist
+    except sqlite3.OperationalError:
+        # Get the db schema
+        schema = os.path.abspath(
+            os.path.join("db", "schema.sql")
+        )
+        with open(schema, "rt") as f:
+            sql = f.read()
+
+        # Create the database according to the schema
+        db.executescript(sql)
+
+
 def get_all_emails() -> List[str]:
     """Get all emails in the subscription list."""
     sql = "SELECT email FROM emails"
@@ -73,7 +96,7 @@ def get_uid_by_handle(handle: str) -> str:
         return db.execute(sql, {"handle": handle}).fetchone()["uid"]
 
 
-def get_latest_tweet() -> dict:
+def get_latest_tweet() -> Union[dict, None]:
     """Get the newest archived tweet."""
     # To preserve compat across the rest of the codebase,
     # we also include the tweet Giver's handle in the result set.
@@ -86,7 +109,8 @@ def get_latest_tweet() -> dict:
 
     # Execute our query
     with __connect_to_db() as db:
-        return dict(db.execute(sql).fetchone())
+        r = db.execute(sql).fetchone()
+        return dict(r) if r else r
 
 
 def get_giver_by_date(date: str) -> sqlite3.Row:
