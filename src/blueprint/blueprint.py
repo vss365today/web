@@ -99,6 +99,12 @@ def browse_by_year(year) -> str:
 def index() -> str:
     # Create a proper date object
     tweet = database.get_latest_tweet()
+
+    # A tweet is not available, abort
+    if tweet is None:
+        abort(404)
+
+    # Convert the tweet date into a proper date object
     tweet["date"] = create_date(tweet["date"])
 
     render_opts = {
