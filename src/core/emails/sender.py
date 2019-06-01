@@ -3,6 +3,7 @@ from random import sample
 from mailjet_rest import Client
 
 from src.core.database import get_all_emails
+from src.core.filters import format_date
 from src.core.helpers import load_env_vals
 from src.core.emails.generator import render_email
 
@@ -30,6 +31,9 @@ def send_emails(tweet: dict):
         config["MJ_APIKEY_PUBLIC"],
         config["MJ_APIKEY_PRIVATE"]
     ), version="v3.1")
+
+    # Properly format the tweet date
+    tweet["date"] = format_date(tweet["date"])
 
     # Get the email address list
     email_list = set(get_all_emails())
