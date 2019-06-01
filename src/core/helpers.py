@@ -85,18 +85,20 @@ def get_tweet_media(tweet: tweepy.Status) -> tuple:
     media_url = ""
     tweet_media = None
 
-    # If we have media in our tweet, get a proper URL to it
-    media = tweet.entities.get("media")
+    # If we have media in our tweet
+    media = tweet.extended_entities.get("media")
     if media:
+        # We need just a static image, and it's the same route to get one
+        # rgardless of the media's non-animated image or "animated GIF" status
         media_url = media[0]["url"]
         tweet_media = media[0]["media_url_https"]
-    return media_url, tweet_media
+    return (media_url, tweet_media)
 
 
 def get_tweet_text(tweet: tweepy.Status, media_url: str) -> str:
     """Get the tweet's complete text."""
     # Because we're accessing "extended" tweets (> 140 chars),
-    # we need to be sure to access the property
+    # we need to be sure to access the full_text property
     # that holds the non-truncated text
     return escape(tweet.full_text.replace(media_url, "").strip())
 
