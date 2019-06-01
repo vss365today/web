@@ -73,10 +73,10 @@ def find_prompt_word(text: str) -> str or None:
         hashtags
     ))
 
-    # If there are any hashtags left, get the first one
+    # If there are any hashtags left, get the second one
     # and remove the prefixed pound sign
     if remaining:
-        prompt_word = remaining[0].replace("#", "")
+        prompt_word = remaining[1].replace("#", "")
     return prompt_word
 
 
@@ -100,7 +100,7 @@ def get_tweet_text(tweet: tweepy.Status, media_url: str) -> str:
     # Because we're accessing "extended" tweets (> 140 chars),
     # we need to be sure to access the full_text property
     # that holds the non-truncated text
-    return escape(tweet.full_text.replace(media_url, "").strip())
+    return tweet.full_text.replace(media_url, "").strip()
 
 
 def load_env_vals():

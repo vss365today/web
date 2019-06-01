@@ -130,7 +130,7 @@ tweet = {
     "date": tweet_date,
     "uid": get_uid_by_handle(prompt_tweet.author.screen_name),
     "handle": escape(prompt_tweet.author.screen_name),
-    "content": tweet_text,
+    "content": escape(tweet_text),
     "word": prompt_word,
     "media": tweet_media
 }
