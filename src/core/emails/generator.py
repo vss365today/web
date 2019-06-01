@@ -1,24 +1,25 @@
-import jinja2
+from os.path import join
+from jinja2 import Template
 
-from src.core.filters import format_date
+
+__all__ = [
+    "render_email"
+]
 
 
 def create_tweet_url(tweet: dict) -> str:
     return f"https://twitter.com/{tweet['handle']}/status/{tweet['tweet_id']}"
 
 
-def render_email_base(tweet: dict) -> str:
-    templateLoader = jinja2.FileSystemLoader(searchpath="src/templates")
-    templateEnv = jinja2.Environment(loader=templateLoader)
-    template = templateEnv.get_template("email.html")
+def render_email(fname: str, tweet: dict, email: str) -> str:
+    """Render a complete email template."""
+    # Read the template content
+    template_file = join("src", "templates", fname)
+    with open(template_file) as f:
+        template = f.read()
 
-    # Render the base email content,
-    # formatting all information as needed
-    tweet["date"] = format_date(tweet["date"])
+    # Construct a proper tweet URL
     tweet["url"] = create_tweet_url(tweet)
-    return template.render(tweet=tweet).replace(r"{\{", "{{")
 
-
-def render_email_addr(template: str, email: str) -> str:
-    """Render an email address into an email template."""
-    return jinja2.Template(template).render(email=email)
+    # Render the thing already
+    return Template(template).render(tweet=tweet, email=email)

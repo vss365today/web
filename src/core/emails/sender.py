@@ -2,7 +2,7 @@ from mailjet_rest import Client
 
 from src.core.database import get_all_emails
 from src.core.helpers import load_env_vals
-from src.core.emails.generator import render_email_base, render_email_addr
+from src.core.emails.generator import render_email
 
 
 def send_emails(tweet: dict):
@@ -13,16 +13,13 @@ def send_emails(tweet: dict):
         config["MJ_APIKEY_PRIVATE"]
     ), version="v3.1")
 
-    # Get the email addresses to send to,
-    # render a base email template, and
-    # go through each address and send an email
+    # Get the email addresses and send them an email
     email_list = get_all_emails()
-    base_template = render_email_base(tweet)
     email_data = {"Messages": []}
     for addr in email_list:
         msg = {
             "Subject": f"#vss365 prompt for {tweet['date']}",
-            "HTMLPart": render_email_addr(base_template, addr),
+            "HTMLPart": render_email("email.html", tweet, addr),
             "From": {
                 "Email": "noreply@vss365today.com",
                 "Name": "#vss365 today"
