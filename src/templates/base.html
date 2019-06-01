@@ -13,6 +13,8 @@
 </head>
 
 <body>
+  {% include "partials/nav.html" %}
+
   <header>
     <h1>
       <a href="{{ url_for('root.index') }}">
@@ -21,12 +23,10 @@
     </h1>
 
     <img class="logo" width="20" alt="Image of opened book"
-         src="{{ url_for('static', filename='open-book.png') }}">
+    src="{{ url_for('static', filename='open-book.png') }}">
 
     <h2>{{ page_title }}</h2>
   </header>
-
-  {% include "partials/nav.html" %}
 
   <main>
     {%- block content %}{% endblock %}

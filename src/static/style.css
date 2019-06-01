@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6, strong, label {
 
 a {
   text-decoration: none;
-  color: rgb(58, 184, 121);
+  color: #3ab879;
   border-bottom: 2px solid transparent;
 }
 a:hover,
@@ -46,7 +46,6 @@ img {
 }
 
 header {
-  margin-bottom: 1.5em;
   background-color: rgb(130, 238, 238);
   text-align: center;
 }
@@ -88,13 +87,21 @@ nav {
   justify-content: center;
 }
 
+nav.primary {
+  /* position: fixed; */
+  padding: 0.5em 0;
+  background-color: #353333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  z-index: 0;
+}
+
 nav.primary a {
   margin-right: 1em;
   margin-left: 1em;
   font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
   font-weight: 400;
   font-size: 1.25em;
-  text-transform: uppercase;
+  color: #fff;
 }
 
 main {
