@@ -1,4 +1,3 @@
-from html import escape
 import re
 
 from dotenv import dotenv_values, find_dotenv
@@ -68,8 +67,11 @@ def find_prompt_word(text: str) -> str or None:
         return prompt_word
 
     # Remove all identifying hashtags
+    # For the month of June, we need to remove the
+    # anthology hashtag too to simplify things
+    anthology = ("#VSS365A",)
     remaining = list(filter(
-        lambda ht: ht.upper() not in IDENTIFYING_HASHTAGS,
+        lambda ht: ht.upper() not in IDENTIFYING_HASHTAGS + anthology,
         hashtags
     ))
 
@@ -100,7 +102,7 @@ def get_tweet_text(tweet: tweepy.Status, media_url: str) -> str:
     # Because we're accessing "extended" tweets (> 140 chars),
     # we need to be sure to access the full_text property
     # that holds the non-truncated text
-    return escape(tweet.full_text.replace(media_url, "").strip())
+    return tweet.full_text.replace(media_url, "").strip()
 
 
 def load_env_vals():

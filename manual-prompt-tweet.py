@@ -1,3 +1,4 @@
+from html import escape
 from pprint import pprint
 from re import match
 
@@ -49,7 +50,7 @@ tweet = {
     "date": create_date(tweet_date.strip()),
     "uid": get_uid_by_handle(user_handle),
     "handle": user_handle,
-    "content": tweet_text,
+    "content": escape(tweet_text),
     "word": find_prompt_word(tweet_text),
     "media": tweet_media
 }

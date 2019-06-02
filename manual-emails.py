@@ -2,7 +2,7 @@ from pprint import pprint
 
 from src.core.database import get_tweet_by_date
 from src.core.emails.sender import send_emails
-from src.core.filters import create_date, format_date
+from src.core.filters import create_date
 
 
 # Get the date of the tweet we want to email out
@@ -17,7 +17,7 @@ if prompt_tweet is None:
 # Construct a dictionary with only the info we need
 tweet = {
     "tweet_id": prompt_tweet["tweet_id"],
-    "date": format_date(create_date(tweet_date)),
+    "date": create_date(tweet_date),
     "handle": prompt_tweet["giver_handle"],
     "content": prompt_tweet["content"],
     "word": prompt_tweet["word"],
