@@ -11,10 +11,10 @@ def create_tweet_url(tweet: dict) -> str:
     return f"https://twitter.com/{tweet['handle']}/status/{tweet['tweet_id']}"
 
 
-def render_email(fname: str, tweet: dict, email: str) -> str:
+def render_email(tweet: dict, email: str) -> str:
     """Render a complete email template."""
     # Read the template content
-    template_file = join("src", "templates", fname)
+    template_file = join("src", "templates", "email.html")
     with open(template_file) as f:
         template = f.read()
 

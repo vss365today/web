@@ -1,5 +1,3 @@
-from random import sample
-
 from mailjet_rest import Client
 
 from src.core.database import get_all_emails
@@ -8,11 +6,11 @@ from src.core.helpers import load_env_vals
 from src.core.emails.generator import render_email
 
 
-def construct_email(template: str, tweet: dict, addr: str) -> dict:
+def construct_email(tweet: dict, addr: str) -> dict:
     """Construct a MailJet email dictionary."""
     return {
         "Subject": f"#vss365 prompt for {tweet['date']}",
-        "HTMLPart": render_email(template, tweet, addr),
+        "HTMLPart": render_email(tweet, addr),
         "From": {
             "Email": "noreply@vss365today.com",
             "Name": "#vss365 today"
@@ -36,26 +34,12 @@ def send_emails(tweet: dict):
     tweet["date"] = format_date(tweet["date"])
 
     # Get the email address list
-    email_list = set(get_all_emails())
+    email_list = get_all_emails()
 
-    # In order to experiment with solving #6, we're going to
-    # split the email list in half, randomly sending half the
-    # population the new template and half the existing one.
-    # This experiment will run until either I'm happy with
-    # the new template or I scrap it and search for a different one
-    sample_size = len(email_list) // 2
-    new_email_template_list = set(sample(email_list, sample_size))
-    old_email_template_list = email_list - new_email_template_list
-
-    # Start with the current email template
+    # Construct the emails
     email_data = {"Messages": []}
-    for addr in old_email_template_list:
-        msg = construct_email("email.html", tweet, addr)
-        email_data["Messages"].append(msg)
-
-    # Now do the new email template
-    for addr in new_email_template_list:
-        msg = construct_email("new-email.html", tweet, addr)
+    for addr in email_list:
+        msg = construct_email(tweet, addr)
         email_data["Messages"].append(msg)
 
     # Send the emails via MailJet
