@@ -45,5 +45,19 @@ def send_emails(tweet: dict):
     # Send the emails via MailJet
     result = mailjet.send.create(data=email_data)
     print(f"Mail status: {result.status_code}")
-    # TODO Parse this JSON to get better results status
-    print(result.json())
+
+    # Get the sending results json
+    mj_results = result.json()
+
+    # Count the send status of each message
+    status = {}
+    for msg in mj_results["Messages"]:
+        status[msg["Status"]] = status.get(msg["Status"], 0) + 1
+
+    # All the emails were send successfully
+    if status["success"] == len(email_list):
+        print("All emails sent successfully.")
+
+    # Everything wasn't successful, display raw count dict
+    else:
+        print(status)
