@@ -68,15 +68,18 @@ def find_prompt_word(text: str) -> str or None:
         return prompt_word
 
     # Remove all identifying hashtags
+    # For the month of June, we need to remove the
+    # anthology hashtag too to simplify things
+    anthology = ("#VSS365A",)
     remaining = list(filter(
-        lambda ht: ht.upper() not in IDENTIFYING_HASHTAGS,
+        lambda ht: ht.upper() not in IDENTIFYING_HASHTAGS + anthology,
         hashtags
     ))
 
-    # If there are any hashtags left, get the second one
+    # If there are any hashtags left, get the first one
     # and remove the prefixed pound sign
     if remaining:
-        prompt_word = remaining[1].replace("#", "")
+        prompt_word = remaining[0].replace("#", "")
     return prompt_word
 
 
