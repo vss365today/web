@@ -1,4 +1,3 @@
-from html import escape
 import re
 
 from dotenv import dotenv_values, find_dotenv
