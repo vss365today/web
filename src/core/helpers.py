@@ -1,19 +1,19 @@
 import re
 
-from dotenv import dotenv_values, find_dotenv
 import tweepy
+
+from src.core.config import load_app_config
+from src.core.database import get_words_for_month
 
 
 __all__ = [
     "IDENTIFYING_HASHTAGS",
     "create_twitter_connection",
-    "flatten_tuple_list",
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
     "get_tweet_media",
     "get_tweet_text",
-    "load_env_vals",
     "make_hashtags",
     "make_mentions",
     "make_urls",
@@ -27,7 +27,7 @@ IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
 
 def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
-    CONFIG = load_env_vals()
+    CONFIG = load_app_config()
     auth = tweepy.OAuthHandler(
         CONFIG["TWITTER_APP_KEY"],
         CONFIG["TWITTER_APP_SECRET"]
@@ -39,11 +39,6 @@ def create_twitter_connection() -> tweepy.API:
     api = tweepy.API(auth)
     print("Successfully connected to the Twitter API")
     return api
-
-
-def flatten_tuple_list(tup) -> list:
-    """Flatten a list of tuples into a list of actual data."""
-    return [item[0] for item in tup]
 
 
 def find_prompt_tweet(text: str) -> bool:
@@ -103,15 +98,6 @@ def get_tweet_text(tweet: tweepy.Status, media_url: str) -> str:
     # we need to be sure to access the full_text property
     # that holds the non-truncated text
     return tweet.full_text.replace(media_url, "").strip()
-
-
-def load_env_vals():
-    """Load the env variables from file."""
-    vals = {}
-    env_vals = dotenv_values(find_dotenv())
-    for key, value in env_vals.items():
-        vals[key] = (value if value != "" else None)
-    return vals
 
 
 def make_hashtags(text: str) -> str:

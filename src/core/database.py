@@ -2,7 +2,7 @@ import os.path
 import sqlite3
 from typing import List, Union
 
-from src.core.helpers import flatten_tuple_list, load_env_vals
+from src.core.config import load_app_config
 
 
 __all__ = [
@@ -25,15 +25,21 @@ __all__ = [
 
 def __connect_to_db() -> sqlite3.Connection:
     """Create a connection to the database."""
-    config = load_env_vals()
+    config = load_app_config()
     conn = sqlite3.connect(config["DB_PATH"])
     conn.row_factory = sqlite3.Row
     return conn
 
 
+def __flatten_tuple_list(tup) -> list:
+    """Flatten a list of tuples into a list of actual data."""
+    return [item[0] for item in tup]
+
+
 def add_subscribe_email(addr: str) -> bool:
     """Add a subscription email address."""
     # Don't try to add the email if it already exists
+    # TODO Remove this anc just catch the INSERT exception
     if get_existing_email(addr):
         return False
 
@@ -75,7 +81,7 @@ def get_all_emails() -> List[str]:
 
     # Flatten the list of tuples into a list
     # of strings containing just the email addresses
-    return flatten_tuple_list(r)
+    return __flatten_tuple_list(r)
 
 
 def get_existing_email(addr: str) -> bool:
@@ -145,7 +151,7 @@ def get_tweet_years() -> List[str]:
     # Execute our query
     with __connect_to_db() as db:
         r = db.execute(sql).fetchall()
-    return flatten_tuple_list(r)
+    return __flatten_tuple_list(r)
 
 
 def get_givers_by_year(year: str) -> List[sqlite3.Row]:
@@ -214,6 +220,8 @@ def add_tweet_to_db(tweet_dict: dict) -> None:
 def remove_subscribe_email(addr: str) -> bool:
     """Remove a subscription email address."""
     # Find the record with this email (it will be unique)
+    # TODO Remove this check, as deleting a non-existant record
+    # is just a noop
     email = get_existing_email(addr)
 
     # Remove the email from the database,
