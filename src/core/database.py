@@ -19,6 +19,7 @@ __all__ = [
     "get_tweets_by_giver",
     "get_tweet_years",
     "get_uid_by_handle",
+    "get_words_for_month",
     "remove_subscribe_email"
 ]
 
@@ -215,6 +216,19 @@ def add_tweet_to_db(tweet_dict: dict) -> None:
     # Execute our query
     with __connect_to_db() as db:
         db.execute(sql, tweet_dict)
+
+
+def get_words_for_month(date: str) -> list:
+    """Get a list of words for the given month."""
+    sql = """
+    SELECT '#' || UPPER(word)
+    FROM tweets
+    WHERE SUBSTR(date, 1, 7) = :date
+    """
+
+    with __connect_to_db() as db:
+        r = db.execute(sql, {"date": date}).fetchall()
+    return __flatten_tuple_list(r)
 
 
 def remove_subscribe_email(addr: str) -> bool:

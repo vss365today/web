@@ -1,8 +1,8 @@
 from mailjet_rest import Client
 
+from src.core.config import load_app_config
 from src.core.database import get_all_emails
 from src.core.filters import format_date
-from src.core.helpers import load_env_vals
 from src.core.emails.generator import render_email
 
 
@@ -24,10 +24,10 @@ def construct_email(tweet: dict, addr: str) -> dict:
 
 def send_emails(tweet: dict):
     # Connect to the Mailjet Send API
-    config = load_env_vals()
+    CONFIG = load_app_config()
     mailjet = Client(auth=(
-        config["MJ_APIKEY_PUBLIC"],
-        config["MJ_APIKEY_PRIVATE"]
+        CONFIG["MJ_APIKEY_PUBLIC"],
+        CONFIG["MJ_APIKEY_PRIVATE"]
     ), version="v3.1")
 
     # Properly format the tweet date

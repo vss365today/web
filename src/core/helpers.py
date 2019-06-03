@@ -1,3 +1,4 @@
+from datetime import date
 import re
 
 import tweepy
@@ -23,6 +24,29 @@ __all__ = [
 
 # The hashtags that identify a prompt tweet
 IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
+
+
+def __filter_hashtags(hashtags: list) -> list:
+    """Remove all hashtags that we don't need to process."""
+    # Remove any additional, non-identifying hashtags
+    additional = ("#VSS365A",)
+
+    # Get the words used for this month
+    # We want to remove these from consideration too
+    this_month = date.today().strftime("%Y-%m")
+    this_months_words = get_words_for_month(this_month)
+
+    # Filter out all the hashtags
+    hashtags_to_filter = (
+        IDENTIFYING_HASHTAGS +
+        additional +
+        tuple(this_months_words)
+    )
+    hashtags = list(filter(
+        lambda ht: ht.upper() not in hashtags_to_filter,
+        hashtags
+    ))
+    return hashtags
 
 
 def create_twitter_connection() -> tweepy.API:
@@ -61,14 +85,8 @@ def find_prompt_word(text: str) -> str or None:
     if hashtags is None:
         return prompt_word
 
-    # Remove all identifying hashtags
-    # For the month of June, we need to remove the
-    # anthology hashtag too to simplify things
-    anthology = ("#VSS365A",)
-    remaining = list(filter(
-        lambda ht: ht.upper() not in IDENTIFYING_HASHTAGS + anthology,
-        hashtags
-    ))
+    # Remove all identifying and unneeded hashtags
+    remaining = __filter_hashtags(hashtags)
 
     # If there are any hashtags left, get the first one
     # and remove the prefixed pound sign
