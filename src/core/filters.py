@@ -18,8 +18,8 @@ __all__ = [
 
 
 def create_date(date_str: str) -> date:
-    # TODO Remove in favor of date.fromisoformat(), py3.7+
-    return date(*[int(d) for d in date_str.split("-")])
+    """Create a date object from an ISO date string."""
+    return date.fromisoformat(date_str)
 
 
 def create_tweet_url(tweet: dict) -> str:
