@@ -130,12 +130,12 @@ def date(date) -> str:
 
     # Check if a tweet for the previous day exists
     exists_previous_day = database.get_tweet_by_date(
-        previous(tweet["date"])
+        yesterday(tweet["date"])
     ) is not None
 
     # Check if a tweet for the next day even exists
     exists_next_day = database.get_tweet_by_date(
-        next(tweet["date"])
+        tomorrow(tweet["date"])
     ) is not None
 
     render_opts = {
@@ -181,10 +181,10 @@ def format_content(content: str) -> str:
 
 
 @bp.app_template_filter()
-def previous(date: date) -> str:
-    return filters.previous(date)
+def yesterday(date: date) -> str:
+    return filters.yesterday(date)
 
 
 @bp.app_template_filter()
-def next(date: date) -> str:
-    return filters.next(date)
+def tomorrow(date: date) -> str:
+    return filters.tomorrow(date)

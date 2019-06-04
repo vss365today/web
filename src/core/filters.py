@@ -12,8 +12,8 @@ __all__ = [
     "create_date",
     "format_content",
     "format_date",
-    "previous",
-    "next"
+    "tomorrow",
+    "yesterday"
 ]
 
 
@@ -51,11 +51,11 @@ def format_date(date: date) -> str:
     return date.strftime("%B %d, %Y")
 
 
-def previous(date: date) -> str:
+def tomorrow(date: date) -> str:
+    """Get the date after the given date."""
+    return (date + timedelta(1)).isoformat()
+
+
+def yesterday(date: date) -> str:
     """Get the date prior to the given date."""
     return (date - timedelta(1)).isoformat()
-
-
-def next(date: date) -> str:
-    """Get the date after to the given date."""
-    return (date + timedelta(1)).isoformat()
