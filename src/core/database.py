@@ -39,16 +39,16 @@ def __flatten_tuple_list(tup) -> list:
 
 def add_subscribe_email(addr: str) -> bool:
     """Add a subscription email address."""
-    # Don't try to add the email if it already exists
-    # TODO Remove this anc just catch the INSERT exception
-    if get_existing_email(addr):
-        return False
+    try:
+        sql = "INSERT INTO emails VALUES (:addr)"
+        with __connect_to_db() as db:
+            db.execute(sql, {"addr": addr})
+        return True
 
-    # Add the email to the database
-    sql = "INSERT INTO emails VALUES (:addr)"
-    with __connect_to_db() as db:
-        db.execute(sql, {"addr": addr})
-    return True
+    # Some error occurred
+    except Exception as err:
+        print(err)
+        return False
 
 
 def create_new_database() -> None:
