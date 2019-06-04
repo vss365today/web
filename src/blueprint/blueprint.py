@@ -36,8 +36,8 @@ def unsubscribe() -> str:
     # that is handled in the removal method
     email = request.args.get("email")
     if email and validate_email(email):
-        removal_success = True
         database.remove_subscribe_email(email)
+        removal_success = True
 
     # This is not a valid email address
     else:
