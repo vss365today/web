@@ -231,18 +231,9 @@ def get_words_for_month(date: str) -> list:
     return __flatten_tuple_list(r)
 
 
-def remove_subscribe_email(addr: str) -> bool:
+def remove_subscribe_email(addr: str) -> True:
     """Remove a subscription email address."""
-    # Find the record with this email (it will be unique)
-    # TODO Remove this check, as deleting a non-existant record
-    # is just a noop
-    email = get_existing_email(addr)
-
-    # Remove the email from the database,
-    # still telling the user it was successful
-    # even if it was already removed
-    if email:
-        sql = "DELETE FROM emails WHERE email = :addr"
-        with __connect_to_db() as db:
-            db.execute(sql, {"addr": addr})
-    return bool(email)
+    sql = "DELETE FROM emails WHERE email = :addr"
+    with __connect_to_db() as db:
+        db.execute(sql, {"addr": addr})
+    return True
