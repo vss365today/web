@@ -127,7 +127,7 @@ def make_hashtags(text: str) -> str:
     # Go through each hashtag and make it a clickable link
     for ht in hashtags:
         html = f'<a href="https://twitter.com/hashtag/{ht[1:]}">{ht}</a>'
-        text = text.replace(ht, html)
+        text = re.sub(fr"({ht})\b", html, text)
     return text
 
 
