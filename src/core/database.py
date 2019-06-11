@@ -221,7 +221,7 @@ def add_tweet_to_db(tweet_dict: dict) -> None:
 def get_words_for_month(date: str) -> list:
     """Get a list of words for the given month."""
     sql = """
-    SELECT '#' || UPPER(word)
+    SELECT '#' || word
     FROM tweets
     WHERE SUBSTR(date, 1, 7) = :date
     """

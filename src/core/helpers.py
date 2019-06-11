@@ -28,19 +28,39 @@ IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
 
 def __filter_hashtags(hashtags: list) -> list:
     """Remove all hashtags that we don't need to process."""
-    # Remove any additional, non-identifying hashtags
-    additional = ("#VSS365A",)
+    # Any additional, non-identifying hashtags we need to remove
+    additional = ["#VSS365A"]
 
     # Get the words used for this month
     # We want to remove these from consideration too
     this_month = date.today().strftime("%Y-%m")
     this_months_words = get_words_for_month(this_month)
 
-    # Filter out all the hashtags
+    # Go through each word for the month and find variations
+    # of it in the tweet. Ex: the word is "motif", so find
+    # "motifs" if it exists. Of course, exact word duplications
+    # will also be matched. Our endgame is to filter out
+    # previous prompt words in the prompt tweet
+    # so they are not picked back up and recorded
+    for word in this_months_words:
+        # Build a regex that will match exact and suffix variations
+        regex = re.compile(rf"{word}\w*\b", re.I)
+
+        # Search the tweet's hashtags for the words
+        variants = [
+            match.upper()
+            for match in filter(regex.search, hashtags)
+            if match
+        ]
+
+        # Only if we found a variant do we record it
+        if variants:
+            additional += variants
+
+    # Merge out filter lists then take out all the hashtags
     hashtags_to_filter = (
         IDENTIFYING_HASHTAGS +
-        additional +
-        tuple(this_months_words)
+        tuple(additional)
     )
     hashtags = list(filter(
         lambda ht: ht.upper() not in hashtags_to_filter,
