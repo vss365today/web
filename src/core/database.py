@@ -161,6 +161,7 @@ def get_givers_by_year(year: str) -> List[sqlite3.Row]:
     SELECT uid, handle, date || '-01' AS date
     FROM givers
     WHERE SUBSTR(date, 1, 4) = :year
+    ORDER BY givers.date ASC
     """
 
     # Execute our query
@@ -178,6 +179,7 @@ def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
     FROM tweets
         INNER JOIN givers ON tweets.uid = givers.uid
     WHERE givers.handle = :handle
+    ORDER BY tweets.date ASC
     """
 
     # Execute our query

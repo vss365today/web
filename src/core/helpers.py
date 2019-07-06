@@ -121,12 +121,13 @@ def get_tweet_media(tweet: tweepy.Status) -> tuple:
     tweet_media = None
 
     # If we have media in our tweet
-    media = tweet.extended_entities.get("media")
-    if media:
-        # We need just a static image, and it's the same route to get one
-        # rgardless of the media's non-animated image or "animated GIF" status
-        media_url = media[0]["url"]
-        tweet_media = media[0]["media_url_https"]
+    if hasattr(tweet, "extended_entities"):
+        media = tweet.extended_entities.get("media")
+        if media:
+            # We need just a static image, and it's the same route to get one
+            # rgardless of the media's non-animated image or "animated GIF" status
+            media_url = media[0]["url"]
+            tweet_media = media[0]["media_url_https"]
     return (media_url, tweet_media)
 
 
