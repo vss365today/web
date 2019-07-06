@@ -75,8 +75,6 @@ def create_new_database() -> None:
 def get_all_emails() -> List[str]:
     """Get all emails in the subscription list."""
     sql = "SELECT email FROM emails"
-
-    # Execute our query
     with __connect_to_db() as db:
         r = db.execute(sql).fetchall()
 
@@ -88,8 +86,6 @@ def get_all_emails() -> List[str]:
 def get_existing_email(addr: str) -> bool:
     """Find an existing subscription email."""
     sql = "SELECT 1 FROM emails WHERE email = :addr"
-
-    # Execute our query
     with __connect_to_db() as db:
         return bool(db.execute(sql, {"addr": addr}).fetchone())
 
@@ -113,8 +109,6 @@ def get_latest_tweet() -> Union[dict, None]:
         INNER JOIN givers ON tweets.uid = givers.uid
     ORDER BY date DESC
     """
-
-    # Execute our query
     with __connect_to_db() as db:
         r = db.execute(sql).fetchone()
         return dict(r) if r else r
@@ -123,8 +117,6 @@ def get_latest_tweet() -> Union[dict, None]:
 def get_giver_by_date(date: str) -> sqlite3.Row:
     """Get a Giver by the month-year they delievered the prompts. """
     sql = "SELECT uid, handle FROM givers WHERE date = :date"
-
-    # Execute our query
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
 
@@ -132,8 +124,6 @@ def get_giver_by_date(date: str) -> sqlite3.Row:
 def get_giver_by_uid(uid: str) -> sqlite3.Row:
     """Get a Giver by their user ID."""
     sql = "SELECT handle, date FROM givers WHERE uid = :uid"
-
-    # Execute our query
     with __connect_to_db() as db:
         return db.execute(sql, {"uid": uid}).fetchone()
 
@@ -148,8 +138,6 @@ def get_tweet_years() -> List[str]:
     FROM givers
     ORDER BY date DESC
     """
-
-    # Execute our query
     with __connect_to_db() as db:
         r = db.execute(sql).fetchall()
     return __flatten_tuple_list(r)
@@ -159,30 +147,25 @@ def get_givers_by_year(year: str) -> List[sqlite3.Row]:
     """Get a list of all Givers for a particular year."""
     sql = """
     SELECT uid, handle, date || '-01' AS date
-    FROM givers
+    FROgit M givers
     WHERE SUBSTR(date, 1, 4) = :year
+    AND SUBSTR(date, 6, 8) <= strftime('%m', 'now')
     ORDER BY givers.date ASC
     """
-
-    # Execute our query
     with __connect_to_db() as db:
         return db.execute(sql, {"year": year}).fetchall()
 
 
 def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
     """Get all tweets given out by a Giver."""
-    # Because we are querying the db using raw SQL,
-    # and because the tables are _properly_ normalized,
-    # we can do a simple join to get the correct data set. :D
     sql = """
     SELECT tweets.*
     FROM tweets
         INNER JOIN givers ON tweets.uid = givers.uid
     WHERE givers.handle = :handle
+    AND tweets.date <= date('now')
     ORDER BY tweets.date ASC
     """
-
-    # Execute our query
     with __connect_to_db() as db:
         return db.execute(sql, {"handle": handle}).fetchall()
 
@@ -197,8 +180,6 @@ def get_tweet_by_date(date: str) -> Union[dict, None]:
         INNER JOIN givers ON tweets.uid = givers.uid
     WHERE tweets.date = :date
     """
-
-    # Execute our query
     with __connect_to_db() as db:
         r = db.execute(sql, {"date": date}).fetchone()
     return dict(r) if r is not None else None
@@ -214,8 +195,6 @@ def add_tweet_to_db(tweet_dict: dict) -> None:
         :tweet_id, :date, :uid, :content, :word, :media
     )
     """
-
-    # Execute our query
     with __connect_to_db() as db:
         db.execute(sql, tweet_dict)
 
