@@ -149,7 +149,7 @@ def get_givers_by_year(year: str) -> List[sqlite3.Row]:
     SELECT uid, handle, date || '-01' AS date
     FROM givers
     WHERE SUBSTR(date, 1, 4) = :year
-    AND SUBSTR(date, 6, 8) <= strftime('%m', 'now')
+    AND SUBSTR(date, 1, 8) <= strftime('%Y-%m','now')
     ORDER BY givers.date ASC
     """
     with __connect_to_db() as db:
