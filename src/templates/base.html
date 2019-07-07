@@ -43,6 +43,7 @@
   {% include "partials/analytics.html" %}
   {% endif -%}
 
+  <script src="{{ url_for('static', filename='details-element-polyfill.js') }}"></script>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
