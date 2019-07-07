@@ -1,5 +1,18 @@
 :root {
-  --primary-bg-accent: #82eeee;
+  --body-background: #fff;
+  --body-background-accent: #82eeee;
+  --primary-text: #353333;
+  --primary-nav-bg: #353333;
+  --primary-link: #3ab879;
+  --details-bg: #e9e9e9;
+}
+
+body.dark {
+  --body-background: #2F3136;
+  --body-background-accent: #322c3c;
+  --primary-text: #d3d3d3;
+  --primary-link: #f6f0f0;
+  --primary-nav-bg: #1893cc;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -18,7 +31,7 @@ body {
   font-size: 18px;
   line-height: 1.6;
   font-weight: 400;
-  color: #353333;
+  color: var(--primary-text);
 
   text-rendering: optimizeLegibility;
 }
@@ -30,8 +43,9 @@ h1, h2, h3, h4, h5, h6, strong, label {
 
 a {
   text-decoration: none;
-  color: #3ab879;
-  border-bottom: 2px solid transparent;
+  color: var(--primary-link);
+  border-bottom: 1px solid transparent;
+  transition: 0.2s border-bottom-color ease;
 }
 a:hover,
 a:focus,
@@ -46,7 +60,7 @@ img {
 }
 
 header {
-  background-color: rgb(130, 238, 238);
+  background-color: var(--body-background-accent);
   text-align: center;
 }
 
@@ -90,9 +104,9 @@ nav {
 nav.primary {
   position: fixed;
   padding: 0.5em 0;
-  background-color: #353333;
+  background-color: var(--primary-nav-bg);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-  z-index: 0;
+  z-index: 2;
 }
 
 nav.primary a {
@@ -105,17 +119,19 @@ nav.primary a {
 }
 
 main {
+  padding-bottom: 1em;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--body-background);
 }
 
 details {
   margin-top: 2em;
   margin-bottom: 1em;
   padding: 1em 1.5em;
-  background-color: #e9e9e9;
+  background-color: var(--details-bg);
   border-radius: 3px;
 }
 
@@ -131,10 +147,9 @@ details img {
 }
 
 footer {
-  margin-top: 1em;
   padding: 0.5em;
   text-align: center;
-  background-color: rgb(130, 238, 238);
+  background-color: var(--body-background-accent);
 }
 
 footer a { color: inherit; }
@@ -191,6 +206,7 @@ footer > div {
   text-decoration-style: dashed;
   text-decoration-line: underline;
   text-decoration-color: #d1caca;
+  transition: 0.2s text-decoration-color ease;
 }
 .content .word:hover,
 .content .word:focus,
@@ -207,6 +223,7 @@ footer > div {
   border: 2px solid lightgray;
   border-radius: 3px;
   font-size: 1.2em;
+  transition: 0.2s border-color ease;
 }
 .a-btn:hover,
 .a-btn:focus,
@@ -256,7 +273,7 @@ input, button {
 button {
   margin-top: 1em;
   background-image: none;
-  background-color: #fff;
+  background-color: var(--body-background);
   cursor: pointer;
 
   transition: color 0.2s ease, background-color 0.2s ease;
@@ -265,9 +282,78 @@ button {
 button:hover,
 button:focus {
   /* TODO make better */
-  background-color: #e9e9e9;
+  background-color: var(--details-bg);
 }
 
+
+/* -- Dark theme --*/
+.dark header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dark footer {
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dark main a,
+.dark footer a {
+  border-bottom-color: currentColor;
+}
+
+.dark nav.primary a {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.dark main a:hover,
+.dark main a:focus,
+.dark main a:active {
+  border-bottom-color: transparent;
+}
+
+.dark .content .word {
+  border-bottom-color: transparent;
+  color: var(--primary-link);
+}
+.dark .content .word:hover,
+.dark .content .word:focus,
+.dark .content .word:active { text-decoration-color: transparent; }
+
+.dark .content img {
+  border-color: transparent;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.dark details {
+  background-color: var(--primary-nav-bg);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.dark .a-btn:hover,
+.dark .a-btn:focus,
+.dark .a-btn:active {
+  border-bottom-color: currentColor;
+}
+
+.dark input {
+  background-color: var(--body-background);
+  color: var(--primary-text)  ;
+}
+
+.dark button {
+  background-color: var(--primary-nav-bg);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+.dark button:hover,
+.dark button:focus {
+  background-color: var(--body-background);
+}
+
+
+/* -- Smaller screens -- */
 @media (max-width: 500px) {
   .content { width: 87%; }
   form { width: auto; }
