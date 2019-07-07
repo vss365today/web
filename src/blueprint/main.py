@@ -13,7 +13,12 @@ bp = Blueprint("root", __name__, url_prefix="")
 @bp.before_request
 def handle_dark_mode():
     """Apply the dark theme class when rendering the page."""
-    is_dark_theme = request.cookies.get("is-dark-theme") == "true"
+    cookie_name = (
+        "__Secure-is-dark-theme"
+        if current_app.config["ENV"] == "production"
+        else "is-dark-theme"
+    )
+    is_dark_theme = request.cookies.get(cookie_name) == "true"
     current_app.config["SITE_THEME_CLASS"] = "dark" if is_dark_theme else ""
 
 
