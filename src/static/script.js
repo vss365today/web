@@ -1,30 +1,25 @@
 (function() {
   "use strict";
-
-  // @src https://medium.com/free-code-camp/how-to-detect-a-users-preferred-color-scheme-in-javascript-ec8ee514f1ef
-  const DARK = "(prefers-color-scheme: dark)";
-  const LIGHT = "(prefers-color-scheme: light)";
-  const NO_PREF = "(prefers-color-scheme: no-preference)";
-
-  // We don't have the api we need to detect the state
-  // although considering the caniuse.com stats,
-  // this shold not be an issue at all
-  if (!window.matchMedia) {
-    return false;
+  function isDarkTheme() {
+    return !!(document.cookie.split(';').filter((item) => item.includes('is-dark-theme=true')).length);
   }
 
-  // Detect the possible states
-  // @src https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
-  const inDarkMode = window.matchMedia(DARK).matches;
-  const inLightMode = window.matchMedia(LIGHT).matches;
-  const noPrefMode = window.matchMedia(NO_PREF).matches;
+  /**
+   * @param {boolean} apply
+   */
+  function applyDarkTheme(apply) {
+    document.body.classList.toggle("dark", apply);
+    let cookie = `is-dark-theme=${apply};path=/;domain=${window.location.hostname};max-age=31536000;samesite=strict`;
 
-  // TODO Decide if I should default to dark theme
-  // ui.systemUsesDarkTheme
-  // if (inDarkMode || (noPrefMode === false)) {
-
-  // Only enable the dark theme if the browser setting is on
-  if (inDarkMode) {
-    document.body.classList.add("dark");
+    // Secure the cookie when in production
+    if (window.location.hostname === "vss365today.com") {
+      cookie = `__Secure-${cookie};secure`;
+    }
+    document.cookie = cookie;
   }
+
+  // Allow the user to toggle between the themes
+  document.querySelector("nav.primary #btn-theme").addEventListener("click", function() {
+    applyDarkTheme(!isDarkTheme());
+  });
 }());

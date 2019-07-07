@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import current_app, Blueprint, request
 from flask import abort, render_template
 
 from src.core import database
@@ -8,6 +8,13 @@ from src.core.helpers import validate_email
 
 
 bp = Blueprint("root", __name__, url_prefix="")
+
+
+@bp.before_request
+def handle_dark_mode():
+    """Apply the dark theme class when rendering the page."""
+    is_dark_theme = request.cookies.get("is-dark-theme") == "true"
+    current_app.config["SITE_THEME_CLASS"] = "dark" if is_dark_theme else ""
 
 
 @bp.route("/subscribe", methods=["POST"])
