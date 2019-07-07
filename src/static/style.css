@@ -100,7 +100,7 @@ nav.primary a {
   margin-left: 1em;
   font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
   font-weight: 400;
-  font-size: 1.15em;
+  font-size: 1.2em;
   color: #fff;
 }
 
@@ -199,19 +199,40 @@ footer > div {
   text-decoration-color: inherit;
 }
 
-.browse-page > div:first-of-type {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-evenly;
+.a-btn {
+  display: inline-block;
+  margin: 0.5em;
+  padding: 0.2em 0.5em;
+
+  border: 2px solid lightgray;
+  border-radius: 3px;
+  font-size: 1.2em;
+}
+.a-btn:hover,
+.a-btn:focus,
+.a-btn:active {
+  border-radius: 0;
+  border-color: transparent;
+  border-bottom-color: inherit;
 }
 
-.browse-giver ul {
+.browse-page > .wrapper { text-align: center; }
+.browse-page > .wrapper h2 { margin-bottom: 0em; }
+
+.browse-giver .wrapper {
   display: inline-block;
   vertical-align: top;
-  text-align: left;
-  margin-bottom: 0.3em;
+  margin: 0.3em 0.75em;
   line-height: 1.85;
+}
+.browse-giver dd {
+  font-size: 1.1em;
+  text-align: right;
+}
+.browse-giver dt {
+  margin-top: -0.2em;
+  font-size: 0.85em;
+  text-align: right;
 }
 
 form {
@@ -248,13 +269,8 @@ button:focus {
 }
 
 @media (max-width: 500px) {
-  .content {
-    width: 87%;
-  }
-
-  input, button {
-    font-size: 0.73em;
-  }
+  .content { width: 87%; }
+  form { width: auto; }
 }
 
 @media (max-width: 800px) {
@@ -264,10 +280,10 @@ button:focus {
     margin-left: 0;
   }
 
-  .browse-giver li {
-    font-size: 1em;
+  nav.primary {
+    position: initial;
+    padding-bottom: 0;
   }
-
-  nav.primary { position: initial; }
+  nav.primary a { margin-bottom: 0.5em; }
   nav.primary a { font-size: 1.25em; }
 }

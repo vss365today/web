@@ -2,18 +2,14 @@
 
 {% block content %}
 <section class="page browse-page">
-  <h3 class="center">&OpenCurlyDoubleQuote;Those who forget history are doomed to repeat it.&CloseCurlyDoubleQuote;</h3>
+  <h2 class="center">&OpenCurlyDoubleQuote;Those who forget history are doomed to repeat it.&CloseCurlyDoubleQuote;</h2>
   <p>Did you miss a #vss365 prompt? Do you want to view the previous prompts and perhaps gain some writing inspriation? You've come to the right place, as this is where you'll find all the daily prompts! Happy browsing!</p>
 
-  <div>
-    <div>
-      <h3>Browse by year</h3>
-      <ul>
-        {% for year in years -%}
-        <li><a href="{{ url_for('root.browse_by_year', year=year) }}">{{ year }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
+  <div class="wrapper">
+    <h2>Browse by year</h2>
+    {% for year in years -%}
+    <a class="a-btn" href="{{ url_for('root.browse_by_year', year=year) }}">{{ year }}</a>
+    {% endfor %}
   </div>
 </section>
 {% endblock %}

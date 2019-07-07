@@ -136,7 +136,7 @@ def get_tweet_years() -> List[str]:
     sql = """
     SELECT DISTINCT SUBSTR(date, 1, 4)
     FROM givers
-    ORDER BY date DESC
+    ORDER BY date ASC
     """
     with __connect_to_db() as db:
         r = db.execute(sql).fetchall()

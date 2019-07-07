@@ -10,18 +10,19 @@
 
   {# We have tweets, give links to them #}
   {%- else %}
-  <ul>
+  <div class="wrapper">
     {%- for tweet in tweets %}
-    <li>
-      <a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.date|create_date|format_date }} &mdash; <strong>{{ tweet.word }}</strong></a>
-    </li>
+    <dl>
+      <dd><a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.word }}</a></dd>
+      <dt>{{ tweet.date|create_date|format_date }}</dt>
+    </dl>
     {%- if loop.index % 5 == 0 %}
-  </ul>
+  </div>
 
-  <ul>
+  <div class="wrapper">
     {%- endif %}
     {%- endfor %}
-  </ul>
+  </div>
   {%- endif %}
 </section>
 {% endblock %}

@@ -8,19 +8,20 @@
   <p>No #vss365 prompters for {{ year }} were found!</p>
 
   {%- else %}
-  <ul>
+  <div class="wrapper">
     {%- for giver in givers %}
-    <li>
+    <dl>
       {% set giver_date = giver.date|create_date %}
-      <a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">@{{ giver.handle }} &mdash; <strong>{{ giver_date.strftime("%B %Y") }}</strong></a>
-    </li>
+      <dd><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">@{{ giver.handle }}</a></dd>
+      <dt>{{ giver_date.strftime("%B %Y") }}</dt>
+    </dl>
     {%- if loop.index % 6 == 0 %}
-  </ul>
+  </div>
 
-  <ul>
+  <div class="wrapper">
     {%- endif %}
     {%- endfor %}
-  </ul>
+  </div>
   {%- endif %}
 
 </section>
