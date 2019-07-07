@@ -12,7 +12,7 @@
   {% include "partials/social-media.html" %}
 </head>
 
-<body>
+<body class="{{ theme_class }}">
   {% include "partials/nav.html" %}
 
   <header>
@@ -42,5 +42,8 @@
   {% if config.ENV == "production" %}
   {% include "partials/analytics.html" %}
   {% endif -%}
+
+  <script src="{{ url_for('static', filename='details-element-polyfill.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

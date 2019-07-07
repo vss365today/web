@@ -1,5 +1,6 @@
 <nav class="primary">
-  <a class="{{ nav_cur_page(page_title, 'prompts') }}" href="{{ url_for('root.browse') }}">Browse</a>
-  <a class="{{ nav_cur_page(page_title, current_date|format_date|lower) }}" href="{{ url_for('root.index') }}">Today</a>
-  <a class="{{ nav_cur_page(page_title, 'about') }}" href="{{ url_for('root.about') }}">About</a>
+  <a class="nav-link {{ nav_cur_page(page_title, 'prompts') }}" id="btn-browse" href="{{ url_for('root.browse') }}">Browse</a>
+  <a class="nav-link {{ nav_cur_page(page_title, current_date|format_date|lower) }}" id="btn-today" href="{{ url_for('root.index') }}">Today</a>
+  <a class="nav-link {{ nav_cur_page(page_title, 'about') }}" id="btn-about" href="{{ url_for('root.about') }}">About</a>
+  <span class="nav-link" id="btn-theme">Theme</span>
 </nav>
