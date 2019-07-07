@@ -42,5 +42,7 @@
   {% if config.ENV == "production" %}
   {% include "partials/analytics.html" %}
   {% endif -%}
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
