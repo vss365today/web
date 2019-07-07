@@ -2,27 +2,30 @@
 
 {% block content %}
 <section class="content">
-
   {% include "partials/btns-prev-next.html" %}
 
   <h3 class="prompt-highlight center">Today's writing prompt is:
     <br>
     <a class="word" target="_blank" href="https://www.dictionary.com/browse/{{ tweet.word|lower }}">{{ tweet.word }}</a>
   </h3>
+</section>
 
+<section class="content">
   <div class="tweet">
     {% if tweet.media %}
     <img width="400" alt="" src="{{ tweet.media }}">
     {% endif %}
     <p class="center"><a href="{{ create_url(tweet) }}">Prompt by @{{ tweet.giver_handle }}</a></p>
-
-    <details>
-      <summary>View tweet</summary>
-      {{ tweet.content|format_content|safe }}
-      {% if tweet.media %}
-      <img width="250" alt="" src="{{ tweet.media }}">
-      {% endif %}
-    </details>
   </div>
+</section>
+
+<section class="content">
+  <details>
+    <summary>View tweet</summary>
+    {{ tweet.content|format_content|safe }}
+    {% if tweet.media %}
+    <img width="250" alt="" src="{{ tweet.media }}">
+    {% endif %}
+  </details>
 </section>
 {% endblock %}

@@ -121,18 +121,33 @@ nav.primary a {
 main {
   padding-bottom: 1em;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: var(--body-background);
 }
 
+section {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.content img {
+  display: block;
+  margin-top: 1em;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid #d1caca;
+  border-radius: 6px;
+}
+
+.tweet a { font-size: 0.8em; }
+
 details {
-  margin-top: 2em;
-  margin-bottom: 1em;
   padding: 1em 1.5em;
-  background-color: var(--details-bg);
+  max-width: 50em;
+  margin: 2em auto 1em auto;
+
+  background-color: #e9e9e9;
   border-radius: 3px;
+  font-size: 0.8em;
 }
 
 summary {
@@ -161,35 +176,21 @@ footer > div {
 
 .center { text-align: center; }
 .page {
-  width: 60%;
-  margin-right: 0;
-  margin-left: 0;
+  width: 65%;
 }
 .page h3,
 .page h4 { margin-bottom: -0.5em; }
 
-.tweet {
-  line-height: 1.3;
-  font-size: 0.8em;
-}
-
 .btns-prev-next {
-  display: flex;
-  justify-content: space-evenly;
+  text-align: center;
   margin-top: 1.2em;
 }
 
 .btns-prev-next a {
+  margin: 0.75em 1.75em;
   font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
   font-weight: 400;
   font-size: 1.2em;
-}
-
-.content img {
-  display: block;
-  margin-top: 1em;
-  border: 1px solid #d1caca;
-  border-radius: 6px;
 }
 
 .content .prompt-highlight {
@@ -275,15 +276,10 @@ button {
   background-image: none;
   background-color: var(--body-background);
   cursor: pointer;
-
   transition: color 0.2s ease, background-color 0.2s ease;
 }
-
 button:hover,
-button:focus {
-  /* TODO make better */
-  background-color: var(--details-bg);
-}
+button:focus { background-color: #e9e9e9; }
 
 
 /* -- Dark theme --*/
@@ -339,7 +335,7 @@ button:focus {
 
 .dark input {
   background-color: var(--body-background);
-  color: var(--primary-text)  ;
+  color: var(--primary-text);
 }
 
 .dark button {
@@ -360,11 +356,7 @@ button:focus {
 }
 
 @media (max-width: 800px) {
-  .page {
-    width: 85%;
-    margin-right: 0;
-    margin-left: 0;
-  }
+  .page {  width: 85%; }
 
   nav.primary {
     position: initial;
