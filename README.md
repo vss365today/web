@@ -26,9 +26,13 @@
 
 ## Known Issues
 
-Firefox's built-in content blocker prevents the Twitter-hosted images from loading,
+- Firefox's built-in content blocker prevents the Twitter-hosted media from loading,
 as it blocks the `https://pbs.twimg.com` domain by default.
-To see images in a tweet, consider disabling the content blocker just for this site.
+To see tweet media, consider disabling the content blocker just for this site.
+
+- Dark theme preservation across browser sessions may be broken due to ad/content blockers
+stopping the indicator cookie from remaining. Disabling the ad-blocker may be required
+for the site to remain in your chosen theme.
 
 ## License
 
