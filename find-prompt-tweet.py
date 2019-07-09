@@ -7,7 +7,7 @@ import tweepy
 from src.core.database import (
     add_tweet_to_db,
     get_latest_tweet,
-    get_giver_by_date,
+    get_writer_by_date,
     get_uid_by_handle
 )
 from src.core.emails.sender import send_emails
@@ -38,7 +38,7 @@ def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
     if recur_count > 7:
         return None
 
-    # Get the latest tweets from the prompt giver
+    # Get the latest tweets from the prompt writer
     # We need to enable extended mode to get tweets > 140 characters
     statuses = api.user_timeline(
         uid,
@@ -81,9 +81,9 @@ api = create_twitter_connection()
 # Get an initial round of tweets to search
 print("Searching for the latest prompt tweet")
 
-# Get the giver for this month and attempt to find the prompt
-CURRENT_GIVER = get_giver_by_date(TODAY.strftime("%Y-%m"))
-prompt_tweet = process_tweets(CURRENT_GIVER["uid"])
+# Get the Writer for this month and attempt to find the prompt
+CURRENT_WRITER = get_writer_by_date(TODAY.strftime("%Y-%m"))
+prompt_tweet = process_tweets(CURRENT_WRITER["uid"])
 
 # The tweet was not found at all :(
 if prompt_tweet is None:

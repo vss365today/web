@@ -12,11 +12,11 @@ __all__ = [
     "get_all_emails",
     "get_existing_email",
     "get_latest_tweet",
-    "get_giver_by_date",
-    "get_giver_by_uid",
-    "get_givers_by_year",
+    "get_writer_by_date",
+    "get_writer_by_uid",
+    "get_writers_by_year",
     "get_tweet_by_date",
-    "get_tweets_by_giver",
+    "get_tweets_by_writer",
     "get_tweet_years",
     "get_uid_by_handle",
     "get_words_for_month",
@@ -55,7 +55,7 @@ def create_new_database() -> None:
     """Create a new database if needed."""
     try:
         # If the database exists and is loaded, this will succeed
-        sql = "SELECT COUNT(*) FROM givers"
+        sql = "SELECT COUNT(*) FROM writers"
         with __connect_to_db() as db:
             db.execute(sql)
 
@@ -91,8 +91,8 @@ def get_existing_email(addr: str) -> bool:
 
 
 def get_uid_by_handle(handle: str) -> str:
-    """Get a Giver's user ID from their Twitter handle."""
-    sql = "SELECT uid FROM givers WHERE handle = :handle"
+    """Get a Writer's user ID from their Twitter handle."""
+    sql = "SELECT uid FROM writers WHERE handle = :handle"
 
     # Execute our query, returning the uid directly
     with __connect_to_db() as db:
@@ -102,11 +102,11 @@ def get_uid_by_handle(handle: str) -> str:
 def get_latest_tweet() -> Union[dict, None]:
     """Get the newest archived tweet."""
     # To preserve compat across the rest of the codebase,
-    # we also include the tweet Giver's handle in the result set.
+    # we also include the tweet Writer's handle in the result set.
     sql = """
-    SELECT tweets.*, givers.handle AS giver_handle
+    SELECT tweets.*, writers.handle AS giver_handle
     FROM tweets
-        INNER JOIN givers ON tweets.uid = givers.uid
+        INNER JOIN writers ON tweets.uid = writers.uid
     ORDER BY date DESC
     """
     with __connect_to_db() as db:
@@ -114,16 +114,16 @@ def get_latest_tweet() -> Union[dict, None]:
         return dict(r) if r else r
 
 
-def get_giver_by_date(date: str) -> sqlite3.Row:
-    """Get a Giver by the month-year they delievered the prompts. """
-    sql = "SELECT uid, handle FROM givers WHERE date = :date"
+def get_writer_by_date(date: str) -> sqlite3.Row:
+    """Get a Writer by the month-year they delievered the prompts. """
+    sql = "SELECT uid, handle FROM writers WHERE date = :date"
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
 
 
-def get_giver_by_uid(uid: str) -> sqlite3.Row:
-    """Get a Giver by their user ID."""
-    sql = "SELECT handle, date FROM givers WHERE uid = :uid"
+def get_writer_by_uid(uid: str) -> sqlite3.Row:
+    """Get a Writer by their user ID."""
+    sql = "SELECT handle, date FROM writers WHERE uid = :uid"
     with __connect_to_db() as db:
         return db.execute(sql, {"uid": uid}).fetchone()
 
@@ -132,10 +132,10 @@ def get_tweet_years() -> List[str]:
     """Get a list of years of recorded tweets."""
     # We only need a descending (newest on top) list
     # of the years we've been running.
-    # This is done quickly by looking at the Giver's list.
+    # This is done quickly by looking at the Writers's list.
     sql = """
     SELECT DISTINCT SUBSTR(date, 1, 4)
-    FROM givers
+    FROM writers
     ORDER BY date ASC
     """
     with __connect_to_db() as db:
@@ -143,26 +143,26 @@ def get_tweet_years() -> List[str]:
     return __flatten_tuple_list(r)
 
 
-def get_givers_by_year(year: str) -> List[sqlite3.Row]:
-    """Get a list of all Givers for a particular year."""
+def get_writers_by_year(year: str) -> List[sqlite3.Row]:
+    """Get a list of all Writers for a particular year."""
     sql = """
     SELECT uid, handle, date || '-01' AS date
-    FROM givers
+    FROM writers
     WHERE SUBSTR(date, 1, 4) = :year
     AND SUBSTR(date, 1, 8) <= strftime('%Y-%m','now')
-    ORDER BY givers.date ASC
+    ORDER BY writers.date ASC
     """
     with __connect_to_db() as db:
         return db.execute(sql, {"year": year}).fetchall()
 
 
-def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
-    """Get all tweets given out by a Giver."""
+def get_tweets_by_writer(handle: str) -> List[sqlite3.Row]:
+    """Get all tweets given out by a Writer."""
     sql = """
     SELECT tweets.*
     FROM tweets
-        INNER JOIN givers ON tweets.uid = givers.uid
-    WHERE givers.handle = :handle
+        INNER JOIN writers ON tweets.uid = writers.uid
+    WHERE writers.handle = :handle
     AND tweets.date <= date('now')
     ORDER BY tweets.date ASC
     """
@@ -173,11 +173,11 @@ def get_tweets_by_giver(handle: str) -> List[sqlite3.Row]:
 def get_tweet_by_date(date: str) -> Union[dict, None]:
     """Get a prompt tweet by the date it was posted."""
     # To preserve compat across the rest of the codebase,
-    # we also include the tweet Giver's handle in the result set.
+    # we also include the tweet Writer's handle in the result set.
     sql = """
-    SELECT tweets.*, givers.handle AS giver_handle
+    SELECT tweets.*, writers.handle AS giver_handle
     FROM tweets
-        INNER JOIN givers ON tweets.uid = givers.uid
+        INNER JOIN writers ON tweets.uid = writers.uid
     WHERE tweets.date = :date
     """
     with __connect_to_db() as db:

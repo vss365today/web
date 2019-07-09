@@ -88,7 +88,7 @@ def browse() -> str:
 def browse_by_giver(giver) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_tweets_by_giver(giver),
+        "tweets": database.get_tweets_by_writer(giver),
         "giver": giver,
         "page_title": f"Prompts by {giver}"
     }
@@ -99,7 +99,7 @@ def browse_by_giver(giver) -> str:
 def browse_by_year(year) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "givers": database.get_givers_by_year(year),
+        "givers": database.get_writers_by_year(year),
         "year": year,
         "page_title": f"{year} #vss365 prompts"
     }
