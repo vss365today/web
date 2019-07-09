@@ -13,7 +13,6 @@ __all__ = [
     "get_existing_email",
     "get_latest_tweet",
     "get_writer_by_date",
-    "get_writer_by_uid",
     "get_writers_by_year",
     "get_tweet_by_date",
     "get_tweets_by_writer",
@@ -108,6 +107,7 @@ def get_latest_tweet() -> Union[dict, None]:
     FROM tweets
         INNER JOIN writers ON tweets.uid = writers.uid
     ORDER BY date DESC
+    LIMIT 1
     """
     with __connect_to_db() as db:
         r = db.execute(sql).fetchone()
@@ -116,23 +116,20 @@ def get_latest_tweet() -> Union[dict, None]:
 
 def get_writer_by_date(date: str) -> sqlite3.Row:
     """Get a Writer by the month-year they delievered the prompts. """
-    sql = "SELECT uid, handle FROM writers WHERE date = :date"
+    sql = """
+    SELECT writers.uid, handle
+    FROM writers
+        JOIN writer_dates ON writer_dates.uid = writers.uid
+    WHERE writer_dates.date = :date
+    """
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
-
-
-def get_writer_by_uid(uid: str) -> sqlite3.Row:
-    """Get a Writer by their user ID."""
-    sql = "SELECT handle, date FROM writers WHERE uid = :uid"
-    with __connect_to_db() as db:
-        return db.execute(sql, {"uid": uid}).fetchone()
 
 
 def get_tweet_years() -> List[str]:
     """Get a list of years of recorded tweets."""
     # We only need a descending (newest on top) list
     # of the years we've been running.
-    # This is done quickly by looking at the Writers's list.
     sql = """
     SELECT DISTINCT SUBSTR(date, 1, 4)
     FROM writer_dates
