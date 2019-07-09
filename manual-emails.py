@@ -18,7 +18,7 @@ if prompt_tweet is None:
 tweet = {
     "tweet_id": prompt_tweet["tweet_id"],
     "date": create_date(tweet_date),
-    "handle": prompt_tweet["giver_handle"],
+    "handle": prompt_tweet["writer_handle"],
     "content": prompt_tweet["content"],
     "word": prompt_tweet["word"],
     "media": prompt_tweet["media"]
