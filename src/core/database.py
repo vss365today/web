@@ -15,10 +15,10 @@ __all__ = [
     "get_writer_by_date",
     "get_writers_by_year",
     "get_tweet_by_date",
-    "get_tweets_by_writer",
     "get_tweet_years",
     "get_uid_by_handle",
     "get_words_for_month",
+    "get_writer_tweets_by_year",
     "remove_subscribe_email"
 ]
 
@@ -154,18 +154,19 @@ def get_writers_by_year(year: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"year": year}).fetchall()
 
 
-def get_tweets_by_writer(handle: str) -> List[sqlite3.Row]:
-    """Get all tweets given out by a Writer."""
+def get_writer_tweets_by_year(year: str, handle: str) -> List[sqlite3.Row]:
+    """Get all tweets given out by a Writer in a given year."""
     sql = """
     SELECT tweets.*
     FROM tweets
         INNER JOIN writers ON tweets.uid = writers.uid
     WHERE writers.handle = :handle
-    AND tweets.date <= date('now')
+        AND tweets.date <= date('now')
+        AND SUBSTR(tweets.date, 1, 4) = :year
     ORDER BY tweets.date ASC
     """
     with __connect_to_db() as db:
-        return db.execute(sql, {"handle": handle}).fetchall()
+        return db.execute(sql, {"year": year, "handle": handle}).fetchall()
 
 
 def get_tweet_by_date(date: str) -> Union[dict, None]:

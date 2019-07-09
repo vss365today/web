@@ -2,11 +2,11 @@
 
 {% block content %}
 <section class="page center browse-giver">
-  <h3>View prompts by @{{ writer }}</h3>
+  <h3>View {{ year }} prompts by @{{ writer }}</h3>
 
   {#- We do not have any tweets from this writer -#}
   {% if not tweets -%}
-  <p>No #vss365 prompts by <a href="https://twitter.com/{{ writer }}">@{{ writer }}</a> were found!</p>
+  <p>No {{ year }} #vss365 prompts by <a href="https://twitter.com/{{ writer }}">@{{ writer }}</a> were found!</p>
 
   {# We have tweets, give links to them #}
   {%- else %}

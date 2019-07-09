@@ -84,19 +84,20 @@ def browse() -> str:
     return render_template("browse.html", **render_opts)
 
 
-@bp.route("/browse/name/<writer>")
-def browse_by_writers(writer) -> str:
+@bp.route("/browse/<year>/<writer>")
+def browse_by_writers(year: str, writer: str) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_tweets_by_writer(writer),
+        "tweets": database.get_writer_tweets_by_year(year, writer),
         "writer": writer,
+        "year": year,
         "page_title": f"Prompts by {writer}"
     }
     return render_template("browse-writer.html", **render_opts)
 
 
 @bp.route("/browse/year/<year>")
-def browse_by_year(year) -> str:
+def browse_by_year(year: str) -> str:
     render_opts = {
         "form": SubscribeForm(),
         "writers": database.get_writers_by_year(year),
