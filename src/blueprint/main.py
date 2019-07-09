@@ -84,13 +84,13 @@ def browse() -> str:
     return render_template("browse.html", **render_opts)
 
 
-@bp.route("/browse/name/<giver>")
-def browse_by_giver(giver) -> str:
+@bp.route("/browse/name/<writer>")
+def browse_by_giver(writer) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_tweets_by_writer(giver),
-        "giver": giver,
-        "page_title": f"Prompts by {giver}"
+        "tweets": database.get_tweets_by_writer(writer),
+        "writer": writer,
+        "page_title": f"Prompts by {writer}"
     }
     return render_template("browse-giver.html", **render_opts)
 
@@ -99,7 +99,7 @@ def browse_by_giver(giver) -> str:
 def browse_by_year(year) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "givers": database.get_writers_by_year(year),
+        "writers": database.get_writers_by_year(year),
         "year": year,
         "page_title": f"{year} #vss365 prompts"
     }

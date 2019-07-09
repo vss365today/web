@@ -4,15 +4,15 @@
 <section class="page center browse-giver">
   <p>These are all the awesome writers who gave us prompts in {{ year }}!</p>
 
-  {%- if not givers -%}
+  {%- if not writers -%}
   <p>No #vss365 prompters for {{ year }} were found!</p>
 
   {%- else %}
   <div class="wrapper">
-    {%- for giver in givers %}
+    {%- for writer in writers %}
     <dl>
-      {% set giver_date = giver.date|create_date %}
-      <dd><a href="{{ url_for('root.browse_by_giver', giver=giver.handle) }}">@{{ giver.handle }}</a></dd>
+      {% set giver_date = writer.date|create_date %}
+      <dd><a href="{{ url_for('root.browse_by_giver', writer=writer.handle) }}">@{{ writer.handle }}</a></dd>
       <dt>{{ giver_date.strftime("%B %Y") }}</dt>
     </dl>
     {%- if loop.index % 6 == 0 %}

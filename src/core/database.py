@@ -135,7 +135,7 @@ def get_tweet_years() -> List[str]:
     # This is done quickly by looking at the Writers's list.
     sql = """
     SELECT DISTINCT SUBSTR(date, 1, 4)
-    FROM writers
+    FROM writer_dates
     ORDER BY date ASC
     """
     with __connect_to_db() as db:
@@ -146,11 +146,12 @@ def get_tweet_years() -> List[str]:
 def get_writers_by_year(year: str) -> List[sqlite3.Row]:
     """Get a list of all Writers for a particular year."""
     sql = """
-    SELECT uid, handle, date || '-01' AS date
+    SELECT writers.uid, handle, writer_dates.date || '-01' AS date
     FROM writers
+        JOIN writer_dates ON writer_dates.uid = writers.uid
     WHERE SUBSTR(date, 1, 4) = :year
-    AND SUBSTR(date, 1, 8) <= strftime('%Y-%m','now')
-    ORDER BY writers.date ASC
+        AND SUBSTR(date, 1, 8) <= strftime('%Y-%m','now')
+    ORDER BY writer_dates.date ASC
     """
     with __connect_to_db() as db:
         return db.execute(sql, {"year": year}).fetchall()
