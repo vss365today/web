@@ -104,7 +104,7 @@ def get_latest_tweet() -> Union[dict, None]:
     # To preserve compat across the rest of the codebase,
     # we also include the tweet Writer's handle in the result set.
     sql = """
-    SELECT tweets.*, writers.handle AS giver_handle
+    SELECT tweets.*, writers.handle AS writer_handle
     FROM tweets
         INNER JOIN writers ON tweets.uid = writers.uid
     ORDER BY date DESC
@@ -176,7 +176,7 @@ def get_tweet_by_date(date: str) -> Union[dict, None]:
     # To preserve compat across the rest of the codebase,
     # we also include the tweet Writer's handle in the result set.
     sql = """
-    SELECT tweets.*, writers.handle AS giver_handle
+    SELECT tweets.*, writers.handle AS writer_handle
     FROM tweets
         INNER JOIN writers ON tweets.uid = writers.uid
     WHERE tweets.date = :date

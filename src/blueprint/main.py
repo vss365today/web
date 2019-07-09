@@ -85,14 +85,14 @@ def browse() -> str:
 
 
 @bp.route("/browse/name/<writer>")
-def browse_by_giver(writer) -> str:
+def browse_by_writers(writer) -> str:
     render_opts = {
         "form": SubscribeForm(),
         "tweets": database.get_tweets_by_writer(writer),
         "writer": writer,
         "page_title": f"Prompts by {writer}"
     }
-    return render_template("browse-giver.html", **render_opts)
+    return render_template("browse-writer.html", **render_opts)
 
 
 @bp.route("/browse/year/<year>")
