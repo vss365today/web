@@ -105,7 +105,7 @@ def get_latest_tweet() -> Union[dict, None]:
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
     FROM tweets
-        INNER JOIN writers ON tweets.uid = writers.uid
+        JOIN writers ON tweets.uid = writers.uid
     ORDER BY date DESC
     LIMIT 1
     """
@@ -152,19 +152,19 @@ def get_writers_by_year(year: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"year": year}).fetchall()
 
 
-def get_writer_tweets_by_year(year: str, handle: str) -> List[sqlite3.Row]:
-    """Get all tweets given out by a Writer in a given year."""
+def get_writer_tweets_by_date(date: str, handle: str) -> List[sqlite3.Row]:
+    """Get all tweets from a Writer in a given date range."""
     sql = """
     SELECT tweets.*
     FROM tweets
-        INNER JOIN writers ON tweets.uid = writers.uid
+        JOIN writers ON tweets.uid = writers.uid
     WHERE writers.handle = :handle
         AND tweets.date <= date('now')
-        AND SUBSTR(tweets.date, 1, 4) = :year
+        AND SUBSTR(tweets.date, 1, 7) = :date
     ORDER BY tweets.date ASC
     """
     with __connect_to_db() as db:
-        return db.execute(sql, {"year": year, "handle": handle}).fetchall()
+        return db.execute(sql, {"date": date, "handle": handle}).fetchall()
 
 
 def get_tweet_by_date(date: str) -> Union[dict, None]:
@@ -174,7 +174,7 @@ def get_tweet_by_date(date: str) -> Union[dict, None]:
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
     FROM tweets
-        INNER JOIN writers ON tweets.uid = writers.uid
+        JOIN writers ON writers.uid = tweets.uid
     WHERE tweets.date = :date
     """
     with __connect_to_db() as db:

@@ -95,14 +95,16 @@ def browse_by_year(year: str) -> str:
     return render_template("browse-year.html", **render_opts)
 
 
-@bp.route("/browse/<year>/<writer>")
-def browse_by_writers(year: str, writer: str) -> str:
+@bp.route("/browse/<year>/<month>")
+def browse_by_writers(year: str, month: str) -> str:
+    date = f"{year}-{month}"
+    writer = database.get_writer_by_date(date)["handle"]
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_writer_tweets_by_year(year, writer),
+        "tweets": database.get_writer_tweets_by_date(date, writer),
         "writer": writer,
-        "year": year,
-        "page_title": f"{year} prompts from {writer}"
+        "date": date,
+        "page_title": f"{format_month_year(date)} prompts from @{writer}"
     }
     return render_template("browse-writer.html", **render_opts)
 
@@ -191,6 +193,11 @@ def format_date(date: date) -> str:
 @bp.app_template_filter()
 def format_content(content: str) -> str:
     return filters.format_content(content)
+
+
+@bp.app_template_filter()
+def format_month_year(date: str) -> str:
+    return filters.format_month_year(date)
 
 
 @bp.app_template_filter()

@@ -12,6 +12,7 @@ __all__ = [
     "create_date",
     "format_content",
     "format_date",
+    "format_month_year",
     "tomorrow",
     "yesterday"
 ]
@@ -47,8 +48,16 @@ def format_content(text: str) -> str:
 
 
 def format_date(date: date) -> str:
-    """Nicely format the date as MM DD, YYYY."""
+    """Format a date as MM DD, YYYY."""
     return date.strftime("%B %d, %Y")
+
+
+def format_month_year(date: str) -> str:
+    """Format a date as MM YYYY."""
+    # Add in a dummy day if needed
+    if len(date.split("-")) == 2:
+        date = f"{date}-01"
+    return create_date(date).strftime("%B %Y")
 
 
 def tomorrow(date: date) -> str:
