@@ -128,8 +128,6 @@ def get_writer_by_date(date: str) -> sqlite3.Row:
 
 def get_tweet_years() -> List[str]:
     """Get a list of years of recorded tweets."""
-    # We only need a descending (newest on top) list
-    # of the years we've been running.
     sql = """
     SELECT DISTINCT SUBSTR(date, 1, 4)
     FROM writer_dates
