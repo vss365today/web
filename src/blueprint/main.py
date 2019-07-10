@@ -84,19 +84,8 @@ def browse() -> str:
     return render_template("browse.html", **render_opts)
 
 
-@bp.route("/browse/name/<writer>")
-def browse_by_writers(writer) -> str:
-    render_opts = {
-        "form": SubscribeForm(),
-        "tweets": database.get_tweets_by_writer(writer),
-        "writer": writer,
-        "page_title": f"Prompts by {writer}"
-    }
-    return render_template("browse-writer.html", **render_opts)
-
-
-@bp.route("/browse/year/<year>")
-def browse_by_year(year) -> str:
+@bp.route("/browse/<year>")
+def browse_by_year(year: str) -> str:
     render_opts = {
         "form": SubscribeForm(),
         "writers": database.get_writers_by_year(year),
@@ -104,6 +93,18 @@ def browse_by_year(year) -> str:
         "page_title": f"{year} #vss365 prompts"
     }
     return render_template("browse-year.html", **render_opts)
+
+
+@bp.route("/browse/<year>/<writer>")
+def browse_by_writers(year: str, writer: str) -> str:
+    render_opts = {
+        "form": SubscribeForm(),
+        "tweets": database.get_writer_tweets_by_year(year, writer),
+        "writer": writer,
+        "year": year,
+        "page_title": f"{year} prompts from {writer}"
+    }
+    return render_template("browse-writer.html", **render_opts)
 
 
 @bp.route("/")
@@ -129,8 +130,8 @@ def index() -> str:
     return render_template("tweet.html", **render_opts)
 
 
-@bp.route("/browse/<date>")
-def date(date) -> str:
+@bp.route("/view/<date>")
+def date(date: str) -> str:
     tweet = database.get_tweet_by_date(date)
 
     # Abort if we don't have a tweet for this day

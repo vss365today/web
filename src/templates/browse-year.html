@@ -12,7 +12,7 @@
     {%- for writer in writers %}
     <dl>
       {% set writer_date = writer.date|create_date %}
-      <dd><a href="{{ url_for('root.browse_by_writers', writer=writer.handle) }}">@{{ writer.handle }}</a></dd>
+      <dd><a href="{{ url_for('root.browse_by_writers', year=year, writer=writer.handle) }}">@{{ writer.handle }}</a></dd>
       <dt>{{ writer_date.strftime("%B %Y") }}</dt>
     </dl>
     {%- if loop.index % 6 == 0 %}
