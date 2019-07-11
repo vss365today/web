@@ -5,7 +5,7 @@ services:
     image: vss365today:latest
     restart: unless-stopped
     volumes:
-      - /usr/codetri/vss-365-today:/app
+      - /usr/codetri/vss365-today:/app
     ports:
       - 127.0.0.1:5002:5000
     entrypoint:
