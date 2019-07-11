@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page center browse-giver">
   {% if not tweets -%}
-  <h2>No #vss365 prompts from <a href="https://twitter.com/{{ writer }}">@{{ writer }}</a> in {{ year }} were found!</h2>
+  <h2>No #vss365 prompts from <a href="https://twitter.com/{{ writer }}">@{{ writer }}</a> in {{ date|format_month_year }} were found!</h2>
 
   {%- else %}
   <div class="wrapper">
