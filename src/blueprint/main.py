@@ -96,12 +96,12 @@ def browse_by_year(year: str) -> str:
 
 
 @bp.route("/browse/<year>/<month>")
-def browse_by_writers(year: str, month: str) -> str:
+def browse_by_writer(year: str, month: str) -> str:
     date = f"{year}-{month}"
     writer = database.get_writer_by_date(date)["handle"]
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_writer_tweets_by_date(date, writer),
+        "tweets": database.get_writer_tweets_by_date(writer, date),
         "writer": writer,
         "date": date,
         "page_title": f"{format_month_year(date)} prompts from @{writer}"

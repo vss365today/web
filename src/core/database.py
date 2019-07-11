@@ -152,7 +152,7 @@ def get_writers_by_year(year: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"year": year}).fetchall()
 
 
-def get_writer_tweets_by_date(date: str, handle: str) -> List[sqlite3.Row]:
+def get_writer_tweets_by_date(handle: str, date: str) -> List[sqlite3.Row]:
     """Get all tweets from a Writer in a given date range."""
     sql = """
     SELECT tweets.*
@@ -169,8 +169,6 @@ def get_writer_tweets_by_date(date: str, handle: str) -> List[sqlite3.Row]:
 
 def get_tweet_by_date(date: str) -> Union[dict, None]:
     """Get a prompt tweet by the date it was posted."""
-    # To preserve compat across the rest of the codebase,
-    # we also include the tweet Writer's handle in the result set.
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
     FROM tweets
