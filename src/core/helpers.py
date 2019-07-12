@@ -29,7 +29,7 @@ IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
 def __filter_hashtags(hashtags: list) -> list:
     """Remove all hashtags that we don't need to process."""
     # Any additional, non-identifying hashtags we need to remove
-    additional = ["#VSS365A", "#WRITINGCOMMUNITY"]
+    additional = ["#VSS365A", "#WRITINGCOMMUNITY", "#FLASHDOGS"]
 
     # Get the words used for this month
     # We want to remove these from consideration too

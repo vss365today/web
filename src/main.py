@@ -24,7 +24,7 @@ def create_app():
 
     @app.context_processor
     def inject_site_theme():
-        return {"theme_class": app.config["SITE_THEME_CLASS"]}
+        return {"theme_class": app.config.get("SITE_THEME_CLASS", "")}
 
     @app.context_processor
     def nav_cur_page():
