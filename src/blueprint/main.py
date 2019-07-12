@@ -4,7 +4,10 @@ from flask import abort, render_template
 from src.core import database
 from src.core import filters
 from src.core.form import SubscribeForm
-from src.core.helpers import validate_email
+from src.core.helpers import (
+    get_month_list_of_writers,
+    validate_email
+)
 
 
 bp = Blueprint("root", __name__, url_prefix="")
@@ -88,7 +91,7 @@ def browse() -> str:
 def browse_by_year(year: str) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "writers": database.get_writers_by_year(year),
+        "writers": get_month_list_of_writers(year),
         "year": year,
         "page_title": f"{year} #vss365 prompts"
     }

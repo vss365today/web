@@ -17,7 +17,7 @@ __all__ = [
     "get_tweet_by_date",
     "get_tweet_years",
     "get_uid_by_handle",
-    "get_words_for_month",
+    "get_words_by_month",
     "get_writer_tweets_by_year",
     "remove_subscribe_email"
 ]
@@ -167,7 +167,7 @@ def get_writer_tweets_by_date(handle: str, date: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"date": date, "handle": handle}).fetchall()
 
 
-def get_tweet_by_date(date: str) -> Union[dict, None]:
+def get_tweet_by_date(date: str) -> Optional[dict]:
     """Get a prompt tweet by the date it was posted."""
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
@@ -194,7 +194,7 @@ def add_tweet_to_db(tweet_dict: dict) -> None:
         db.execute(sql, tweet_dict)
 
 
-def get_words_for_month(date: str) -> list:
+def get_words_by_month(date: str) -> list:
     """Get a list of words for the given month."""
     sql = """
     SELECT '#' || word
