@@ -1,6 +1,6 @@
 <form method="POST" action="{{ url_for('root.subscribe') }}">
   {{ form.csrf_token }}
   {{ form.email.label(class="center") }}
-  {{ form.email(placeholder="love.poems@writing.com", value="") }}
+  {{ form.email(placeholder="amwriting@example.com", value="") }}
   <button type="submit">Subscribe</button>
 </form>
