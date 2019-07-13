@@ -196,6 +196,7 @@ def get_tweet_by_date(date: str) -> Optional[dict]:
     FROM tweets
         JOIN writers ON writers.uid = tweets.uid
     WHERE tweets.date = :date
+        AND :date <= date('now')
     """
     with __connect_to_db() as db:
         r = db.execute(sql, {"date": date}).fetchone()
