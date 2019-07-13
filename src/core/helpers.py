@@ -76,7 +76,7 @@ def __filter_hashtags(hashtags: list) -> list:
 
 def __grouper(iterable: Iterable) -> tuple:
     """Collect data into 2-length chunks or blocks.
-    https://docs.python.org/3/library/itertools.html#recipes
+    https://docs.python.org/3/library/itertools.html#itertools-recipes
     """
     args = [iter(iterable)] * 2
     return tuple(zip_longest(*args, fillvalue={}))
