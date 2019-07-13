@@ -1,6 +1,6 @@
 import os.path
 import sqlite3
-from typing import List, Union
+from typing import List, Optional
 
 from src.core.config import load_app_config
 
@@ -17,7 +17,7 @@ __all__ = [
     "get_tweet_by_date",
     "get_tweet_years",
     "get_uid_by_handle",
-    "get_words_for_month",
+    "get_words_by_month",
     "get_writer_tweets_by_year",
     "remove_subscribe_email"
 ]
@@ -98,7 +98,7 @@ def get_uid_by_handle(handle: str) -> str:
         return db.execute(sql, {"handle": handle}).fetchone()["uid"]
 
 
-def get_latest_tweet() -> Union[dict, None]:
+def get_latest_tweet() -> Optional[dict]:
     """Get the newest archived tweet."""
     # To preserve compat across the rest of the codebase,
     # we also include the tweet Writer's handle in the result set.
@@ -124,6 +124,18 @@ def get_writer_by_date(date: str) -> sqlite3.Row:
     """
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
+
+
+def get_writer_handle_by_date(date: str) -> sqlite3.Row:
+    """Get a Writer by the month-year they delievered the prompts. """
+    sql = """
+    SELECT handle
+    FROM writers
+        JOIN writer_dates ON writer_dates.uid = writers.uid
+    WHERE writer_dates.date = :date
+    """
+    with __connect_to_db() as db:
+        return __flatten_tuple_list(db.execute(sql, {"date": date}).fetchall())
 
 
 def get_tweet_years() -> List[str]:
@@ -152,22 +164,32 @@ def get_writers_by_year(year: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"year": year}).fetchall()
 
 
-def get_writer_tweets_by_date(handle: str, date: str) -> List[sqlite3.Row]:
-    """Get all tweets from a Writer in a given date range."""
-    sql = """
+def get_writer_tweets_by_date(handles: list, date: str) -> List[sqlite3.Row]:
+    """Get all tweets from the Writers in a given date range."""
+    bind_keys = []
+    bind_vals = {"date": date}
+
+    # Handle multiple Writers in this single date range
+    for i, handle in enumerate(handles):
+        key = f"handle_{i}"
+        bind_keys.append(f":{key}")
+        bind_vals[key] = handle
+    handle_list = ",".join(bind_keys)
+
+    sql = f"""
     SELECT tweets.*
     FROM tweets
         JOIN writers ON tweets.uid = writers.uid
-    WHERE writers.handle = :handle
+    WHERE writers.handle IN ({handle_list})
         AND tweets.date <= date('now')
         AND SUBSTR(tweets.date, 1, 7) = :date
     ORDER BY tweets.date ASC
     """
     with __connect_to_db() as db:
-        return db.execute(sql, {"date": date, "handle": handle}).fetchall()
+        return db.execute(sql, bind_vals).fetchall()
 
 
-def get_tweet_by_date(date: str) -> Union[dict, None]:
+def get_tweet_by_date(date: str) -> Optional[dict]:
     """Get a prompt tweet by the date it was posted."""
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
@@ -194,7 +216,7 @@ def add_tweet_to_db(tweet_dict: dict) -> None:
         db.execute(sql, tweet_dict)
 
 
-def get_words_for_month(date: str) -> list:
+def get_words_by_month(date: str) -> list:
     """Get a list of words for the given month."""
     sql = """
     SELECT '#' || word

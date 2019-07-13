@@ -2,18 +2,17 @@
 
 {% block content %}
 <section class="page center browse-giver">
-  <p>These are all the awesome writers who gave us prompts in {{ year }}!</p>
 
   {%- if not writers -%}
-  <p>No #vss365 prompters for {{ year }} were found!</p>
+  <h2>No {{ year }} #vss365 prompts were found!</h2>
 
   {%- else %}
   <div class="wrapper">
     {%- for writer in writers %}
     <dl>
       {% set writer_date = writer.date|create_date %}
-      <dd><a href="{{ url_for('root.browse_by_writer', year=writer_date.year, month=writer_date.strftime('%m')) }}">@{{ writer.handle }}</a></dd>
-      <dt>{{ writer.date|format_month_year  }}</dt>
+      <dd><a href="{{ url_for('root.browse_by_writer', year=writer_date.year, month=writer_date.strftime('%m')) }}">{{ writer.handle }}</a></dd>
+      <dt>{{ writer.date|format_month_year }}</dt>
     </dl>
     {%- if loop.index % 6 == 0 %}
   </div>

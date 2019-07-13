@@ -4,7 +4,10 @@ from flask import abort, render_template
 from src.core import database
 from src.core import filters
 from src.core.form import SubscribeForm
-from src.core.helpers import validate_email
+from src.core.helpers import (
+    get_month_list_of_writers,
+    validate_email_addr
+)
 
 
 bp = Blueprint("root", __name__, url_prefix="")
@@ -47,7 +50,7 @@ def unsubscribe() -> str:
     # We don't need to worry about it not existing,
     # that is handled in the removal method
     email = request.args.get("email")
-    if email and validate_email(email):
+    if email and validate_email_addr(email):
         database.remove_subscribe_email(email)
         removal_success = True
 
@@ -88,7 +91,7 @@ def browse() -> str:
 def browse_by_year(year: str) -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "writers": database.get_writers_by_year(year),
+        "writers": get_month_list_of_writers(year),
         "year": year,
         "page_title": f"{year} #vss365 prompts"
     }
@@ -97,14 +100,14 @@ def browse_by_year(year: str) -> str:
 
 @bp.route("/browse/<year>/<month>")
 def browse_by_writer(year: str, month: str) -> str:
+    # Join the date fragments into the format we need
     date = f"{year}-{month}"
-    writer = database.get_writer_by_date(date)["handle"]
+    writers = database.get_writer_handle_by_date(date)
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_writer_tweets_by_date(writer, date),
-        "writer": writer,
-        "date": date,
-        "page_title": f"{format_month_year(date)} prompts from @{writer}"
+        "tweets": database.get_writer_tweets_by_date(writers, date),
+        "writer": ", ".join(writers),
+        "date": date
     }
     return render_template("browse-writer.html", **render_opts)
 

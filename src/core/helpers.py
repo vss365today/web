@@ -1,10 +1,15 @@
 from datetime import date
+from itertools import zip_longest
 import re
+from typing import Iterable, Optional
 
 import tweepy
 
 from src.core.config import load_app_config
-from src.core.database import get_words_for_month
+from src.core.database import (
+    get_writers_by_year,
+    get_words_by_month
+)
 
 
 __all__ = [
@@ -18,7 +23,7 @@ __all__ = [
     "make_hashtags",
     "make_mentions",
     "make_urls",
-    "validate_email"
+    "validate_email_addr"
 ]
 
 
@@ -34,7 +39,7 @@ def __filter_hashtags(hashtags: list) -> list:
     # Get the words used for this month
     # We want to remove these from consideration too
     this_month = date.today().strftime("%Y-%m")
-    this_months_words = get_words_for_month(this_month)
+    this_months_words = get_words_by_month(this_month)
 
     # Go through each word for the month and find variations
     # of it in the tweet. Ex: the word is "motif", so find
@@ -69,6 +74,14 @@ def __filter_hashtags(hashtags: list) -> list:
     return hashtags
 
 
+def __grouper(iterable: Iterable) -> tuple:
+    """Collect data into 2-length chunks or blocks.
+    https://docs.python.org/3/library/itertools.html#recipes
+    """
+    args = [iter(iterable)] * 2
+    return tuple(zip_longest(*args, fillvalue={}))
+
+
 def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
     CONFIG = load_app_config()
@@ -97,7 +110,31 @@ def get_all_hashtags(text: str) -> list:
     return matches if matches else None
 
 
-def find_prompt_word(text: str) -> str or None:
+def get_month_list_of_writers(year: str) -> list:
+    # Group the months into chunks of two
+    final = []
+    writers = __grouper(dict(writer) for writer in get_writers_by_year(year))
+
+    # If there are multiple writers in a single month,
+    # lump the two handles together.
+    # Since this will only get hit in historical data where
+    # there's only two writers in a single month,
+    # this doesn't have to be any more ~~complicated~~ extensible
+    for this_mo, next_mo in writers:
+        if next_mo and this_mo["date"] == next_mo["date"]:
+            this_mo["handle"] = f"{this_mo['handle']}, {next_mo['handle']}"
+            # Mark the second writer record for removal
+            next_mo["delete"] = True
+
+    # Trin the writer list down to just the ones we need
+    for one, two in writers:
+        final.append(one)
+        if two and not two.get("delete"):
+            final.append(two)
+    return final
+
+
+def find_prompt_word(text: str) -> Optional[str]:
     prompt_word = None
 
     # Find all hashtags in the tweet
@@ -180,6 +217,6 @@ def make_urls(text: str) -> str:
     return text
 
 
-def validate_email(addr: str) -> bool:
+def validate_email_addr(addr: str) -> bool:
     regex = r"[a-z0-9.-_]+@[a-z0-9.-_]+\.[a-z0-9.-_]+"
     return re.fullmatch(regex, addr) is not None
