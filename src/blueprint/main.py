@@ -100,14 +100,14 @@ def browse_by_year(year: str) -> str:
 
 @bp.route("/browse/<year>/<month>")
 def browse_by_writer(year: str, month: str) -> str:
+    # Join the date fragments into the format we need
     date = f"{year}-{month}"
-    writer = database.get_writer_by_date(date)["handle"]
+    writers = database.get_writer_handle_by_date(date)
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_writer_tweets_by_date(writer, date),
-        "writer": writer,
-        "date": date,
-        "page_title": f"{format_month_year(date)} prompts from @{writer}"
+        "tweets": database.get_writer_tweets_by_date(writers, date),
+        "writer": ", ".join(writers),
+        "date": date
     }
     return render_template("browse-writer.html", **render_opts)
 
