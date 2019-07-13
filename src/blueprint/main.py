@@ -6,7 +6,7 @@ from src.core import filters
 from src.core.form import SubscribeForm
 from src.core.helpers import (
     get_month_list_of_writers,
-    validate_email
+    validate_email_addr
 )
 
 
@@ -50,7 +50,7 @@ def unsubscribe() -> str:
     # We don't need to worry about it not existing,
     # that is handled in the removal method
     email = request.args.get("email")
-    if email and validate_email(email):
+    if email and validate_email_addr(email):
         database.remove_subscribe_email(email)
         removal_success = True
 

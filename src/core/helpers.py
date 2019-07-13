@@ -23,7 +23,7 @@ __all__ = [
     "make_hashtags",
     "make_mentions",
     "make_urls",
-    "validate_email"
+    "validate_email_addr"
 ]
 
 
@@ -217,6 +217,6 @@ def make_urls(text: str) -> str:
     return text
 
 
-def validate_email(addr: str) -> bool:
+def validate_email_addr(addr: str) -> bool:
     regex = r"[a-z0-9.-_]+@[a-z0-9.-_]+\.[a-z0-9.-_]+"
     return re.fullmatch(regex, addr) is not None

@@ -1,6 +1,6 @@
 import os.path
 import sqlite3
-from typing import List, Union
+from typing import List, Optional
 
 from src.core.config import load_app_config
 
@@ -98,7 +98,7 @@ def get_uid_by_handle(handle: str) -> str:
         return db.execute(sql, {"handle": handle}).fetchone()["uid"]
 
 
-def get_latest_tweet() -> Union[dict, None]:
+def get_latest_tweet() -> Optional[dict]:
     """Get the newest archived tweet."""
     # To preserve compat across the rest of the codebase,
     # we also include the tweet Writer's handle in the result set.
