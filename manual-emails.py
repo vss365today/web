@@ -14,20 +14,8 @@ if not db_tweets:
     print(f"There are no tweets in the database for {tweet_date}!")
     raise SystemExit(0)
 
-print(f"\nTweets available for {tweet_date}:")
-for i, prompt in enumerate(db_tweets):
-    print(f"[{i}] {prompt['word']}")
-print()
-tweet_index = input("Which tweet would you like to send out? (default [0]): ")
-
-# Make sure we have a valid index but default to the first tweet
-tweet_index = int(tweet_index) if tweet_index.strip() != "" else 0
-if tweet_index < 0 or tweet_index > len(db_tweets) - 1:
-    print("That is not an available tweet!")
-    raise SystemExit(0)
-
 # Construct a dictionary with only the info we need
-picked_tweet = db_tweets[tweet_index]
+picked_tweet = db_tweets[0]
 tweet = {
     "tweet_id": picked_tweet["tweet_id"],
     "date": create_date(tweet_date),
