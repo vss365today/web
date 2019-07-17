@@ -14,11 +14,11 @@ __all__ = [
     "get_latest_tweet",
     "get_writer_by_date",
     "get_writers_by_year",
-    "get_tweet_by_date",
+    "get_tweets_by_date",
     "get_tweet_years",
     "get_uid_by_handle",
     "get_words_by_month",
-    "get_writer_tweets_by_year",
+    "get_writer_tweets_by_date",
     "remove_subscribe_email"
 ]
 
@@ -99,9 +99,7 @@ def get_uid_by_handle(handle: str) -> str:
 
 
 def get_latest_tweet() -> Optional[dict]:
-    """Get the newest archived tweet."""
-    # To preserve compat across the rest of the codebase,
-    # we also include the tweet Writer's handle in the result set.
+    """Get the newest tweet."""
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
     FROM tweets
@@ -189,7 +187,7 @@ def get_writer_tweets_by_date(handles: list, date: str) -> List[sqlite3.Row]:
         return db.execute(sql, bind_vals).fetchall()
 
 
-def get_tweet_by_date(date: str) -> Optional[dict]:
+def get_tweets_by_date(date: str) -> List[sqlite3.Row]:
     """Get a prompt tweet by the date it was posted."""
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
@@ -198,8 +196,7 @@ def get_tweet_by_date(date: str) -> Optional[dict]:
     WHERE tweets.date = :date
     """
     with __connect_to_db() as db:
-        r = db.execute(sql, {"date": date}).fetchone()
-    return dict(r) if r is not None else None
+        return db.execute(sql, {"date": date}).fetchall()
 
 
 def add_tweet_to_db(tweet_dict: dict) -> None:

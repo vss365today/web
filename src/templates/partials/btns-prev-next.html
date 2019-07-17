@@ -1,8 +1,8 @@
 <nav class="btns-prev-next">
   {% if exists_previous_day -%}
-  <a href="{{ url_for('root.date', date=tweet.date|yesterday) }}">⬅️ Previous</a>
+  <a href="{{ url_for('root.date', date=tweets[0].date|yesterday) }}">⬅️ Previous</a>
   {% endif -%}
   {% if exists_next_day -%}
-  <a href="{{ url_for('root.date', date=tweet.date|tomorrow) }}">Next ➡️</a>
+  <a href="{{ url_for('root.date', date=tweets[0].date|tomorrow) }}">Next ➡️</a>
   {% endif -%}
 </nav>

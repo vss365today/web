@@ -204,9 +204,13 @@ footer > div {
   font-weight: 400;
 }
 
+.content > .word-wrapper {
+  margin-top: -1.5em;
+}
+
 .content .word {
   line-height: 1.75;
-  font-size: 1.85em;
+  font-size: 2.75em;
   font-weight: 700;
   color: inherit;
   text-decoration-style: dashed;
@@ -219,6 +223,10 @@ footer > div {
 .content .word:active {
   border-bottom-color: transparent;
   text-decoration-color: inherit;
+}
+
+.commas:not(:last-of-type)::after {
+  content: ",";
 }
 
 .a-btn {
