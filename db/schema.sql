@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "writer_dates" (
 
 CREATE TABLE IF NOT EXISTS "tweets" (
   "tweet_id" VARCHAR(25) NOT NULL UNIQUE,
-  "date" DATE NOT NULL UNIQUE,
+  "date" DATE NOT NULL,
   "uid" VARCHAR(30) NOT NULL,
   "content" VARCHAR(512) NOT NULL,
   "word" VARCHAR(25) NOT NULL,

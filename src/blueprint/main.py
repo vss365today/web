@@ -126,7 +126,7 @@ def index() -> str:
     tweet["date"] = create_date(tweet["date"])
 
     render_opts = {
-        "tweet": tweet,
+        "tweets": [tweet],
         "exists_previous_day": True,
         "exists_next_day": False,
         "form": SubscribeForm(),
@@ -137,31 +137,34 @@ def index() -> str:
 
 @bp.route("/view/<date>")
 def date(date: str) -> str:
-    tweet = database.get_tweet_by_date(date)
-
-    # Abort if we don't have a tweet for this day
-    if tweet is None:
+    db_tweets = database.get_tweets_by_date(date)
+    # Abort if we don't have tweets for this day
+    if not db_tweets:
         abort(404)
 
-    # Create a proper date object
-    tweet["date"] = create_date(tweet["date"])
+    # Create a proper date object for each tweet
+    tweets = []
+    for tweet in db_tweets:
+        tweet = dict(tweet)
+        tweet["date"] = create_date(tweet["date"])
+        tweets.append(tweet)
 
-    # Check if a tweet for the previous day exists
-    exists_previous_day = database.get_tweet_by_date(
-        yesterday(tweet["date"])
+    # Check if a tweet for the previous day existS
+    exists_previous_day = database.get_tweets_by_date(
+        yesterday(tweets[0]["date"])
     ) is not None
 
     # Check if a tweet for the next day even exists
-    exists_next_day = database.get_tweet_by_date(
-        tomorrow(tweet["date"])
+    exists_next_day = database.get_tweets_by_date(
+        tomorrow(tweets[0]["date"])
     ) is not None
 
     render_opts = {
-        "tweet": tweet,
+        "tweets": tweets,
         "exists_previous_day": exists_previous_day,
         "exists_next_day": exists_next_day,
         "form": SubscribeForm(),
-        "page_title": format_date(tweet["date"])
+        "page_title": format_date(tweets[0]["date"])
     }
     return render_template("tweet.html", **render_opts)
 

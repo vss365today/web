@@ -4,28 +4,38 @@
 <section class="content">
   {% include "partials/btns-prev-next.html" %}
 
-  <h3 class="prompt-highlight center">Today's writing prompt is:
-    <br>
-    <a class="word" target="_blank" href="https://www.dictionary.com/browse/{{ tweet.word|lower }}">{{ tweet.word }}</a>
-  </h3>
+  {% set number_of_tweets = tweets|length %}
+  <h3 class="prompt-highlight center">Today's writing prompt{{ ' is' if number_of_tweets == 1 else 's are' }}:</h3>
+    <p class="word-wrapper center">
+      {% for tweet in tweets %}
+      <a class="prompt-highlight word commas center" target="_blank" href="https://www.dictionary.com/browse/{{ tweet.word|lower }}">{{ tweet.word }}</a>
+      {% endfor %}
+    </p>
 </section>
 
 <section class="content">
+  {% for tweet in tweets %}
   <div class="tweet">
     {% if tweet.media %}
     <img width="400" alt="" src="{{ tweet.media }}">
     {% endif %}
-    <p class="center"><a href="{{ create_url(tweet) }}">Prompt by {{ tweet.writer_handle }}</a></p>
   </div>
+  {% endfor %}
+
+  <p class="center" style="font-size: 0.85em;">Prompt {% for tweet in tweets %}
+    <a class="commas" href="{{ create_url(tweet) }}">{{ loop.index }}</a>
+  {% endfor %} by {{ tweets[0].writer_handle }}</p>
 </section>
 
 <section class="content">
   <details>
-    <summary>View tweet</summary>
+    <summary>View tweet{{ 's' if number_of_tweets > 1 }}</summary>
+    {% for tweet in tweets %}
     {{ tweet.content|format_content|safe }}
     {% if tweet.media %}
     <img width="250" alt="" src="{{ tweet.media }}">
     {% endif %}
+    {% endfor %}
   </details>
 </section>
 {% endblock %}
