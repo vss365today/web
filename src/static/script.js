@@ -1,6 +1,7 @@
 (function() {
   "use strict";
   const STORAGE_KEY = "is-dark-theme";
+  const userTheme = window.localStorage.getItem(STORAGE_KEY);
   const btnToggle = document.querySelector("nav.primary #btn-theme");
 
   function isDarkTheme() {
@@ -16,9 +17,8 @@
   // defaulting to the light theme, but then checking if the user has manually set a theme
   // and using it instead
   let wantsDarkTheme = matchMedia("(prefers-color-scheme: dark)").matches;
-  const savedTheme = window.localStorage.getItem(STORAGE_KEY);
-  if (savedTheme) {
-    wantsDarkTheme = (savedTheme === "true");
+  if (userTheme) {
+    wantsDarkTheme = (userTheme === "true");
   }
 
   // Set or remove the `dark` class on page load
@@ -26,6 +26,6 @@
 
   // Allow the user to toggle between the themes
   btnToggle.addEventListener("click", function() {
-  applyDarkTheme();
+    applyDarkTheme();
   });
 }());
