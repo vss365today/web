@@ -5,7 +5,10 @@ from typing import Iterable, Optional
 
 import tweepy
 
-from src.core.config import load_app_config
+from src.core.config import (
+    load_app_config,
+    load_json_config
+)
 from src.core.database import (
     get_writers_by_year,
     get_words_by_month
@@ -13,7 +16,6 @@ from src.core.database import (
 
 
 __all__ = [
-    "IDENTIFYING_HASHTAGS",
     "create_twitter_connection",
     "find_prompt_tweet",
     "find_prompt_word",
@@ -28,16 +30,12 @@ __all__ = [
 
 
 # The hashtags that identify a prompt tweet
-IDENTIFYING_HASHTAGS = ("#VSS365", "#PROMPT")
+CONFIG_VALUES = load_json_config()
 
 
-def __filter_hashtags(hashtags: list) -> list:
+def __filter_hashtags(hashtags: set) -> tuple:
     """Remove all hashtags that we don't need to process."""
-    # Any additional, non-identifying hashtags we need to remove
-    additional = ["#VSS365A", "#WRITINGCOMMUNITY", "#FLASHDOGS"]
-
-    # Get the words used for this month
-    # We want to remove these from consideration too
+    # Get the words used for this month and remove them from consideration
     this_month = date.today().strftime("%Y-%m")
     this_months_words = get_words_by_month(this_month)
 
@@ -47,31 +45,32 @@ def __filter_hashtags(hashtags: list) -> list:
     # will also be matched. Our endgame is to filter out
     # previous prompt words in the prompt tweet
     # so they are not picked back up and recorded
+    matched_variants = set()
     for word in this_months_words:
-        # Build a regex that will match exact and suffix variations
+        # Build a regex that will match exact words and suffix variations
         regex = re.compile(rf"{word}\w*\b", re.I)
 
         # Search the tweet's hashtags for the words
-        variants = [
+        variants = set(
             match.upper()
             for match in filter(regex.search, hashtags)
             if match
-        ]
+        )
 
-        # Only if we found a variant do we record it
+        # Record all variants we find
         if variants:
-            additional += variants
+            matched_variants |= variants
 
-    # Merge out filter lists then take out all the hashtags
+    # Merge the filter sets then take out all the hashtags
     hashtags_to_filter = (
-        IDENTIFYING_HASHTAGS +
-        tuple(additional)
+        matched_variants |
+        set(CONFIG_VALUES["identifiers"]) |
+        set(CONFIG_VALUES["additionals"])
     )
-    hashtags = list(filter(
+    return tuple(filter(
         lambda ht: ht.upper() not in hashtags_to_filter,
         hashtags
     ))
-    return hashtags
 
 
 def __grouper(iterable: Iterable) -> tuple:
@@ -101,13 +100,13 @@ def create_twitter_connection() -> tweepy.API:
 def find_prompt_tweet(text: str) -> bool:
     return all(
         hashtag in text.upper()
-        for hashtag in IDENTIFYING_HASHTAGS
+        for hashtag in CONFIG_VALUES["identifiers"]
     )
 
 
-def get_all_hashtags(text: str) -> list:
+def get_all_hashtags(text: str) -> set:
     matches = re.findall(r"(#\w+)", text, re.I)
-    return matches if matches else None
+    return set(matches) if matches else None
 
 
 def get_month_list_of_writers(year: str) -> list:
@@ -126,7 +125,7 @@ def get_month_list_of_writers(year: str) -> list:
             # Mark the second writer record for removal
             next_mo["delete"] = True
 
-    # Trin the writer list down to just the ones we need
+    # Trim the writer list down to just the ones we need
     for one, two in writers:
         final.append(one)
         if two and not two.get("delete"):
@@ -148,7 +147,7 @@ def find_prompt_word(text: str) -> Optional[str]:
     # If there are any hashtags left, get the first one
     # and remove the prefixed pound sign
     if remaining:
-        prompt_word = remaining[0].replace("#", "")
+        prompt_word = remaining[CONFIG_VALUES["word_index"]].replace("#", "")
     return prompt_word
 
 
