@@ -27,7 +27,7 @@
     <a class="commas" href="{{ create_url(tweet) }}">{{ loop.index }}</a>
   {% endfor %} by {{ tweets[0].writer_handle }}</p>
   {% else %}
-  <p class="center"><a href="{{ create_url(tweets[0]) }}">Prompt by {{ tweets[0].writer_handle }}</a></p>
+  <p class="center" style="font-size: 0.85em;"><a href="{{ create_url(tweets[0]) }}">Prompt by {{ tweets[0].writer_handle }}</a></p>
   {% endif %}
 </section>
 
