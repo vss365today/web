@@ -22,9 +22,13 @@
   </div>
   {% endfor %}
 
+  {% if tweets|length > 1 %}
   <p class="center" style="font-size: 0.85em;">Prompt {% for tweet in tweets %}
     <a class="commas" href="{{ create_url(tweet) }}">{{ loop.index }}</a>
   {% endfor %} by {{ tweets[0].writer_handle }}</p>
+  {% else %}
+  <p class="center"><a href="{{ create_url(tweets[0]) }}">Prompt by {{ tweets[0].writer_handle }}</a></p>
+  {% endif %}
 </section>
 
 <section class="content">
