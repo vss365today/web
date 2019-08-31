@@ -1,25 +1,31 @@
 (function() {
   "use strict";
+  const STORAGE_KEY = "is-dark-theme";
+  const btnToggle = document.querySelector("nav.primary #btn-theme");
+
   function isDarkTheme() {
-    return !!(document.cookie.split(';').filter((item) => item.includes('is-dark-theme=true')).length);
+    return document.body.classList.contains("dark");
   }
 
-  /**
-   * @param {boolean} apply
-   */
-  function applyDarkTheme(apply) {
-    document.body.classList.toggle("dark", apply);
-    let cookie = `is-dark-theme=${apply};path=/;domain=${window.location.hostname};max-age=31536000;samesite=strict`;
-
-    // Secure the cookie when in production
-    if (window.location.hostname === "vss365today.com") {
-      cookie = `__Secure-${cookie};secure`;
-    }
-    document.cookie = cookie;
+  function applyDarkTheme() {
+    document.body.classList.toggle("dark", !isDarkTheme());
+    window.localStorage.setItem(STORAGE_KEY, isDarkTheme().toString());
   }
+
+  // Determine the theme to use initially by checking `prefers-color-scheme`,
+  // defaulting to the light theme, but then checking if the user has manually set a theme
+  // and using it instead
+  let wantsDarkTheme = matchMedia("(prefers-color-scheme: dark)").matches;
+  const savedTheme = window.localStorage.getItem(STORAGE_KEY);
+  if (savedTheme) {
+    wantsDarkTheme = (savedTheme === "true");
+  }
+
+  // Set or remove the `dark` class on page load
+  document.body.classList.toggle("dark", wantsDarkTheme);
 
   // Allow the user to toggle between the themes
-  document.querySelector("nav.primary #btn-theme").addEventListener("click", function() {
-    applyDarkTheme(!isDarkTheme());
+  btnToggle.addEventListener("click", function() {
+  applyDarkTheme();
   });
 }());

@@ -24,10 +24,6 @@ def create_app():
         return {"current_date": date.today()}
 
     @app.context_processor
-    def inject_site_theme():
-        return {"theme_class": app.config.get("SITE_THEME_CLASS", "")}
-
-    @app.context_processor
     def nav_cur_page():
         return {
             "nav_cur_page":
