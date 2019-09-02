@@ -3,11 +3,29 @@ version: '3.6'
 services:
   vss365today:
     image: vss365today:latest
+    container_name: vss365today
     restart: unless-stopped
     volumes:
-      - /usr/codetri/vss365-today:/app
+      - ../:/app  # the base directory is one level above here
     ports:
       - 127.0.0.1:5002:5000
     entrypoint:
       - sh
       - ./run-flask.sh
+    networks:
+      - codetriangle
+
+  postfix:
+    image: boky/postfix
+    container_name: email-server
+    ports:
+      - 127.0.0.1:1587:587
+    environment:
+      - HOSTNAME=email-server
+      - ALLOWED_SENDER_DOMAINS=vss365today.com
+    networks:
+      - codetriangle
+
+networks:
+  codetriangle:
+    driver: bridge
