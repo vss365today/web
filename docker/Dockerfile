@@ -1,4 +1,4 @@
-FROM python:alpine3.7
+FROM python:3.7-alpine
 
 # Set any env values we need
 ENV PYTHONPATH=/app
