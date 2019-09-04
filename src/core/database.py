@@ -41,7 +41,7 @@ def add_subscribe_email(addr: str) -> bool:
     try:
         sql = "INSERT INTO emails VALUES (:addr)"
         with __connect_to_db() as db:
-            db.execute(sql, {"addr": addr})
+            db.execute(sql, {"addr": addr.lower()})
         return True
 
     # Some error occurred
@@ -50,7 +50,7 @@ def add_subscribe_email(addr: str) -> bool:
         return False
 
 
-def create_new_database() -> None:
+def create_new_database() -> Optional:
     """Create a new database if needed."""
     try:
         # If the database exists and is loaded, this will succeed
@@ -200,7 +200,7 @@ def get_tweets_by_date(date: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"date": date}).fetchall()
 
 
-def add_tweet_to_db(tweet_dict: dict) -> None:
+def add_tweet_to_db(tweet_dict: dict) -> Optional:
     """Add a tweet to the database."""
     sql = """
     INSERT INTO tweets (
@@ -227,7 +227,7 @@ def get_words_by_month(date: str) -> list:
     return __flatten_tuple_list(r)
 
 
-def remove_subscribe_email(addr: str) -> True:
+def remove_subscribe_email(addr: str) -> bool:
     """Remove a subscription email address."""
     sql = "DELETE FROM emails WHERE email = :addr"
     with __connect_to_db() as db:

@@ -1,4 +1,4 @@
-from flask import current_app, Blueprint, request
+from flask import Blueprint, request
 from flask import abort, render_template
 
 from src.core import database
