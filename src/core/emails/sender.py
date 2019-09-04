@@ -9,7 +9,7 @@ from src.core.emails.generator import render_email
 def construct_email(tweet: dict, addr: str) -> dict:
     """Construct a MailJet email dictionary."""
     return {
-        "Subject": f"#vss365 prompt for {tweet['date']}",
+        "Subject": tweet["date"],
         "HTMLPart": render_email(tweet, addr),
         "From": {
             "Email": "noreply@vss365today.com",
