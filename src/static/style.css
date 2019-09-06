@@ -331,6 +331,7 @@ button:focus { background-color: #e9e9e9; }
 .dark .content img {
   border-color: transparent;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  filter: opacity(0.85);
 }
 
 .dark details {
