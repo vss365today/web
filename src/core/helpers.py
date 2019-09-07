@@ -33,7 +33,7 @@ __all__ = [
 CONFIG_VALUES = load_json_config()
 
 
-def __filter_hashtags(hashtags: set) -> tuple:
+def __filter_hashtags(hashtags: tuple) -> tuple:
     """Remove all hashtags that we don't need to process."""
     # Get the words used for this month and remove them from consideration
     this_month = date.today().strftime("%Y-%m")
@@ -45,27 +45,27 @@ def __filter_hashtags(hashtags: set) -> tuple:
     # will also be matched. Our endgame is to filter out
     # previous prompt words in the prompt tweet
     # so they are not picked back up and recorded
-    matched_variants = set()
+    matched_variants = []
     for word in this_months_words:
         # Build a regex that will match exact words and suffix variations
         regex = re.compile(rf"{word}\w*\b", re.I)
 
         # Search the tweet's hashtags for the words
-        variants = set(
+        variants = [
             match.upper()
             for match in filter(regex.search, hashtags)
             if match
-        )
+        ]
 
         # Record all variants we find
         if variants:
-            matched_variants |= variants
+            matched_variants.extend(variants)
 
     # Merge the filter sets then take out all the hashtags
     hashtags_to_filter = (
-        matched_variants |
-        set(CONFIG_VALUES["identifiers"]) |
-        set(CONFIG_VALUES["additionals"])
+        matched_variants +
+        CONFIG_VALUES["identifiers"] +
+        CONFIG_VALUES["additionals"]
     )
     return tuple(filter(
         lambda ht: ht.upper() not in hashtags_to_filter,
@@ -104,9 +104,9 @@ def find_prompt_tweet(text: str) -> bool:
     )
 
 
-def get_all_hashtags(text: str) -> set:
+def get_all_hashtags(text: str) -> tuple:
     matches = re.findall(r"(#\w+)", text, re.I)
-    return set(matches) if matches else None
+    return tuple(matches) if matches else None
 
 
 def get_month_list_of_writers(year: str) -> list:
