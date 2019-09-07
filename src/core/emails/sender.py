@@ -9,7 +9,7 @@ from src.core.emails.generator import render_email
 def construct_email(tweet: dict, addr: str) -> dict:
     """Construct a MailJet email dictionary."""
     return {
-        "Subject": tweet["date"],
+        "Subject": f'tweet["date"] (and a quick request from Caleb!)',
         "HTMLPart": render_email(tweet, addr),
         "From": {
             "Email": "noreply@vss365today.com",
@@ -55,28 +55,31 @@ def send_emails(tweet: dict):
             msg = construct_email(tweet, addr)
             email_data["Messages"].append(msg)
 
+
+    with open("complete-email.html", "wt") as f:
+        f.write(email_data["Messages"][0]["HTMLPart"])
         # Send the emails
-        result = mailjet.send.create(data=email_data)
-        print(f"Mail status: {result.status_code}")
+        # result = mailjet.send.create(data=email_data)
+        # print(f"Mail status: {result.status_code}")
 
-        # Get the sending results json
-        mj_results = result.json()
+        # # Get the sending results json
+        # mj_results = result.json()
 
-        # There was an error sending the emails
-        if result.status_code != 200:
-            print(mj_results)
+        # # There was an error sending the emails
+        # if result.status_code != 200:
+        #     print(mj_results)
 
-        # The emails were successfully sent
-        else:
-            # Count the send status of each message
-            status = {}
-            for msg in mj_results["Messages"]:
-                status[msg["Status"]] = status.get(msg["Status"], 0) + 1
+        # # The emails were successfully sent
+        # else:
+        #     # Count the send status of each message
+        #     status = {}
+        #     for msg in mj_results["Messages"]:
+        #         status[msg["Status"]] = status.get(msg["Status"], 0) + 1
 
-            # All the emails were send successfully
-            if status["success"] == len(email_list):
-                print("All emails sent successfully.")
+        #     # All the emails were send successfully
+        #     if status["success"] == len(email_list):
+        #         print("All emails sent successfully.")
 
-            # Everything wasn't successful, display raw count dict
-            else:
-                print(status)
+        #     # Everything wasn't successful, display raw count dict
+        #     else:
+        #         print(status)
