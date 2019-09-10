@@ -1,7 +1,7 @@
 from datetime import date
 from itertools import zip_longest
 import re
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Tuple
 
 import tweepy
 
@@ -33,7 +33,7 @@ __all__ = [
 CONFIG_VALUES = load_json_config()
 
 
-def __filter_hashtags(hashtags: tuple) -> tuple:
+def __filter_hashtags(hashtags: Tuple[str]) -> Tuple[str]:
     """Remove all hashtags that we don't need to process."""
     # Get the words used for this month and remove them from consideration
     this_month = date.today().strftime("%Y-%m")
@@ -104,7 +104,7 @@ def find_prompt_tweet(text: str) -> bool:
     )
 
 
-def get_all_hashtags(text: str) -> tuple:
+def get_all_hashtags(text: str) -> Tuple[str]:
     matches = re.findall(r"(#\w+)", text, re.I)
     return tuple(matches) if matches else None
 
@@ -151,7 +151,7 @@ def find_prompt_word(text: str) -> Optional[str]:
     return prompt_word
 
 
-def get_tweet_media(tweet: tweepy.Status) -> tuple:
+def get_tweet_media(tweet: tweepy.Status) -> Tuple[str, Optional]:
     """Get the tweet's media if it exists."""
     media_url = ""
     tweet_media = None
