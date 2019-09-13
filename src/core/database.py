@@ -68,7 +68,8 @@ def create_new_database() -> Optional:
             sql = f.read()
 
         # Create the database according to the schema
-        db.executescript(sql)
+        with __connect_to_db() as db:
+            db.executescript(sql)
 
 
 def get_all_emails() -> List[str]:
