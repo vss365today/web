@@ -30,10 +30,6 @@
 as it blocks the `https://pbs.twimg.com` domain by default.
 To see tweet media, consider disabling the content blocker just for this site.
 
-- Dark theme preservation across browser sessions may be broken due to ad/content blockers
-stopping the indicator cookie from remaining. Disabling the ad-blocker may be required
-for the site to remain in your chosen theme.
-
 ## License
 
 2019 Caleb Ely
