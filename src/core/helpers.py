@@ -151,7 +151,7 @@ def find_prompt_word(text: str) -> Optional[str]:
     return prompt_word
 
 
-def get_tweet_media(tweet: tweepy.Status) -> Tuple[str, Optional]:
+def get_tweet_media(tweet: tweepy.Status) -> Tuple[str, None]:
     """Get the tweet's media if it exists."""
     media_url = ""
     tweet_media = None
