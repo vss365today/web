@@ -39,7 +39,7 @@ def form_unsubscribe() -> str:
 
     # Remove the email from the database
     if email is not None and validate_email_addr(email):
-        # database.remove_subscribe_email(email)
+        database.remove_subscribe_email(email)
         removal_success = True
 
     # Go back to the unsub page
