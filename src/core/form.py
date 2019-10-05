@@ -9,3 +9,11 @@ class SubscribeForm(FlaskForm):
         id="input-email",
         validators=[DataRequired(), Email()]
     )
+
+
+class UnsubscribeForm(FlaskForm):
+    email = EmailField(
+        "Unsubscribe from daily #vss365 notifications",
+        id="input-email",
+        validators=[DataRequired(), Email()]
+    )

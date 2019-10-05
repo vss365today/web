@@ -2,13 +2,28 @@
 
 {% block content %}
 <section class="page center">
-  <h3>&OpenCurlyDoubleQuote;To live more alone is a dream we only have at home.&CloseCurlyDoubleQuote;</h3>
-  {% if removal_success %}
-  <p>The email <strong>{{ email }}</strong> has been successfully removed.<br>
+  <h3>&OpenCurlyDoubleQuote;A little isolation away from it all, tends to be just the reset I require..
+    <br>To be left alone with the soul, is to be left alone with everything.&CloseCurlyDoubleQuote;
+    <br>&mdash;<a rel="nofollow noopener noreferrer" href="https://twitter.com/cosmicbyron/status/1180581469082619941">Byron Wesley</a>
+  </h3>
+  <br>
+
+  {% if removal_success is none %}
+  <p>It looks like you're wanting to unsubscribe from the daily #vss365 email notifications. We're sorry to see you go, but fully respect your decision. Stuff happens, and sometimes you gotta remove the clutter from your life (or inbox). 🙂</p>
+
+  <p>Whatever your reason, just enter your registered email below and you will be removed from the notification list.</p>
+
+  {% include "partials/form-unsub.html" %}
+
+  {% elif removal_success == true %}
+  <p>You have been successfully removed from the notification list.<br>
     We hope you're still planning on participating in the #vss365 prompts!</p>
-  {% else %}
-  <p>We were unable to remove <strong>{{ email }}</strong> from the subscription list.<br>
-    We're terribly sorry about this! Please try to unsubscribe again in a few minutes.</p>
+
+  {% elif removal_success == false %}
+  <p>We're terribly sorry about this, but we were unable to remove your email from the notification list.<br>
+    Please try to unsubscribe again in a few minutes.</p>
+
+  {% include "partials/form-unsub.html" %}
   {% endif %}
 </section>
 {% endblock %}

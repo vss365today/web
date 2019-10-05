@@ -1,9 +1,9 @@
 from flask import Blueprint, request
-from flask import abort, render_template
+from flask import abort, redirect, render_template, url_for
 
 from src.core import database
 from src.core import filters
-from src.core.form import SubscribeForm
+from src.core.form import SubscribeForm, UnsubscribeForm
 from src.core.helpers import (
     get_month_list_of_writers,
     validate_email_addr
@@ -32,26 +32,35 @@ def subscribe() -> str:
     return render_template("subscribe.html", **render_opts)
 
 
-@bp.route("/unsubscribe", methods=["GET"])
-def unsubscribe() -> str:
-    # If we have a valid email, attempt to remove it
-    # We don't need to worry about it not existing,
-    # that is handled in the removal method
-    email = request.args.get("email")
-    if email and validate_email_addr(email):
-        database.remove_subscribe_email(email)
+@bp.route("/form-unsubscribe", methods=["POST"])
+def form_unsubscribe() -> str:
+    removal_success = False
+    email = request.form.get("email")
+
+    # Remove the email from the database
+    if email is not None and validate_email_addr(email):
+        # database.remove_subscribe_email(email)
         removal_success = True
 
-    # This is not a valid email address
-    else:
-        removal_success = False
-        email = "an unspecified email"
+    # Go back to the unsub page
+    return redirect(url_for(
+        "root.unsubscribe",
+        success=str(removal_success).lower()
+    ))
+
+
+@bp.route("/unsubscribe", methods=["GET"])
+def unsubscribe():
+    # Determine from the args if the removal happened or not
+    removal_success = request.args.get("success")
+    if removal_success is not None:
+        removal_success = (removal_success == "true")
 
     render_opts = {
-        "email": email,
-        "form": SubscribeForm(),
         "removal_success": removal_success,
-        "page_title": "Cancel email notifications"
+        "form": SubscribeForm(),
+        "form_unsubscribe": UnsubscribeForm(),
+        "page_title": "Stop email notifications"
     }
     return render_template("unsubscribe.html", **render_opts)
 
