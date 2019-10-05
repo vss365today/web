@@ -1,9 +1,12 @@
+# from random import randint
+
 from mailjet_rest import Client
 
 from src.core.config import load_app_config
 from src.core.database import get_all_emails
 from src.core.filters import format_date
 from src.core.emails.generator import render_email
+# from src.core.emails.codetri_sender import send_emails_codetri
 
 
 def construct_email(tweet: dict, addr: str) -> dict:
@@ -47,15 +50,24 @@ def send_emails(tweet: dict):
         email_list[i:i + chunk_size]
         for i in range(0, len(email_list), chunk_size)
     ]
+    rendered_emails = []
 
+    # Construct and render the emails in each chunk
     for chunk in email_list:
-        # Construct the emails in each chunk
         email_data = {"Messages": []}
         for addr in chunk:
             msg = construct_email(tweet, addr)
             email_data["Messages"].append(msg)
+        rendered_emails.append(email_data)
 
-        # Send the emails
+    # Take out a random chunk of emails to be sent out using
+    # a new, self-hosted postfix server.
+    # These will be sent out after MailJet messages are sent
+    # random_chunk = randint(0, len(rendered_emails))
+    # experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
+
+    # Send the Mailjet emails
+    for email_data in rendered_emails:
         result = mailjet.send.create(data=email_data)
         print(f"Mail status: {result.status_code}")
 
@@ -80,3 +92,6 @@ def send_emails(tweet: dict):
             # Everything wasn't successful, display raw count dict
             else:
                 print(status)
+
+    # Finally, send out the experimental emails
+    # send_emails_codetri(experimental_send_list)
