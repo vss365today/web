@@ -37,7 +37,7 @@ while True:
 
     # Stop adding prompts
     if tweet_date.lower() == "exit":
-        raise SystemExit
+        raise SystemExit(0)
 
     tweet_url = input("Enter the tweet url: ")
     tweet_id = extract_tweet_id(tweet_url)
