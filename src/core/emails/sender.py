@@ -1,12 +1,15 @@
-# from random import randint
+from random import randrange
 
 from mailjet_rest import Client
 
 from src.core.config import load_app_config
 from src.core.database import get_all_emails
-from src.core.filters import format_date
+from src.core.emails.codetri_sender import send_emails_codetri
 from src.core.emails.generator import render_email
-# from src.core.emails.codetri_sender import send_emails_codetri
+from src.core.filters import format_date
+
+
+__all__ = ["send_emails"]
 
 
 def construct_email(tweet: dict, addr: str) -> dict:
@@ -63,8 +66,8 @@ def send_emails(tweet: dict):
     # Take out a random chunk of emails to be sent out using
     # a new, self-hosted postfix server.
     # These will be sent out after MailJet messages are sent
-    # random_chunk = randint(0, len(rendered_emails))
-    # experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
+    random_chunk = randrange(0, len(rendered_emails))
+    experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
 
     # Send the Mailjet emails
     for email_data in rendered_emails:
@@ -94,4 +97,4 @@ def send_emails(tweet: dict):
                 print(status)
 
     # Finally, send out the experimental emails
-    # send_emails_codetri(experimental_send_list)
+    send_emails_codetri(experimental_send_list)
