@@ -1,5 +1,6 @@
 from email.headerregistry import Address
 from email.message import EmailMessage
+from email.utils import make_msgid
 from smtplib import SMTP
 
 from src.core.config import load_app_config
@@ -16,6 +17,7 @@ def rewrite_email_structure(msg: dict) -> EmailMessage:
 
     # Rebuild the email to be an EmailMessage instance
     em = EmailMessage()
+    em["Message-ID"] = make_msgid(domain="vss365today.com")
     em["subject"] = msg["Subject"]
     em["from"] = Address("#vss365 today", "noreply", "vss365today.com")
     em["to"] = Address("#vss365 today Subscriber", addr_to[0], addr_to[1])
