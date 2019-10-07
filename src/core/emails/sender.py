@@ -2,7 +2,7 @@ from random import randrange
 
 from mailjet_rest import Client
 
-from src.core.config import load_app_config
+from src.core.config import load_app_config, load_json_config
 from src.core.database import get_all_emails
 from src.core.emails.codetri_sender import send_emails_codetri
 from src.core.emails.generator import render_email
@@ -31,6 +31,7 @@ def construct_email(tweet: dict, addr: str) -> dict:
 def send_emails(tweet: dict):
     # Connect to the Mailjet Send API
     CONFIG = load_app_config()
+    CONFIG_JSON = load_json_config()
     mailjet = Client(auth=(
         CONFIG["MJ_APIKEY_PUBLIC"],
         CONFIG["MJ_APIKEY_PRIVATE"]
@@ -63,9 +64,10 @@ def send_emails(tweet: dict):
             email_data["Messages"].append(msg)
         rendered_emails.append(email_data)
 
-    # Take out a random chunk of emails to be sent out using
+    # If enabled, take out a random chunk of emails to be sent out using
     # a new, self-hosted postfix server.
     # These will be sent out after MailJet messages are sent
+    if CONFIG_JSON["use_new_mail_sending"]:
     random_chunk = randrange(0, len(rendered_emails))
     experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
 
@@ -96,5 +98,6 @@ def send_emails(tweet: dict):
             else:
                 print(status)
 
-    # Finally, send out the experimental emails
+    # Finally, send out the experimental emails if need be
+    if CONFIG_JSON["use_new_mail_sending"]:
     send_emails_codetri(experimental_send_list)
