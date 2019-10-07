@@ -18,7 +18,7 @@ def construct_email(tweet: dict, addr: str, completed_email: str) -> dict:
         "Subject": f'{tweet["date"]} (with a update from Caleb!)',
         "HTMLPart": completed_email,
         "From": {
-            "Email": "noreply@vss365today.com",
+            "Email": "noreply@fromabcthrough.xyz",
             "Name": "#vss365 today"
         },
         "To": [{

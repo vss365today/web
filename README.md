@@ -8,7 +8,7 @@
 * Flask secret key
 * Twitter Consumer API keys
 * Twitter access token & access token secret
-* MailJet public and private keys
+* Mailjet public and private keys
 * SMTP server address (default port 587, configurable)
 
 ## Install
