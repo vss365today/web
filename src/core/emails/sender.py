@@ -15,7 +15,7 @@ __all__ = ["send_emails"]
 def construct_email(tweet: dict, addr: str, completed_email: str) -> dict:
     """Construct a MailJet email dictionary."""
     return {
-        "Subject": f'{tweet["date"]} (and a quick request from Caleb!)',
+        "Subject": f'{tweet["date"]} (with a update from Caleb!)',
         "HTMLPart": completed_email,
         "From": {
             "Email": "noreply@vss365today.com",
