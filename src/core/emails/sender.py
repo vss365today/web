@@ -12,11 +12,11 @@ from src.core.filters import format_date
 __all__ = ["send_emails"]
 
 
-def construct_email(tweet: dict, addr: str) -> dict:
+def construct_email(tweet: dict, addr: str, completed_email: str) -> dict:
     """Construct a MailJet email dictionary."""
     return {
         "Subject": f'{tweet["date"]} (and a quick request from Caleb!)',
-        "HTMLPart": render_email(tweet, addr),
+        "HTMLPart": completed_email,
         "From": {
             "Email": "noreply@vss365today.com",
             "Name": "#vss365 today"
@@ -39,6 +39,7 @@ def send_emails(tweet: dict):
 
     # Properly format the tweet date
     tweet["date"] = format_date(tweet["date"])
+    completed_email = render_email(tweet)
 
     # Get the email address list and break it into chunks of 50
     # The MailJet Send API, under a free account,
@@ -60,7 +61,7 @@ def send_emails(tweet: dict):
     for chunk in email_list:
         email_data = {"Messages": []}
         for addr in chunk:
-            msg = construct_email(tweet, addr)
+            msg = construct_email(tweet, addr, completed_email)
             email_data["Messages"].append(msg)
         rendered_emails.append(email_data)
 
@@ -68,8 +69,8 @@ def send_emails(tweet: dict):
     # a new, self-hosted postfix server.
     # These will be sent out after MailJet messages are sent
     if CONFIG_JSON["use_new_mail_sending"]:
-    random_chunk = randrange(0, len(rendered_emails))
-    experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
+        random_chunk = randrange(0, len(rendered_emails))
+        experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
 
     # Send the Mailjet emails
     for email_data in rendered_emails:
@@ -100,4 +101,4 @@ def send_emails(tweet: dict):
 
     # Finally, send out the experimental emails if need be
     if CONFIG_JSON["use_new_mail_sending"]:
-    send_emails_codetri(experimental_send_list)
+        send_emails_codetri(experimental_send_list)

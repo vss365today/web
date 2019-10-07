@@ -11,7 +11,7 @@ def create_tweet_url(tweet: dict) -> str:
     return f"https://twitter.com/{tweet['handle']}/status/{tweet['tweet_id']}"
 
 
-def render_email(tweet: dict, email: str) -> str:
+def render_email(tweet: dict) -> str:
     """Render a complete email template."""
     # Read the template content
     template_file = join("src", "templates", "email.html")
@@ -22,4 +22,4 @@ def render_email(tweet: dict, email: str) -> str:
     tweet["url"] = create_tweet_url(tweet)
 
     # Render the thing already
-    return Template(template).render(tweet=tweet, email=email)
+    return Template(template).render(tweet=tweet)
