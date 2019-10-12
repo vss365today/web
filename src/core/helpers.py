@@ -217,5 +217,5 @@ def make_urls(text: str) -> str:
 
 
 def validate_email_addr(addr: str) -> bool:
-    regex = r"[a-z0-9.-_]+@[a-z0-9.-_]+\.[a-z0-9.-_]+"
+    regex = r"[\w.-]{1,}@[\w-]{1,}\.\w{2,}"
     return re.fullmatch(regex, addr) is not None
