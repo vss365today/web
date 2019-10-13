@@ -5,6 +5,7 @@
   --primary-nav-bg: #353333;
   --primary-link: #3ab879;
   --details-bg: #e9e9e9;
+  --font-stack-header: "Josefin Slab", "Noto Serif SC", sans-serif;
 }
 
 body.dark {
@@ -36,7 +37,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, strong, label {
-  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
+  font-family: var(--font-stack-header);
   font-weight: 700;
 }
 
@@ -115,7 +116,7 @@ nav.primary {
 nav.primary .nav-link {
   margin-right: 1em;
   margin-left: 1em;
-  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
+  font-family: var(--font-stack-header);
   font-weight: 400;
   font-size: 1.2em;
   color: #fff;
@@ -312,6 +313,7 @@ button:focus { background-color: #e9e9e9; }
 
 .dark nav.primary .nav-link {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-weight: 700;
 }
 
 .dark main a:hover,
@@ -332,6 +334,10 @@ button:focus { background-color: #e9e9e9; }
   border-color: transparent;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   filter: opacity(0.85);
+}
+
+.dark summary {
+  font-weight: 700;
 }
 
 .dark details {
