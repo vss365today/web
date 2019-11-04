@@ -48,26 +48,28 @@ def send_emails(tweet: dict):
 
     # Construct and render the emails in each chunk
     for chunk in email_list:
-        email_data = {"Messages": []}
+        email_data = []
         for addr in chunk:
             msg = construct_email(tweet["date"], addr, completed_email)
-            email_data["Messages"].append(msg)
+            email_data.append(msg)
         rendered_emails.append(email_data)
+
 
     # If enabled, take out a random chunk of emails to be sent out
     # using a new, self-hosted postfix server.
     # These will be sent out after Mailgun messages are sent
     if CONFIG_JSON["use_new_mail_sending"]:
         random_chunk = randrange(0, len(rendered_emails))
-        experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
+        experimental_send_list = rendered_emails.pop(random_chunk)
 
     # Send the Mailgun emails
-    for email_data in rendered_emails:
-        requests.post(
-            f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
-            auth=("api", CONFIG["MG_API_KEY"]),
-            data=email_data
-        )
+    for chunk in rendered_emails:
+        for email_data in chunk:
+            requests.post(
+                f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
+                auth=("api", CONFIG["MG_API_KEY"]),
+                data=email_data
+            )
 
     # Finally, send out the experimental emails if needed
     if CONFIG_JSON["use_new_mail_sending"]:
