@@ -1,10 +1,10 @@
-from random import randrange
+from random import choices  # , randrange
 
 import requests
 
-from src.core.config import load_app_config, load_json_config
+from src.core.config import load_app_config  # , load_json_config
 from src.core.database import get_all_emails
-from src.core.emails.codetri_sender import send_emails_codetri
+# from src.core.emails.codetri_sender import send_emails_codetri
 from src.core.emails.generator import render_email
 from src.core.filters import format_date
 
@@ -27,7 +27,7 @@ def construct_email(date: str, addr: str, content_html: str) -> dict:
 
 
 def send_emails(tweet: dict):
-    CONFIG_JSON = load_json_config()
+    # CONFIG_JSON = load_json_config()
 
     # Properly format the tweet date
     tweet["date"] = format_date(tweet["date"])
@@ -56,10 +56,10 @@ def send_emails(tweet: dict):
 
     # If enabled, take out a random chunk of emails to be sent out
     # using a new, self-hosted postfix server.
-    # These will be sent out after Mailgun messages are sent
-    if CONFIG_JSON["use_new_mail_sending"]:
-        random_chunk = randrange(0, len(rendered_emails))
-        experimental_send_list = rendered_emails.pop(random_chunk)
+    # These will be sent out after Mailgun messages are
+    # if CONFIG_JSON["use_new_mail_sending"]:
+    #     random_chunk = randrange(0, len(rendered_emails))
+    #     experimental_send_list = rendered_emails.pop(random_chunk)
 
     # Send the Mailgun emails
     for chunk in rendered_emails:
@@ -71,7 +71,7 @@ def send_emails(tweet: dict):
             )
 
     # Finally, send out the experimental emails if needed
-    if CONFIG_JSON["use_new_mail_sending"]:
-        send_emails_codetri(experimental_send_list)
+    # if CONFIG_JSON["use_new_mail_sending"]:
+    #     send_emails_codetri(experimental_send_list)
 
     print("Emails sent out.")
