@@ -1,4 +1,6 @@
 from random import choices  # , randrange
+from json import dumps as json_dumps
+from string import printable as printable_chars
 
 import requests
 
@@ -16,13 +18,20 @@ __all__ = ["send_emails"]
 CONFIG = load_app_config()
 
 
-def construct_email(date: str, addr: str, content_html: str) -> dict:
+def construct_email(date: str, content: dict, mailing_list: list) -> dict:
     """Construct a Mailgun email dictionary."""
+    # TODO
+    recipient_vars = json_dumps({
+        addr: {"id": "".join(choices(printable_chars, k=15))}
+        for addr in mailing_list
+    })
+
     return {
-        "from": f'{CONFIG["SITE_TITLE"]} <noreply@vss365today.com>',
-        "to": f'{CONFIG["SITE_TITLE"]} Subscriber <{addr}>',
+        "from": f'{CONFIG["SITE_TITLE"]} <noreply@{CONFIG["APP_DOMAIN"]}>',
+        "to": mailing_list,
         "subject": f'{date} (and a blog post!)',
-        "html": content_html
+        "html": content["html"],
+        "recipient-variables": recipient_vars
     }
 
 
@@ -33,26 +42,26 @@ def send_emails(tweet: dict):
     tweet["date"] = format_date(tweet["date"])
     completed_email = render_email(tweet)
 
-    # Get the email address list and break them
-    # into a nth-array level containing <= 50 emails.
+    # Get the email address list and generate unique IDS for each one
+    # to permit batch sending through Mailgun
+    # TODO Consider generating and pulling these from the database
+    mailing_list = get_all_emails()
+
+    # Chunk the mailing list into a nth-array level containing <= 50 emails.
     # This was done for a previous email sending service
     # and is no longer strictly required but assists in
     # transitioning from a third-party email service
     chunk_size = 50
-    email_list = get_all_emails()
-    email_list = [
-        email_list[i:i + chunk_size]
-        for i in range(0, len(email_list), chunk_size)
+    mailing_list = [
+        mailing_list[i:i + chunk_size]
+        for i in range(0, len(mailing_list), chunk_size)
     ]
     rendered_emails = []
 
     # Construct and render the emails in each chunk
-    for chunk in email_list:
-        email_data = []
-        for addr in chunk:
-            msg = construct_email(tweet["date"], addr, completed_email)
-            email_data.append(msg)
-        rendered_emails.append(email_data)
+    for chunk in mailing_list:
+        msgs = construct_email(tweet["date"], {"html": completed_email}, chunk)
+        rendered_emails.append(msgs)
 
     # If enabled, take out a random chunk of emails to be sent out
     # using a new, self-hosted postfix server.
@@ -63,12 +72,11 @@ def send_emails(tweet: dict):
 
     # Send the Mailgun emails
     for chunk in rendered_emails:
-        for email_data in chunk:
-            requests.post(
-                f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
-                auth=("api", CONFIG["MG_API_KEY"]),
-                data=email_data
-            )
+        requests.post(
+            f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
+            auth=("api", CONFIG["MG_API_KEY"]),
+            data=chunk
+        )
 
     # Finally, send out the experimental emails if needed
     # if CONFIG_JSON["use_new_mail_sending"]:
