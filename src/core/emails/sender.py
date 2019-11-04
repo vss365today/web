@@ -12,18 +12,21 @@ from src.core.filters import format_date
 __all__ = ["send_emails"]
 
 
+# Pull in the main app config
+CONFIG = load_app_config()
+
+
 def construct_email(date: str, addr: str, content_html: str) -> dict:
     """Construct a Mailgun email dictionary."""
     return {
-        "from": "#vss365 today <noreply@vss365today.com>",
-        "to": f"#vss365 today Subscriber <{addr}>",
+        "from": f'{CONFIG["SITE_TITLE"]} <noreply@vss365today.com>',
+        "to": f'{CONFIG["SITE_TITLE"]} Subscriber <{addr}>',
         "subject": f'{date} (and a blog post!)',
         "html": content_html
     }
 
 
 def send_emails(tweet: dict):
-    CONFIG = load_app_config()
     CONFIG_JSON = load_json_config()
 
     # Properly format the tweet date
