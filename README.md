@@ -9,7 +9,6 @@
 * Twitter Consumer API keys
 * Twitter access token & access token secret
 * Mailgun API key & verified domain
-* Mailjet public and private keys (_unused, to be removed_)
 * SMTP server address (default port 587, configurable)
 
 ## Install
