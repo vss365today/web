@@ -1,6 +1,6 @@
 from random import randrange
 
-from mailjet_rest import Client
+import requests
 
 from src.core.config import load_app_config, load_json_config
 from src.core.database import get_all_emails
@@ -12,43 +12,32 @@ from src.core.filters import format_date
 __all__ = ["send_emails"]
 
 
-def construct_email(tweet: dict, addr: str, completed_email: str) -> dict:
-    """Construct a MailJet email dictionary."""
+# Pull in the main app config
+CONFIG = load_app_config()
+
+
+def construct_email(date: str, addr: str, content_html: str) -> dict:
+    """Construct a Mailgun email dictionary."""
     return {
-        "Subject": f'{tweet["date"]} (and a blog post!)',
-        "HTMLPart": completed_email,
-        "From": {
-            "Email": "noreply@fromabcthrough.xyz",
-            "Name": "#vss365 today"
-        },
-        "To": [{
-            "Email": addr,
-            "Name": "#vss365 today Subscriber"
-        }]
+        "from": f'{CONFIG["SITE_TITLE"]} <noreply@vss365today.com>',
+        "to": f'{CONFIG["SITE_TITLE"]} Subscriber <{addr}>',
+        "subject": f'{date} (and a blog post!)',
+        "html": content_html
     }
 
 
 def send_emails(tweet: dict):
-    # Connect to the Mailjet Send API
-    CONFIG = load_app_config()
     CONFIG_JSON = load_json_config()
-    mailjet = Client(auth=(
-        CONFIG["MJ_APIKEY_PUBLIC"],
-        CONFIG["MJ_APIKEY_PRIVATE"]
-    ), version="v3.1")
 
     # Properly format the tweet date
     tweet["date"] = format_date(tweet["date"])
     completed_email = render_email(tweet)
 
-    # Get the email address list and break it into chunks of 50
-    # The MailJet Send API, under a free account,
-    # has a limit of 50 addresses per batch, up to 200 emails a day.
-    # If/when there are more than 50 emails in the db,
-    # we need to chunk the addresses. This will chunk them
+    # Get the email address list and break them
     # into a nth-array level containing <= 50 emails.
-    # That said, if there is ever > 200 emails,
-    # MailJet just won't cut it anymore. :sad_face:
+    # This was done for a previous email sending service
+    # and is no longer strictly required but assists in
+    # transitioning from a third-party email service
     chunk_size = 50
     email_list = get_all_emails()
     email_list = [
@@ -59,46 +48,30 @@ def send_emails(tweet: dict):
 
     # Construct and render the emails in each chunk
     for chunk in email_list:
-        email_data = {"Messages": []}
+        email_data = []
         for addr in chunk:
-            msg = construct_email(tweet, addr, completed_email)
-            email_data["Messages"].append(msg)
+            msg = construct_email(tweet["date"], addr, completed_email)
+            email_data.append(msg)
         rendered_emails.append(email_data)
 
-    # If enabled, take out a random chunk of emails to be sent out using
-    # a new, self-hosted postfix server.
-    # These will be sent out after MailJet messages are sent
+    # If enabled, take out a random chunk of emails to be sent out
+    # using a new, self-hosted postfix server.
+    # These will be sent out after Mailgun messages are sent
     if CONFIG_JSON["use_new_mail_sending"]:
         random_chunk = randrange(0, len(rendered_emails))
-        experimental_send_list = rendered_emails.pop(random_chunk)["Messages"]
+        experimental_send_list = rendered_emails.pop(random_chunk)
 
-    # Send the Mailjet emails
-    for email_data in rendered_emails:
-        result = mailjet.send.create(data=email_data)
-        print(f"Mail status: {result.status_code}")
+    # Send the Mailgun emails
+    for chunk in rendered_emails:
+        for email_data in chunk:
+            requests.post(
+                f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
+                auth=("api", CONFIG["MG_API_KEY"]),
+                data=email_data
+            )
 
-        # Get the sending results json
-        mj_results = result.json()
-
-        # There was an error sending the emails
-        if result.status_code != 200:
-            print(mj_results)
-
-        # The emails were successfully sent
-        else:
-            # Count the send status of each message
-            status = {}
-            for msg in mj_results["Messages"]:
-                status[msg["Status"]] = status.get(msg["Status"], 0) + 1
-
-            # All the emails were send successfully
-            if status["success"] == len(email_list):
-                print("All emails sent successfully.")
-
-            # Everything wasn't successful, display raw count dict
-            else:
-                print(status)
-
-    # Finally, send out the experimental emails if need be
+    # Finally, send out the experimental emails if needed
     if CONFIG_JSON["use_new_mail_sending"]:
         send_emails_codetri(experimental_send_list)
+
+    print("Emails sent out.")
