@@ -21,7 +21,7 @@ def construct_email(date: str, addr: str, content_html: str) -> dict:
     return {
         "from": f'{CONFIG["SITE_TITLE"]} <noreply@vss365today.com>',
         "to": f'{CONFIG["SITE_TITLE"]} Subscriber <{addr}>',
-        "subject": f'{date} (and a blog post!)',
+        "subject": f'{date}',
         "html": content_html
     }
 
