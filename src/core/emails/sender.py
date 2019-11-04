@@ -61,7 +61,7 @@ def send_emails(tweet: dict):
     # Send the Mailgun emails
     for email_data in rendered_emails:
         requests.post(
-            "https://api.mailgun.net/v3/mg.vss365today.com/messages",
+            f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
             auth=("api", CONFIG["MG_API_KEY"]),
             data=email_data
         )
