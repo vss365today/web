@@ -54,7 +54,6 @@ def send_emails(tweet: dict):
             email_data.append(msg)
         rendered_emails.append(email_data)
 
-
     # If enabled, take out a random chunk of emails to be sent out
     # using a new, self-hosted postfix server.
     # These will be sent out after Mailgun messages are sent
