@@ -1,0 +1,11 @@
+#vss365 today
+{{ tweet.date }}
+
+Today's writing prompt is:
+
+{{ tweet.word }}
+
+Prompt by {{ tweet.handle }}
+{{ tweet.url }}
+
+To unsubscribe, visit https://vss365today.com/unsubscribe
