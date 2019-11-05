@@ -10,7 +10,7 @@ __all__ = [
     "add_subscribe_email",
     "add_tweet_to_db",
     "create_new_database",
-    "get_all_emails",
+    "get_mailing_list",
     "get_existing_email",
     "get_latest_tweet",
     "get_writer_by_date",
@@ -79,7 +79,7 @@ def create_new_database() -> Optional:
             db.executescript(sql)
 
 
-def get_all_emails() -> List[str]:
+def get_mailing_list() -> List[str]:
     """Get all emails in the subscription list."""
     sql = "SELECT email FROM emails"
     with __connect_to_db() as db:

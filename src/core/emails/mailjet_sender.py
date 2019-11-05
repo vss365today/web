@@ -3,7 +3,7 @@ from random import randrange
 from mailjet_rest import Client
 
 from src.core.config import load_app_config, load_json_config
-from src.core.database import get_all_emails
+from src.core.database import get_mailing_list
 from src.core.emails.codetri_sender import send_emails_codetri
 from src.core.emails.generator import render_email
 from src.core.filters import format_date
@@ -50,7 +50,7 @@ def send_emails(tweet: dict):
     # That said, if there is ever > 200 emails,
     # MailJet just won't cut it anymore. :sad_face:
     chunk_size = 50
-    email_list = get_all_emails()
+    email_list = get_mailing_list()
     email_list = [
         email_list[i:i + chunk_size]
         for i in range(0, len(email_list), chunk_size)

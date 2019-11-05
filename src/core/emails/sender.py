@@ -5,7 +5,7 @@ from string import printable as printable_chars
 import requests
 
 from src.core.config import load_app_config  # , load_json_config
-from src.core.database import get_all_emails
+from src.core.database import get_mailing_list
 # from src.core.emails.codetri_sender import send_emails_codetri
 from src.core.emails.generator import render_email
 from src.core.filters import format_date
@@ -20,7 +20,7 @@ CONFIG = load_app_config()
 
 def construct_email(date: str, content: dict, mailing_list: list) -> dict:
     """Construct a Mailgun email dictionary."""
-    #  Generate unique IDS for each email
+    # Generate unique IDS for each email
     # to permit batch sending through Mailgun
     # TODO Generate and pulling these from the database
     recipient_vars = {
@@ -49,7 +49,7 @@ def send_emails(tweet: dict):
     # This was done for a previous email sending service
     # and is no longer strictly required but assists in
     # transitioning from a third-party email service
-    mailing_list = get_all_emails()
+    mailing_list = get_mailing_list()
     chunk_size = 50
     mailing_list = [
         mailing_list[i:i + chunk_size]
