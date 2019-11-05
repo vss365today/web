@@ -1,3 +1,4 @@
+from hashlib import sha512
 import os.path
 import sqlite3
 from typing import List, Optional
@@ -38,10 +39,16 @@ def __flatten_tuple_list(tup) -> list:
 
 def add_subscribe_email(addr: str) -> bool:
     """Add a subscription email address."""
+    # Generate a hash of the email
+    email_hash = sha512(addr.encode()).hexdigest()
+
     try:
-        sql = "INSERT INTO emails VALUES (:addr)"
+        sql = "INSERT INTO emails (email, hash) VALUES (:addr, :hash)"
         with __connect_to_db() as db:
-            db.execute(sql, {"addr": addr.lower()})
+            db.execute(sql, {
+                "addr": addr.lower(),
+                "hash": email_hash
+            })
         return True
 
     # Some error occurred

@@ -1,6 +1,7 @@
 -- Create the database structure
 CREATE TABLE IF NOT EXISTS "emails" (
   "email" VARCHAR(50) NOT NULL UNIQUE,
+  "hash" VARCHAR(128) NOT NULL UNIQUE,
   PRIMARY KEY("email")
 );
 
