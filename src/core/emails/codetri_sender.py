@@ -17,12 +17,12 @@ def rewrite_email_structure(msg: dict) -> EmailMessage:
 
     # Instance the email message and set any headers we need
     em = EmailMessage()
-    em["Message-ID"] = make_msgid(domain="vss365today.com")
+    em["Message-ID"] = make_msgid(domain="codetri.net")
     em["Date"] = localtime()
 
     # Set all of the message details
     em["subject"] = msg["Subject"]
-    em["from"] = Address("#vss365 today", "noreply", "vss365today.com")
+    em["from"] = Address("#vss365 today", "noreply", "codetri.net")
     em["to"] = Address("#vss365 today Subscriber", addr_to[0], addr_to[1])
     em.set_content(msg["HTMLPart"], subtype="html")
     return em
