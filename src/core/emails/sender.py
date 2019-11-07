@@ -99,8 +99,7 @@ def send_emails(tweet: dict):
             print(exc)
             break
         else:
-            print(r.status_code)
-            print(r.text)
+            print(r)
 
     # If enabled, take out a random chunk of emails to be sent out
     # using a new, self-hosted postfix server.
