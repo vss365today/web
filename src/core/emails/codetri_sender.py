@@ -28,7 +28,7 @@ def rewrite_email_structure(msg: dict) -> EmailMessage:
     return em
 
 
-def send_emails_codetri(msgs: list):
+def send_emails(msgs: list):
     # Rewrite the emails to be in the correct format
     msgs = [
         rewrite_email_structure(msg)
