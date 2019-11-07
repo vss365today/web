@@ -2,5 +2,6 @@
   "identifiers": ["#VSS365", "#PROMPT"],
   "additionals": ["#VSS365A", "#WRITINGCOMMUNITY", "#FLASHDOGS", "#VSSPOEM"],
   "word_index": 0,
-  "use_new_mail_sending": false
+  "use_new_mail_sending": false,
+  "email_provider": "mailjet"
 }
