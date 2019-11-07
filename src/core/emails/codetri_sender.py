@@ -4,16 +4,24 @@ from email.utils import localtime, make_msgid
 from smtplib import SMTP
 
 from src.core.config import load_app_config
+from src.core.database import get_mailing_list
+from src.core.emails.generator import render_email
+from src.core.filters import format_date
 
 
-__all__ = [
-    "send_emails_codetri"
-]
+__all__ = ["send_emails"]
 
 
-def rewrite_email_structure(msg: dict) -> EmailMessage:
+CONFIG = load_app_config()
+
+
+def construct_email(
+    tweet: dict,
+    addr: str,
+    completed_email: dict
+) -> EmailMessage:
     # Split the "To" address into the separate parts
-    addr_to = msg["To"][0]["Email"].split("@")
+    addr_to = addr.split("@")
 
     # Instance the email message and set any headers we need
     em = EmailMessage()
@@ -21,22 +29,33 @@ def rewrite_email_structure(msg: dict) -> EmailMessage:
     em["Date"] = localtime()
 
     # Set all of the message details
-    em["subject"] = msg["Subject"]
-    em["from"] = Address("#vss365 today", "noreply", "codetri.net")
-    em["to"] = Address("#vss365 today Subscriber", addr_to[0], addr_to[1])
-    em.set_content(msg["HTMLPart"], subtype="html")
+    em["subject"] = tweet["date"]
+    em["from"] = Address(CONFIG["SITE_TITLE"], "noreply", "codetri.net")
+    em["to"] = Address(
+        f"{CONFIG['SITE_TITLE']} Subscriber",
+        addr_to[0],
+        addr_to[1]
+    )
+    # TODO Correctly set mimetypes
+    em.set_content(completed_email["html"], subtype="html")
+    em.add_alternative(completed_email["text"], subtype="plain")
+    print(em)
+    raise SystemExit
     return em
 
 
-def send_emails(msgs: list):
+def send_emails(tweet: dict):
+    mailing_list = list(get_mailing_list())
+    tweet["date"] = format_date(tweet["date"])
+    completed_email = render_email(tweet)
+
     # Rewrite the emails to be in the correct format
-    msgs = [
-        rewrite_email_structure(msg)
-        for msg in msgs
+    messages = [
+        construct_email(tweet, addr, completed_email)
+        for addr in mailing_list
     ]
 
     # Connect to the local running SMTP server
-    CONFIG = load_app_config()
     with SMTP(
         CONFIG["SMTP_SERVER_ADDRESS"],
         CONFIG["SMTP_SERVER_PORT"]
@@ -47,5 +66,5 @@ def send_emails(msgs: list):
         # Send each message
         # TODO There needs to be some form of logging in place
         # for tracking sucessful/failed messages, if at all possible
-        for msg in msgs:
+        for msg in messages:
             server.send_message(msg)
