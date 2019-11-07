@@ -1,6 +1,5 @@
-from random import choices  # , randrange
-from json import dumps as json_dumps
-from string import printable as printable_chars
+import json
+# from random import randrange
 
 import requests
 
@@ -19,27 +18,31 @@ CONFIG = load_app_config()
 
 
 def construct_email(date: str, content: dict, mailing_list: list) -> dict:
-    """Construct a Mailgun email dictionary."""
-    # Generate unique IDS for each email
-    # to permit batch sending through Mailgun
-    # TODO Generate and pulling these from the database
-    recipient_vars = {
-        addr: {"unique_id": "".join(choices(ascii_letters, k=17))}
-        for addr in mailing_list
-    }
-
+    """Construct a Mailgun batch sending email dictionary."""
     return {
         "from": f'{CONFIG["SITE_TITLE"]} <noreply@{CONFIG["APP_DOMAIN"]}>',
-        "to": mailing_list,
+        "to": list(mailing_list),
         "subject": f'{date} (and a blog post!)',
         "text": content["text"],
         "html": content["html"],
-        "recipient-variables": (json.dumps(recipient_vars))
+        "recipient-variables": json.dumps(mailing_list)
+    }
+
+
+def construct_email2(date: str, content: dict, addr: str) -> dict:
+    """Construct a Mailgun individual email dictionary."""
+    return {
+        "from": f'{CONFIG["SITE_TITLE"]} <noreply@{CONFIG["APP_DOMAIN"]}>',
+        "to": addr,
+        "subject": f'{date} (and a blog post!)',
+        "text": content["text"],
+        "html": content["html"]
     }
 
 
 def send_emails(tweet: dict):
     # CONFIG_JSON = load_json_config()
+    mailing_list = get_mailing_list()
 
     # Properly format the tweet date
     tweet["date"] = format_date(tweet["date"])
@@ -49,18 +52,55 @@ def send_emails(tweet: dict):
     # This was done for a previous email sending service
     # and is no longer strictly required but assists in
     # transitioning from a third-party email service
-    mailing_list = get_mailing_list()
-    chunk_size = 50
-    mailing_list = [
-        mailing_list[i:i + chunk_size]
-        for i in range(0, len(mailing_list), chunk_size)
-    ]
-    rendered_emails = []
+    # CHUNK_SIZE = 50
+    addresses_only = list(mailing_list)
+    # addresses_only = [
+    #     addresses_only[i:i + CHUNK_SIZE]
+    #     for i in range(0, len(addresses_only ), CHUNK_SIZE)
+    # ]
 
-    # Construct and render the emails in each chunk
-    for chunk in mailing_list:
-        msgs = construct_email(tweet["date"], completed_email, chunk)
-        rendered_emails.append(msgs)
+    # Next, break the dictionary to only have <= CHUNK_SIZE pairs.
+    # When done, it'll have the following structure
+    # [
+    #     {
+    #         addr1: hash1,
+    #         addr2: hash2
+    #     },
+    # {
+    #         addr3: hash3,
+    #         addr4: hash4
+    #     },
+    # ]
+    # chunked_mailing_list = []
+    # for chunk in addresses_only:
+    #     vals = {}
+    #     for addr in chunk:
+    #         vals[addr] = {"unique_id": mailing_list[addr]}
+    #     chunked_mailing_list.append(vals)
+
+    # Remove the old lists
+    # del mailing_list
+    # del addresses_only
+
+    # Construct and send the emails in each chunk
+    # for chunk in chunked_mailing_list:
+    # msgs = construct_email(tweet["date"], completed_email, chunk)
+
+    # Send the emails
+    for addr in addresses_only:
+        try:
+            r = requests.post(
+                f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
+                auth=("api", CONFIG["MG_API_KEY"]),
+                data=construct_email2(tweet["date"], completed_email, addr)
+            )
+            r.raise_for_status()
+        except Exception as exc:
+            print(exc)
+            break
+        else:
+            print(r.status_code)
+            print(r.text)
 
     # If enabled, take out a random chunk of emails to be sent out
     # using a new, self-hosted postfix server.
@@ -68,14 +108,6 @@ def send_emails(tweet: dict):
     # if CONFIG_JSON["use_new_mail_sending"]:
     #     random_chunk = randrange(0, len(rendered_emails))
     #     experimental_send_list = rendered_emails.pop(random_chunk)
-
-    # Send the Mailgun emails
-    for chunk in rendered_emails:
-        requests.post(
-            f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
-            auth=("api", CONFIG["MG_API_KEY"]),
-            data=chunk
-        )
 
     # Finally, send out the experimental emails if needed
     # if CONFIG_JSON["use_new_mail_sending"]:

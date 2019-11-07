@@ -81,13 +81,13 @@ def create_new_database() -> Optional:
 
 def get_mailing_list() -> List[str]:
     """Get all emails in the subscription list."""
-    sql = "SELECT email FROM emails"
+    sql = "SELECT email, hash FROM emails"
     with __connect_to_db() as db:
         r = db.execute(sql).fetchall()
-
-    # Flatten the list of tuples into a list
-    # of strings containing just the email addresses
-    return __flatten_tuple_list(r)
+    return {
+        email: hash_val
+        for email, hash_val in r
+    }
 
 
 def get_existing_email(addr: str) -> bool:
