@@ -90,7 +90,11 @@ def send_emails(tweet: dict):
         r = requests.post(
             f'https://api.mailgun.net/v3/{CONFIG["MG_DOMAIN"]}/messages',
             auth=("api", CONFIG["MG_API_KEY"]),
-            data=construct_email2(tweet["date"], completed_email, addresses_only)
+            data=construct_email2(
+                tweet["date"],
+                completed_email,
+                addresses_only
+            )
         )
         r.raise_for_status()
     except Exception as exc:
@@ -98,16 +102,5 @@ def send_emails(tweet: dict):
         # break
     else:
         print(r)
-
-    # If enabled, take out a random chunk of emails to be sent out
-    # using a new, self-hosted postfix server.
-    # These will be sent out after Mailgun messages are
-    # if CONFIG_JSON["use_new_mail_sending"]:
-    #     random_chunk = randrange(0, len(rendered_emails))
-    #     experimental_send_list = rendered_emails.pop(random_chunk)
-
-    # Finally, send out the experimental emails if needed
-    # if CONFIG_JSON["use_new_mail_sending"]:
-    #     send_emails_codetri(experimental_send_list)
 
     print("Emails sent out.")
