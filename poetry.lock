@@ -75,8 +75,11 @@ category = "main"
 description = "WSGI HTTP Server for UNIX"
 name = "gunicorn"
 optional = false
-python-versions = ">=2.6, !=3.0.*, !=3.1.*"
-version = "19.9.0"
+python-versions = ">=3.4"
+version = "20.0.0"
+
+[package.dependencies]
+setuptools = ">=3.0"
 
 [[package]]
 category = "main"
@@ -253,7 +256,7 @@ python-versions = "*"
 version = "2.2.1"
 
 [metadata]
-content-hash = "857678348ea42d0afd7e03cdc72d1e41ff50c126390c99d0827590405d65aa65"
+content-hash = "261e4f29c42bbaf50b3ad724ec20a4689009d55ed6a9924766acc617e8330919"
 python-versions = "^3.7"
 
 [metadata.hashes]
@@ -264,7 +267,7 @@ entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19
 flake8 = ["45681a117ecc81e870cbf1262835ae4af5e7a8b08e40b944a8a6e6b895914cfb", "49356e766643ad15072a789a20915d3c91dc89fd313ccd71802303fd67e4deca"]
 flask = ["13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52", "45eb5a6fd193d6cf7e0cf5d8a5b31f83d5faae0293695626f539a823e93b13f6"]
 flask-wtf = ["5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36", "d9a9e366b32dcbb98ef17228e76be15702cd2600675668bca23f63a7947fd5ac"]
-gunicorn = ["aa8e0b40b4157b36a5df5e599f45c9c76d6af43845ba3b3b0efe2c70473c2471", "fa2662097c66f920f53f70621c6c58ca4a3c4d3434205e608e121b5b3b71f4f3"]
+gunicorn = ["0806b5e8a2eb8ba9ac1be65d7b743ec896fc25f5d6cb16c5e051540157b315bb", "ef69dea4814df95e64e3f40b47b7ffedc6911c5009233be9d01cfd0d14aa3f50"]
 idna = ["c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407", "ea8b7f6188e6fa117537c3df7da9fc686d485087abf6ac197f9c46432f7e4a3c"]
 itsdangerous = ["321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f19", "b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749"]
 jinja2 = ["74320bb91f31270f9551d46522e33af46a80c3d619f4a4bf42b3164d30b5911f", "9fe95f19286cfefaa917656583d020be14e7859c6b0252588391e47db34527de"]
