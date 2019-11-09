@@ -9,11 +9,12 @@ from src.core.filters import format_date
 __all__ = ["send_emails"]
 
 
-def construct_email(tweet: dict, addr: str, completed_email: str) -> dict:
+def construct_email(tweet: dict, addr: str, completed_email: dict) -> dict:
     """Construct a MailJet email dictionary."""
     return {
         "Subject": f'{tweet["date"]} (and a blog post!)',
-        "HTMLPart": completed_email,
+        "HTMLPart": completed_email["html"],
+        "TextPart": completed_email["text"],
         "From": {
             "Email": "noreply@fromabcthrough.xyz",
             "Name": "#vss365 today"
@@ -35,7 +36,7 @@ def send_emails(tweet: dict):
 
     # Properly format the tweet date
     tweet["date"] = format_date(tweet["date"])
-    completed_email = render_email(tweet)["html"]
+    completed_email = render_email(tweet)
 
     # Get the email address list and break it into chunks of 50
     # The MailJet Send API, under a free account,
