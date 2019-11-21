@@ -8,13 +8,13 @@
 * Flask secret key
 * Twitter Consumer API keys
 * Twitter access token & access token secret
-* Mailgun API key & verified domain
-* Mailjet public and private keys (_unused, to be removed_)
+* Mailgun API key & verified domain (_to be removed_)
+* Mailjet public and private keys (_to be removed_)
 * SMTP server address (default port 587, configurable)
 
 ## Install
 
-1. Install Python 3.7+ and [Poetry](https://poetry.eustace.io/)
+1. Install Python 3.8+ and [Poetry](https://poetry.eustace.io/) 1.0.0b6+
 1. Rename `oss.env` to `.env`
 1. Set missing environment variables
 1. `poetry install`
