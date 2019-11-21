@@ -39,13 +39,11 @@ def send_emails(tweet: dict):
     completed_email = render_email(tweet)
 
     # Get the email address list and break it into chunks of 50
-    # The MailJet Send API, under a free account,
+    # The MailJet Send API v3.1
     # has a limit of 50 addresses per batch, up to 200 emails a day.
     # If/when there are more than 50 emails in the db,
     # we need to chunk the addresses. This will chunk them
     # into a nth-array level containing <= 50 emails.
-    # That said, if there is ever > 200 emails,
-    # MailJet just won't cut it anymore. :sad_face:
     chunk_size = 50
     email_list = list(get_mailing_list())
     email_list = [
