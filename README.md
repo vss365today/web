@@ -14,7 +14,7 @@
 
 ## Install
 
-1. Install Python 3.7+ and [Poetry](https://poetry.eustace.io/) 1.0.0b6+
+1. Install Python 3.8+ and [Poetry](https://poetry.eustace.io/) 1.0.0b6+
 1. Rename `oss.env` to `.env`
 1. Set missing environment variables
 1. `poetry install`
