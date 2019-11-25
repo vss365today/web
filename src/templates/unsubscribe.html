@@ -13,7 +13,7 @@
 
   <p>Whatever your reason, just enter your registered email below and you will be removed from the notification list.</p>
 
-  {% include "partials/form-unsub.html" %}
+  {% include "partials/form-unsubscribe.html" %}
 
   {% elif removal_success == true %}
   <p>You have been successfully removed from the notification list.<br>
@@ -23,7 +23,7 @@
   <p>We're terribly sorry about this, but we were unable to remove your email from the notification list.<br>
     Please try to unsubscribe again in a few minutes.</p>
 
-  {% include "partials/form-unsub.html" %}
+  {% include "partials/form-unsubscribe.html" %}
   {% endif %}
 </section>
 {% endblock %}
