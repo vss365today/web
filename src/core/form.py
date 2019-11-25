@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import Field, PasswordField
-from wtforms.fields.html5 import EmailField
+from wtforms.fields.html5 import EmailField, SearchField
 from wtforms.validators import DataRequired, Email
 
 
@@ -25,9 +25,9 @@ class AdminSignInForm(FlaskForm):
 
 
 class PromptSearchForm(FlaskForm):
-    query = Field(
-        "Search by prompt",
-        id="input-search-word",
+    query = SearchField(
+        "Search the archive!",
+        id="input-search-prompt",
         validators=[DataRequired()]
     )
 

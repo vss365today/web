@@ -1,2 +1,18 @@
 {% set page_title = "Search #vss365 prompts" %}
 {% extends "base.html" %}
+
+{% block content %}
+<section class="page">
+  <h2 class="center">&OpenCurlyDoubleQuote;We're all searching for life's meaning... or maybe just a word's definition.&CloseCurlyDoubleQuote;</h2>
+
+  <p>Trying to find a prompt that you liked? Do you want to know the prompt for a specific day? How about just inspiration for your WIP? Whatever the case, you can search a complete archive of all #vss365 prompts.</p>
+  <p>You can search for words, like <code>braid</code>, or by exact dates written in <code>yyyy-mm-dd</code> format (e.g., 2019-07-02). Word searches will match partial words, while, date searches will take you directly to that day's prompt, if possible. 😉</p>
+
+  <form id="form-archive-search" method="POST action="#"">
+    {{ form.csrf_token }}
+    {{ form.query.label(class="center") }}
+    {{ form.query(placeholder="braid", value="") }}
+    <button type="submit">Search</button>
+  </form>
+</section>
+{% endblock %}
