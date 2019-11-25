@@ -15,7 +15,7 @@ def config():
     abort(404)
 
 
-@bp.route("/prompts/edit/<str:prompt_date>")
+@bp.route("/prompts/edit/<string:prompt_date>")
 def prompt_edit(prompt_date: str):
     abort(404)
 
