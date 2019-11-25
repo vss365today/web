@@ -172,7 +172,7 @@ def page_not_found(e) -> tuple:
         "form": SubscribeForm(),
         "page_title": "Day not available"
     }
-    return render_template("404.html", **render_opts), 404
+    return render_template("partials/errors/404.html", **render_opts), 404
 
 
 @bp.app_errorhandler(500)
@@ -180,7 +180,7 @@ def server_error(e) -> tuple:
     render_opts = {
         "page_title": "Server error"
     }
-    return render_template("500.html", **render_opts), 500
+    return render_template("partials/errors/500.html", **render_opts), 500
 
 
 @bp.app_template_filter()
