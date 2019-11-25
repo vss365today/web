@@ -149,6 +149,7 @@ def get_tweet_years() -> List[str]:
     sql = """
     SELECT DISTINCT SUBSTR(date, 1, 4)
     FROM writer_dates
+    WHERE SUBSTR(date, 1, 4) <= strftime('%Y','now')
     ORDER BY date ASC
     """
     with __connect_to_db() as db:
