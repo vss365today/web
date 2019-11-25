@@ -24,6 +24,14 @@ class AdminSignInForm(FlaskForm):
     )
 
 
+class PromptSearchForm(FlaskForm):
+    query = Field(
+        "Search by prompt",
+        id="input-search-word",
+        validators=[DataRequired()]
+    )
+
+
 class SubscribeForm(FlaskForm):
     email = EmailField(
         "Subscribe to daily #vss365 notifications",
