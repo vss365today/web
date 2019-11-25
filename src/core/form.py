@@ -1,6 +1,27 @@
 from flask_wtf import FlaskForm
+from wtforms import Field, PasswordField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired, Email
+
+
+__all__ = [
+    "AdminSignInForm",
+    "SubscribeForm",
+    "UnsubscribeForm"
+]
+
+
+class AdminSignInForm(FlaskForm):
+    username = Field(
+        "Username",
+        id="input-username",
+        validators=[DataRequired()]
+    )
+    password = PasswordField(
+        "Password",
+        id="input-password",
+        validators=[DataRequired()]
+    )
 
 
 class SubscribeForm(FlaskForm):
