@@ -7,4 +7,4 @@ bp = Blueprint("admin", __name__, url_prefix="")
 
 @bp.route("/admin")
 def index():
-    abort(500)
+    abort(404)
