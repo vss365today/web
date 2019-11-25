@@ -2,7 +2,7 @@ from datetime import date
 from flask import Flask
 from werkzeug.contrib.fixers import ProxyFix
 
-from src.blueprint import root, admin
+from src.blueprint import root, admin, search
 from src.core.filters import create_tweet_url
 from src.extensions import init_extensions
 
@@ -13,6 +13,7 @@ def create_app():
     app.wsgi_app = ProxyFix(app.wsgi_app)
     app.register_blueprint(root.bp)
     app.register_blueprint(admin.bp)
+    app.register_blueprint(search.bp)
     init_extensions(app)
 
     @app.context_processor
