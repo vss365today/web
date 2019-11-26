@@ -17,8 +17,8 @@ def render_email(tweet: dict) -> dict:
     tweet["url"] = create_tweet_url(tweet)
 
     # Read the templates
-    html_template_file = join("src", "templates", "email.html")
-    text_template_file = join("src", "templates", "email.txt")
+    html_template_file = join("src", "templates", "email", "email.html")
+    text_template_file = join("src", "templates", "email", "email.txt")
     with open(html_template_file) as f:
         html_template = f.read()
     with open(text_template_file) as f:
