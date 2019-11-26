@@ -1,17 +1,17 @@
 version: '3.6'
 
 services:
-  vss365today:
-    image: vss365today:latest
-    container_name: vss365today
+  vss365-today:
+    image: vss365-today:latest
+    container_name: vss365-today
     restart: unless-stopped
     volumes:
       - ../:/app  # the base directory is one level above here
     ports:
-      - 127.0.0.1:5002:5000
+      - 127.0.0.1:5000:5000
     entrypoint:
       - sh
-      - ./run-flask.sh
+      - ./run-app.sh
     networks:
       - codetriangle
 

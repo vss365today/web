@@ -1,9 +1,9 @@
-# #vss365 today
+  # #vss365 today
 
 > Get the latest #vss365 prompt
 
 
-## Required Keys
+## Required Configuration Keys
 
 * Flask secret key
 * Twitter Consumer API keys
@@ -15,15 +15,14 @@
 ## Install
 
 1. Install Python 3.8+ and [Poetry](https://poetry.eustace.io/) 1.0.0b6+
-1. Rename `oss.env` to `.env`
-1. Set missing environment variables
+1. `mv oss.env .env`
+1. Set missing configuration keys
 1. `poetry install`
-1. `poetry shell`
-1. `flask run`
+1. `poetry run flask run`
 
 ## Build/Deploy
 
-1. `docker build -f "docker/Dockerfile" -t vss365today:latest .`
+1. `docker build -f "docker/Dockerfile" -t vss365-today:latest .`
 1. `docker-compose -f "docker/docker-compose.yml" up -d`
 
 ## Known Issues

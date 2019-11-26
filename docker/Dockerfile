@@ -15,4 +15,4 @@ RUN python3 -m pip install pip --upgrade && \
     python3 ./get-requirements.py && \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm ./requirements.txt && \
-    chmod +x ./run-flask.sh
+    chmod u+x ./run-app.sh
