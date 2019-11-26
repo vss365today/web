@@ -11,10 +11,12 @@ def create_app():
     app = Flask(__name__)
     # https://stackoverflow.com/a/45333882
     app.wsgi_app = ProxyFix(app.wsgi_app)
+    init_extensions(app)
+
+    # Register all of the blueprints
     app.register_blueprint(root.bp)
     app.register_blueprint(admin.bp)
     app.register_blueprint(search.bp)
-    init_extensions(app)
 
     @app.context_processor
     def inject_site_title():

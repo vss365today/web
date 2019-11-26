@@ -29,7 +29,7 @@ def subscribe() -> str:
         "addition_success": addition_success,
         "page_title": "Get email notifications"
     }
-    return render_template("subscribe.html", **render_opts)
+    return render_template("root/subscribe.html", **render_opts)
 
 
 @bp.route("/form-unsubscribe", methods=["POST"])
@@ -62,7 +62,7 @@ def unsubscribe():
         "form_unsubscribe": UnsubscribeForm(),
         "page_title": "Stop email notifications"
     }
-    return render_template("unsubscribe.html", **render_opts)
+    return render_template("root/unsubscribe.html", **render_opts)
 
 
 @bp.route("/about")
@@ -71,7 +71,7 @@ def about() -> str:
         "form": SubscribeForm(),
         "page_title": "About #vss365"
     }
-    return render_template("about.html", **render_opts)
+    return render_template("root/about.html", **render_opts)
 
 
 @bp.route("/browse")
@@ -81,7 +81,7 @@ def browse() -> str:
         "years": database.get_tweet_years(),
         "page_title": "Browse #vss365 prompts"
     }
-    return render_template("browse.html", **render_opts)
+    return render_template("root/browse.html", **render_opts)
 
 
 @bp.route("/browse/<year>")
@@ -92,7 +92,7 @@ def browse_by_year(year: str) -> str:
         "year": year,
         "page_title": f"{year} #vss365 prompts"
     }
-    return render_template("browse-year.html", **render_opts)
+    return render_template("root/browse-year.html", **render_opts)
 
 
 @bp.route("/browse/<year>/<month>")
@@ -106,7 +106,7 @@ def browse_by_writer(year: str, month: str) -> str:
         "writer": ", ".join(writers),
         "date": date
     }
-    return render_template("browse-writer.html", **render_opts)
+    return render_template("root/browse-writer.html", **render_opts)
 
 
 @bp.route("/")
@@ -129,7 +129,7 @@ def index() -> str:
         "form": SubscribeForm(),
         "page_title": format_date(tweet["date"])
     }
-    return render_template("tweet.html", **render_opts)
+    return render_template("root/tweet.html", **render_opts)
 
 
 @bp.route("/view/<date>")
@@ -163,7 +163,7 @@ def date(date: str) -> str:
         "form": SubscribeForm(),
         "page_title": format_date(tweets[0]["date"])
     }
-    return render_template("tweet.html", **render_opts)
+    return render_template("root/tweet.html", **render_opts)
 
 
 @bp.app_errorhandler(404)
