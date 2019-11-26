@@ -33,6 +33,6 @@ To see tweet media, consider disabling the content blocker just for this site.
 
 ## License
 
-2019 Caleb Ely
+2019-2020 Caleb Ely
 
 [MIT](LICENSE)
