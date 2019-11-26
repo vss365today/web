@@ -110,7 +110,6 @@ def browse_by_writer(year: str, month: str) -> str:
 
 
 @bp.route("/")
-@bp.route("/today")
 def index() -> str:
     # Create a proper date object
     tweet = database.get_latest_tweet()
