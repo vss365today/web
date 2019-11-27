@@ -294,8 +294,8 @@ version = "2.2.1"
 locale = ["Babel (>=1.3)"]
 
 [metadata]
-content-hash = "857678348ea42d0afd7e03cdc72d1e41ff50c126390c99d0827590405d65aa65"
-python-versions = "^3.7"
+content-hash = "3159cc9a71d7318f33c42fb4542d6368d14fef2549bb94aa09a3dd4ce140b2b6"
+python-versions = "^3.8"
 
 [metadata.files]
 certifi = [
