@@ -1,8 +1,10 @@
+from importlib import import_module
+
 from datetime import date
 from flask import Flask
 from werkzeug.contrib.fixers import ProxyFix
 
-from src.blueprint import root, admin, search
+from src.blueprint import all_blueprints
 from src.core.filters import create_tweet_url
 from src.extensions import init_extensions
 
@@ -14,9 +16,9 @@ def create_app():
     init_extensions(app)
 
     # Register all of the blueprints
-    app.register_blueprint(root.bp)
-    app.register_blueprint(admin.bp)
-    app.register_blueprint(search.bp)
+    for bp in all_blueprints:
+        import_module(bp.import_name)
+        app.register_blueprint(bp)
 
     @app.context_processor
     def inject_site_title():

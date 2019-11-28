@@ -1,18 +1,16 @@
 from datetime import date as date_obj
 
-from flask import Blueprint, request
+from flask import request
 from flask import abort, redirect, render_template, url_for
 import requests
 
+from src.blueprint import search
 from src.core.form import PromptSearchForm
 from src.core.filters import create_api_date
 from src.core.helpers import create_api_url
 
 
-bp = Blueprint("search", __name__, url_prefix="/search")
-
-
-@bp.route("/", methods=["GET"])
+@search.route("/", methods=["GET"])
 def index():
     abort(404)
     render_opts = {
@@ -21,7 +19,7 @@ def index():
     return render_template("search/search.html", **render_opts)
 
 
-@bp.route("/results", methods=["GET"])
+@search.route("/results", methods=["GET"])
 def query_search():
     abort(404)
     # We got a valid form submission
