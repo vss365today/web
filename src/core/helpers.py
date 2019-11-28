@@ -82,8 +82,9 @@ def __grouper(iterable: Iterable) -> tuple:
     return tuple(zip_longest(*args, fillvalue={}))
 
 
-def create_api_url(endpoint: str) -> str:
+def create_api_url(*args: list) -> str:
     """Construct a URL to the given API endpoint."""
+    endpoint = "/".join(args)
     return f"{CONFIG['API_DOMAIN']}/{endpoint}/"
 
 
