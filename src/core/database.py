@@ -16,10 +16,8 @@ __all__ = [
     "get_writer_by_date",
     "get_writers_by_year",
     "get_tweets_by_date",
-    "get_tweet_years",
     "get_uid_by_handle",
     "get_words_by_month",
-    "get_writer_tweets_by_date",
     "remove_subscribe_email"
 ]
 
@@ -132,31 +130,6 @@ def get_writer_by_date(date: str) -> sqlite3.Row:
         return db.execute(sql, {"date": date}).fetchone()
 
 
-def get_writer_handle_by_date(date: str) -> List[sqlite3.Row]:
-    """Get a Writer by the month-year they delievered the prompts. """
-    sql = """
-    SELECT handle
-    FROM writers
-        JOIN writer_dates ON writer_dates.uid = writers.uid
-    WHERE writer_dates.date = :date
-    """
-    with __connect_to_db() as db:
-        return __flatten_tuple_list(db.execute(sql, {"date": date}).fetchall())
-
-
-def get_tweet_years() -> List[str]:
-    """Get a list of years of recorded tweets."""
-    sql = """
-    SELECT DISTINCT SUBSTR(date, 1, 4)
-    FROM writer_dates
-    WHERE SUBSTR(date, 1, 4) <= strftime('%Y','now')
-    ORDER BY date ASC
-    """
-    with __connect_to_db() as db:
-        r = db.execute(sql).fetchall()
-    return __flatten_tuple_list(r)
-
-
 def get_writers_by_year(year: str) -> List[sqlite3.Row]:
     """Get a list of all Writers for a particular year."""
     sql = """
@@ -169,31 +142,6 @@ def get_writers_by_year(year: str) -> List[sqlite3.Row]:
     """
     with __connect_to_db() as db:
         return db.execute(sql, {"year": year}).fetchall()
-
-
-def get_writer_tweets_by_date(handles: list, date: str) -> List[sqlite3.Row]:
-    """Get all tweets from the Writers in a given date range."""
-    bind_keys = []
-    bind_vals = {"date": date}
-
-    # Handle multiple Writers in this single date range
-    for i, handle in enumerate(handles):
-        key = f"handle_{i}"
-        bind_keys.append(f":{key}")
-        bind_vals[key] = handle
-    handle_list = ",".join(bind_keys)
-
-    sql = f"""
-    SELECT tweets.*
-    FROM tweets
-        JOIN writers ON tweets.uid = writers.uid
-    WHERE writers.handle IN ({handle_list})
-        AND tweets.date <= date('now')
-        AND SUBSTR(tweets.date, 1, 7) = :date
-    ORDER BY tweets.date ASC
-    """
-    with __connect_to_db() as db:
-        return db.execute(sql, bind_vals).fetchall()
 
 
 def get_tweets_by_date(date: str) -> List[sqlite3.Row]:

@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
-{% set page_title = date|format_month_year ~ ' prompts from ' ~ writer %}
+{% set page_title = date ~ ' prompts from ' ~ writer %}
 
 {% block content %}
 <section class="page center browse-giver">
-  {% if not tweets -%}
-  <h2>No #vss365 prompts from {{ writer }} for {{ date|format_month_year }} were found!</h2>
+  {% if not month_prompts -%}
+  <h2>No #vss365 prompts from {{ writer }} for {{ date }} were found!</h2>
 
   {%- else %}
   <div class="wrapper">
-    {%- for tweet in tweets %}
+    {%- for prompt in month_prompts %}
+    {% set prompt_date = prompt.date|create_api_date %}
     <dl>
-      <dd><a href="{{ url_for('root.date', date=tweet.date) }}">{{ tweet.word }}</a></dd>
-      <dt>{{ tweet.date|create_date|format_date }}</dt>
+      <dd><a href="{{ url_for('root.date', date=prompt_date|format_api_date_iso) }}">{{ prompt.word }}</a></dd>
+      <dt>{{ prompt_date|format_date }}</dt>
     </dl>
     {%- if loop.index % 5 == 0 %}
   </div>

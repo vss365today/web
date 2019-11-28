@@ -9,10 +9,7 @@ from src.core.config import (
     load_app_config,
     load_json_config
 )
-from src.core.database import (
-    get_writers_by_year,
-    get_words_by_month
-)
+from src.core.database import get_words_by_month
 
 
 __all__ = [
@@ -20,6 +17,7 @@ __all__ = [
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
+    "group_month_list_of_writers",
     "get_tweet_media",
     "get_tweet_text",
     "make_hashtags",
@@ -108,24 +106,31 @@ def get_all_hashtags(text: str) -> Optional[tuple]:
     return tuple(matches) if matches else None
 
 
-def get_month_list_of_writers(year: str) -> list:
+def group_month_list_of_writers(writers: Iterable[dict]) -> list:
+    """Group multiple writers for a single month.
+
+    For some months in 2017, two nnon-overlapping writers
+    gave out the prompts. While these are stored distinctly
+    in the database, we need to present these as the same month.
+    While it adds some complexity to the app, it makes the
+    user experience more smooth and easier to navigate."""
     # Group the months into chunks of two
     final = []
-    writers = __grouper(dict(writer) for writer in get_writers_by_year(year))
+    writers_grouped = __grouper(writers)
 
     # If there are multiple writers in a single month,
     # lump the two handles together.
     # Since this will only get hit in historical data where
     # there's only two writers in a single month,
     # this doesn't have to be any more ~~complicated~~ extensible
-    for this_mo, next_mo in writers:
+    for this_mo, next_mo in writers_grouped:
         if next_mo and this_mo["date"] == next_mo["date"]:
             this_mo["handle"] = f"{this_mo['handle']}, {next_mo['handle']}"
             # Mark the second writer record for removal
             next_mo["delete"] = True
 
     # Trim the writer list down to just the ones we need
-    for one, two in writers:
+    for one, two in writers_grouped:
         final.append(one)
         if two and not two.get("delete"):
             final.append(two)

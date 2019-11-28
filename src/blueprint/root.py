@@ -5,11 +5,10 @@ from flask import request
 from flask import abort, redirect, render_template, url_for
 
 from src.blueprint import root
-from src.core import database
-from src.core import filters
+from src.core import api, database, filters
 from src.core.form import SubscribeForm, UnsubscribeForm
 from src.core.helpers import (
-    get_month_list_of_writers,
+    group_month_list_of_writers,
     validate_email_addr
 )
 
@@ -74,18 +73,27 @@ def about() -> str:
 
 @root.route("/browse")
 def browse() -> str:
+    prompt_years: list = api.get("browse", "years")
     render_opts = {
         "form": SubscribeForm(),
-        "years": database.get_tweet_years()
+        "years": prompt_years
     }
     return render_template("root/browse.html", **render_opts)
 
 
 @root.route("/browse/<year>")
 def browse_by_year(year: str) -> str:
+    # Get the writer's list and group them up if needed
+    writers_in_year: dict = api.get("browse", params={"year": year})
+    grouped_writers = (
+        group_month_list_of_writers(writers_in_year["writers"])
+        if writers_in_year["query"] == "2017"
+        else writers_in_year["writers"]
+    )
+
     render_opts = {
         "form": SubscribeForm(),
-        "writers": get_month_list_of_writers(year),
+        "writers": grouped_writers,
         "year": year
     }
     return render_template("root/browse-year.html", **render_opts)
@@ -93,14 +101,16 @@ def browse_by_year(year: str) -> str:
 
 @root.route("/browse/<year>/<month>")
 def browse_by_writer(year: str, month: str) -> str:
-    # Join the date fragments into the format we need
-    date = f"{year}-{month}"
-    writers = database.get_writer_handle_by_date(date)
+    month_prompts: dict = api.get(
+        "browse",
+        params={"year": year, "month": month}
+    )
+
     render_opts = {
         "form": SubscribeForm(),
-        "tweets": database.get_writer_tweets_by_date(writers, date),
-        "writer": ", ".join(writers),
-        "date": date
+        "month_prompts": month_prompts["prompts"],
+        "writer": ", ".join(month_prompts["writers"]),
+        "date": format_month_year(f"{year}-{month}")
     }
     return render_template("root/browse-writer.html", **render_opts)
 
