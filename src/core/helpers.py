@@ -30,8 +30,8 @@ __all__ = [
 ]
 
 
-# The hashtags that identify a prompt tweet
-CONFIG_VALUES = load_json_config()
+CONFIG = load_app_config()
+JSON_CONFIG = load_json_config()
 
 
 def __filter_hashtags(hashtags: Tuple[str]) -> Tuple[str]:
@@ -65,8 +65,8 @@ def __filter_hashtags(hashtags: Tuple[str]) -> Tuple[str]:
     # Merge the filter sets then take out all the hashtags
     hashtags_to_filter = (
         matched_variants +
-        CONFIG_VALUES["identifiers"] +
-        CONFIG_VALUES["additionals"]
+        JSON_CONFIG["identifiers"] +
+        JSON_CONFIG["additionals"]
     )
     return tuple(filter(
         lambda ht: ht.upper() not in hashtags_to_filter,
@@ -84,12 +84,11 @@ def __grouper(iterable: Iterable) -> tuple:
 
 def create_api_url(endpoint: str) -> str:
     """Construct a URL to the given API endpoint."""
-    return f"{CONFIG_VALUES['API_DOMAIN']}/{endpoint}"
+    return f"{CONFIG['API_DOMAIN']}/{endpoint}/"
 
 
 def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
-    CONFIG = load_app_config()
     auth = tweepy.OAuthHandler(
         CONFIG["TWITTER_APP_KEY"],
         CONFIG["TWITTER_APP_SECRET"]
@@ -106,7 +105,7 @@ def create_twitter_connection() -> tweepy.API:
 def find_prompt_tweet(text: str) -> bool:
     return all(
         hashtag in text.upper()
-        for hashtag in CONFIG_VALUES["identifiers"]
+        for hashtag in JSON_CONFIG["identifiers"]
     )
 
 
@@ -153,7 +152,7 @@ def find_prompt_word(text: str) -> Optional[str]:
     # If there are any hashtags left, get the first one
     # and remove the prefixed pound sign
     if remaining:
-        prompt_word = remaining[CONFIG_VALUES["word_index"]].replace("#", "")
+        prompt_word = remaining[JSON_CONFIG["word_index"]].replace("#", "")
     return prompt_word
 
 
