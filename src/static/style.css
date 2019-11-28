@@ -250,17 +250,20 @@ footer > div {
 .browse-page > .wrapper { text-align: center; }
 .browse-page > .wrapper h2 { margin-bottom: 0em; }
 
-.browse-giver .wrapper {
+.browse-giver .wrapper,
+.search-results .wrapper {
   display: inline-block;
   vertical-align: top;
   margin: 0.3em 0.75em;
   line-height: 1.85;
 }
-.browse-giver dd {
+.browse-giver dd,
+.search-results dd {
   font-size: 1.1em;
   text-align: right;
 }
-.browse-giver dt {
+.browse-giver dt,
+.search-results dt {
   margin-top: -0.2em;
   font-size: 0.85em;
   text-align: right;

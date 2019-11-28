@@ -2,19 +2,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="page">
+<section class="page center search-results">
   {% if total == 0 %}
   <h2 class="center">&OpenCurlyDoubleQuote;The best way to find "{{ query }}" is to write about it yourself.&CloseCurlyDoubleQuote;</h2>
     <p>Looks like nothing was found for the word prompt "{{ query }}". 🙁 Maybe try searching for something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a> directly?</p>
+
   {% else %}
   <h2 class="center">&OpenCurlyDoubleQuote;Apparently {{ total }} writers consider "{{ query }}" to be a superb prompt!&CloseCurlyDoubleQuote;</h2>
-    Multiple results here
+  <div class="wrapper">
+    {% for prompt in prompts %}
+    {% set date = prompt.date|create_api_date %}
+    <dl>
+      <dd><a href="{{ url_for('root.date', date=date|format_api_date_iso) }}">{{ prompt.word }}</a></dd>
+      <dt>{{ date|format_date }}</dt>
+      <dt>{{ prompt.writer }}</dt>
+    </dl>
+    {%- if loop.index % 5 == 0 %}
+  </div>
+
+  <div class="wrapper">
+    {%- endif %}
+    {%- endfor %}
+  </div>
   {% endif %}
-
-
-  {{ total }}
-  {{ query }}
-  {{ prompts }}
 
   {% include "partials/form-search.html" %}
 </section>
