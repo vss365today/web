@@ -13,7 +13,7 @@
     {% for prompt in prompts %}
     {% set date = prompt.date|create_api_date %}
     <dl>
-      <dd><a href="{{ url_for('root.date', date=date|format_api_date_iso) }}">{{ prompt.word }}</a></dd>
+      <dd><a href="{{ url_for('root.view_date', date=date|format_api_date_iso) }}">{{ prompt.word }}</a></dd>
       <dt>{{ date|format_date }}</dt>
       <dt>{{ prompt.writer }}</dt>
     </dl>

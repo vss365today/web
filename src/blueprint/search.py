@@ -29,7 +29,7 @@ def query_search():
     try:
         # We recieved an exact (and valid) date, redirect to it
         date_obj.fromisoformat(query)  # noqa
-        return redirect(url_for("root.date", date=query))
+        return redirect(url_for("root.view_date", date=query))
 
     # We got a word or partial word to search
     except ValueError:
@@ -56,7 +56,7 @@ def query_search():
         elif response["total"] == 1:
             date = create_api_date(response["prompts"][0]["date"])
             date = date.strftime("%Y-%m-%d")
-            return redirect(url_for("root.date", date=date))
+            return redirect(url_for("root.view_date", date=date))
 
         # No search results were returned
         else:

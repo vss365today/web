@@ -1,8 +1,8 @@
 from datetime import date
-from typing import Optional
 
 from flask import request
 from flask import abort, redirect, render_template, url_for
+import requests
 
 from src.blueprint import root
 from src.core import api, database, filters
@@ -17,7 +17,7 @@ from src.core.helpers import (
 def subscribe() -> str:
     addition_success = False
     subscribe_form = SubscribeForm()
-    email: str = request.form.get("email")
+    email: str = request.form.get("email", "")
 
     # Get the email submitted for subscription
     if subscribe_form.validate_on_submit():
@@ -123,40 +123,35 @@ def index() -> str:
 
     render_opts = {
         "prompts": prompts,
-        "exists_previous_day": True,
-        "exists_next_day": False,
+        "previous_day": prompts[0]["previous_day"],
+        "next_day": None,
         "form": SubscribeForm()
     }
     return render_template("root/tweet.html", **render_opts)
 
 
 @root.route("/view/<date>")
-def date(date: str) -> str:
-    # Abort if we don't have tweets for this day
-    if not (db_tweets := database.get_tweets_by_date(date)):  # noqa
+def view_date(date: str) -> str:
+    # Try to get the prompt for this day
+    try:
+        api_prompts: list = api.get("prompt", params={"date": date})
+
+    # There is no prompt for this day
+    except requests.exceptions.HTTPError:
         abort(404)
 
-    # Create a proper date object for each tweet
-    tweets = []
-    for tweet in db_tweets:
-        tweet = dict(tweet)
-        tweet["date"] = create_date(tweet["date"])
-        tweets.append(tweet)
-
-    # Check if a tweet for the previous day existS
-    exists_previous_day = database.get_tweets_by_date(
-        yesterday(tweets[0]["date"])
-    ) is not None
-
-    # Check if a tweet for the next day even exists
-    exists_next_day = database.get_tweets_by_date(
-        tomorrow(tweets[0]["date"])
-    ) is not None
+    # Create a proper date object for each prompt
+    # There are some older days that have multiple prompts,
+    # and we need to handle these special cases
+    prompts = []
+    for prompt in api_prompts:
+        prompt["date"] = create_api_date(prompt["date"])
+        prompts.append(prompt)
 
     render_opts = {
-        "tweets": tweets,
-        "exists_previous_day": exists_previous_day,
-        "exists_next_day": exists_next_day,
+        "prompts": prompts,
+        "previous_day": prompts[0]["previous_day"],
+        "next_day": prompts[0]["next_day"],
         "form": SubscribeForm()
     }
     return render_template("root/tweet.html", **render_opts)
@@ -203,13 +198,3 @@ def format_content(content: str) -> str:
 @root.app_template_filter()
 def format_month_year(date: str) -> str:
     return filters.format_month_year(date)
-
-
-@root.app_template_filter()
-def yesterday(date: date) -> str:
-    return filters.yesterday(date)
-
-
-@root.app_template_filter()
-def tomorrow(date: date) -> str:
-    return filters.tomorrow(date)

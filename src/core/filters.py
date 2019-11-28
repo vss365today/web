@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 from html import unescape
 
 from src.core.helpers import (
@@ -14,9 +14,7 @@ __all__ = [
     "format_api_date_iso",
     "format_content",
     "format_date",
-    "format_month_year",
-    "tomorrow",
-    "yesterday"
+    "format_month_year"
 ]
 
 
@@ -72,13 +70,3 @@ def format_month_year(date: str) -> str:
     if len(date.split("-")) == 2:
         date = f"{date}-01"
     return create_date(date).strftime("%B %Y")
-
-
-def tomorrow(date: date) -> str:
-    """Get the date after the given date."""
-    return format_api_date_iso(date + timedelta(1))
-
-
-def yesterday(date: date) -> str:
-    """Get the date prior to the given date."""
-    return format_api_date_iso(date - timedelta(1))

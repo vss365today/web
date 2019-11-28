@@ -11,7 +11,7 @@
     {%- for prompt in month_prompts %}
     {% set prompt_date = prompt.date|create_api_date %}
     <dl>
-      <dd><a href="{{ url_for('root.date', date=prompt_date|format_api_date_iso) }}">{{ prompt.word }}</a></dd>
+      <dd><a href="{{ url_for('root.view_date', date=prompt_date|format_api_date_iso) }}">{{ prompt.word }}</a></dd>
       <dt>{{ prompt_date|format_date }}</dt>
     </dl>
     {%- if loop.index % 5 == 0 %}
