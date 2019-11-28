@@ -37,19 +37,29 @@ def query_search():
 
         # We got a word or partial word to search
         except ValueError:
+        render_opts = {
+            "form": search_form
+        }
+
             # Connect to the API to search
             r = requests.get(
                 create_api_url("search"),
                 params={"prompt": query}
             )
 
+        # The search was not successful
+        if not r.ok:
+            render_opts["query"] = query
+            render_opts["total"] = 0
+            return render_template("search/results.html", **render_opts)
+
             # We got a successful response
-            if r.ok:
                 response = r.json()
 
                 # We got many search results
                 if response["total"] >= 2:
-                    return {}
+            render_opts.update(response)
+            return render_template("search/results.html", **render_opts)
 
                 # We got a single response back, go directly to the prompt
                 elif response["total"] == 1:
@@ -59,7 +69,6 @@ def query_search():
 
                 # No search results were returned
                 else:
-                    return {}
+            render_opts.update(response)
+            return render_template("search/results.html", **render_opts)
 
-            # The search was not successful
-            return r.json()
