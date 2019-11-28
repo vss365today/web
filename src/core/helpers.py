@@ -22,8 +22,7 @@ __all__ = [
     "get_tweet_text",
     "make_hashtags",
     "make_mentions",
-    "make_urls",
-    "validate_email_addr"
+    "make_urls"
 ]
 
 
@@ -218,8 +217,3 @@ def make_urls(text: str) -> str:
         html = f'<a href="{link}">{link}</a>'
         text = text.replace(link, html)
     return text
-
-
-def validate_email_addr(addr: str) -> bool:
-    regex = r"[\w.-]{1,}@[\w-]{1,}\.[\w.]{2,}"
-    return re.fullmatch(regex, addr) is not None

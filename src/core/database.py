@@ -1,4 +1,3 @@
-from hashlib import sha512
 import os.path
 import sqlite3
 from typing import Dict, List, Optional
@@ -7,7 +6,6 @@ from src.core.config import load_app_config
 
 
 __all__ = [
-    "add_subscribe_email",
     "add_tweet_to_db",
     "create_new_database",
     "get_mailing_list",
@@ -15,8 +13,7 @@ __all__ = [
     "get_writer_by_date",
     "get_tweets_by_date",
     "get_uid_by_handle",
-    "get_words_by_month",
-    "remove_subscribe_email"
+    "get_words_by_month"
 ]
 
 
@@ -31,26 +28,6 @@ def __connect_to_db() -> sqlite3.Connection:
 def __flatten_tuple_list(tup) -> list:
     """Flatten a list of tuples into a list of actual data."""
     return [item[0] for item in tup]
-
-
-def add_subscribe_email(addr: str) -> bool:
-    """Add a subscription email address."""
-    # Generate a hash of the email
-    email_hash = sha512(addr.encode()).hexdigest()
-
-    try:
-        sql = "INSERT INTO emails (email, hash) VALUES (:addr, :hash)"
-        with __connect_to_db() as db:
-            db.execute(sql, {
-                "addr": addr.lower(),
-                "hash": email_hash
-            })
-        return True
-
-    # Some error occurred
-    except Exception as err:
-        print(err)
-        return False
 
 
 def create_new_database() -> None:
@@ -159,11 +136,3 @@ def get_words_by_month(date: str) -> list:
     with __connect_to_db() as db:
         r = db.execute(sql, {"date": date}).fetchall()
     return __flatten_tuple_list(r)
-
-
-def remove_subscribe_email(addr: str) -> bool:
-    """Remove a subscription email address."""
-    sql = "DELETE FROM emails WHERE email = :addr"
-    with __connect_to_db() as db:
-        db.execute(sql, {"addr": addr})
-    return True
