@@ -1,7 +1,7 @@
 from hashlib import sha512
 import os.path
 import sqlite3
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from src.core.config import load_app_config
 
@@ -57,7 +57,7 @@ def add_subscribe_email(addr: str) -> bool:
         return False
 
 
-def create_new_database() -> Optional:
+def create_new_database() -> None:
     """Create a new database if needed."""
     try:
         # If the database exists and is loaded, this will succeed
@@ -79,7 +79,7 @@ def create_new_database() -> Optional:
             db.executescript(sql)
 
 
-def get_mailing_list() -> List[str]:
+def get_mailing_list() -> Dict[str, str]:
     """Get all emails in the subscription list."""
     sql = "SELECT email, hash FROM emails"
     with __connect_to_db() as db:
@@ -132,7 +132,7 @@ def get_writer_by_date(date: str) -> sqlite3.Row:
         return db.execute(sql, {"date": date}).fetchone()
 
 
-def get_writer_handle_by_date(date: str) -> sqlite3.Row:
+def get_writer_handle_by_date(date: str) -> List[sqlite3.Row]:
     """Get a Writer by the month-year they delievered the prompts. """
     sql = """
     SELECT handle
@@ -209,7 +209,7 @@ def get_tweets_by_date(date: str) -> List[sqlite3.Row]:
         return db.execute(sql, {"date": date}).fetchall()
 
 
-def add_tweet_to_db(tweet_dict: dict) -> Optional:
+def add_tweet_to_db(tweet_dict: dict) -> None:
     """Add a tweet to the database."""
     sql = """
     INSERT INTO tweets (
