@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from html import unescape
 
 from src.core.helpers import (
@@ -10,6 +10,7 @@ from src.core.helpers import (
 
 __all__ = [
     "create_date",
+    "create_api_date",
     "format_content",
     "format_date",
     "format_month_year",
@@ -21,6 +22,14 @@ __all__ = [
 def create_date(date_str: str) -> date:
     """Create a date object from an ISO date string."""
     return date.fromisoformat(date_str)
+
+
+def create_api_date(date_str: str) -> date:
+    """Create a date object from an API response date string.
+
+    E.g, Tue, 02 Jul 2019 00:00:00 GMT
+    """
+    return datetime.strptime(date_str, "%a, %d %b %Y 00:00:00 GMT")
 
 
 def create_tweet_url(tweet: dict) -> str:

@@ -6,6 +6,7 @@ from wtforms.validators import DataRequired, Email
 
 __all__ = [
     "AdminSignInForm",
+    "PromptSearchForm",
     "SubscribeForm",
     "UnsubscribeForm"
 ]
