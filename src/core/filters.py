@@ -76,9 +76,9 @@ def format_month_year(date: str) -> str:
 
 def tomorrow(date: date) -> str:
     """Get the date after the given date."""
-    return (date + timedelta(1)).isoformat()
+    return format_api_date_iso(date + timedelta(1))
 
 
 def yesterday(date: date) -> str:
     """Get the date prior to the given date."""
-    return (date - timedelta(1)).isoformat()
+    return format_api_date_iso(date - timedelta(1))

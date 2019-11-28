@@ -1,44 +1,44 @@
 {% extends 'base.html' %}
-{% set page_title = tweets[0].date|format_date %}
+{% set page_title = prompts[0].date|format_date %}
 
 {% block content %}
 <section class="content">
   {% include "partials/btns-prev-next.html" %}
 
-  {% set number_of_tweets = tweets|length %}
-  <h3 class="prompt-highlight center">Today's writing prompt{{ ' is' if number_of_tweets == 1 else 's are' }}:</h3>
+  {% set number_of_prompts = prompts|length %}
+  <h3 class="prompt-highlight center">Today's writing prompt{{ ' is' if number_of_prompts == 1 else 's are' }}:</h3>
     <p class="word-wrapper center">
-      {% for tweet in tweets %}
-      <a class="prompt-highlight word commas center" target="_blank" href="https://www.dictionary.com/browse/{{ tweet.word|lower }}">{{ tweet.word }}</a>
+      {% for prompt in prompts %}
+      <a class="prompt-highlight word commas center" target="_blank" href="https://www.dictionary.com/browse/{{ prompt.word|lower }}">{{ prompt.word }}</a>
       {% endfor %}
     </p>
 </section>
 
 <section class="content">
-  {% for tweet in tweets %}
+  {% for prompt in prompts %}
   <div class="tweet">
-    {% if tweet.media %}
-    <img width="400" alt="" src="{{ tweet.media }}">
+    {% if prompt.media %}
+    <img width="400" alt="" src="{{ prompt.media }}">
     {% endif %}
   </div>
   {% endfor %}
 
-  {% if tweets|length > 1 %}
-  <p class="center" style="font-size: 0.85em;">Prompt {% for tweet in tweets %}
-    <a class="commas" href="{{ create_url(tweet) }}">{{ loop.index }}</a>
-  {% endfor %} by {{ tweets[0].writer_handle }}</p>
+  {% if prompts|length > 1 %}
+  <p class="center" style="font-size: 0.85em;">Prompt {% for prompt in prompts %}
+    <a class="commas" href="{{ create_url(prompt) }}">{{ loop.index }}</a>
+  {% endfor %} by {{ prompts[0].writer_handle }}</p>
   {% else %}
-  <p class="center" style="font-size: 0.85em;"><a href="{{ create_url(tweets[0]) }}">Prompt by {{ tweets[0].writer_handle }}</a></p>
+  <p class="center" style="font-size: 0.85em;"><a href="{{ create_url(prompts[0]) }}">Prompt by {{ prompts[0].writer_handle }}</a></p>
   {% endif %}
 </section>
 
 <section class="content">
   <details>
-    <summary>View tweet{{ 's' if number_of_tweets > 1 }}</summary>
-    {% for tweet in tweets %}
-    {{ tweet.content|format_content|safe }}
-    {% if tweet.media %}
-    <img width="250" alt="" src="{{ tweet.media }}">
+    <summary>View tweet{{ 's' if number_of_prompts > 1 }}</summary>
+    {% for prompt in prompts %}
+    {{ prompt.content|format_content|safe }}
+    {% if prompt.media %}
+    <img width="250" alt="" src="{{ prompt.media }}">
     {% endif %}
     {% endfor %}
   </details>

@@ -117,15 +117,12 @@ def browse_by_writer(year: str, month: str) -> str:
 
 @root.route("/")
 def index() -> str:
-    # if a tweet is not available, abort
-    if (tweet := database.get_latest_tweet()) is None:  # noqa
-        abort(404)
-
-    # Convert the tweet date into a proper date object
-    tweet["date"] = create_date(tweet["date"])
+    # Get the latest prompt and go ahead and make a proper date object
+    prompts: list = api.get("prompt")
+    prompts[0]["date"] = create_api_date(prompts[0]["date"])
 
     render_opts = {
-        "tweets": [tweet],
+        "prompts": prompts,
         "exists_previous_day": True,
         "exists_next_day": False,
         "form": SubscribeForm()
