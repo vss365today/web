@@ -270,7 +270,6 @@ footer > div {
 }
 
 form {
-  width: 20rem;
   margin-top: 0.5em;
   margin-right: auto;
   margin-left: auto;
@@ -279,10 +278,7 @@ form {
 }
 
 input, button {
-  margin-top: 0.2em;
-  padding: 0.2em;
   font-family: inherit;
-  font-size: 0.85em;
   border: 1px solid lightgrey;
   border-radius: 3px;
 }
@@ -296,6 +292,34 @@ button {
 }
 button:hover,
 button:focus { background-color: #e9e9e9; }
+
+
+.form-subscribe {
+  width: 20rem;
+}
+
+.form-subscribe input,
+.form-subscribe button {
+  margin-top: 0.2em;
+  padding: 0.2em;
+  font-size: 0.85em;
+}
+
+.form-archive-search {
+  width: 30rem;
+}
+
+.form-archive-search input {
+  margin-top: 0.2em;
+  padding: 0.4em 0.3em;
+  font-size: 0.95em;
+}
+
+.form-archive-search button {
+  margin-top: 0.2em;
+  padding: 0.3em;
+  font-size: 0.9em;
+}
 
 
 /* -- Dark theme --*/
@@ -359,10 +383,10 @@ button:focus { background-color: #e9e9e9; }
   border-bottom-color: currentColor;
 }
 
-.dark input {
+/* .dark input {
   background-color: var(--body-background);
   color: var(--primary-text);
-}
+} */
 
 .dark button {
   background-color: var(--primary-nav-bg);
@@ -395,7 +419,7 @@ button:focus { background-color: #e9e9e9; }
 
 @media (max-width: 500px) {
   .content { width: 87%; }
-  form { width: auto; }
+  form { width: auto !important; }
 
   nav.primary {
     flex-direction: row;

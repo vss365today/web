@@ -1,4 +1,4 @@
-<form method="POST" action="{{ url_for('root.form_unsubscribe') }}">
+<form class="form-subscribe" method="POST" action="{{ url_for('root.form_unsubscribe') }}">
   {{ form_unsubscribe.csrf_token }}
   {{ form_unsubscribe.email(placeholder="amwriting@example.com", value="") }}
   <button type="submit">Unsubscribe</button>
