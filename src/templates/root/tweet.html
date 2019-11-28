@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% set page_title = tweets[0].date|format_date %}
 
 {% block content %}
 <section class="content">

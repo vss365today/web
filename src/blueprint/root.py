@@ -24,8 +24,7 @@ def subscribe() -> str:
     render_opts = {
         "email": email,
         "form": subscribe_form,
-        "addition_success": addition_success,
-        "page_title": "Get email notifications"
+        "addition_success": addition_success
     }
     return render_template("root/subscribe.html", **render_opts)
 
@@ -57,8 +56,7 @@ def unsubscribe():
     render_opts = {
         "removal_success": removal_success,
         "form": SubscribeForm(),
-        "form_unsubscribe": UnsubscribeForm(),
-        "page_title": "Stop email notifications"
+        "form_unsubscribe": UnsubscribeForm()
     }
     return render_template("root/unsubscribe.html", **render_opts)
 
@@ -66,8 +64,7 @@ def unsubscribe():
 @root.route("/about")
 def about() -> str:
     render_opts = {
-        "form": SubscribeForm(),
-        "page_title": "About #vss365"
+        "form": SubscribeForm()
     }
     return render_template("root/about.html", **render_opts)
 
@@ -76,8 +73,7 @@ def about() -> str:
 def browse() -> str:
     render_opts = {
         "form": SubscribeForm(),
-        "years": database.get_tweet_years(),
-        "page_title": "Browse #vss365 prompts"
+        "years": database.get_tweet_years()
     }
     return render_template("root/browse.html", **render_opts)
 
@@ -87,8 +83,7 @@ def browse_by_year(year: str) -> str:
     render_opts = {
         "form": SubscribeForm(),
         "writers": get_month_list_of_writers(year),
-        "year": year,
-        "page_title": f"{year} #vss365 prompts"
+        "year": year
     }
     return render_template("root/browse-year.html", **render_opts)
 
@@ -109,11 +104,8 @@ def browse_by_writer(year: str, month: str) -> str:
 
 @root.route("/")
 def index() -> str:
-    # Create a proper date object
-    tweet = database.get_latest_tweet()
-
-    # A tweet is not available, abort
-    if tweet is None:
+    # if a tweet is not available, abort
+    if (tweet := database.get_latest_tweet()) is None:  # noqa
         abort(404)
 
     # Convert the tweet date into a proper date object
@@ -123,17 +115,15 @@ def index() -> str:
         "tweets": [tweet],
         "exists_previous_day": True,
         "exists_next_day": False,
-        "form": SubscribeForm(),
-        "page_title": format_date(tweet["date"])
+        "form": SubscribeForm()
     }
     return render_template("root/tweet.html", **render_opts)
 
 
 @root.route("/view/<date>")
 def date(date: str) -> str:
-    db_tweets = database.get_tweets_by_date(date)
     # Abort if we don't have tweets for this day
-    if not db_tweets:
+    if not (db_tweets := database.get_tweets_by_date(date)):  # noqa
         abort(404)
 
     # Create a proper date object for each tweet
@@ -157,8 +147,7 @@ def date(date: str) -> str:
         "tweets": tweets,
         "exists_previous_day": exists_previous_day,
         "exists_next_day": exists_next_day,
-        "form": SubscribeForm(),
-        "page_title": format_date(tweets[0]["date"])
+        "form": SubscribeForm()
     }
     return render_template("root/tweet.html", **render_opts)
 
@@ -166,18 +155,14 @@ def date(date: str) -> str:
 @root.app_errorhandler(404)
 def page_not_found(e) -> tuple:
     render_opts = {
-        "form": SubscribeForm(),
-        "page_title": "Day not available"
+        "form": SubscribeForm()
     }
     return render_template("partials/errors/404.html", **render_opts), 404
 
 
 @root.app_errorhandler(500)
 def server_error(e) -> tuple:
-    render_opts = {
-        "page_title": "Server error"
-    }
-    return render_template("partials/errors/500.html", **render_opts), 500
+    return render_template("partials/errors/500.html"), 500
 
 
 @root.app_template_filter()
