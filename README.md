@@ -5,12 +5,13 @@
 
 ## Required Configuration
 
-* Running instance of [#vss365 today API](https://github.com/le717/vss365-today-api/)
+* Running instance of [#vss365 today API](https://github.com/le717/vss365-today-api/) (domain configurable)
 * Flask secret key
+* JWT secret key
 * Twitter Consumer API keys
 * Twitter access token & access token secret
 * Mailgun API key & verified domain (_to be removed_)
-* Mailjet public and private keys (_to be removed_)
+* Mailjet public & private keys (_to be removed_)
 * SMTP server address (default port 587, configurable)
 
 ## Install
