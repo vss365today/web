@@ -1,3 +1,6 @@
+from datetime import date
+from typing import Optional
+
 from flask import request
 from flask import abort, redirect, render_template, url_for
 
@@ -15,7 +18,7 @@ from src.core.helpers import (
 def subscribe() -> str:
     addition_success = False
     subscribe_form = SubscribeForm()
-    email = request.form.get("email")
+    email: str = request.form.get("email")
 
     # Get the email submitted for subscription
     if subscribe_form.validate_on_submit():
@@ -30,7 +33,7 @@ def subscribe() -> str:
 
 
 @root.route("/form-unsubscribe", methods=["POST"])
-def form_unsubscribe() -> str:
+def form_unsubscribe():
     removal_success = False
     email = request.form.get("email")
 
@@ -166,23 +169,23 @@ def server_error(e) -> tuple:
 
 
 @root.app_template_filter()
-def create_api_date(date: date) -> str:
-    return filters.create_api_date(date)
+def create_api_date(date_str: str) -> date:
+    return filters.create_api_date(date_str)
 
 
 @root.app_template_filter()
-def create_date(date: str) -> str:
-    return filters.create_date(date)
+def create_date(date_str: str) -> date:
+    return filters.create_date(date_str)
 
 
 @root.app_template_filter()
-def format_api_date_iso(date: date) -> str:
-    return filters.format_api_date_iso(date)
+def format_api_date_iso(date_obj: date) -> str:
+    return filters.format_api_date_iso(date_obj)
 
 
 @root.app_template_filter()
-def format_date(date: date) -> str:
-    return filters.format_date(date)
+def format_date(date_obj: date) -> str:
+    return filters.format_date(date_obj)
 
 
 @root.app_template_filter()
