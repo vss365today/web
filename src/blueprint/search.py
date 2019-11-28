@@ -1,7 +1,7 @@
 from datetime import date as date_obj
 
 from flask import request
-from flask import abort, redirect, render_template, url_for
+from flask import redirect, render_template, url_for
 import requests
 
 from src.blueprint import search
@@ -12,7 +12,6 @@ from src.core.form import PromptSearchForm
 
 @search.route("/", methods=["GET"])
 def index():
-    abort(404)
     render_opts = {
         "form": PromptSearchForm()
     }
@@ -21,7 +20,6 @@ def index():
 
 @search.route("/results", methods=["GET"])
 def query_search():
-    abort(404)
     # We got a valid form submission
     search_form = PromptSearchForm()
     query = request.args.get("query").strip()
