@@ -30,7 +30,11 @@ def create_app():
     def nav_cur_page():
         return {
             "nav_cur_page":
-                lambda title, has: ("active" if has in title.lower() else "")
+                lambda title, has: (
+                    "active"
+                    if has.strip() in title.strip().lower()
+                    else ""
+                )
         }
 
     @app.context_processor

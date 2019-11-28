@@ -24,28 +24,27 @@ def index():
 @bp.route("/results", methods=["GET"])
 def query_search():
     abort(404)
-
     # We got a valid form submission
     search_form = PromptSearchForm()
     query = request.args.get("query").strip()
 
-        try:
-            # We recieved an exact (and valid) date, redirect to it
-            valid = date_obj.fromisoformat(query)  # noqa
-            del valid
-            return redirect(url_for("root.date", date=query))
+    try:
+        # We recieved an exact (and valid) date, redirect to it
+        valid = date_obj.fromisoformat(query)  # noqa
+        del valid
+        return redirect(url_for("root.date", date=query))
 
-        # We got a word or partial word to search
-        except ValueError:
+    # We got a word or partial word to search
+    except ValueError:
         render_opts = {
             "form": search_form
         }
 
-            # Connect to the API to search
-            r = requests.get(
-                create_api_url("search"),
-                params={"prompt": query}
-            )
+        # Connect to the API to search
+        r = requests.get(
+            create_api_url("search"),
+            params={"prompt": query}
+        )
 
         # Populate the input with the search term (so... it's a sticky form)
         render_opts["form"].query.data = query
@@ -56,21 +55,21 @@ def query_search():
             render_opts["total"] = 0
             return render_template("search/results.html", **render_opts)
 
-            # We got a successful response
-                response = r.json()
+        # We got a successful response
+        response = r.json()
 
-                # We got many search results
-                if response["total"] >= 2:
+        # We got many search results
+        if response["total"] >= 2:
             render_opts.update(response)
             return render_template("search/results.html", **render_opts)
 
-                # We got a single response back, go directly to the prompt
-                elif response["total"] == 1:
-                    date = create_api_date(response["prompts"][0]["date"])
-                    date = date.strftime("%Y-%m-%d")
-                    return redirect(url_for("root.date", date=date))
+        # We got a single response back, go directly to the prompt
+        elif response["total"] == 1:
+            date = create_api_date(response["prompts"][0]["date"])
+            date = date.strftime("%Y-%m-%d")
+            return redirect(url_for("root.date", date=date))
 
-                # No search results were returned
-                else:
+        # No search results were returned
+        else:
             render_opts.update(response)
             return render_template("search/results.html", **render_opts)

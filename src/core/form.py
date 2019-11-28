@@ -27,7 +27,7 @@ class AdminSignInForm(FlaskForm):
 
 class PromptSearchForm(FlaskForm):
     query = SearchField(
-        "Search the archive!",
+        "",
         id="input-search-prompt",
         validators=[DataRequired()]
     )
