@@ -1,5 +1,5 @@
 import sqlite3
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from src.core.config import load_app_config
 
@@ -48,7 +48,7 @@ def get_uid_by_handle(handle: str) -> str:
         return db.execute(sql, {"handle": handle}).fetchone()["uid"]
 
 
-def get_latest_tweet() -> Optional[dict]:
+def get_latest_tweet() -> dict:
     """Get the newest tweet."""
     sql = """
     SELECT tweets.*, writers.handle AS writer_handle
@@ -58,8 +58,7 @@ def get_latest_tweet() -> Optional[dict]:
     LIMIT 1
     """
     with __connect_to_db() as db:
-        r = db.execute(sql).fetchone()
-        return dict(r) if r else r
+        return dict(db.execute(sql).fetchone())
 
 
 def get_writer_by_date(date: str) -> sqlite3.Row:
