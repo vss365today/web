@@ -30,7 +30,7 @@ def _factory(
 
 
 root = _factory("root", "")
-admin = _factory("admin", "/admin")  # noqa
-search = _factory("search", "/search")  # noqa
+# admin = _factory("admin", "/admin")
+# search = _factory("search", "/search")
 
 all_blueprints = (root, )
