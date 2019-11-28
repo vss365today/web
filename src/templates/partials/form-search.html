@@ -1,5 +1,6 @@
-<form id="form-archive-search" method="POST" action="{{ url_for('search.query_search') }}">
-  {# {{ form.csrf_token }} #}
+<p>You can search for words, like <code>braid</code>, or by exact dates written in <code>yyyy-mm-dd</code> format (e.g., 2019-07-02). Exact word and date searches will try to take you directly to the prompt, but partial word matches also work. 😉</p>
+
+<form id="form-archive-search" method="GET" action="{{ url_for('search.query_search') }}">
   {{ form.query.label(class="center") }}
   {{ form.query(placeholder="braid") }}
   <button type="submit">Search</button>

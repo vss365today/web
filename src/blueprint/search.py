@@ -21,14 +21,13 @@ def index():
     return render_template("search/search.html", **render_opts)
 
 
-@bp.route("/form", methods=["POST"])
+@bp.route("/results", methods=["GET"])
 def query_search():
     abort(404)
 
     # We got a valid form submission
     search_form = PromptSearchForm()
-    if search_form.validate_on_submit():
-        query = request.form.get("query").strip()
+    query = request.args.get("query").strip()
 
         try:
             # We recieved an exact (and valid) date, redirect to it

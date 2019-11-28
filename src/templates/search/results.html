@@ -1,0 +1,21 @@
+{% set page_title = "Search #vss365 prompts" %}
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page">
+  {% if total == 0 %}
+  <h2 class="center">&OpenCurlyDoubleQuote;The best way to find "{{ query }}" is to write about it yourself.&CloseCurlyDoubleQuote;</h2>
+    <p>Looks like nothing was found for the word prompt "{{ query }}". 🙁 Maybe try searching for something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a> directly?</p>
+  {% else %}
+  <h2 class="center">&OpenCurlyDoubleQuote;Apparently {{ total }} writers consider "{{ query }}" to be a superb prompt!&CloseCurlyDoubleQuote;</h2>
+    Multiple results here
+  {% endif %}
+
+
+  {{ total }}
+  {{ query }}
+  {{ prompts }}
+
+  {% include "partials/form-search.html" %}
+</section>
+{% endblock %}
