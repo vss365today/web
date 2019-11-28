@@ -47,6 +47,9 @@ def query_search():
                 params={"prompt": query}
             )
 
+        # Populate the input with the search term (so... it's a sticky form)
+        render_opts["form"].query.data = query
+
         # The search was not successful
         if not r.ok:
             render_opts["query"] = query
@@ -71,4 +74,3 @@ def query_search():
                 else:
             render_opts.update(response)
             return render_template("search/results.html", **render_opts)
-
