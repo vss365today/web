@@ -11,10 +11,8 @@ __all__ = [
     "add_tweet_to_db",
     "create_new_database",
     "get_mailing_list",
-    "get_existing_email",
     "get_latest_tweet",
     "get_writer_by_date",
-    "get_writers_by_year",
     "get_tweets_by_date",
     "get_uid_by_handle",
     "get_words_by_month",
@@ -88,13 +86,6 @@ def get_mailing_list() -> Dict[str, str]:
     }
 
 
-def get_existing_email(addr: str) -> bool:
-    """Find an existing subscription email."""
-    sql = "SELECT 1 FROM emails WHERE email = :addr"
-    with __connect_to_db() as db:
-        return bool(db.execute(sql, {"addr": addr}).fetchone())
-
-
 def get_uid_by_handle(handle: str) -> str:
     """Get a Writer's user ID from their Twitter handle."""
     sql = "SELECT uid FROM writers WHERE handle = :handle"
@@ -128,20 +119,6 @@ def get_writer_by_date(date: str) -> sqlite3.Row:
     """
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
-
-
-def get_writers_by_year(year: str) -> List[sqlite3.Row]:
-    """Get a list of all Writers for a particular year."""
-    sql = """
-    SELECT writers.uid, handle, writer_dates.date || '-01' AS date
-    FROM writers
-        JOIN writer_dates ON writer_dates.uid = writers.uid
-    WHERE SUBSTR(date, 1, 4) = :year
-        AND SUBSTR(date, 1, 8) <= strftime('%Y-%m','now')
-    ORDER BY writer_dates.date ASC
-    """
-    with __connect_to_db() as db:
-        return db.execute(sql, {"year": year}).fetchall()
 
 
 def get_tweets_by_date(date: str) -> List[sqlite3.Row]:
