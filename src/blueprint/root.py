@@ -5,23 +5,23 @@ from flask import abort, redirect, render_template, url_for
 import requests
 
 from src.blueprint import root
-from src.core import api, database, filters
+from src.core import api, filters
 from src.core.form import SubscribeForm, UnsubscribeForm
-from src.core.helpers import (
-    group_month_list_of_writers,
-    validate_email_addr
-)
+from src.core.helpers import group_month_list_of_writers
 
 
 @root.route("/subscribe", methods=["POST"])
 def subscribe() -> str:
     addition_success = False
     subscribe_form = SubscribeForm()
-    email: str = request.form.get("email", "")
+    email = request.form.get("email")
 
-    # Get the email submitted for subscription
-    if subscribe_form.validate_on_submit():
-        addition_success = database.add_subscribe_email(email)
+    # Attempt to record the email
+    try:
+        api.post("subscription", params={"email": email})
+        addition_success = True
+    except requests.exceptions.HTTPError:
+        addition_success = False
 
     render_opts = {
         "email": email,
@@ -36,10 +36,11 @@ def form_unsubscribe():
     removal_success = False
     email = request.form.get("email")
 
-    # Remove the email from the database
-    if email is not None and validate_email_addr(email):
-        database.remove_subscribe_email(email)
+    try:
+        api.delete("subscription", params={"email": email})
         removal_success = True
+    except requests.exceptions.HTTPError:
+        removal_success = False
 
     # Go back to the unsub page
     return redirect(url_for(
