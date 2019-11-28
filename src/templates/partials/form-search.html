@@ -1,0 +1,6 @@
+<form id="form-archive-search" method="POST" action="{{ url_for('search.query_search') }}">
+  {# {{ form.csrf_token }} #}
+  {{ form.query.label(class="center") }}
+  {{ form.query(placeholder="braid") }}
+  <button type="submit">Search</button>
+</form>
