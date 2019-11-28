@@ -17,7 +17,6 @@ from src.core.database import (
 
 __all__ = [
     "create_twitter_connection",
-    "create_api_url",
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
@@ -80,12 +79,6 @@ def __grouper(iterable: Iterable) -> tuple:
     """
     args = [iter(iterable)] * 2
     return tuple(zip_longest(*args, fillvalue={}))
-
-
-def create_api_url(*args: str) -> str:
-    """Construct a URL to the given API endpoint."""
-    endpoint = "/".join(args)
-    return f"{CONFIG['API_DOMAIN']}/{endpoint}/"
 
 
 def create_twitter_connection() -> tweepy.API:

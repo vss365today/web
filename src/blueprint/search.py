@@ -5,9 +5,9 @@ from flask import abort, redirect, render_template, url_for
 import requests
 
 from src.blueprint import search
-from src.core.form import PromptSearchForm
+from src.core import api
 from src.core.filters import create_api_date
-from src.core.helpers import create_api_url
+from src.core.form import PromptSearchForm
 
 
 @search.route("/", methods=["GET"])
@@ -28,33 +28,24 @@ def query_search():
 
     try:
         # We recieved an exact (and valid) date, redirect to it
-        valid = date_obj.fromisoformat(query)  # noqa
-        del valid
+        date_obj.fromisoformat(query)  # noqa
         return redirect(url_for("root.date", date=query))
 
     # We got a word or partial word to search
     except ValueError:
-        render_opts = {
-            "form": search_form
-        }
+        # Populate the input with the search term (so... it's a sticky form)
+        search_form.query.data = query
+        render_opts = {"form": search_form}
 
         # Connect to the API to search
-        r = requests.get(
-            create_api_url("search"),
-            params={"prompt": query}
-        )
-
-        # Populate the input with the search term (so... it's a sticky form)
-        render_opts["form"].query.data = query
+        try:
+            response = api.get("search", params={"prompt": query})
 
         # The search was not successful
-        if not r.ok:
+        except requests.exceptions.HTTPError:
             render_opts["query"] = query
             render_opts["total"] = 0
             return render_template("search/results.html", **render_opts)
-
-        # We got a successful response
-        response = r.json()
 
         # We got many search results
         if response["total"] >= 2:
