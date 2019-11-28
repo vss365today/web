@@ -1,4 +1,3 @@
-import os.path
 import sqlite3
 from typing import Dict, List, Optional
 
@@ -7,7 +6,6 @@ from src.core.config import load_app_config
 
 __all__ = [
     "add_tweet_to_db",
-    "create_new_database",
     "get_mailing_list",
     "get_latest_tweet",
     "get_writer_by_date",
@@ -28,28 +26,6 @@ def __connect_to_db() -> sqlite3.Connection:
 def __flatten_tuple_list(tup) -> list:
     """Flatten a list of tuples into a list of actual data."""
     return [item[0] for item in tup]
-
-
-def create_new_database() -> None:
-    """Create a new database if needed."""
-    try:
-        # If the database exists and is loaded, this will succeed
-        sql = "SELECT COUNT(*) FROM writers"
-        with __connect_to_db() as db:
-            db.execute(sql)
-
-    # The database doesn't exist
-    except sqlite3.OperationalError:
-        # Get the db schema
-        schema = os.path.abspath(
-            os.path.join("db", "schema.sql")
-        )
-        with open(schema, "rt") as f:
-            sql = f.read()
-
-        # Create the database according to the schema
-        with __connect_to_db() as db:
-            db.executescript(sql)
 
 
 def get_mailing_list() -> Dict[str, str]:
