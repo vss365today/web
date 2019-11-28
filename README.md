@@ -3,8 +3,9 @@
 > Get the latest #vss365 prompt
 
 
-## Required Configuration Keys
+## Required Configuration
 
+* Running instance of [#vss365 today API](https://github.com/le717/vss365-today-api/)
 * Flask secret key
 * Twitter Consumer API keys
 * Twitter access token & access token secret
