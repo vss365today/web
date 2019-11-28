@@ -11,6 +11,7 @@ from src.core.helpers import (
 __all__ = [
     "create_date",
     "create_api_date",
+    "format_api_date_iso",
     "format_content",
     "format_date",
     "format_month_year",
@@ -36,6 +37,10 @@ def create_tweet_url(tweet: dict) -> str:
     return "https://twitter.com/{writer_handle}/status/{tweet_id}".format_map(
         tweet
     )
+
+
+def format_api_date_iso(date_obj: date) -> str:
+    return date_obj.strftime("%Y-%m-%d")
 
 
 def format_content(text: str) -> str:

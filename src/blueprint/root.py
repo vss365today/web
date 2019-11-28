@@ -183,8 +183,18 @@ def server_error(e) -> tuple:
 
 
 @bp.app_template_filter()
+def create_api_date(date: date) -> str:
+    return filters.create_api_date(date)
+
+
+@bp.app_template_filter()
 def create_date(date: str) -> str:
     return filters.create_date(date)
+
+
+@bp.app_template_filter()
+def format_api_date_iso(date: date) -> str:
+    return filters.format_api_date_iso(date)
 
 
 @bp.app_template_filter()
