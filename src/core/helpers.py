@@ -34,7 +34,7 @@ CONFIG = load_app_config()
 JSON_CONFIG = load_json_config()
 
 
-def __filter_hashtags(hashtags: Tuple[str]) -> Tuple[str]:
+def __filter_hashtags(hashtags: tuple) -> tuple:
     """Remove all hashtags that we don't need to process."""
     # Get the words used for this month and remove them from consideration
     this_month = date.today().strftime("%Y-%m")
@@ -82,7 +82,7 @@ def __grouper(iterable: Iterable) -> tuple:
     return tuple(zip_longest(*args, fillvalue={}))
 
 
-def create_api_url(*args: list) -> str:
+def create_api_url(*args: str) -> str:
     """Construct a URL to the given API endpoint."""
     endpoint = "/".join(args)
     return f"{CONFIG['API_DOMAIN']}/{endpoint}/"
@@ -110,7 +110,7 @@ def find_prompt_tweet(text: str) -> bool:
     )
 
 
-def get_all_hashtags(text: str) -> Tuple[str]:
+def get_all_hashtags(text: str) -> Optional[tuple]:
     matches = re.findall(r"(#\w+)", text, re.I)
     return tuple(matches) if matches else None
 
