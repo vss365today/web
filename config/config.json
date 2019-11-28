@@ -1,6 +1,6 @@
 {
   "identifiers": ["#VSS365", "#PROMPT"],
   "additionals": ["#VSS365A", "#WRITINGCOMMUNITY", "#FLASHDOGS", "#VSSPOEM"],
-  "word_index": 0,
+  "word_index": 1,
   "email_provider": "mailjet"
 }
