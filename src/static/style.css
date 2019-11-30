@@ -64,24 +64,23 @@ img {
 }
 
 header {
+  width: 100%;
+  padding: 0.5em 2em;
   background-color: var(--body-background-accent);
-  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
-header h1 {
-  margin-bottom: -0.75em;
-}
-
-header a {
-  color: inherit;
-}
-
-header img {
-  position: relative;
-  top: 1em;
-}
+header a { color: inherit; }
+header #site-title { display: inline; }
 
 header #vss365 {
+  font-family: var(--font-stack-header);
   font-size: 1.2em;
   font-weight: 700;
 }
@@ -93,33 +92,28 @@ header #today {
   font-weight: 700;
 }
 
-header h2 {
-  font-size: 1.2em;
+header #page-title {
+  margin-left: 0.25em;
+  display: inline;
+  font-size: 1.15em;
   font-weight: 400;
   cursor: default;
-}
-
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
 }
 
 nav.primary {
-  position: fixed;
-  padding: 0.5em 0;
-  background-color: var(--primary-nav-bg);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-  z-index: 2;
+  flex: 0.5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
 }
 
 nav.primary .nav-link {
-  margin-right: 1em;
-  margin-left: 1em;
   font-family: var(--font-stack-header);
   font-weight: 400;
-  font-size: 1.2em;
-  color: #fff;
+  font-size: 1.3em;
+  color: var(--primary-text);
 }
 .nav-link#btn-theme { cursor: pointer; }
 
@@ -383,11 +377,6 @@ button:focus { background-color: #e9e9e9; }
   border-bottom-color: currentColor;
 }
 
-/* .dark input {
-  background-color: var(--body-background);
-  color: var(--primary-text);
-} */
-
 .dark button {
   background-color: var(--primary-nav-bg);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -401,29 +390,31 @@ button:focus { background-color: #e9e9e9; }
 
 /* -- Smaller screens -- */
 @media (max-width: 1100px) {
+  header #page-title {
+    margin: initial;
+    display: block;
+  }
+
   nav.primary {
-    flex-direction: column;
-    padding: 0.5em 0.2em;
+    flex: 1;
+    flex-wrap: nowrap;
   }
 
   nav.primary .nav-link {
-    margin-top: 0.25em;
-    margin-bottom: 0.25em;
+    margin: 0.2em 0.5em;
     font-size: 1.25em;
   }
 }
 
 @media (max-width: 800px) {
-  .page {  width: 85%; }
+  .page { width: 85%; }
 }
 
 @media (max-width: 500px) {
+  header { justify-content: center; }
+  header > div { text-align: center; }
+  nav.primary { padding-top: 1em; flex-wrap: wrap; }
+
   .content { width: 87%; }
   form { width: auto !important; }
-
-  nav.primary {
-    flex-direction: row;
-    position: initial;
-    padding-bottom: 0;
-  }
 }
