@@ -5,7 +5,7 @@ import requests
 
 from src.core.config import load_app_config
 
-__all__ = ["get", "post", "put", "delete"]
+__all__ = ["create_jwt", "get", "post", "put", "delete"]
 
 
 CONFIG = load_app_config()
