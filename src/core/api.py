@@ -1,5 +1,6 @@
-from typing import Any
+from typing import Dict, Any
 
+import jwt
 import requests
 
 from src.core.config import load_app_config
@@ -14,6 +15,11 @@ def __create_api_url(*args: str) -> str:
     """Construct a URL to the given API endpoint."""
     endpoint = "/".join(args)
     return f"{CONFIG['API_DOMAIN']}/{endpoint}/"
+
+
+def create_jwt(payload: Dict[str, Any]) -> dict:
+    token = jwt.encode(payload, CONFIG["JWT_SECRET_KEY"], algorithm="HS256")
+    return {"Authorization": b"Bearer " + token}
 
 
 def get(*args: str, **kwargs: Any) -> Any:
