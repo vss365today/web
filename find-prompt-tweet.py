@@ -2,16 +2,16 @@ from datetime import date, timedelta
 from html import escape
 from pprint import pprint
 
+from requests.exceptions import HTTPError
 import tweepy
 
 from src.core import api
 from src.core.database import (
-    get_latest_tweet,
     get_writer_by_date,
     get_uid_by_handle
 )
 from src.core.emails.sender import send_emails
-from src.core.filters import create_date
+from src.core.filters import create_date, create_api_date
 from src.core.helpers import (
     create_twitter_connection,
     find_prompt_tweet,
@@ -66,8 +66,8 @@ def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
 
 
 # Get the latest tweet in the database to see if we need to do anything
-LATEST_TWEET = get_latest_tweet()
-LATEST_TWEET["date"] = create_date(LATEST_TWEET["date"])
+LATEST_TWEET = api.get("prompt")[0]
+LATEST_TWEET["date"] = create_api_date(LATEST_TWEET["date"])
 TODAY = date.today()
 
 # We already have latest tweet, don't do anything
@@ -136,8 +136,15 @@ prompt = {
 }
 pprint(prompt)
 
-# Add the tweet to the database and send the email notifications
-print("Adding tweet to database")
-api.post("prompt", json=prompt)
+
+# Add the tweet to the database
+try:
+    print("Adding tweet to database")
+    api.post("prompt", json=prompt)
+except HTTPError:
+    print(f"Cannot add prompt for {tweet_date} to the database!")
+    raise SystemExit(0)
+
+# Send the email notifications
 print("Sending out notification emails")
 send_emails(prompt)
