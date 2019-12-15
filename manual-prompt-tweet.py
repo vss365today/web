@@ -2,6 +2,8 @@ from html import escape
 from pprint import pprint
 from re import match
 
+from requests.exceptions import HTTPError
+
 from src.core import api
 from src.core.database import get_uid_by_handle
 from src.core.emails.sender import send_emails
@@ -65,8 +67,14 @@ while True:
     }
     pprint(prompt)
 
-    # Add the prompt to the database and send the emails
-    print("Adding prompt to database")
-    api.post("prompt", json=prompt)
+    # Add the tweet to the database
+    try:
+        print("Adding tweet to database")
+        api.post("prompt", json=prompt)
+    except HTTPError:
+        print(f"Cannot add prompt for {tweet_date} to the database!")
+        raise SystemExit(0)
+
+    # Send the email notifications
     print("Sending out notification emails")
     send_emails(prompt)
