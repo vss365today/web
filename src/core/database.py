@@ -9,7 +9,6 @@ __all__ = [
     "get_mailing_list",
     "get_latest_tweet",
     "get_writer_by_date",
-    "get_tweets_by_date",
     "get_uid_by_handle",
     "get_words_by_month"
 ]
@@ -71,19 +70,6 @@ def get_writer_by_date(date: str) -> sqlite3.Row:
     """
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
-
-
-def get_tweets_by_date(date: str) -> List[sqlite3.Row]:
-    """Get a prompt tweet by the date it was posted."""
-    sql = """
-    SELECT tweets.*, writers.handle AS writer_handle
-    FROM tweets
-        JOIN writers ON writers.uid = tweets.uid
-    WHERE tweets.date = :date
-        AND :date <= date('now')
-    """
-    with __connect_to_db() as db:
-        return db.execute(sql, {"date": date}).fetchall()
 
 
 def add_tweet_to_db(tweet_dict: dict) -> None:
