@@ -1,5 +1,5 @@
 import sqlite3
-from typing import Dict, List
+from typing import Dict
 
 from src.core.config import load_app_config
 
