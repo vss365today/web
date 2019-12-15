@@ -1,31 +1,32 @@
 from pprint import pprint
+from requests.exceptions import HTTPError
 
-from src.core.database import get_tweets_by_date
+from src.core import api
 from src.core.emails.sender import send_emails
 from src.core.filters import create_date
 
 
-# Get the date of the tweet we want to email out
-tweet_date = input("Enter the tweet date (YYYY-MM-DD): ")
-db_tweets = get_tweets_by_date(tweet_date.strip())
+# Get the date of the prompt we want to email out
+try:
+    prompt_date = input("Enter the prompt date (YYYY-MM-DD): ")
+    prompt = api.get("prompt", params={"date": prompt_date.strip()})[0]
 
-# We don't have a tweet for the requested day
-if not db_tweets:
-    print(f"There are no tweets in the database for {tweet_date}!")
+# We don't have a prompt for the requested day
+except HTTPError:
+    print(f"There is no promp for {prompt_date}!")
     raise SystemExit(0)
 
 # Construct a dictionary with only the info we need
-picked_tweet = db_tweets[0]
-tweet = {
-    "tweet_id": picked_tweet["tweet_id"],
-    "date": create_date(tweet_date),
-    "handle": picked_tweet["writer_handle"],
-    "content": picked_tweet["content"],
-    "word": picked_tweet["word"],
-    "media": picked_tweet["media"]
+final_prompt = {
+    "tweet_id": prompt["id"],
+    "date": create_date(prompt_date),
+    "handle": prompt["writer_handle"],
+    "content": prompt["content"],
+    "word": prompt["word"],
+    "media": prompt["media"]
 }
-pprint(tweet)
+pprint(final_prompt)
 
 # Send out the emails that oh-so-didn't work earlier
 print("Sending out notification emails")
-send_emails(tweet)
+send_emails(final_prompt)
