@@ -4,8 +4,8 @@ from pprint import pprint
 
 import tweepy
 
+from src.core import api
 from src.core.database import (
-    add_tweet_to_db,
     get_latest_tweet,
     get_writer_by_date,
     get_uid_by_handle
@@ -40,7 +40,7 @@ def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
 
     # Get the latest tweets from the prompt writer
     # We need to enable extended mode to get tweets > 140 characters
-    statuses = api.user_timeline(
+    statuses = twitter_api.user_timeline(
         uid,
         max_id=tweet_id,
         count=20,
@@ -76,7 +76,7 @@ if LATEST_TWEET["date"] == TODAY:
     raise SystemExit(0)
 
 # Connect to the Twitter API
-api = create_twitter_connection()
+twitter_api = create_twitter_connection()
 
 # Get an initial round of tweets to search
 print("Searching for the latest prompt tweet")
@@ -125,7 +125,7 @@ if prompt_word is None:
     raise SystemExit(0)
 
 # Construct a dictionary with only the info we need
-tweet = {
+prompt = {
     "tweet_id": prompt_tweet.id_str,
     "date": tweet_date,
     "uid": get_uid_by_handle(prompt_tweet.author.screen_name),
@@ -134,10 +134,10 @@ tweet = {
     "word": prompt_word,
     "media": tweet_media
 }
-pprint(tweet)
+pprint(prompt)
 
 # Add the tweet to the database and send the email notifications
 print("Adding tweet to database")
-add_tweet_to_db(tweet)
+api.post("prompt", json=prompt)
 print("Sending out notification emails")
-send_emails(tweet)
+send_emails(prompt)

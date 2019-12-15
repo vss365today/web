@@ -2,7 +2,8 @@ from html import escape
 from pprint import pprint
 from re import match
 
-from src.core.database import add_tweet_to_db, get_uid_by_handle
+from src.core import api
+from src.core.database import get_uid_by_handle
 from src.core.emails.sender import send_emails
 from src.core.filters import create_date
 from src.core.helpers import (
@@ -28,7 +29,7 @@ def extract_tweet_id(url: str) -> str:
 
 
 # Connect to the Twitter API
-api = create_twitter_connection()
+twitter_api = create_twitter_connection()
 
 # Keep prompting for tweets until told to stop
 while True:
@@ -45,7 +46,7 @@ while True:
 
     # We're assuming/trusting the url is to the prompt tweet
     # so we'll skip the validity checks
-    prompt_tweet = api.get_status(tweet_id, tweet_mode="extended")
+    prompt_tweet = twitter_api.get_status(tweet_id, tweet_mode="extended")
 
     # Extract the tweet content
     media_url, tweet_media = get_tweet_media(prompt_tweet)
@@ -53,7 +54,7 @@ while True:
     del media_url
 
     # Construct a tweet object
-    tweet = {
+    prompt = {
         "tweet_id": tweet_id,
         "date": create_date(tweet_date.strip()),
         "uid": get_uid_by_handle(user_handle),
@@ -62,10 +63,10 @@ while True:
         "word": find_prompt_word(tweet_text),
         "media": tweet_media
     }
-    pprint(tweet)
+    pprint(prompt)
 
-    # Add the tweet to the database and send the emails
-    print("Adding tweet to database")
-    add_tweet_to_db(tweet)
+    # Add the prompt to the database and send the emails
+    print("Adding prompt to database")
+    api.post("prompt", json=prompt)
     print("Sending out notification emails")
-    send_emails(tweet)
+    send_emails(prompt)
