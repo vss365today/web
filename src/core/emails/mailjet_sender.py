@@ -45,7 +45,7 @@ def send_emails(tweet: dict):
     # we need to chunk the addresses. This will chunk them
     # into a nth-array level containing <= 50 emails.
     chunk_size = 50
-    email_list = list(get_mailing_list())
+    email_list = get_mailing_list()
     email_list = [
         email_list[i:i + chunk_size]
         for i in range(0, len(email_list), chunk_size)

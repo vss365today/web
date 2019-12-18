@@ -3,7 +3,6 @@ from requests.exceptions import HTTPError
 
 from src.core import api
 from src.core.emails.sender import send_emails
-from src.core.filters import create_date
 
 
 # Get the date of the prompt we want to email out

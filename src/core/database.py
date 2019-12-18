@@ -1,5 +1,4 @@
 import sqlite3
-from typing import Dict
 
 from src.core.config import load_app_config
 
@@ -27,15 +26,11 @@ def __flatten_tuple_list(tup) -> list:
     return [item[0] for item in tup]
 
 
-def get_mailing_list() -> Dict[str, str]:
+def get_mailing_list() -> list:
     """Get all emails in the subscription list."""
-    sql = "SELECT email, hash FROM emails"
+    sql = "SELECT email FROM emails"
     with __connect_to_db() as db:
-        r = db.execute(sql).fetchall()
-    return {
-        email: hash_val
-        for email, hash_val in r
-    }
+        return __flatten_tuple_list(db.execute(sql).fetchall())
 
 
 def get_uid_by_handle(handle: str) -> str:
