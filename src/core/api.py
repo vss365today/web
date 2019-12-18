@@ -5,7 +5,7 @@ import requests
 
 from src.core.config import load_app_config
 
-__all__ = ["create_jwt", "get", "post", "put", "delete"]
+__all__ = ["create_auth_token", "get", "post", "put", "delete"]
 
 
 CONFIG = load_app_config()
@@ -17,7 +17,7 @@ def __create_api_url(*args: str) -> str:
     return f"{CONFIG['API_DOMAIN']}/{endpoint}/"
 
 
-def create_jwt(payload: Dict[str, Any]) -> dict:
+def create_auth_token(payload: Dict[str, Any]) -> dict:
     token = jwt.encode(payload, CONFIG["JWT_SECRET_KEY"], algorithm="HS256")
     return {"Authorization": b"Bearer " + token}
 
