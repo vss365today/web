@@ -25,7 +25,7 @@ def subscribe() -> str:
 
     render_opts = {
         "email": email,
-        "form": subscribe_form,
+        "form_subscribe": subscribe_form,
         "addition_success": addition_success
     }
     return render_template("root/subscribe.html", **render_opts)
@@ -58,7 +58,7 @@ def unsubscribe():
 
     render_opts = {
         "removal_success": removal_success,
-        "form": SubscribeForm(),
+        "form_subscribe": SubscribeForm(),
         "form_unsubscribe": UnsubscribeForm()
     }
     return render_template("root/unsubscribe.html", **render_opts)
@@ -67,7 +67,7 @@ def unsubscribe():
 @root.route("/about")
 def about() -> str:
     render_opts = {
-        "form": SubscribeForm()
+        "form_subscribe": SubscribeForm()
     }
     return render_template("root/about.html", **render_opts)
 
@@ -76,7 +76,7 @@ def about() -> str:
 def browse() -> str:
     prompt_years: list = api.get("browse", "years")
     render_opts = {
-        "form": SubscribeForm(),
+        "form_subscribe": SubscribeForm(),
         "years": prompt_years
     }
     return render_template("root/browse.html", **render_opts)
@@ -93,7 +93,7 @@ def browse_by_year(year: str) -> str:
     )
 
     render_opts = {
-        "form": SubscribeForm(),
+        "form_subscribe": SubscribeForm(),
         "writers": grouped_writers,
         "year": year
     }
@@ -108,7 +108,7 @@ def browse_by_writer(year: str, month: str) -> str:
     )
 
     render_opts = {
-        "form": SubscribeForm(),
+        "form_subscribe": SubscribeForm(),
         "month_prompts": month_prompts["prompts"],
         "writer": ", ".join(month_prompts["writers"]),
         "date": format_month_year(f"{year}-{month}")
@@ -126,7 +126,7 @@ def index() -> str:
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
         "next_day": None,
-        "form": SubscribeForm()
+        "form_subscribe": SubscribeForm()
     }
     return render_template("root/tweet.html", **render_opts)
 
@@ -153,7 +153,7 @@ def view_date(date: str) -> str:
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
         "next_day": prompts[0]["next_day"],
-        "form": SubscribeForm()
+        "form_subscribe": SubscribeForm()
     }
     return render_template("root/tweet.html", **render_opts)
 
@@ -161,7 +161,7 @@ def view_date(date: str) -> str:
 @root.app_errorhandler(404)
 def page_not_found(e) -> tuple:
     render_opts = {
-        "form": SubscribeForm()
+        "form_subscribe": SubscribeForm()
     }
     return render_template("partials/errors/404.html", **render_opts), 404
 

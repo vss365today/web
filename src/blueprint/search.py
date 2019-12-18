@@ -7,13 +7,14 @@ import requests
 from src.blueprint import search
 from src.core import api
 from src.core.filters import create_api_date
-from src.core.form import PromptSearchForm
+from src.core.form import PromptSearchForm, SubscribeForm
 
 
 @search.route("/", methods=["GET"])
 def index():
     render_opts = {
-        "form": PromptSearchForm()
+        "form": PromptSearchForm(),
+        "form_subscribe": SubscribeForm()
     }
     return render_template("search/search.html", **render_opts)
 
@@ -33,7 +34,10 @@ def query_search():
     except ValueError:
         # Populate the input with the search term (so... it's a sticky form)
         search_form.query.data = query
-        render_opts = {"form": search_form}
+        render_opts = {
+            "form": search_form,
+            "form_subscribe": SubscribeForm()
+        }
 
         # Connect to the API to search
         try:
