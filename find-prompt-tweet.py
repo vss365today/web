@@ -11,7 +11,7 @@ from src.core.database import (
     get_uid_by_handle
 )
 from src.core.emails.sender import send_emails
-from src.core.filters import create_date, create_api_date
+from src.core.filters import create_date, create_api_date, format_api_date_iso
 from src.core.helpers import (
     create_twitter_connection,
     find_prompt_tweet,
@@ -93,7 +93,7 @@ if prompt_tweet is None:
 # Construct a `date` object for the tweet
 # The API returns a `datetime` object, which cannot be
 # compared to a `date` object via operators
-tweet_date = create_date(prompt_tweet.created_at.strftime("%Y-%m-%d"))
+tweet_date = create_date(format_api_date_iso(prompt_tweet.created_at))
 
 # The found tweet date is yesterday's date, indicating a
 # time zone difference. Tweet datetimes are always expressed
@@ -127,7 +127,7 @@ if prompt_word is None:
 # Construct a dictionary with only the info we need
 prompt = {
     "tweet_id": prompt_tweet.id_str,
-    "date": tweet_date,
+    "date": format_api_date_iso(tweet_date),
     "uid": get_uid_by_handle(prompt_tweet.author.screen_name),
     "handle": escape(prompt_tweet.author.screen_name),
     "content": escape(tweet_text),
