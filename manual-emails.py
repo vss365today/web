@@ -13,7 +13,7 @@ try:
 
 # We don't have a prompt for the requested day
 except HTTPError:
-    print(f"There is no promp for {prompt_date}!")
+    print(f"There is no prompt for {prompt_date}!")
     raise SystemExit(0)
 
 # Construct a dictionary with only the info we need
