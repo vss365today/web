@@ -19,7 +19,7 @@ except HTTPError:
 # Construct a dictionary with only the info we need
 final_prompt = {
     "tweet_id": prompt["id"],
-    "date": create_date(prompt_date),
+    "date": prompt_date.strip(),
     "handle": prompt["writer_handle"],
     "content": prompt["content"],
     "word": prompt["word"],
