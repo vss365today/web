@@ -35,7 +35,7 @@ def send_emails(tweet: dict):
     ), version="v3.1")
 
     # Properly format the tweet date
-    tweet["date"] = create_date(format_date(tweet["date"]))
+    tweet["date"] = format_date(create_date(tweet["date"]))
     completed_email = render_email(tweet)
 
     # Get the email address list and break it into chunks of 50
