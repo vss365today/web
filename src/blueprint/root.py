@@ -13,7 +13,6 @@ from src.core.helpers import group_month_list_of_writers
 @root.route("/subscribe", methods=["POST"])
 def subscribe() -> str:
     addition_success = False
-    subscribe_form = SubscribeForm()
     email = request.form.get("email")
 
     # Attempt to record the email
@@ -25,7 +24,7 @@ def subscribe() -> str:
 
     render_opts = {
         "email": email,
-        "form_subscribe": subscribe_form,
+        "form_subscribe": SubscribeForm(),
         "addition_success": addition_success
     }
     return render_template("root/subscribe.html", **render_opts)
