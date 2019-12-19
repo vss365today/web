@@ -1,7 +1,7 @@
 from mailjet_rest import Client
 
+from src.core import api
 from src.core.config import load_app_config
-from src.core.database import get_mailing_list
 from src.core.emails.generator import render_email
 from src.core.filters import create_date, format_date
 
@@ -45,16 +45,16 @@ def send_emails(tweet: dict):
     # we need to chunk the addresses. This will chunk them
     # into a nth-array level containing <= 50 emails.
     chunk_size = 50
-    email_list = get_mailing_list()
-    email_list = [
-        email_list[i:i + chunk_size]
-        for i in range(0, len(email_list), chunk_size)
+    mailing_list: list = api.get("subscription")
+    mailing_list = [
+        mailing_list[i:i + chunk_size]
+        for i in range(0, len(mailing_list), chunk_size)
     ]
     rendered_emails = []
 
     # Construct and render the emails in each chunk
-    for chunk in email_list:
-        email_data = {"Messages": []}
+    for chunk in mailing_list:
+        email_data: dict = {"Messages": []}
         for addr in chunk:
             msg = construct_email(tweet, addr, completed_email)
             email_data["Messages"].append(msg)
@@ -75,12 +75,12 @@ def send_emails(tweet: dict):
         # The emails were successfully sent
         else:
             # Count the send status of each message
-            status = {}
+            status: dict = {}
             for msg in mj_results["Messages"]:
                 status[msg["Status"]] = status.get(msg["Status"], 0) + 1
 
             # All the emails were send successfully
-            if status["success"] == len(email_list):
+            if status["success"] == len(mailing_list):
                 print("All emails sent successfully.")
 
             # Everything wasn't successful, display raw count dict

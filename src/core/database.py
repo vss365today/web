@@ -5,7 +5,6 @@ from src.core.config import load_app_config
 
 __all__ = [
     "add_tweet_to_db",
-    "get_mailing_list",
     "get_latest_tweet",
     "get_writer_by_date",
     "get_uid_by_handle",
@@ -24,13 +23,6 @@ def __connect_to_db() -> sqlite3.Connection:
 def __flatten_tuple_list(tup) -> list:
     """Flatten a list of tuples into a list of actual data."""
     return [item[0] for item in tup]
-
-
-def get_mailing_list() -> list:
-    """Get all emails in the subscription list."""
-    sql = "SELECT email FROM emails"
-    with __connect_to_db() as db:
-        return __flatten_tuple_list(db.execute(sql).fetchall())
 
 
 def get_uid_by_handle(handle: str) -> str:

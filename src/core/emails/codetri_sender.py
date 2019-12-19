@@ -3,8 +3,8 @@ from email.message import EmailMessage
 from email.utils import localtime, make_msgid
 from smtplib import SMTP
 
+from src.core import api
 from src.core.config import load_app_config
-from src.core.database import get_mailing_list
 from src.core.emails.generator import render_email
 from src.core.filters import format_date
 
@@ -45,7 +45,7 @@ def construct_email(
 
 
 def send_emails(tweet: dict):
-    mailing_list = list(get_mailing_list())
+    mailing_list: list = api.get("subscription")
     tweet["date"] = format_date(tweet["date"])
     completed_email = render_email(tweet)
 
