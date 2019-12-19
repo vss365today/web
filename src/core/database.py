@@ -4,8 +4,6 @@ from src.core.config import load_app_config
 
 
 __all__ = [
-    "add_tweet_to_db",
-    "get_latest_tweet",
     "get_writer_by_date",
     "get_uid_by_handle",
     "get_words_by_month"
@@ -34,19 +32,6 @@ def get_uid_by_handle(handle: str) -> str:
         return db.execute(sql, {"handle": handle}).fetchone()["uid"]
 
 
-def get_latest_tweet() -> dict:
-    """Get the newest tweet."""
-    sql = """
-    SELECT tweets.*, writers.handle AS writer_handle
-    FROM tweets
-        JOIN writers ON tweets.uid = writers.uid
-    ORDER BY date DESC
-    LIMIT 1
-    """
-    with __connect_to_db() as db:
-        return dict(db.execute(sql).fetchone())
-
-
 def get_writer_by_date(date: str) -> sqlite3.Row:
     """Get a Writer by the month-year they delievered the prompts. """
     sql = """
@@ -57,20 +42,6 @@ def get_writer_by_date(date: str) -> sqlite3.Row:
     """
     with __connect_to_db() as db:
         return db.execute(sql, {"date": date}).fetchone()
-
-
-def add_tweet_to_db(tweet_dict: dict) -> None:
-    """Add a tweet to the database."""
-    sql = """
-    INSERT INTO tweets (
-        tweet_id, date, uid, content, word, media
-    )
-    VALUES (
-        :tweet_id, :date, :uid, :content, :word, :media
-    )
-    """
-    with __connect_to_db() as db:
-        db.execute(sql, tweet_dict)
 
 
 def get_words_by_month(date: str) -> list:
