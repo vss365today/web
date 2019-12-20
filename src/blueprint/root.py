@@ -100,7 +100,7 @@ def browse_by_year(year: str) -> str:
 
 
 @root.route("/browse/<year>/<month>")
-def browse_by_writer(year: str, month: str) -> str:
+def browse_by_year_month(year: str, month: str) -> str:
     month_prompts: dict = api.get(
         "browse",
         params={"year": year, "month": month}
