@@ -1,15 +1,15 @@
-from datetime import date
+from datetime import datetime
 from itertools import zip_longest
 import re
 from typing import Iterable, Optional, Tuple
 
 import tweepy
 
+from src.core import api
 from src.core.config import (
     load_app_config,
     load_json_config
 )
-from src.core.database import get_words_by_month
 
 
 __all__ = [
@@ -33,8 +33,15 @@ JSON_CONFIG = load_json_config()
 def __filter_hashtags(hashtags: tuple) -> tuple:
     """Remove all hashtags that we don't need to process."""
     # Get the words used for this month and remove them from consideration
-    this_month = date.today().strftime("%Y-%m")
-    this_months_words = get_words_by_month(this_month)
+    right_now = datetime.now()
+    month_prompts = api.get(
+        "browse",
+        params={
+            "year": right_now.year,
+            "month": right_now.month
+        }
+    )
+    month_words = [prompt["word"] for prompt in month_prompts["prompts"]]
 
     # Go through each word for the month and find variations
     # of it in the tweet. Ex: the word is "motif", so find
@@ -43,9 +50,9 @@ def __filter_hashtags(hashtags: tuple) -> tuple:
     # previous prompt words in the prompt tweet
     # so they are not picked back up and recorded
     matched_variants = []
-    for word in this_months_words:
+    for word in month_words:
         # Build a regex that will match exact words and suffix variations
-        regex = re.compile(rf"{word}\w*\b", re.I)
+        regex = re.compile(rf"#{word}\w*\b", re.I)
 
         # Search the tweet's hashtags for the words
         variants = [
