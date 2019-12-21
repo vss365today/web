@@ -6,10 +6,6 @@ from requests.exceptions import HTTPError
 import tweepy
 
 from src.core import api
-from src.core.database import (
-    get_writer_by_date,
-    get_uid_by_handle
-)
 from src.core.emails.sender import send_emails
 from src.core.filters import create_date, create_api_date, format_api_date_iso
 from src.core.helpers import (
