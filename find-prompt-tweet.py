@@ -82,8 +82,12 @@ twitter_api = create_twitter_connection()
 print("Searching for the latest prompt tweet")
 
 # Get the Writer for this month and attempt to find the prompt
-CURRENT_WRITER = get_writer_by_date(TODAY.strftime("%Y-%m"))
-prompt_tweet = process_tweets(CURRENT_WRITER["uid"])
+CURRENT_WRITER = api.get(
+    "writer",
+    "date",
+    params={"date": TODAY.strftime("%Y-%m")}
+)[0]
+prompt_tweet = process_tweets(CURRENT_WRITER["id"])
 
 # The tweet was not found at all :(
 if prompt_tweet is None:
