@@ -59,7 +59,7 @@ while True:
     prompt = {
         "tweet_id": tweet_id,
         "date": create_date(tweet_date.strip()),
-        "uid": get_uid_by_handle(user_handle),
+        "uid": prompt_tweet.author.id_str,
         "handle": user_handle,
         "content": escape(tweet_text),
         "word": find_prompt_word(tweet_text),

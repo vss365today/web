@@ -128,7 +128,7 @@ if prompt_word is None:
 prompt = {
     "tweet_id": prompt_tweet.id_str,
     "date": format_api_date_iso(tweet_date),
-    "uid": get_uid_by_handle(prompt_tweet.author.screen_name),
+    "uid": prompt_tweet.author.id_str,
     "handle": escape(prompt_tweet.author.screen_name),
     "content": escape(tweet_text),
     "word": prompt_word,
