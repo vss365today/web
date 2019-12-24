@@ -6,7 +6,6 @@ from requests.exceptions import HTTPError
 
 from src.core import api
 from src.core.emails.sender import send_emails
-from src.core.filters import create_date
 from src.core.helpers import (
     create_twitter_connection,
     find_prompt_word,
@@ -57,7 +56,7 @@ while True:
     # Construct a tweet object
     prompt = {
         "tweet_id": tweet_id,
-        "date": create_date(tweet_date.strip()),
+        "date": tweet_date.strip(),
         "uid": prompt_tweet.author.id_str,
         "handle": user_handle,
         "content": escape(tweet_text),
