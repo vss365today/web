@@ -108,9 +108,11 @@ def browse_by_year_month(year: str, month: str) -> str:
 
     render_opts = {
         "form_subscribe": SubscribeForm(),
+        "date": format_month_year(f"{year}-{month}"),
         "month_prompts": month_prompts["prompts"],
-        "writer": ", ".join(month_prompts["writers"]),
-        "date": format_month_year(f"{year}-{month}")
+        "writer": ", ".join([
+            writer["handle"] for writer in month_prompts["writers"]
+        ])
     }
     return render_template("root/browse-writer.html", **render_opts)
 
