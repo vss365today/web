@@ -18,11 +18,11 @@ def prompt_edit(prompt_date: str):
     abort(404)
 
 
-@admin.route("/writers")
-def writers():
+@admin.route("/hosts")
+def hosts():
     abort(404)
 
 
-@admin.route("/writers/edit/<int:writer_id>")
-def writer_edit(writer_id: int):
+@admin.route("/hosts/edit/<int:host_id>")
+def host_edit(host_id: int):
     abort(404)

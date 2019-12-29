@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% set page_title = date ~ ' prompts from ' ~ writer %}
+{% set page_title = date ~ ' prompts from ' ~ host %}
 
 {% block content %}
 <section class="page center browse-giver">
   {% if not month_prompts -%}
-  <h2>No #vss365 prompts from {{ writer }} for {{ date }} were found!</h2>
+  <h2>No #vss365 prompts from {{ host }} for {{ date }} were found!</h2>
 
   {%- else %}
   <div class="wrapper">

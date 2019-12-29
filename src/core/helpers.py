@@ -17,7 +17,7 @@ __all__ = [
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
-    "group_month_list_of_writers",
+    "group_month_list_of_hosts",
     "get_tweet_media",
     "get_tweet_text",
     "make_hashtags",
@@ -112,31 +112,31 @@ def get_all_hashtags(text: str) -> Optional[tuple]:
     return tuple(matches) if matches else None
 
 
-def group_month_list_of_writers(writers: Iterable[dict]) -> list:
-    """Group multiple writers for a single month.
+def group_month_list_of_hosts(hosts: Iterable[dict]) -> list:
+    """Group multiple Hosts for a single month.
 
-    For some months in 2017, two nnon-overlapping writers
+    For some months in 2017, twonon-overlapping Hosts
     gave out the prompts. While these are stored distinctly
     in the database, we need to present these as the same month.
     While it adds some complexity to the app, it makes the
     user experience more smooth and easier to navigate."""
     # Group the months into chunks of two
     final = []
-    writers_grouped = __grouper(writers)
+    hosts_grouped = __grouper(hosts)
 
-    # If there are multiple writers in a single month,
+    # If there are multiple hosts in a single month,
     # lump the two handles together.
-    # Since this will only get hit in historical data where
-    # there's only two writers in a single month,
+    # Since this will only get git in historical data where
+    # there's only two hosts in a single month,
     # this doesn't have to be any more ~~complicated~~ extensible
-    for this_mo, next_mo in writers_grouped:
+    for this_mo, next_mo in hosts_grouped:
         if next_mo and this_mo["date"] == next_mo["date"]:
             this_mo["handle"] = f"{this_mo['handle']}, {next_mo['handle']}"
-            # Mark the second writer record for removal
+            # Mark the second host record for removal
             next_mo["delete"] = True
 
-    # Trim the writer list down to just the ones we need
-    for one, two in writers_grouped:
+    # Trim the hosts list down to just the ones we need
+    for one, two in hosts_grouped:
         final.append(one)
         if two and not two.get("delete"):
             final.append(two)

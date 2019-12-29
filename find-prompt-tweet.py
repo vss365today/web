@@ -34,7 +34,7 @@ def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
     if recur_count > 7:
         return None
 
-    # Get the latest tweets from the prompt writer
+    # Get the latest tweets from the prompt Host
     # We need to enable extended mode to get tweets > 140 characters
     statuses = twitter_api.user_timeline(
         uid,
@@ -77,13 +77,11 @@ twitter_api = create_twitter_connection()
 # Get an initial round of tweets to search
 print("Searching for the latest prompt tweet")
 
-# Get the Writer for this month and attempt to find the prompt
-CURRENT_WRITER = api.get(
-    "writer",
-    "date",
-    params={"date": TODAY.strftime("%Y-%m")}
-)[0]
-prompt_tweet = process_tweets(CURRENT_WRITER["id"])
+# Get the Host for this month and attempt to find the prompt
+CURRENT_HOST = api.get("host", "date", params={
+    "date": TODAY.strftime("%Y-%m")
+})[0]
+prompt_tweet = process_tweets(CURRENT_HOST["id"])
 
 # The tweet was not found at all :(
 if prompt_tweet is None:

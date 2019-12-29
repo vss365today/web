@@ -7,7 +7,7 @@ import requests
 from src.blueprint import root
 from src.core import api, filters
 from src.core.form import SubscribeForm, UnsubscribeForm
-from src.core.helpers import group_month_list_of_writers
+from src.core.helpers import group_month_list_of_hosts
 
 
 @root.route("/subscribe", methods=["POST"])
@@ -83,17 +83,17 @@ def browse() -> str:
 
 @root.route("/browse/<year>")
 def browse_by_year(year: str) -> str:
-    # Get the writer's list and group them up if needed
-    writers_in_year: dict = api.get("browse", params={"year": year})
-    grouped_writers = (
-        group_month_list_of_writers(writers_in_year["writers"])
-        if writers_in_year["query"] == "2017"
-        else writers_in_year["writers"]
+    # Get the host's list and group them up if needed
+    hosts_in_year: dict = api.get("browse", params={"year": year})
+    grouped_groups = (
+        group_month_list_of_hosts(hosts_in_year["hosts"])
+        if hosts_in_year["query"] == "2017"
+        else hosts_in_year["hosts"]
     )
 
     render_opts = {
         "form_subscribe": SubscribeForm(),
-        "writers": grouped_writers,
+        "hosts": grouped_groups,
         "year": year
     }
     return render_template("root/browse-year.html", **render_opts)
@@ -110,11 +110,11 @@ def browse_by_year_month(year: str, month: str) -> str:
         "form_subscribe": SubscribeForm(),
         "date": format_month_year(f"{year}-{month}"),
         "month_prompts": month_prompts["prompts"],
-        "writer": ", ".join([
-            writer["handle"] for writer in month_prompts["writers"]
+        "host": ", ".join([
+            host["handle"] for host in month_prompts["hosts"]
         ])
     }
-    return render_template("root/browse-writer.html", **render_opts)
+    return render_template("root/browse-host.html", **render_opts)
 
 
 @root.route("/")

@@ -8,14 +8,14 @@
     <p>Looks like nothing was found for the word prompt "{{ query }}". 🙁 Maybe try searching for something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a> directly?</p>
 
   {% else %}
-  <h2 class="center">&OpenCurlyDoubleQuote;Apparently {{ total }} writers consider "{{ query }}" to be a superb prompt!&CloseCurlyDoubleQuote;</h2>
+  <h2 class="center">&OpenCurlyDoubleQuote;Apparently {{ total }} hosts consider "{{ query }}" to be a superb prompt!&CloseCurlyDoubleQuote;</h2>
   <div class="wrapper">
     {% for prompt in prompts %}
     {% set date = prompt.date|create_api_date %}
     <dl>
       <dd><a href="{{ url_for('root.view_date', date=date|format_api_date_iso) }}">{{ prompt.word }}</a></dd>
       <dt>{{ date|format_date }}</dt>
-      <dt>{{ prompt.writer }}</dt>
+      <dt>{{ prompt.host }}</dt>
     </dl>
     {%- if loop.index % 5 == 0 %}
   </div>
