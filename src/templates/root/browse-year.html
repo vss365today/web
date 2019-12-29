@@ -4,16 +4,16 @@
 {% block content %}
 <section class="page center browse-giver">
 
-  {%- if not writers -%}
+  {%- if not hosts -%}
   <h2>No {{ year }} #vss365 prompts were found!</h2>
 
   {%- else %}
   <div class="wrapper">
-    {%- for writer in writers %}
+    {%- for host in hosts %}
     <dl>
-      {% set writer_date = writer.date|create_api_date %}
-      <dd><a href="{{ url_for('root.browse_by_year_month', year=writer_date.year, month=writer_date.strftime('%m')) }}">{{ writer.handle }}</a></dd>
-      <dt>{{ writer_date|format_api_date_iso|format_month_year }}</dt>
+      {% set host_date = host.date|create_api_date %}
+      <dd><a href="{{ url_for('root.browse_by_year_month', year=host_date.year, month=host_date.month) }}">{{ host.handle }}</a></dd>
+      <dt>{{ host_date|format_api_date_iso|format_month_year }}</dt>
     </dl>
     {%- if loop.index % 6 == 0 %}
   </div>
