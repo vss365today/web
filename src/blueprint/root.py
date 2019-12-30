@@ -2,7 +2,7 @@ from datetime import date
 
 from flask import request
 from flask import abort, redirect, render_template, url_for
-import requests
+from requests.exceptions import HTTPError
 
 from src.blueprint import root
 from src.core import api, filters
@@ -19,7 +19,7 @@ def subscribe() -> str:
     try:
         api.post("subscription", params={"email": email})
         addition_success = True
-    except requests.exceptions.HTTPError:
+    except HTTPError:
         addition_success = False
 
     render_opts = {
@@ -38,7 +38,7 @@ def form_unsubscribe():
     try:
         api.delete("subscription", params={"email": email})
         removal_success = True
-    except requests.exceptions.HTTPError:
+    except HTTPError:
         removal_success = False
 
     # Go back to the unsub page
@@ -84,7 +84,11 @@ def browse() -> str:
 @root.route("/browse/<year>")
 def browse_by_year(year: str) -> str:
     # Get the host's list and group them up if needed
-    hosts_in_year: dict = api.get("browse", params={"year": year})
+    try:
+        hosts_in_year: dict = api.get("browse", params={"year": year})
+    except HTTPError:
+        abort(404)
+
     grouped_groups = (
         group_month_list_of_hosts(hosts_in_year["hosts"])
         if hosts_in_year["query"] == "2017"
@@ -101,10 +105,13 @@ def browse_by_year(year: str) -> str:
 
 @root.route("/browse/<year>/<month>")
 def browse_by_year_month(year: str, month: str) -> str:
-    month_prompts: dict = api.get(
-        "browse",
-        params={"year": year, "month": month}
-    )
+    try:
+        month_prompts: dict = api.get(
+            "browse",
+            params={"year": year, "month": month}
+        )
+    except HTTPError:
+        abort(404)
 
     render_opts = {
         "form_subscribe": SubscribeForm(),
@@ -139,7 +146,7 @@ def view_date(date: str) -> str:
         api_prompts: list = api.get("prompt", params={"date": date})
 
     # There is no prompt for this day
-    except requests.exceptions.HTTPError:
+    except HTTPError:
         abort(404)
 
     # Create a proper date object for each prompt
