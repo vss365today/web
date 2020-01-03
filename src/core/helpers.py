@@ -3,6 +3,7 @@ from itertools import zip_longest
 import re
 from typing import Iterable, Optional, Tuple
 
+from requests.exceptions import HTTPError
 import tweepy
 
 from src.core import api
@@ -34,14 +35,22 @@ def __filter_hashtags(hashtags: tuple) -> tuple:
     """Remove all hashtags that we don't need to process."""
     # Get the words used for this month and remove them from consideration
     right_now = datetime.now()
-    month_prompts = api.get(
-        "browse",
-        params={
-            "year": right_now.year,
-            "month": right_now.month
-        }
-    )
-    month_words = [prompt["word"] for prompt in month_prompts["prompts"]]
+    try:
+        month_prompts = api.get(
+            "browse",
+            params={
+                "year": right_now.year,
+                "month": right_now.month
+            }
+        )
+        month_words = [prompt["word"] for prompt in month_prompts["prompts"]]
+
+    # There are no words available for this month. That probably means
+    # it's the beginning of the month and no prompts have been given out yet.
+    # Skip over the work variations matching process and go straight
+    # to filtering out the tweet's hashtags
+    except HTTPError:
+        month_words = []
 
     # Go through each word for the month and find variations
     # of it in the tweet. Ex: the word is "motif", so find
