@@ -187,13 +187,13 @@ def create_api_date(date_str: str) -> datetime:
 
 
 @root.app_template_filter()
-def format_api_date_iso(date_obj: datetime) -> str:
-    return filters.format_api_date_iso(date_obj)
+def format_datetime(date_obj: datetime) -> str:
+    return filters.format_datetime(date_obj)
 
 
 @root.app_template_filter()
-def format_date(date_obj: datetime) -> str:
-    return filters.format_date(date_obj)
+def format_date_pretty(date_obj: datetime) -> str:
+    return filters.format_date_pretty(date_obj)
 
 
 @root.app_template_filter()
