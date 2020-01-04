@@ -127,7 +127,7 @@ if prompt_word is None:
 
 # Construct a dictionary with only the info we need
 prompt = {
-    "tweet_id": prompt_tweet.id_str,
+    "id": prompt_tweet.id_str,
     "date": str(tweet_date),
     "uid": prompt_tweet.author.id_str,
     "handle": escape(prompt_tweet.author.screen_name),

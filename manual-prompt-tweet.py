@@ -56,7 +56,7 @@ while True:
 
     # Construct a tweet object
     prompt = {
-        "tweet_id": tweet_id,
+        "id": tweet_id,
         "date": str(prompt_tweet.created_at),
         "uid": prompt_tweet.author.id_str,
         "handle": user_handle,

@@ -58,7 +58,7 @@ def format_month_year(date: str) -> str:
 
 
 def create_tweet_url(tweet: dict) -> str:
-    return "https://twitter.com/{writer_handle}/status/{tweet_id}".format_map(
+    return "https://twitter.com/{writer_handle}/status/{id}".format_map(
         tweet
     )
 

@@ -19,12 +19,10 @@ except HTTPError:
     raise SystemExit(0)
 
 # Rename the different keys
-prompt["tweet_id"] = prompt["id"]
 prompt["handle"] = prompt["writer_handle"]
 prompt["date"] = str(prompt["date"])
-pprint(prompt)
-del prompt["id"]
 del prompt["writer_handle"]
+pprint(prompt)
 
 # Send out the emails that oh-so-didn't work earlier
 print("Sending out notification emails")
