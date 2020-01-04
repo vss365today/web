@@ -1,6 +1,6 @@
 from importlib import import_module
 
-from datetime import date
+from datetime import datetime
 from flask import Flask
 from werkzeug.contrib.fixers import ProxyFix
 
@@ -21,12 +21,8 @@ def create_app():
         app.register_blueprint(bp)
 
     @app.context_processor
-    def inject_site_title():
-        return {"site_title": "#vss365 today"}
-
-    @app.context_processor
     def inject_current_date():
-        return {"current_date": date.today()}
+        return {"current_date": datetime.now()}
 
     @app.context_processor
     def nav_cur_page():

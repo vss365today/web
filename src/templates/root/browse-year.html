@@ -13,7 +13,7 @@
     <dl>
       {% set host_date = host.date|create_api_date %}
       <dd><a href="{{ url_for('root.browse_by_year_month', year=host_date.year, month=host_date.strftime('%m')) }}">{{ host.handle }}</a></dd>
-      <dt>{{ host_date|format_api_date_iso|format_month_year }}</dt>
+      <dt>{{ host_date|format_datetime|format_month_year }}</dt>
     </dl>
     {%- if loop.index % 6 == 0 %}
   </div>

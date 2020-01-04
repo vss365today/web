@@ -8,7 +8,7 @@ __all__ = [
 
 
 def create_tweet_url(tweet: dict) -> str:
-    return f"https://twitter.com/{tweet['handle']}/status/{tweet['tweet_id']}"
+    return f"https://twitter.com/{tweet['handle']}/status/{tweet['id']}"
 
 
 def render_email(tweet: dict) -> dict:

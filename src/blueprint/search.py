@@ -1,12 +1,10 @@
-from datetime import date as date_obj
-
 from flask import request
 from flask import redirect, render_template, url_for
 import requests
 
 from src.blueprint import search
 from src.core import api
-from src.core.filters import create_api_date
+from src.core.filters import create_api_date, create_datetime
 from src.core.form import PromptSearchForm, SubscribeForm
 
 
@@ -27,7 +25,7 @@ def query_search():
 
     try:
         # We recieved an exact (and valid) date, redirect to it
-        date_obj.fromisoformat(query)  # noqa
+        create_datetime(query)  # noqa
         return redirect(url_for("root.view_date", date=query))
 
     # We got a word or partial word to search
