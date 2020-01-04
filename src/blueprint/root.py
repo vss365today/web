@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 from flask import request
 from flask import abort, redirect, render_template, url_for
@@ -143,7 +143,9 @@ def index() -> str:
 def view_date(date: str) -> str:
     # Try to get the prompt for this day
     try:
-        api_prompts: list = api.get("prompt", params={"date": date})
+        api_prompts: list = api.get("prompt", params={
+            "date": filters.create_datetime(date)
+        })
 
     # There is no prompt for this day
     except HTTPError:
@@ -195,7 +197,7 @@ def format_api_date_iso(date_obj: date) -> str:
 
 
 @root.app_template_filter()
-def format_date(date_obj: date) -> str:
+def format_date(date_obj: datetime) -> str:
     return filters.format_date(date_obj)
 
 

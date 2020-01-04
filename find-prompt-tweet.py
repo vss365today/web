@@ -7,7 +7,7 @@ import tweepy
 
 from src.core import api
 from src.core.emails.sender import send_emails
-from src.core.filters import create_api_date
+from src.core.filters import create_api_date, format_api_date
 from src.core.helpers import (
     create_twitter_connection,
     find_prompt_tweet,
@@ -144,7 +144,9 @@ try:
 
     # Send the email notifications
     print("Sending out notification emails")
+    prompt["date"] = format_api_date(tweet_date)
     send_emails(prompt)
+
 except HTTPError:
     print(f"Cannot add prompt for {tweet_date} to the database!")
     raise SystemExit(0)

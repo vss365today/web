@@ -6,6 +6,7 @@ from requests.exceptions import HTTPError
 
 from src.core import api
 from src.core.emails.sender import send_emails
+from src.core.filters import format_api_date
 from src.core.helpers import (
     create_twitter_connection,
     find_prompt_word,
@@ -56,7 +57,7 @@ while True:
     # Construct a tweet object
     prompt = {
         "tweet_id": tweet_id,
-        "date": tweet_date.strip(),
+        "date": str(prompt_tweet.created_at),
         "uid": prompt_tweet.author.id_str,
         "handle": user_handle,
         "content": escape(tweet_text),
@@ -69,10 +70,12 @@ while True:
     try:
         print("Adding tweet to database")
         api.post("prompt", json=prompt)
+
+        # Send the email notifications
+        print("Sending out notification emails")
+        prompt["date"] = format_api_date(prompt_tweet.created_at)
+        send_emails(prompt)
+
     except HTTPError:
         print(f"Cannot add prompt for {tweet_date} to the database!")
         raise SystemExit(0)
-
-    # Send the email notifications
-    print("Sending out notification emails")
-    send_emails(prompt)
