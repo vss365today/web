@@ -18,7 +18,7 @@
   {% for prompt in prompts %}
   <div class="tweet">
     {% if prompt.media %}
-    <img width="400" alt="" src="{{ prompt.media }}">
+    <img width="400" alt="" src="{{ url_for('static', filename='prompt-images/' ~ prompt.media) }}">
     {% endif %}
   </div>
   {% endfor %}
@@ -38,7 +38,7 @@
     {% for prompt in prompts %}
     {{ prompt.content|format_content|safe }}
     {% if prompt.media %}
-    <img width="250" alt="" src="{{ prompt.media }}">
+    <img width="250" alt="" src="{{ url_for('static', filename='prompt-images/' ~ prompt.media) }}">
     {% endif %}
     {% endfor %}
   </details>
