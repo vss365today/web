@@ -10,7 +10,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:400,700|Bad+Script:400|Josefin+Slab:400,600,700&display=swap">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <title>{{ page_title }} | {{ site_title }}</title>
+  <title>{{ page_title }} | {{ config.SITE_TITLE }}</title>
   {% include "partials/social-media.html" %}
 </head>
 

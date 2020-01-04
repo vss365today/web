@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from html import unescape
 
 from src.core.helpers import (
@@ -9,7 +9,6 @@ from src.core.helpers import (
 
 
 __all__ = [
-    "create_date",
     "create_datetime",
     "create_api_date",
     "format_api_date",
@@ -18,11 +17,6 @@ __all__ = [
     "format_date",
     "format_month_year"
 ]
-
-
-def create_date(date_str: str) -> date:
-    """Create a date object from an ISO date string."""
-    return date.fromisoformat(date_str)
 
 
 def create_datetime(date_str: str) -> datetime:
@@ -52,7 +46,7 @@ def create_tweet_url(tweet: dict) -> str:
     )
 
 
-def format_api_date_iso(date_obj: date) -> str:
+def format_api_date_iso(date_obj: datetime) -> str:
     return date_obj.strftime("%Y-%m-%d")
 
 
@@ -84,4 +78,4 @@ def format_month_year(date: str) -> str:
     # Add in a dummy day if needed
     if len(date.split("-")) == 2:
         date = f"{date}-01"
-    return create_date(date).strftime("%B %Y")
+    return create_datetime(date).strftime("%B %Y")

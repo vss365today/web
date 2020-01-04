@@ -22,6 +22,7 @@ except HTTPError:
 prompt["tweet_id"] = prompt["id"]
 prompt["handle"] = prompt["writer_handle"]
 prompt["date"] = str(prompt["date"])
+pprint(prompt)
 del prompt["id"]
 del prompt["writer_handle"]
 

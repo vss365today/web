@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 
 from flask import request
 from flask import abort, redirect, render_template, url_for
@@ -182,17 +182,12 @@ def server_error(e) -> tuple:
 
 
 @root.app_template_filter()
-def create_api_date(date_str: str) -> date:
+def create_api_date(date_str: str) -> datetime:
     return filters.create_api_date(date_str)
 
 
 @root.app_template_filter()
-def create_date(date_str: str) -> date:
-    return filters.create_date(date_str)
-
-
-@root.app_template_filter()
-def format_api_date_iso(date_obj: date) -> str:
+def format_api_date_iso(date_obj: datetime) -> str:
     return filters.format_api_date_iso(date_obj)
 
 
