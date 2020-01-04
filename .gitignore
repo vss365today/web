@@ -4,6 +4,7 @@ __pycache__
 .vscode/
 backup/
 testing/
+prompt-images/
 *.db
 *.ini
 *.json
