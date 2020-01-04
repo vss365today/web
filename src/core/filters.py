@@ -23,8 +23,8 @@ def create_date(date_str: str) -> date:
     return date.fromisoformat(date_str)
 
 
-def create_api_date(date_str: str) -> date:
-    """Create a date object from an API response date string.
+def create_api_date(date_str: str) -> datetime:
+    """Create a datetime object from an API response date string.
 
     E.g, Tue, 02 Jul 2019 00:00:00 GMT
     """
