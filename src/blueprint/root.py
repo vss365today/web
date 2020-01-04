@@ -144,7 +144,7 @@ def view_date(date: str) -> str:
     # Try to get the prompt for this day
     try:
         api_prompts: list = api.get("prompt", params={
-            "date": filters.create_datetime(date)
+            "date": str(filters.create_datetime(date))
         })
 
     # There is no prompt for this day
