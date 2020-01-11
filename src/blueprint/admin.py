@@ -13,6 +13,11 @@ def config():
     abort(404)
 
 
+@admin.route("/prompts")
+def prompts():
+    abort(404)
+
+
 @admin.route("/prompts/edit/<string:prompt_date>")
 def prompt_edit(prompt_date: str):
     abort(404)

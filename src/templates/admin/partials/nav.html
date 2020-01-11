@@ -1,0 +1,6 @@
+<nav class="primary">
+  <a class="nav-link {{ nav_cur_page(page_title, 'home') }}" href="{{ url_for('admin.index') }}">Home</a>
+  <a class="nav-link {{ nav_cur_page(page_title, 'host') }}" href="{{ url_for('admin.hosts') }}">Hosts</a>
+  <a class="nav-link {{ nav_cur_page(page_title, 'prompt') }}" href="{{ url_for('admin.prompts') }}">Prompts</a>
+  <a class="nav-link {{ nav_cur_page(page_title, 'config') }}" href="{{ url_for('admin.config') }}">Config</a>
+</nav>
