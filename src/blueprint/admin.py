@@ -1,5 +1,5 @@
 from flask import request
-from flask import abort, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, url_for
 
 from src.blueprint import admin
 from src.core.config import (
@@ -56,7 +56,8 @@ def config_save():
     # Save the updated config
     save_json_config(current_config)
 
-    # TODO Some form of "success" message
+    # Go back to the config page
+    flash("Configuration successfully updated.")
     return redirect(url_for("admin.config"))
 
 
