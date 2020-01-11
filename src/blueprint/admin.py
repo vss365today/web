@@ -5,13 +5,12 @@ from src.blueprint import admin
 
 @admin.route("/")
 def index():
-    return render_template("admin/index.html")
+    abort(404)
 
 
 @admin.route("/config")
 def config():
-    abort(404)
-
+    return render_template("admin/config.html")
 
 @admin.route("/prompts")
 def prompts():
