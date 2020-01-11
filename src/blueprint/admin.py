@@ -1,11 +1,11 @@
-from flask import abort
+from flask import abort, render_template
 
 from src.blueprint import admin
 
 
 @admin.route("/")
 def index():
-    abort(404)
+    return render_template("admin/index.html")
 
 
 @admin.route("/config")
