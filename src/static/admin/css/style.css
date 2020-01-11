@@ -41,6 +41,9 @@ div.divider > span.dot {
   font-size: 0.9em;
   margin-right: auto;
   margin-left: auto;
+  border-color: lightgray;
+  border-style: solid;
+  border-radius: 3px;
 }
 
 .btn-submit {
