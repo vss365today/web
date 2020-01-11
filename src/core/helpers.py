@@ -23,7 +23,8 @@ __all__ = [
     "get_tweet_text",
     "make_hashtags",
     "make_mentions",
-    "make_urls"
+    "make_urls",
+    "split_hashtags_into_list"
 ]
 
 
@@ -233,3 +234,11 @@ def make_urls(text: str) -> str:
         html = f'<a href="{link}">{link}</a>'
         text = text.replace(link, html)
     return text
+
+
+def split_hashtags_into_list(hashtags: str) -> list:
+    return [
+        hashtag.strip().upper()
+        for hashtag in hashtags.split("\r\n")
+        if hashtag.startswith("#")
+    ]
