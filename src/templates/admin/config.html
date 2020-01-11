@@ -11,7 +11,7 @@
 
   <form action="#" method="post">
     <label for="input-hashtag-posi">Hashtag position</label>
-    <input type="number" name="input-hashtag-posi" id="input-hashtag-posi" min="1" step="1" placeholder="1">
+    <input type="number" name="input-hashtag-posi" id="input-hashtag-posi" min="1" step="1" placeholder="1" value="{{ json_config.word_index + 1 }}">
     <button type="submit" class="btn-submit">Save</button>
   </form>
 
@@ -21,7 +21,9 @@
   <p>Specify the hashtags that indicate a prompt tweet. Place each individual hashtag on its own line. Lines that do not begin with a hashtag will be ignored.</p>
 
   <form action="#" method="post">
-    <textarea name="input-hashtags-identifier" id="input-hashtag-identifier" cols="5" rows="10"></textarea>
+    <textarea name="input-hashtags-identifier" id="input-hashtag-identifier" cols="5" rows="10" spellcheck="off">{% for hashtag in json_config.identifiers -%}
+{{ hashtag }}{{ '\n' }}{% endfor -%}
+    </textarea>
     <button type="submit" class="btn-submit">Save</button>
   </form>
 
@@ -31,7 +33,9 @@
   <p>Do not consider these hashtags as possible prompt words. Place each individual hashtag on its own line. Lines that do not begin with a hashtag will be ignored.</p>
 
   <form action="#" method="post">
-    <textarea name="input-hashtags-filter" id="input-hashtag-filter" cols="5" rows="10"></textarea>
+    <textarea name="input-hashtags-filter" id="input-hashtag-filter" cols="5" rows="10" spellcheck="off">{% for hashtag in json_config.additionals -%}
+{{ hashtag }}{{ '\n' }}{% endfor -%}
+</textarea>
     <button type="submit" class="btn-submit">Save</button>
   </form>
 </section>

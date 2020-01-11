@@ -1,6 +1,7 @@
 from flask import abort, render_template
 
 from src.blueprint import admin
+from src.core.config import load_json_config
 
 
 @admin.route("/")
@@ -10,7 +11,11 @@ def index():
 
 @admin.route("/config")
 def config():
-    return render_template("admin/config.html")
+    render_opts = {
+        "json_config": load_json_config()
+    }
+    return render_template("admin/config.html", **render_opts)
+
 
 @admin.route("/prompts")
 def prompts():
@@ -27,6 +32,6 @@ def hosts():
     abort(404)
 
 
-@admin.route("/hosts/edit/<int:host_id>")
-def host_edit(host_id: int):
+@admin.route("/hosts/edit/<str:host_id>")
+def host_edit(host_id: str):
     abort(404)
