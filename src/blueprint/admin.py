@@ -2,7 +2,10 @@ from flask import request
 from flask import abort, redirect, render_template, url_for
 
 from src.blueprint import admin
-from src.core.config import load_json_config
+from src.core.config import (
+    load_json_config,
+    save_json_config
+)
 from src.core.helpers import split_hashtags_into_list
 
 
@@ -50,8 +53,10 @@ def config_save():
     # clobbering whatever value we previously had
     current_config.update(found_key)
 
-    # TODO Save the updated config
+    # Save the updated config
+    save_json_config(current_config)
 
+    # TODO Some form of "success" message
     return redirect(url_for("admin.config"))
 
 
