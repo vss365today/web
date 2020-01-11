@@ -33,4 +33,4 @@ root = _factory("root", "")
 admin = _factory("admin", "/admin")
 search = _factory("search", "/search")
 
-all_blueprints = (root, admin, search, )
+all_blueprints = (root, search, )
