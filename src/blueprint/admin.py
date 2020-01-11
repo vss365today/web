@@ -34,7 +34,7 @@ def config_save():
 
     # Map field specific converters to format the data correctly
     converters = {
-        "word_index": lambda x: int(x) - 1,
+        "word_index": lambda x: int(x) - 1 if int(x) - 1 >= 0 else 0,
         "identifiers": lambda x: split_hashtags_into_list(x),
         "additionals": lambda x: split_hashtags_into_list(x)
     }
