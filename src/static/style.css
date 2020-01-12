@@ -162,6 +162,7 @@ details img {
 
 footer {
   padding: 0.5em;
+  padding-bottom: 1em;
   text-align: center;
   background-color: var(--body-background-accent);
 }

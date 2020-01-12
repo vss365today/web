@@ -5,6 +5,8 @@ __pycache__
 backup/
 testing/
 prompt-images/
+node_modules/
+
 *.db
 *.ini
 *.json
