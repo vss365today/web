@@ -26,12 +26,6 @@
 1. `docker build -f "docker/Dockerfile" -t vss365-today:latest .`
 1. `docker-compose -f "docker/docker-compose.yml" up -d`
 
-## Known Issues
-
-- Firefox's built-in content blocker prevents the Twitter-hosted media from loading,
-as it blocks the `https://pbs.twimg.com` domain by default.
-To see tweet media, consider disabling the content blocker just for this site.
-
 ## License
 
 2019-2020 Caleb Ely
