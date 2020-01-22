@@ -2,7 +2,6 @@
   "use strict";
   const STORAGE_KEY = "is-dark-theme";
   const userTheme = window.localStorage.getItem(STORAGE_KEY);
-  const btnToggle = document.querySelector("nav.primary #btn-theme");
 
   function isDarkTheme() {
     return document.body.classList.contains("dark");
@@ -23,9 +22,4 @@
 
   // Set or remove the `dark` class on page load
   document.body.classList.toggle("dark", wantsDarkTheme);
-
-  // Allow the user to toggle between the themes
-  btnToggle.addEventListener("click", function() {
-    applyDarkTheme();
-  });
 }());

@@ -115,7 +115,6 @@ nav.primary .nav-link {
   font-size: 1.3em;
   color: var(--primary-text);
 }
-.nav-link#btn-theme { cursor: pointer; }
 
 main {
   padding-bottom: 1em;
