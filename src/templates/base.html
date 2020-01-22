@@ -39,6 +39,7 @@
     {% endif -%}
     #}
     <div>{{ current_date.year }} <a rel="noopener noreferrer" href="https://codetri.net">Caleb Ely</a></div>
+    <div><a href="{{ url_for('root.donate') }}">Donate</a></div>
   </footer>
 
   {% if config.ENV == "production" %}

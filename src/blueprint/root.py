@@ -124,6 +124,11 @@ def browse_by_year_month(year: str, month: str) -> str:
     return render_template("root/browse-host.html", **render_opts)
 
 
+@root.route("/donate")
+def donate() -> str:
+    return render_template("root/donate.html")
+
+
 @root.route("/")
 def index() -> str:
     # Get the latest prompt and go ahead and make a proper date object

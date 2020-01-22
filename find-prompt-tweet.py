@@ -101,7 +101,6 @@ if tweet_date.day - TODAY.day < 0:
         hours=next_day_hour_difference
     )
 
-print(tweet_date)
 
 # We already have the latest tweet, don't do anything
 # This condition is hit when it is _technnically_ the next day
@@ -143,9 +142,9 @@ try:
     api.post("prompt", json=prompt)
 
     # Send the email notifications
-    print("Sending out notification emails")
-    prompt["date"] = format_api_date(tweet_date)
-    send_emails(prompt)
+    # print("Sending out notification emails")
+    # prompt["date"] = format_api_date(tweet_date)
+    # send_emails(prompt)
 
 except HTTPError:
     print(f"Cannot add prompt for {tweet_date} to the database!")
