@@ -1,5 +1,5 @@
 #vss365 today
-{{ tweet.date }}
+{{ tweet.date_pretty }}
 
 Today's writing prompt is:
 
@@ -9,3 +9,4 @@ Prompt by {{ tweet.handle }}
 {{ tweet.url }}
 
 To unsubscribe, visit https://vss365today.com/unsubscribe
+To view in your browser, visit https://vss365today.com/view/{{ tweet.date }}

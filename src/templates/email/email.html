@@ -45,7 +45,7 @@
           <tr>
             <td class="header"
               style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 0 0 25px 0; text-align: center; color: #353333; font-size: 19px; text-decoration: none;">
-              {{ tweet.date }}
+              {{ tweet.date_pretty }}
             </td>
           </tr>
           <!-- Email Body -->
@@ -112,7 +112,7 @@
                     style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; padding: 35px;">
                     <p
                       style="font-family: Avenir, Helvetica, sans-serif; box-sizing: border-box; line-height: 1em; margin-top: 0; color: #353333; font-size: 12px; text-align: center;">
-                      <a style="color: #3ab879; text-decoration: none;" href="https://vss365today.com/unsubscribe">Unsubscribe</a></p>
+                      <a style="color: #3ab879; text-decoration: none;" href="https://vss365today.com/unsubscribe">Unsubscribe</a> | <a style="color: #3ab879; text-decoration: none;" href="https://vss365today.com/view/{{ tweet.date }}">View in browser</a></p>
                   </td>
                 </tr>
               </table>

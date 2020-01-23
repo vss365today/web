@@ -3,7 +3,11 @@ from mailjet_rest import Client
 from src.core import api
 from src.core.config import load_app_config
 from src.core.emails.generator import render_email
-from src.core.filters import create_api_date, format_date_pretty
+from src.core.filters import (
+    create_api_date,
+    format_datetime,
+    format_date_pretty
+)
 
 
 __all__ = ["send_emails"]
@@ -34,8 +38,11 @@ def send_emails(tweet: dict):
         CONFIG["MJ_APIKEY_PRIVATE"]
     ), version="v3.1")
 
-    # Properly format the tweet date
-    tweet["date"] = format_date_pretty(create_api_date(tweet["date"]))
+    # Format the tweet date for both displaying and URL usage
+    tweet_date = create_api_date(tweet["date"])
+    tweet["date"] = format_datetime(tweet_date)
+    tweet["date_pretty"] = format_date_pretty(tweet_date)
+
     completed_email = render_email(tweet)
 
     # Get the email address list and break it into chunks of 50
