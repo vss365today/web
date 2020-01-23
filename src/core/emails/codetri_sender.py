@@ -19,7 +19,7 @@ __all__ = ["send"]
 CONFIG = load_app_config()
 
 
-def construct_email(
+def construct(
     tweet: dict,
     addr: str,
     completed_email: dict
@@ -60,9 +60,9 @@ def send(tweet: dict):
 
     completed_email = render(tweet)
 
-    # Rewrite the emails to be in the correct format
+    # Construct the email objects for sending
     messages = [
-        construct_email(tweet, addr, completed_email)
+        construct(tweet, addr, completed_email)
         for addr in mailing_list
     ]
 
