@@ -1,7 +1,7 @@
 from datetime import datetime
 from itertools import zip_longest
 import re
-from typing import Iterable, Optional, Tuple
+from typing import Any, Iterable, List, Optional, Tuple
 
 from requests.exceptions import HTTPError
 import tweepy
@@ -14,6 +14,7 @@ from src.core.config import (
 
 
 __all__ = [
+    "chunk_list",
     "create_twitter_connection",
     "find_prompt_tweet",
     "find_prompt_word",
@@ -93,6 +94,13 @@ def __grouper(iterable: Iterable) -> tuple:
     """
     args = [iter(iterable)] * 2
     return tuple(zip_longest(*args, fillvalue={}))
+
+
+def chunk_list(data: list, chunk_size: int = 50) -> List[List[Any]]:
+    return [
+        data[i:i + chunk_size]
+        for i in range(0, len(data), chunk_size)
+    ]
 
 
 def create_twitter_connection() -> tweepy.API:

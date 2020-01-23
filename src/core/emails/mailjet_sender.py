@@ -8,6 +8,7 @@ from src.core.filters import (
     format_datetime,
     format_date_pretty
 )
+from src.core.helpers import chunk_list
 
 
 __all__ = ["send_emails"]
@@ -51,12 +52,7 @@ def send_emails(tweet: dict):
     # If/when there are more than 50 emails in the db,
     # we need to chunk the addresses. This will chunk them
     # into a nth-array level containing <= 50 emails.
-    chunk_size = 50
-    mailing_list: list = api.get("subscription")
-    mailing_list = [
-        mailing_list[i:i + chunk_size]
-        for i in range(0, len(mailing_list), chunk_size)
-    ]
+    mailing_list: list = chunk_list(api.get("subscription"))
     rendered_emails = []
 
     # Construct and render the emails in each chunk
