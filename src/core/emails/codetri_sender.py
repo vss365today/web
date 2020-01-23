@@ -31,21 +31,21 @@ def construct(
     em["Date"] = localtime()
 
     # Set all of the message details
-    em["subject"] = tweet["date"]
-    em["from"] = Address(CONFIG["SITE_TITLE"], "noreply", "codetri.net")
+    em["Subject"] = tweet["date_pretty"]
+    em["From"] = Address(CONFIG["SITE_TITLE"], "noreply", "codetri.net")
 
     # Split the "To" address into the separate parts
     addr_to = addr.split("@")
-    em["to"] = Address(
+    em["To"] = Address(
         f"{CONFIG['SITE_TITLE']} Subscriber",
         addr_to[0],
         addr_to[1]
     )
 
     # Provide both HTML and text versions of te email
-    # TODO Correctly set mimetypes
-    em.set_content(completed_email["html"], subtype="html")
-    em.add_alternative(completed_email["text"], subtype="plain")
+    # TODO Correctly set both parts of the email
+    em.set_content(completed_email["text"])
+    em.add_alternative(completed_email["html"], subtype="html")
     print(em)
     raise SystemExit
     return em
