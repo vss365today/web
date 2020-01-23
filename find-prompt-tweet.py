@@ -142,9 +142,9 @@ try:
     api.post("prompt", json=prompt)
 
     # Send the email notifications
-    # print("Sending out notification emails")
-    # prompt["date"] = format_api_date(tweet_date)
-    # send_emails(prompt)
+    print("Sending out notification emails")
+    prompt["date"] = format_api_date(tweet_date)
+    send_emails(prompt)
 
 except HTTPError:
     print(f"Cannot add prompt for {tweet_date} to the database!")
