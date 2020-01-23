@@ -5,7 +5,7 @@ from smtplib import SMTP
 
 from src.core import api
 from src.core.config import load_app_config
-from src.core.emails.generator import render_email
+from src.core.emails.generator import render
 from src.core.filters import (
     create_api_date,
     format_datetime,
@@ -58,7 +58,7 @@ def send(tweet: dict):
     tweet["date"] = format_datetime(tweet_date)
     tweet["date_pretty"] = format_date_pretty(tweet_date)
 
-    completed_email = render_email(tweet)
+    completed_email = render(tweet)
 
     # Rewrite the emails to be in the correct format
     messages = [

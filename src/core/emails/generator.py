@@ -3,7 +3,7 @@ from jinja2 import Template
 
 
 __all__ = [
-    "render_email"
+    "render"
 ]
 
 
@@ -11,7 +11,7 @@ def create_tweet_url(tweet: dict) -> str:
     return f"https://twitter.com/{tweet['handle']}/status/{tweet['id']}"
 
 
-def render_email(tweet: dict) -> dict:
+def render(tweet: dict) -> dict:
     """Render a complete email template."""
     # Construct a proper tweet URL
     tweet["url"] = create_tweet_url(tweet)

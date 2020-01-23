@@ -2,7 +2,7 @@ from mailjet_rest import Client
 
 from src.core import api
 from src.core.config import load_app_config
-from src.core.emails.generator import render_email
+from src.core.emails.generator import render
 from src.core.filters import (
     create_api_date,
     format_datetime,
@@ -44,7 +44,7 @@ def send_emails(tweet: dict):
     tweet["date"] = format_datetime(tweet_date)
     tweet["date_pretty"] = format_date_pretty(tweet_date)
 
-    completed_email = render_email(tweet)
+    completed_email = render(tweet)
 
     # Get the email address list and break it into chunks of 50
     # The MailJet Send API v3.1
