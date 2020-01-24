@@ -14,26 +14,32 @@ from src.core.helpers import chunk_list
 __all__ = ["send_emails"]
 
 
-def construct_email(tweet: dict, addr: str, completed_email: dict) -> dict:
+CONFIG = load_app_config()
+
+
+def construct_email(
+    tweet: dict,
+    addr: str,
+    completed_email: dict
+) -> dict:
     """Construct a MailJet email dictionary."""
     return {
-        "Subject": f'{tweet["date"]}',
+        "Subject": f'{tweet["date_pretty"]}',
         "HTMLPart": completed_email["html"],
         "TextPart": completed_email["text"],
         "From": {
             "Email": "noreply@fromabcthrough.xyz",
-            "Name": "#vss365 today"
+            "Name": CONFIG["SITE_TITLE"]
         },
         "To": [{
             "Email": addr,
-            "Name": "#vss365 today Subscriber"
+            "Name": f"{CONFIG['SITE_TITLE']} Subscriber",
         }]
     }
 
 
 def send_emails(tweet: dict):
     # Connect to the Mailjet Send API
-    CONFIG = load_app_config()
     mailjet = Client(auth=(
         CONFIG["MJ_APIKEY_PUBLIC"],
         CONFIG["MJ_APIKEY_PRIVATE"]
@@ -44,6 +50,7 @@ def send_emails(tweet: dict):
     tweet["date"] = format_datetime(tweet_date)
     tweet["date_pretty"] = format_date_pretty(tweet_date)
 
+    # Render the email template
     completed_email = render(tweet)
 
     # Get the email address list and break it into chunks of 50
