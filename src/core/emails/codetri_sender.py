@@ -4,14 +4,8 @@ from email.utils import localtime, make_msgid
 from smtplib import SMTP
 from typing import Dict, List, NewType
 
-from src.core import api
 from src.core.config import load_app_config
-from src.core.emails.generator import render
-from src.core.filters import (
-    create_api_date,
-    format_datetime,
-    format_date_pretty
-)
+from src.core.emails.generator import generate, render, EmailTemplate
 
 
 __all__ = ["send"]
@@ -24,7 +18,7 @@ EmailAddress = NewType("EmailAddress", str)
 def construct(
     tweet: Dict[str, str],
     addr: EmailAddress,
-    completed_email: Dict[str, str]
+    completed_email: EmailTemplate
 ) -> EmailMessage:
 
     # Instance the email message and set any headers we need
@@ -34,7 +28,11 @@ def construct(
 
     # Set all of the message details
     em["Subject"] = tweet["date_pretty"]
-    em["From"] = Address(CONFIG["SITE_TITLE"], "noreply", CONFIG["SMTP_DOMAIN"])
+    em["From"] = Address(
+        CONFIG["SITE_TITLE"],
+        "noreply",
+        CONFIG["SMTP_DOMAIN"]
+    )
 
     # Split the "To" address into the separate parts
     addr_to = addr.split("@")
@@ -46,23 +44,15 @@ def construct(
 
     # Provide both HTML and text versions of te email
     # TODO Correctly set both parts of the email
-    em.set_content(completed_email["text"])
-    em.add_alternative(completed_email["html"], subtype="html")
+    em.set_content(completed_email.text)
+    em.add_alternative(completed_email.html, subtype="html")
     return em
 
 
-def send(tweet: dict):
-    # mailing_list: List[str] = api.get("subscription")
-    mailing_list: List[str] = [CONFIG["SMPT_TEST_EMAIL"]]
-
-    # Format the tweet date for both displaying and URL usage
-    tweet_date = create_api_date(tweet["date"])
-    tweet["date"] = format_datetime(tweet_date)
-    tweet["date_pretty"] = format_date_pretty(tweet_date)
-
-    # Render the email template
+def send(tweet: dict, mailing_list: List[str]):
+    # Prepare the tweet object and render out the email
+    tweet = generate(tweet)
     completed_email = render(tweet)
-
     # Construct the email objects for sending
     messages = [
         construct(tweet, EmailAddress(addr), completed_email)

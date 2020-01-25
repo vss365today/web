@@ -96,10 +96,10 @@ def __grouper(iterable: Iterable) -> tuple:
     return tuple(zip_longest(*args, fillvalue={}))
 
 
-def chunk_list(data: list, chunk_size: int = 50) -> List[List[Any]]:
+def chunk_list(data: List[Any], *, size: int = 50) -> List[List[Any]]:
     return [
-        data[i:i + chunk_size]
-        for i in range(0, len(data), chunk_size)
+        data[i:i + size]
+        for i in range(0, len(data), size)
     ]
 
 

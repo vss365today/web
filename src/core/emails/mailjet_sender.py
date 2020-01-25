@@ -1,14 +1,9 @@
+from typing import List
+
 from mailjet_rest import Client
 
-from src.core import api
 from src.core.config import load_app_config
-from src.core.emails.generator import render
-from src.core.filters import (
-    create_api_date,
-    format_datetime,
-    format_date_pretty
-)
-from src.core.helpers import chunk_list
+from src.core.emails.generator import generate, render, EmailTemplate
 
 
 __all__ = ["send"]
@@ -20,13 +15,13 @@ CONFIG = load_app_config()
 def construct_email(
     tweet: dict,
     addr: str,
-    completed_email: dict
+    completed_email: EmailTemplate
 ) -> dict:
     """Construct a MailJet email dictionary."""
     return {
         "Subject": f'{tweet["date_pretty"]}',
-        "HTMLPart": completed_email["html"],
-        "TextPart": completed_email["text"],
+        "HTMLPart": completed_email.html,
+        "TextPart": completed_email.text,
         "From": {
             "Email": "noreply@fromabcthrough.xyz",
             "Name": CONFIG["SITE_TITLE"]
@@ -38,19 +33,15 @@ def construct_email(
     }
 
 
-def send(tweet: dict):
+def send(tweet: dict, mailing_list: List[List[str]]):
     # Connect to the Mailjet Send API
     mailjet = Client(auth=(
         CONFIG["MJ_APIKEY_PUBLIC"],
         CONFIG["MJ_APIKEY_PRIVATE"]
     ), version="v3.1")
 
-    # Format the tweet date for both displaying and URL usage
-    tweet_date = create_api_date(tweet["date"])
-    tweet["date"] = format_datetime(tweet_date)
-    tweet["date_pretty"] = format_date_pretty(tweet_date)
-
-    # Render the email template
+    # Prepare the tweet object and render out the email
+    tweet = generate(tweet)
     completed_email = render(tweet)
 
     # Get the email address list and break it into chunks of 50
@@ -59,7 +50,6 @@ def send(tweet: dict):
     # If/when there are more than 50 emails in the db,
     # we need to chunk the addresses. This will chunk them
     # into a nth-array level containing <= 50 emails.
-    mailing_list: list = chunk_list(api.get("subscription"))
     rendered_emails = []
 
     # Construct and render the emails in each chunk
