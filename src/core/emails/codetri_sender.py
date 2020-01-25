@@ -4,14 +4,8 @@ from email.utils import localtime, make_msgid
 from smtplib import SMTP
 from typing import Dict, List, NewType
 
-from src.core import api
 from src.core.config import load_app_config
 from src.core.emails.generator import render
-from src.core.filters import (
-    create_api_date,
-    format_datetime,
-    format_date_pretty
-)
 
 
 __all__ = ["send"]
@@ -52,13 +46,7 @@ def construct(
 
 
 def send(tweet: dict):
-    # mailing_list: List[str] = api.get("subscription")
     mailing_list: List[str] = [CONFIG["SMPT_TEST_EMAIL"]]
-
-    # Format the tweet date for both displaying and URL usage
-    tweet_date = create_api_date(tweet["date"])
-    tweet["date"] = format_datetime(tweet_date)
-    tweet["date_pretty"] = format_date_pretty(tweet_date)
 
     # Render the email template
     completed_email = render(tweet)
