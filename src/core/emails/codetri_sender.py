@@ -2,6 +2,7 @@ from email.headerregistry import Address
 from email.message import EmailMessage
 from email.utils import localtime, make_msgid
 from smtplib import SMTP
+from typing import Dict, List, NewType
 
 from src.core import api
 from src.core.config import load_app_config
@@ -17,12 +18,13 @@ __all__ = ["send"]
 
 
 CONFIG = load_app_config()
+EmailAddress = NewType("EmailAddress", str)
 
 
 def construct(
-    tweet: dict,
-    addr: str,
-    completed_email: dict
+    tweet: Dict[str, str],
+    addr: EmailAddress,
+    completed_email: Dict[str, str]
 ) -> EmailMessage:
 
     # Instance the email message and set any headers we need
@@ -46,23 +48,22 @@ def construct(
     # TODO Correctly set both parts of the email
     em.set_content(completed_email["text"])
     em.add_alternative(completed_email["html"], subtype="html")
-    print(em)
-    raise SystemExit
     return em
 
 
 def send(tweet: dict):
-    mailing_list: list = api.get("subscription")
+    mailing_list: List[str] = api.get("subscription")
     # Format the tweet date for both displaying and URL usage
     tweet_date = create_api_date(tweet["date"])
     tweet["date"] = format_datetime(tweet_date)
     tweet["date_pretty"] = format_date_pretty(tweet_date)
 
+    # Render the email template
     completed_email = render(tweet)
 
     # Construct the email objects for sending
     messages = [
-        construct(tweet, addr, completed_email)
+        construct(tweet, EmailAddress(addr), completed_email)
         for addr in mailing_list
     ]
 

@@ -9,7 +9,7 @@ COPY ./docker /app/docker
 COPY [ "get-requirements.py", "poetry.lock", "pyproject.toml", "run-app.sh", "/app/" ]
 WORKDIR /app
 
-# Install required deps
+# Install required deps and run the app
 RUN python3 -m pip install pip --upgrade && \
     pip3 install --no-cache-dir toml && \
     python3 ./get-requirements.py && \
