@@ -53,6 +53,7 @@ def send(tweet: dict, mailing_list: List[str]):
     # Prepare the tweet object and render out the email
     tweet = generate(tweet)
     completed_email = render(tweet)
+
     # Construct the email objects for sending
     messages = [
         construct(tweet, EmailAddress(addr), completed_email)
