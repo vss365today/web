@@ -11,7 +11,7 @@ from src.core.filters import (
 from src.core.helpers import chunk_list
 
 
-__all__ = ["send_emails"]
+__all__ = ["send"]
 
 
 CONFIG = load_app_config()
@@ -38,7 +38,7 @@ def construct_email(
     }
 
 
-def send_emails(tweet: dict):
+def send(tweet: dict):
     # Connect to the Mailjet Send API
     mailjet = Client(auth=(
         CONFIG["MJ_APIKEY_PUBLIC"],

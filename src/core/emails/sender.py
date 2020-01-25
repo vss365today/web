@@ -1,6 +1,6 @@
 from src.core.config import load_json_config
 from src.core.emails.codetri_sender import send as send_codetri
-from src.core.emails.mailjet_sender import send_emails as send_emails_mailjet
+from src.core.emails.mailjet_sender import send as send_mailjet
 
 __all__ = ["send_emails"]
 
@@ -10,8 +10,11 @@ def send_emails(tweet: dict):
     JSON_CONFIG = load_json_config()
     providers = {
         "codetri": send_codetri,
-        "mailjet": send_emails_mailjet
+        "mailjet": send_mailjet
     }
 
     # Send out the emails
     providers[JSON_CONFIG["email_provider"]](tweet)
+
+    # Send out an email using the codetri server
+    send_codetri(tweet)

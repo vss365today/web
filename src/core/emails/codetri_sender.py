@@ -52,7 +52,9 @@ def construct(
 
 
 def send(tweet: dict):
-    mailing_list: List[str] = api.get("subscription")
+    # mailing_list: List[str] = api.get("subscription")
+    mailing_list: List[str] = [CONFIG["SMPT_TEST_EMAIL"]]
+
     # Format the tweet date for both displaying and URL usage
     tweet_date = create_api_date(tweet["date"])
     tweet["date"] = format_datetime(tweet_date)
