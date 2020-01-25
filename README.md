@@ -11,11 +11,11 @@
 * Twitter Consumer API keys
 * Twitter access token & access token secret
 * Mailjet public & private keys (_to be removed_)
-* SMTP server address (default port 587, configurable)
+* SMTP server address and domain (default port 587, configurable)
 
 ## Install
 
-1. Install Python 3.8+ and [Poetry](https://poetry.eustace.io/) 1.0.0b6+
+1. Install Python 3.8+ and [Poetry](https://python-poetry.org/) 1.0.0+
 1. `mv oss.env .env`
 1. Set missing configuration keys
 1. `poetry install`

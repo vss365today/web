@@ -29,12 +29,12 @@ def construct(
 
     # Instance the email message and set any headers we need
     em = EmailMessage()
-    em["Message-ID"] = make_msgid(domain="codetri.net")
+    em["Message-ID"] = make_msgid(domain=CONFIG["SMTP_DOMAIN"])
     em["Date"] = localtime()
 
     # Set all of the message details
     em["Subject"] = tweet["date_pretty"]
-    em["From"] = Address(CONFIG["SITE_TITLE"], "noreply", "codetri.net")
+    em["From"] = Address(CONFIG["SITE_TITLE"], "noreply", CONFIG["SMTP_DOMAIN"])
 
     # Split the "To" address into the separate parts
     addr_to = addr.split("@")
