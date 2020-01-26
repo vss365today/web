@@ -19,10 +19,10 @@ def send_emails(tweet: dict):
         "mailjet": send_mailjet
     }
 
-    # Get the mailing list and chunk it into groups of 35 messages
+    # Get the mailing list and chunk it into groups
     mailing_list: List[List[str]] = chunk_list(
         api.get("subscription"),
-        size=35
+        size=20
     )
 
     # Take out a random chunk of emails to be sent out using
