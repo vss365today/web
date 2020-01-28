@@ -31,6 +31,10 @@ def send_emails(tweet: dict):
     random_chunk = randrange(0, len(mailing_list))
     experimental_send_list = mailing_list.pop(random_chunk)
 
+    # Regardless of the chunk selected, always send a copy
+    # to the test email addr so I know it, like, works
+    experimental_send_list.append(CONFIG["SMPT_TEST_EMAIL"])
+
     # Send out the emails using MailJet
     providers[JSON_CONFIG["email_provider"]](tweet, mailing_list)
 
