@@ -2,7 +2,7 @@ from random import randrange
 from typing import Callable, Dict, List
 
 from src.core import api
-from src.core.config import load_json_config
+from src.core.config import load_app_config, load_json_config
 from src.core.emails.codetri_sender import send as send_codetri
 from src.core.emails.mailjet_sender import send as send_mailjet
 from src.core.helpers import chunk_list
@@ -14,6 +14,7 @@ __all__ = ["send_emails"]
 def send_emails(tweet: dict):
     # Determine which email provider we need
     JSON_CONFIG = load_json_config()
+    CONFIG = load_app_config()
     providers: Dict[str, Callable] = {
         "codetri": send_codetri,
         "mailjet": send_mailjet
