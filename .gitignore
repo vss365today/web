@@ -1,6 +1,6 @@
 __pycache__
 .data/
-.geolocation/
+.mypy_cache/
 .vscode/
 backup/
 testing/

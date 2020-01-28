@@ -66,7 +66,6 @@ def send(tweet: dict, mailing_list: List[str]):
         CONFIG["SMTP_SERVER_PORT"]
     ) as server:
         server.ehlo_or_helo_if_needed()
-        server.set_debuglevel(1)  # TODO Remove this line
 
         # Send each message
         # TODO There needs to be some form of logging in place
