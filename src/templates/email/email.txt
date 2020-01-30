@@ -10,3 +10,4 @@ Prompt by {{ tweet.handle }}
 
 To unsubscribe, visit https://vss365today.com/unsubscribe
 To view in your browser, visit https://vss365today.com/view/{{ tweet.date }}
+To help support #vss365 today, visit https://vss365today.com/donate
