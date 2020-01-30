@@ -23,7 +23,7 @@ def send_emails(tweet: dict):
     # Get the mailing list and chunk it into groups
     mailing_list: List[List[str]] = chunk_list(
         api.get("subscription"),
-        size=20
+        size=35
     )
 
     # Take out a random chunk of emails to be sent out using
