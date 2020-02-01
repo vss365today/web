@@ -51,7 +51,8 @@ def construct(
 
 def send(tweet: dict, mailing_list: List[str]):
     # Prepare the tweet object and render out the email
-    # tweet = generate(tweet)
+    if tweet.get("url") is None:
+        tweet = generate(tweet)
     completed_email = render(tweet)
 
     # Construct the email objects for sending

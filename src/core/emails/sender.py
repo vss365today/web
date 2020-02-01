@@ -20,10 +20,19 @@ def send_emails(tweet: dict):
         "mailjet": send_mailjet
     }
 
+    # Quick block for debugging local email sending
+    if JSON_CONFIG["debug_codetri_emails"]:
+        experimental_send_list = [
+            CONFIG["SMPT_TEST_EMAIL"]
+            for _ in range(JSON_CONFIG["email_chunk_size"] + 1)
+        ]
+        providers["codetri"](tweet, experimental_send_list)
+        return True
+
     # Get the mailing list and chunk it into groups
     mailing_list: List[List[str]] = chunk_list(
         api.get("subscription"),
-        size=35
+        size=JSON_CONFIG["email_chunk_size"]
     )
 
     # Take out a random chunk of emails to be sent out using
