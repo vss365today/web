@@ -14,5 +14,5 @@
   "word_index": 0,
   "email_provider": "mailjet",
   "debug_codetri_emails": false,
-  "email_chunk_size": 35
+  "email_chunk_size": 50
 }
