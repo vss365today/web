@@ -70,6 +70,8 @@ def send(tweet: dict, mailing_list: List[str]):
 
         # Send each message
         # TODO There needs to be some form of logging in place
-        # for tracking sucessful/failed messages, if at all possible
+        # for tracking sucessful/failed messages, if at all possible,
+        # including returned value from send_message
+        # https://docs.python.org/3/library/smtplib.html#smtplib.SMTP.sendmail
         for msg in messages:
             server.send_message(msg)
