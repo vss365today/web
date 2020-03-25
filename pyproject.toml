@@ -18,7 +18,7 @@ pyjwt = "^1.7.1"
 [tool.poetry.dev-dependencies]
 rope = "^0.14.0"
 flake8 = "^3.7"
-mypy = "^0.740"
+mypy = "^0.770"
 autopep8 = "^1.5"
 
 [build-system]
