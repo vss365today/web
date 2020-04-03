@@ -53,6 +53,5 @@ def query_search():
             return redirect(url_for("root.view_date", date=date))
 
         # No search results were returned
-        else:
-            render_opts.update(response)
-            return render_template("search/results.html", **render_opts)
+        render_opts.update(response)
+        return render_template("search/results.html", **render_opts)

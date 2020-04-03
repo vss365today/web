@@ -4,7 +4,7 @@ from toml import loads
 
 
 def get_package(package_info: dict) -> str:
-    # Construct the package name and exact version to install
+    """Construct the package name and exact version to install."""
     package_tag = f"{package_info['name']}=={package_info['version']}"
 
     # However, if the package is a local file,
@@ -13,7 +13,7 @@ def get_package(package_info: dict) -> str:
         package_tag = package_info["source"]["url"]
 
         # Trim off the app root path
-        package_tag = package_tag[package_tag.find("/") + 1 :]
+        package_tag = package_tag[package_tag.find("/") + 1 :]  # skipcq: FLK-E203
     return package_tag
 
 

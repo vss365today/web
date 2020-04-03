@@ -81,7 +81,7 @@ def __grouper(iterable: Iterable) -> tuple:
 
 
 def chunk_list(data: List[Any], *, size: int = 50) -> List[List[Any]]:
-    return [data[i : i + size] for i in range(0, len(data), size)]
+    return [data[i : i + size] for i in range(0, len(data), size)]  # skipcq: FLK-E203
 
 
 def create_twitter_connection() -> tweepy.API:
