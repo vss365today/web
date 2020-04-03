@@ -1,5 +1,5 @@
 <nav class="primary">
-  <a class="nav-link {{ nav_cur_page(page_title|lower, current_date|format_date_pretty|lower) }}" id="btn-today" href="{{ url_for('root.index') }}">Today</a>
+  <a class="nav-link {{ nav_cur_page(page_title, 'today') }}" id="btn-today" href="{{ url_for('root.index') }}">Today</a>
   <a class="nav-link {{ nav_cur_page(page_title, 'browse') }}" id="btn-browse" href="{{ url_for('root.browse') }}">Browse</a>
   <a class="nav-link {{ nav_cur_page(page_title, 'search') }}" id="btn-search" href="{{ url_for('search.index') }}">Search</a>
   <a class="nav-link {{ nav_cur_page(page_title, 'about') }}" id="btn-about" href="{{ url_for('root.about') }}">About</a>

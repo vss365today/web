@@ -25,6 +25,7 @@ def create_datetime(date_str: str) -> datetime:
 
 
 def format_datetime(date_obj: datetime) -> str:
+    """Format a date as YYYY-MM-DD."""
     return date_obj.strftime("%Y-%m-%d")
 
 
