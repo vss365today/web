@@ -1,11 +1,7 @@
 from datetime import datetime
 from html import unescape
 
-from src.core.helpers import (
-    make_hashtags,
-    make_mentions,
-    make_urls
-)
+from src.core.helpers import make_hashtags, make_mentions, make_urls
 
 
 __all__ = [
@@ -15,7 +11,7 @@ __all__ = [
     "format_api_date",
     "format_content",
     "format_date_pretty",
-    "format_month_year"
+    "format_month_year",
 ]
 
 
@@ -59,9 +55,7 @@ def format_month_year(date: str) -> str:
 
 
 def create_tweet_url(tweet: dict) -> str:
-    return "https://twitter.com/{writer_handle}/status/{id}".format_map(
-        tweet
-    )
+    return "https://twitter.com/{writer_handle}/status/{id}".format_map(tweet)
 
 
 def format_content(text: str) -> str:

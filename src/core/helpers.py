@@ -7,10 +7,7 @@ from requests.exceptions import HTTPError
 import tweepy
 
 from src.core import api
-from src.core.config import (
-    load_app_config,
-    load_json_config
-)
+from src.core.config import load_app_config, load_json_config
 
 
 __all__ = [
@@ -25,7 +22,7 @@ __all__ = [
     "make_hashtags",
     "make_mentions",
     "make_urls",
-    "split_hashtags_into_list"
+    "split_hashtags_into_list",
 ]
 
 
@@ -39,11 +36,7 @@ def __filter_hashtags(hashtags: tuple) -> tuple:
     right_now = datetime.now()
     try:
         month_prompts = api.get(
-            "browse",
-            params={
-                "year": right_now.year,
-                "month": right_now.month
-            }
+            "browse", params={"year": right_now.year, "month": right_now.month}
         )
         month_words = [prompt["word"] for prompt in month_prompts["prompts"]]
 
@@ -66,11 +59,7 @@ def __filter_hashtags(hashtags: tuple) -> tuple:
         regex = re.compile(rf"#{word}\w*\b", re.I)
 
         # Search the tweet's hashtags for the words
-        variants = [
-            match.upper()
-            for match in filter(regex.search, hashtags)
-            if match
-        ]
+        variants = [match.upper() for match in filter(regex.search, hashtags) if match]
 
         # Record all variants we find
         if variants:
@@ -78,14 +67,9 @@ def __filter_hashtags(hashtags: tuple) -> tuple:
 
     # Merge the filter sets then take out all the hashtags
     hashtags_to_filter = (
-        matched_variants +
-        JSON_CONFIG["identifiers"] +
-        JSON_CONFIG["additionals"]
+        matched_variants + JSON_CONFIG["identifiers"] + JSON_CONFIG["additionals"]
     )
-    return tuple(filter(
-        lambda ht: ht.upper() not in hashtags_to_filter,
-        hashtags
-    ))
+    return tuple(filter(lambda ht: ht.upper() not in hashtags_to_filter, hashtags))
 
 
 def __grouper(iterable: Iterable) -> tuple:
@@ -97,32 +81,20 @@ def __grouper(iterable: Iterable) -> tuple:
 
 
 def chunk_list(data: List[Any], *, size: int = 50) -> List[List[Any]]:
-    return [
-        data[i:i + size]
-        for i in range(0, len(data), size)
-    ]
+    return [data[i : i + size] for i in range(0, len(data), size)]
 
 
 def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
-    auth = tweepy.OAuthHandler(
-        CONFIG["TWITTER_APP_KEY"],
-        CONFIG["TWITTER_APP_SECRET"]
-    )
-    auth.set_access_token(
-        CONFIG["TWITTER_KEY"],
-        CONFIG["TWITTER_SECRET"]
-    )
+    auth = tweepy.OAuthHandler(CONFIG["TWITTER_APP_KEY"], CONFIG["TWITTER_APP_SECRET"])
+    auth.set_access_token(CONFIG["TWITTER_KEY"], CONFIG["TWITTER_SECRET"])
     api = tweepy.API(auth)
     print("Successfully connected to the Twitter API")
     return api
 
 
 def find_prompt_tweet(text: str) -> bool:
-    return all(
-        hashtag in text.upper()
-        for hashtag in JSON_CONFIG["identifiers"]
-    )
+    return all(hashtag in text.upper() for hashtag in JSON_CONFIG["identifiers"])
 
 
 def get_all_hashtags(text: str) -> Optional[tuple]:

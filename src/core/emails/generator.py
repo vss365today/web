@@ -3,18 +3,10 @@ from os.path import join
 
 from jinja2 import Template
 
-from src.core.filters import (
-    create_api_date,
-    format_datetime,
-    format_date_pretty
-)
+from src.core.filters import create_api_date, format_datetime, format_date_pretty
 
 
-__all__ = [
-    "generate",
-    "render",
-    "EmailTemplate"
-]
+__all__ = ["generate", "render", "EmailTemplate"]
 
 
 @dataclass
@@ -40,7 +32,7 @@ def render(tweet: dict) -> EmailTemplate:
     # Render the thing already
     return EmailTemplate(
         Template(text_template).render(tweet=tweet),
-        Template(html_template).render(tweet=tweet)
+        Template(html_template).render(tweet=tweet),
     )
 
 

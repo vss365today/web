@@ -2,10 +2,7 @@ from flask import request
 from flask import abort, flash, redirect, render_template, url_for
 
 from src.blueprint import admin
-from src.core.config import (
-    load_json_config,
-    save_json_config
-)
+from src.core.config import load_json_config, save_json_config
 from src.core.helpers import split_hashtags_into_list
 
 
@@ -16,9 +13,7 @@ def index():
 
 @admin.route("/config")
 def config():
-    render_opts = {
-        "json_config": load_json_config()
-    }
+    render_opts = {"json_config": load_json_config()}
     return render_template("admin/config.html", **render_opts)
 
 
@@ -32,14 +27,14 @@ def config_save():
     mapping = {
         "input-hashtags-identifier": "identifiers",
         "input-hashtags-filter": "additionals",
-        "input-hashtag-posi": "word_index"
+        "input-hashtag-posi": "word_index",
     }
 
     # Map field specific converters to format the data correctly
     converters = {
         "word_index": lambda x: int(x) - 1 if int(x) - 1 >= 0 else 0,
         "identifiers": lambda x: split_hashtags_into_list(x),
-        "additionals": lambda x: split_hashtags_into_list(x)
+        "additionals": lambda x: split_hashtags_into_list(x),
     }
 
     # Determine which form was submitted and cleanup the data

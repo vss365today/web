@@ -25,7 +25,7 @@ def subscribe() -> str:
     render_opts = {
         "email": email,
         "form_subscribe": SubscribeForm(),
-        "addition_success": addition_success
+        "addition_success": addition_success,
     }
     return render_template("root/subscribe.html", **render_opts)
 
@@ -42,10 +42,7 @@ def form_unsubscribe():
         removal_success = False
 
     # Go back to the unsub page
-    return redirect(url_for(
-        "root.unsubscribe",
-        success=str(removal_success).lower()
-    ))
+    return redirect(url_for("root.unsubscribe", success=str(removal_success).lower()))
 
 
 @root.route("/unsubscribe", methods=["GET"])
@@ -53,31 +50,26 @@ def unsubscribe():
     # Determine from the args if the removal happened or not
     removal_success = request.args.get("success")
     if removal_success is not None:
-        removal_success = (removal_success == "true")
+        removal_success = removal_success == "true"
 
     render_opts = {
         "removal_success": removal_success,
         "form_subscribe": SubscribeForm(),
-        "form_unsubscribe": UnsubscribeForm()
+        "form_unsubscribe": UnsubscribeForm(),
     }
     return render_template("root/unsubscribe.html", **render_opts)
 
 
 @root.route("/about")
 def about() -> str:
-    render_opts = {
-        "form_subscribe": SubscribeForm()
-    }
+    render_opts = {"form_subscribe": SubscribeForm()}
     return render_template("root/about.html", **render_opts)
 
 
 @root.route("/browse")
 def browse() -> str:
     prompt_years: list = api.get("browse", "years")
-    render_opts = {
-        "form_subscribe": SubscribeForm(),
-        "years": prompt_years
-    }
+    render_opts = {"form_subscribe": SubscribeForm(), "years": prompt_years}
     return render_template("root/browse.html", **render_opts)
 
 
@@ -98,7 +90,7 @@ def browse_by_year(year: str) -> str:
     render_opts = {
         "form_subscribe": SubscribeForm(),
         "hosts": grouped_groups,
-        "year": year
+        "year": year,
     }
     return render_template("root/browse-year.html", **render_opts)
 
@@ -106,10 +98,7 @@ def browse_by_year(year: str) -> str:
 @root.route("/browse/<year>/<month>")
 def browse_by_year_month(year: str, month: str) -> str:
     try:
-        month_prompts: dict = api.get(
-            "browse",
-            params={"year": year, "month": month}
-        )
+        month_prompts: dict = api.get("browse", params={"year": year, "month": month})
     except HTTPError:
         abort(404)
 
@@ -117,9 +106,7 @@ def browse_by_year_month(year: str, month: str) -> str:
         "form_subscribe": SubscribeForm(),
         "date": format_month_year(f"{year}-{month}"),
         "month_prompts": month_prompts["prompts"],
-        "host": ", ".join([
-            host["handle"] for host in month_prompts["hosts"]
-        ])
+        "host": ", ".join([host["handle"] for host in month_prompts["hosts"]]),
     }
     return render_template("root/browse-host.html", **render_opts)
 
@@ -139,7 +126,7 @@ def index() -> str:
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
         "next_day": None,
-        "form_subscribe": SubscribeForm()
+        "form_subscribe": SubscribeForm(),
     }
     return render_template("root/tweet.html", **render_opts)
 
@@ -148,9 +135,9 @@ def index() -> str:
 def view_date(date: str) -> str:
     # Try to get the prompt for this day
     try:
-        api_prompts: list = api.get("prompt", params={
-            "date": str(filters.create_datetime(date))
-        })
+        api_prompts: list = api.get(
+            "prompt", params={"date": str(filters.create_datetime(date))}
+        )
 
     # There is no prompt for this day
     except HTTPError:
@@ -168,16 +155,14 @@ def view_date(date: str) -> str:
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
         "next_day": prompts[0]["next_day"],
-        "form_subscribe": SubscribeForm()
+        "form_subscribe": SubscribeForm(),
     }
     return render_template("root/tweet.html", **render_opts)
 
 
 @root.app_errorhandler(404)
 def page_not_found(e) -> tuple:
-    render_opts = {
-        "form_subscribe": SubscribeForm()
-    }
+    render_opts = {"form_subscribe": SubscribeForm()}
     return render_template("partials/errors/404.html", **render_opts), 404
 
 

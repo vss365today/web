@@ -27,21 +27,18 @@ def create_app():
     @app.context_processor
     def nav_cur_page():
         return {
-            "nav_cur_page":
-                lambda title, has: (
-                    "active"
-                    if has.strip() in title.strip().lower()
-                    else ""
-                )
+            "nav_cur_page": lambda title, has: (
+                "active" if has.strip() in title.strip().lower() else ""
+            )
         }
 
     @app.context_processor
     def create_url():
         def _make(prompt: dict) -> str:
             return "https://twitter.com/{0}/status/{1}".format(
-                prompt["writer_handle"],
-                prompt["id"]
+                prompt["writer_handle"], prompt["id"]
             )
+
         return {"create_url": _make}
 
     return app

@@ -9,9 +9,7 @@ from src.core.emails.sender import send_emails
 # Get the date of the prompt we want to email out
 try:
     prompt_date = input("Enter the prompt date (YYYY-MM-DD): ")
-    prompt = api.get("prompt", params={
-        "date": create_datetime(prompt_date.strip())
-    })[0]
+    prompt = api.get("prompt", params={"date": create_datetime(prompt_date.strip())})[0]
 
 # We don't have a prompt for the requested day
 except HTTPError:

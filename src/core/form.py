@@ -4,40 +4,25 @@ from wtforms.fields.html5 import EmailField, SearchField
 from wtforms.validators import DataRequired, Email
 
 
-__all__ = [
-    "AdminSignInForm",
-    "PromptSearchForm",
-    "SubscribeForm",
-    "UnsubscribeForm"
-]
+__all__ = ["AdminSignInForm", "PromptSearchForm", "SubscribeForm", "UnsubscribeForm"]
 
 
 class AdminSignInForm(FlaskForm):
-    username = Field(
-        "Username",
-        id="input-username",
-        validators=[DataRequired()]
-    )
+    username = Field("Username", id="input-username", validators=[DataRequired()])
     password = PasswordField(
-        "Password",
-        id="input-password",
-        validators=[DataRequired()]
+        "Password", id="input-password", validators=[DataRequired()]
     )
 
 
 class PromptSearchForm(FlaskForm):
-    query = SearchField(
-        "",
-        id="input-search-prompt",
-        validators=[DataRequired()]
-    )
+    query = SearchField("", id="input-search-prompt", validators=[DataRequired()])
 
 
 class SubscribeForm(FlaskForm):
     email = EmailField(
         "Subscribe to daily #vss365 notifications",
         id="input-email",
-        validators=[DataRequired(), Email()]
+        validators=[DataRequired(), Email()],
     )
 
 
@@ -45,5 +30,5 @@ class UnsubscribeForm(FlaskForm):
     email = EmailField(
         "Unsubscribe from daily #vss365 notifications",
         id="input-email",
-        validators=[DataRequired(), Email()]
+        validators=[DataRequired(), Email()],
     )

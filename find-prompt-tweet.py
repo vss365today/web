@@ -13,7 +13,7 @@ from src.core.helpers import (
     find_prompt_tweet,
     find_prompt_word,
     get_tweet_media,
-    get_tweet_text
+    get_tweet_text,
 )
 
 
@@ -23,10 +23,7 @@ def is_prompters_own_tweet(status: tweepy.Status) -> bool:
     Currently, this means removing both retweets and
     retweeted quote tweets of the prompter's tweets.
     """
-    return (
-        not status.retweeted and
-        not hasattr(status, "retweeted_status")
-    )
+    return not status.retweeted and not hasattr(status, "retweeted_status")
 
 
 def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
@@ -37,10 +34,7 @@ def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
     # Get the latest tweets from the prompt Host
     # We need to enable extended mode to get tweets > 140 characters
     statuses = twitter_api.user_timeline(
-        uid,
-        max_id=tweet_id,
-        count=20,
-        tweet_mode="extended"
+        uid, max_id=tweet_id, count=20, tweet_mode="extended"
     )
 
     # Start by collecting _only_ the prompter's original tweets
@@ -68,9 +62,9 @@ TODAY = datetime.now()
 
 # We already have latest tweet, don't do anything
 if (
-    LATEST_TWEET["date"].year == TODAY.year and
-    LATEST_TWEET["date"].month == TODAY.month and
-    LATEST_TWEET["date"].day == TODAY.day
+    LATEST_TWEET["date"].year == TODAY.year
+    and LATEST_TWEET["date"].month == TODAY.month
+    and LATEST_TWEET["date"].day == TODAY.day
 ):
     print(f"Tweet for {TODAY} already found. Aborting...")
     raise SystemExit(0)
@@ -97,18 +91,16 @@ if prompt_tweet is None:
 tweet_date = prompt_tweet.created_at
 if tweet_date.day - TODAY.day < 0:
     next_day_hour_difference = 24 - prompt_tweet.created_at.hour
-    tweet_date = prompt_tweet.created_at + timedelta(
-        hours=next_day_hour_difference
-    )
+    tweet_date = prompt_tweet.created_at + timedelta(hours=next_day_hour_difference)
 
 
 # We already have the latest tweet, don't do anything
 # This condition is hit when it is _technnically_ the next day
 # but the newest tweet hasn't been sent out
 if (
-    tweet_date.year == LATEST_TWEET["date"].year and
-    tweet_date.month == LATEST_TWEET["date"].month and
-    tweet_date.day == LATEST_TWEET["date"].day
+    tweet_date.year == LATEST_TWEET["date"].year
+    and tweet_date.month == LATEST_TWEET["date"].month
+    and tweet_date.day == LATEST_TWEET["date"].day
 ):
     print(f"The latest tweet for {tweet_date} has already found. Aborting...")
     raise SystemExit(0)
@@ -132,7 +124,7 @@ prompt = {
     "handle": escape(prompt_tweet.author.screen_name),
     "content": escape(tweet_text),
     "word": prompt_word,
-    "media": tweet_media
+    "media": tweet_media,
 }
 pprint(prompt)
 

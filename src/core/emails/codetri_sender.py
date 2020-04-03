@@ -16,9 +16,7 @@ EmailAddress = NewType("EmailAddress", str)
 
 
 def construct(
-    tweet: Dict[str, str],
-    addr: EmailAddress,
-    completed_email: EmailTemplate
+    tweet: Dict[str, str], addr: EmailAddress, completed_email: EmailTemplate
 ) -> EmailMessage:
 
     # Instance the email message and set any headers we need
@@ -28,19 +26,11 @@ def construct(
 
     # Set all of the message details
     em["Subject"] = tweet["date_pretty"]
-    em["From"] = Address(
-        CONFIG["SITE_TITLE"],
-        "noreply",
-        CONFIG["SMTP_DOMAIN"]
-    )
+    em["From"] = Address(CONFIG["SITE_TITLE"], "noreply", CONFIG["SMTP_DOMAIN"])
 
     # Split the "To" address into the separate parts
     addr_to = addr.split("@")
-    em["To"] = Address(
-        f"{CONFIG['SITE_TITLE']} Subscriber",
-        addr_to[0],
-        addr_to[1]
-    )
+    em["To"] = Address(f"{CONFIG['SITE_TITLE']} Subscriber", addr_to[0], addr_to[1])
 
     # Provide both HTML and text versions of te email
     # TODO Correctly set both parts of the email
@@ -57,15 +47,11 @@ def send(tweet: dict, mailing_list: List[str]):
 
     # Construct the email objects for sending
     messages = [
-        construct(tweet, EmailAddress(addr), completed_email)
-        for addr in mailing_list
+        construct(tweet, EmailAddress(addr), completed_email) for addr in mailing_list
     ]
 
     # Connect to the local running SMTP server
-    with SMTP(
-        CONFIG["SMTP_SERVER_ADDRESS"],
-        CONFIG["SMTP_SERVER_PORT"]
-    ) as server:
+    with SMTP(CONFIG["SMTP_SERVER_ADDRESS"], CONFIG["SMTP_SERVER_PORT"]) as server:
         server.ehlo_or_helo_if_needed()
 
         # Send each message

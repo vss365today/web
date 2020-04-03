@@ -15,10 +15,7 @@ def send_emails(tweet: dict):
     # Determine which email provider we need
     JSON_CONFIG = load_json_config()
     CONFIG = load_app_config()
-    providers: Dict[str, Callable] = {
-        "codetri": send_codetri,
-        "mailjet": send_mailjet
-    }
+    providers: Dict[str, Callable] = {"codetri": send_codetri, "mailjet": send_mailjet}
 
     # Quick block for debugging local email sending
     if JSON_CONFIG["debug_codetri_emails"]:
@@ -31,8 +28,7 @@ def send_emails(tweet: dict):
 
     # Get the mailing list and chunk it into groups
     mailing_list: List[List[str]] = chunk_list(
-        api.get("subscription"),
-        size=JSON_CONFIG["email_chunk_size"]
+        api.get("subscription"), size=JSON_CONFIG["email_chunk_size"]
     )
 
     # Take out a random chunk of emails to be sent out using

@@ -11,22 +11,18 @@ from src.core.helpers import (
     create_twitter_connection,
     find_prompt_word,
     get_tweet_media,
-    get_tweet_text
+    get_tweet_text,
 )
 
 
 def extract_handle(url: str) -> str:
-    return match(
-        r"^https://(?:mobile\.|www\.)?twitter\.com/(\w+)/status",
-        url
-    )[1].strip()
+    return match(r"^https://(?:mobile\.|www\.)?twitter\.com/(\w+)/status", url)[
+        1
+    ].strip()
 
 
 def extract_tweet_id(url: str) -> str:
-    return match(
-        r"^https://(?:mobile\.|www\.)?twitter\.com/\w+/status/(\d+)",
-        url
-    )[1]
+    return match(r"^https://(?:mobile\.|www\.)?twitter\.com/\w+/status/(\d+)", url)[1]
 
 
 # Connect to the Twitter API
@@ -62,7 +58,7 @@ while True:
         "handle": user_handle,
         "content": escape(tweet_text),
         "word": find_prompt_word(tweet_text),
-        "media": tweet_media
+        "media": tweet_media,
     }
     pprint(prompt)
 

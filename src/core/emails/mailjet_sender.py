@@ -12,33 +12,22 @@ __all__ = ["send"]
 CONFIG = load_app_config()
 
 
-def construct_email(
-    tweet: dict,
-    addr: str,
-    completed_email: EmailTemplate
-) -> dict:
+def construct_email(tweet: dict, addr: str, completed_email: EmailTemplate) -> dict:
     """Construct a MailJet email dictionary."""
     return {
         "Subject": f'{tweet["date_pretty"]}',
         "HTMLPart": completed_email.html,
         "TextPart": completed_email.text,
-        "From": {
-            "Email": "noreply@fromabcthrough.xyz",
-            "Name": CONFIG["SITE_TITLE"]
-        },
-        "To": [{
-            "Email": addr,
-            "Name": f"{CONFIG['SITE_TITLE']} Subscriber",
-        }]
+        "From": {"Email": "noreply@fromabcthrough.xyz", "Name": CONFIG["SITE_TITLE"]},
+        "To": [{"Email": addr, "Name": f"{CONFIG['SITE_TITLE']} Subscriber",}],
     }
 
 
 def send(tweet: dict, mailing_list: List[List[str]]):
     # Connect to the Mailjet Send API
-    mailjet = Client(auth=(
-        CONFIG["MJ_APIKEY_PUBLIC"],
-        CONFIG["MJ_APIKEY_PRIVATE"]
-    ), version="v3.1")
+    mailjet = Client(
+        auth=(CONFIG["MJ_APIKEY_PUBLIC"], CONFIG["MJ_APIKEY_PRIVATE"]), version="v3.1"
+    )
 
     # Prepare the tweet object and render out the email
     tweet = generate(tweet)
