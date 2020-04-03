@@ -1,9 +1,20 @@
+from pathlib import Path
 from sys import argv
-from toml import load
+from toml import loads
 
 
-def get_package(package: dict) -> str:
-    return f"{package['name']}=={package['version']}"
+def get_package(package_info: dict) -> str:
+    # Construct the package name and exact version to install
+    package_tag = f"{package_info['name']}=={package_info['version']}"
+
+    # However, if the package is a local file,
+    # we need to use that instead
+    if package_info.setdefault("source", {}).get("url"):
+        package_tag = package_info["source"]["url"]
+
+        # Trim off the app root path
+        package_tag = package_tag[package_tag.find("/") + 1 :]
+    return package_tag
 
 
 def filter_packages(packages: list, key: str) -> list:
@@ -12,12 +23,12 @@ def filter_packages(packages: list, key: str) -> list:
 
 # Does the user want to include the dev packages?
 try:
-    get_dev_packages = argv[1].upper() == "--DEV"
+    get_dev_packages = argv[1].lower() == "--dev"
 except IndexError:
     get_dev_packages = False
 
 # Load the lock file contents and get the respective package for each category
-poetry_lock = load(open("./poetry.lock"))
+poetry_lock = loads((Path() / "poetry.lock").read_text())
 all_packages = filter_packages(poetry_lock["package"], "main")
 
 # Write the dev packages if requested

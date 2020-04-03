@@ -88,9 +88,9 @@ def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
     auth = tweepy.OAuthHandler(CONFIG["TWITTER_APP_KEY"], CONFIG["TWITTER_APP_SECRET"])
     auth.set_access_token(CONFIG["TWITTER_KEY"], CONFIG["TWITTER_SECRET"])
-    api = tweepy.API(auth)
+    twitter_api = tweepy.API(auth)
     print("Successfully connected to the Twitter API")
-    return api
+    return twitter_api
 
 
 def find_prompt_tweet(text: str) -> bool:

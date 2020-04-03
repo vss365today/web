@@ -1,7 +1,7 @@
 from flask import request
 from flask import abort, flash, redirect, render_template, url_for
 
-from src.blueprint import admin
+from src.blueprint import bp_admin as admin
 from src.core.config import load_json_config, save_json_config
 from src.core.helpers import split_hashtags_into_list
 
@@ -33,8 +33,8 @@ def config_save():
     # Map field specific converters to format the data correctly
     converters = {
         "word_index": lambda x: int(x) - 1 if int(x) - 1 >= 0 else 0,
-        "identifiers": lambda x: split_hashtags_into_list(x),
-        "additionals": lambda x: split_hashtags_into_list(x),
+        "identifiers": split_hashtags_into_list,
+        "additionals": split_hashtags_into_list,
     }
 
     # Determine which form was submitted and cleanup the data

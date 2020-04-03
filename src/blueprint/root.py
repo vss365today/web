@@ -4,7 +4,7 @@ from flask import request
 from flask import abort, redirect, render_template, url_for
 from requests.exceptions import HTTPError
 
-from src.blueprint import root
+from src.blueprint import bp_root as root
 from src.core import api, filters
 from src.core.form import SubscribeForm, UnsubscribeForm
 from src.core.helpers import group_month_list_of_hosts
@@ -106,7 +106,7 @@ def browse_by_year_month(year: str, month: str) -> str:
         "form_subscribe": SubscribeForm(),
         "date": format_month_year(f"{year}-{month}"),
         "month_prompts": month_prompts["prompts"],
-        "host": ", ".join([host["handle"] for host in month_prompts["hosts"]]),
+        "host": ", ".join(host["handle"] for host in month_prompts["hosts"]),
     }
     return render_template("root/browse-host.html", **render_opts)
 

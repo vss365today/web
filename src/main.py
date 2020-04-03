@@ -5,7 +5,6 @@ from flask import Flask
 from werkzeug.contrib.fixers import ProxyFix
 
 from src.blueprint import all_blueprints
-from src.core.filters import create_tweet_url
 from src.extensions import init_extensions
 
 

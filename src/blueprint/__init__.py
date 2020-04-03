@@ -29,11 +29,11 @@ def _factory(
     return blueprint
 
 
-root = _factory("root", "")
-admin = _factory("admin", "/admin")
-search = _factory("search", "/search")
+bp_root = _factory("root", "")
+bp_admin = _factory("admin", "/admin")
+bp_search = _factory("search", "/search")
 
 all_blueprints = (
-    root,
-    search,
+    bp_root,
+    bp_search,
 )

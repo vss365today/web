@@ -19,7 +19,7 @@ def construct_email(tweet: dict, addr: str, completed_email: EmailTemplate) -> d
         "HTMLPart": completed_email.html,
         "TextPart": completed_email.text,
         "From": {"Email": "noreply@fromabcthrough.xyz", "Name": CONFIG["SITE_TITLE"]},
-        "To": [{"Email": addr, "Name": f"{CONFIG['SITE_TITLE']} Subscriber",}],
+        "To": [{"Email": addr, "Name": f"{CONFIG['SITE_TITLE']} Subscriber"}],
     }
 
 

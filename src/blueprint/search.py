@@ -2,7 +2,7 @@ from flask import request
 from flask import redirect, render_template, url_for
 import requests
 
-from src.blueprint import search
+from src.blueprint import bp_search as search
 from src.core import api
 from src.core.filters import create_api_date, create_datetime
 from src.core.form import PromptSearchForm, SubscribeForm
@@ -47,7 +47,7 @@ def query_search():
             return render_template("search/results.html", **render_opts)
 
         # We got a single response back, go directly to the prompt
-        elif response["total"] == 1:
+        if response["total"] == 1:
             date = create_api_date(response["prompts"][0]["date"])
             date = date.strftime("%Y-%m-%d")
             return redirect(url_for("root.view_date", date=date))

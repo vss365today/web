@@ -40,19 +40,19 @@ def process_tweets(uid: str, tweet_id: str = None, recur_count: int = 0):
     # Start by collecting _only_ the prompter's original tweets
     own_tweets = list(filter(is_prompters_own_tweet, statuses))
 
-    prompt_tweet = None
+    found_tweet = None
     for tweet in own_tweets:
         # Try to find the prompt tweet among the pulled tweets
         if find_prompt_tweet(tweet.full_text):
-            prompt_tweet = tweet
+            found_tweet = tweet
             break
         continue
 
     # We didn't find the prompt tweet, so we need to search again,
     # but this time, older than the oldest tweet we currently have
-    if prompt_tweet is None:
+    if found_tweet is None:
         return process_tweets(uid, own_tweets[-1].id_str, recur_count + 1)
-    return prompt_tweet
+    return found_tweet
 
 
 # Get the latest tweet in the database to see if we need to do anything

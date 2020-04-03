@@ -46,3 +46,4 @@ def send_emails(tweet: dict):
 
     # Send out emails using postfix
     providers["codetri"](tweet, experimental_send_list)
+    return True
