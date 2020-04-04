@@ -98,7 +98,7 @@ header #page-title {
   font-size: 1.15em;
   font-weight: 400;
   cursor: default;
-  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
+  font-family:  var(--font-stack-header);
 }
 
 nav.primary {
@@ -191,7 +191,7 @@ footer > div {
 
 .btns-prev-next a {
   margin: 0.75em 1.75em;
-  font-family: "Josefin Slab", "Noto Serif SC", sans-serif;
+  font-family:  var(--font-stack-header);
   font-weight: 400;
   font-size: 1.2em;
 }
