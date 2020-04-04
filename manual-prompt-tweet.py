@@ -5,8 +5,7 @@ from re import match
 from requests.exceptions import HTTPError
 
 from src.core import api
-from src.core.emails.sender import send_emails
-from src.core.filters import format_api_date
+from src.core.filters import create_datetime
 from src.core.helpers import (
     create_twitter_connection,
     find_prompt_word,
@@ -16,13 +15,15 @@ from src.core.helpers import (
 
 
 def extract_handle(url: str) -> str:
-    return match(r"^https://(?:mobile\.|www\.)?twitter\.com/(\w+)/status", url)[
-        1
-    ].strip()
+    regex = r"^https://(?:mobile\.|www\.)?twitter\.com/(\w+)/status"
+    m = match(regex, url)[1].strip()
+    return m
 
 
 def extract_tweet_id(url: str) -> str:
-    return match(r"^https://(?:mobile\.|www\.)?twitter\.com/\w+/status/(\d+)", url)[1]
+    regex = r"^https://(?:mobile\.|www\.)?twitter\.com/\w+/status/(\d+)"
+    m = match(regex, url)[1].strip()
+    return m
 
 
 # Connect to the Twitter API
@@ -62,15 +63,16 @@ while True:
     }
     pprint(prompt)
 
-    # Add the tweet to the database
     try:
+        # Add the tweet to the database
         print("Adding tweet to database")
         api.post("prompt", json=prompt)
 
         # Send the email notifications
         print("Sending out notification emails")
-        prompt["date"] = format_api_date(prompt_tweet.created_at)
-        send_emails(prompt)
+        api.post(
+            "subscription", "broadcast", params={"date": create_datetime(tweet_date)},
+        )
 
     except HTTPError:
         print(f"Cannot add prompt for {tweet_date} to the database!")
