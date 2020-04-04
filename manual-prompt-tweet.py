@@ -68,10 +68,10 @@ while True:
         print("Adding tweet to database")
         api.post("prompt", json=prompt)
 
-        # Send the email notifications
+        # Send the email broadcast
         print("Sending out notification emails")
         api.post(
-            "subscription", "broadcast", params={"date": create_datetime(tweet_date)},
+            "subscription", "broadcast", params={"date": create_datetime(tweet_date)}
         )
 
     except HTTPError:
