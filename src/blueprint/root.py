@@ -66,6 +66,11 @@ def about() -> str:
     return render_template("root/about.html", **render_opts)
 
 
+@root.route("/privacy")
+def privacy():
+    return redirect(url_for("root.about", _anchor="privacy"))
+
+
 @root.route("/browse")
 def browse() -> str:
     prompt_years: list = api.get("browse", "years")
