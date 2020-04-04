@@ -8,7 +8,6 @@ __all__ = [
     "create_datetime",
     "format_datetime",
     "create_api_date",
-    "format_api_date",
     "format_content",
     "format_date_pretty",
     "format_month_year",
@@ -31,14 +30,6 @@ def create_api_date(date_str: str) -> datetime:
     E.g, Tue, 02 Jul 2019 00:00:00 GMT
     """
     return datetime.strptime(date_str.strip(), "%a, %d %b %Y 00:00:00 GMT")
-
-
-def format_api_date(date_obj: datetime) -> str:
-    """Create an API response date string from a datetime object.
-
-    E.g, Tue, 02 Jul 2019 00:00:00 GMT
-    """
-    return date_obj.strftime("%a, %d %b %Y 00:00:00 GMT")
 
 
 def format_date_pretty(date_obj: datetime) -> str:

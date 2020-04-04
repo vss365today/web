@@ -6,8 +6,7 @@ from requests.exceptions import HTTPError
 import tweepy
 
 from src.core import api
-from src.core.emails.sender import send_emails
-from src.core.filters import create_api_date, format_api_date
+from src.core.filters import create_api_date
 from src.core.helpers import (
     create_twitter_connection,
     find_prompt_tweet,
@@ -128,16 +127,15 @@ prompt = {
 }
 pprint(prompt)
 
-# Add the tweet to the database
 try:
+    # Add the tweet to the database
     print("Adding tweet to database")
     api.post("prompt", json=prompt)
 
-    # Send the email notifications
+    # Send the email broadcast
     print("Sending out notification emails")
-    prompt["date"] = format_api_date(tweet_date)
-    send_emails(prompt)
+    api.post("subscription", "broadcast", params={"date": tweet_date})
 
 except HTTPError:
     print(f"Cannot add prompt for {tweet_date} to the database!")
-    raise SystemExit(0)
+raise SystemExit(0)
