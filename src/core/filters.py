@@ -45,10 +45,6 @@ def format_month_year(date: str) -> str:
     return create_datetime(date).strftime("%B %Y")
 
 
-def create_tweet_url(tweet: dict) -> str:
-    return "https://twitter.com/{writer_handle}/status/{id}".format_map(tweet)
-
-
 def format_content(text: str) -> str:
     # Wrap all non-blank lines in paragraphs
     split_text = text.split("\n")

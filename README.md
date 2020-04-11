@@ -10,7 +10,6 @@
 * JWT secret key
 * Twitter Consumer API keys
 * Twitter access token & access token secret
-* Mailjet public & private keys (_to be removed_)
 
 ## Install
 
