@@ -120,7 +120,6 @@ prompt = {
     "id": prompt_tweet.id_str,
     "date": str(tweet_date),
     "uid": prompt_tweet.author.id_str,
-    "handle": escape(prompt_tweet.author.screen_name),
     "content": escape(tweet_text),
     "word": prompt_word,
     "media": tweet_media,

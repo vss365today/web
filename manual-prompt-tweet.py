@@ -56,7 +56,6 @@ while True:
         "id": tweet_id,
         "date": str(prompt_tweet.created_at),
         "uid": prompt_tweet.author.id_str,
-        "handle": user_handle,
         "content": escape(tweet_text),
         "word": find_prompt_word(tweet_text),
         "media": tweet_media,

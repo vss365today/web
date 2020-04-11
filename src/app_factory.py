@@ -8,6 +8,7 @@ from src.extensions import init_extensions
 
 
 def create_app():
+    """Create an instance of the app."""
     app = Flask(__name__)
     init_extensions(app)
 
