@@ -11,7 +11,6 @@
 * Twitter Consumer API keys
 * Twitter access token & access token secret
 * Mailjet public & private keys (_to be removed_)
-* SMTP server address and domain (default port 587, configurable)
 
 ## Install
 
@@ -21,10 +20,9 @@
 1. `poetry install`
 1. `poetry run flask run`
 
-## Build/Deploy
+## Build
 
 1. `docker build -f "docker/Dockerfile" -t vss365-today:latest .`
-1. `docker-compose -f "docker/docker-compose.yml" up -d`
 
 ## License
 
