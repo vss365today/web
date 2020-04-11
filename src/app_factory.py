@@ -2,7 +2,6 @@ from importlib import import_module
 
 from datetime import datetime
 from flask import Flask
-from werkzeug.contrib.fixers import ProxyFix
 
 from src.blueprint import all_blueprints
 from src.extensions import init_extensions
@@ -10,8 +9,6 @@ from src.extensions import init_extensions
 
 def create_app():
     app = Flask(__name__)
-    # https://stackoverflow.com/a/45333882
-    app.wsgi_app = ProxyFix(app.wsgi_app)
     init_extensions(app)
 
     # Register all of the blueprints
