@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from flask import request
-from flask import abort, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, request, url_for
 from requests.exceptions import HTTPError
 
 from src.blueprint import bp_root as root
@@ -11,38 +10,37 @@ from src.core.helpers import group_month_list_of_hosts
 
 
 @root.route("/subscribe", methods=["POST"])
-def subscribe() -> str:
-    addition_success = False
-    email = request.form.get("email")
-
+def subscribe():
     # Attempt to record the email
+    email = request.form.get("email")
     try:
         api.post("subscription", params={"email": email})
-        addition_success = True
+        flash(f"Successfully added {email} to the subscription list.", "info")
     except HTTPError:
-        addition_success = False
+        flash(
+            f"We were unable to add {email} to the subscription list. "
+            "Please try again shortly.",
+            "error",
+        )
 
-    render_opts = {
-        "email": email,
-        "form_subscribe": SubscribeForm(),
-        "addition_success": addition_success,
-    }
-    return render_template("root/subscribe.html", **render_opts)
+    return redirect(url_for("root.index"))
 
 
 @root.route("/form-unsubscribe", methods=["POST"])
 def form_unsubscribe():
-    removal_success = False
+    # Attempt to delete the email
     email = request.form.get("email")
-
     try:
         api.delete("subscription", params={"email": email})
-        removal_success = True
+        flash(f"Successfully removed {email} from the subscription list.", "info")
+        return redirect(url_for("root.index"))
     except HTTPError:
-        removal_success = False
-
-    # Go back to the unsub page
-    return redirect(url_for("root.unsubscribe", success=str(removal_success).lower()))
+        flash(
+            f"We were unable to remove {email} to the subscription list. "
+            "Please try again shortly.",
+            "error",
+        )
+        return redirect(url_for("root.unsubscribe"))
 
 
 @root.route("/unsubscribe", methods=["GET"])
@@ -61,25 +59,20 @@ def unsubscribe():
 
 
 @root.route("/about")
-def about() -> str:
+def about():
     render_opts = {"form_subscribe": SubscribeForm()}
     return render_template("root/about.html", **render_opts)
 
 
-@root.route("/privacy")
-def privacy():
-    return redirect(url_for("root.about", _anchor="privacy"))
-
-
 @root.route("/browse")
-def browse() -> str:
-    prompt_years: list = api.get("browse", "years")
+def browse():
+    prompt_years = api.get("browse", "years")
     render_opts = {"form_subscribe": SubscribeForm(), "years": prompt_years}
     return render_template("root/browse.html", **render_opts)
 
 
 @root.route("/browse/<year>")
-def browse_by_year(year: str) -> str:
+def browse_by_year(year: str):
     # Get the host's list and group them up if needed
     try:
         hosts_in_year: dict = api.get("browse", params={"year": year})
@@ -117,14 +110,15 @@ def browse_by_year_month(year: str, month: str) -> str:
 
 
 @root.route("/donate")
-def donate() -> str:
-    return render_template("root/donate.html")
+def donate():
+    render_opts = {"form_subscribe": SubscribeForm()}
+    return render_template("root/donate.html", **render_opts)
 
 
 @root.route("/")
-def index() -> str:
+def index():
     # Get the latest prompt and go ahead and make a proper date object
-    prompts: list = api.get("prompt")
+    prompts = api.get("prompt")
     prompts[0]["date"] = create_api_date(prompts[0]["date"])
 
     render_opts = {
@@ -137,10 +131,10 @@ def index() -> str:
 
 
 @root.route("/view/<date>")
-def view_date(date: str) -> str:
+def view_date(date: str):
     # Try to get the prompt for this day
     try:
-        api_prompts: list = api.get(
+        api_prompts = api.get(
             "prompt", params={"date": str(filters.create_datetime(date))}
         )
 

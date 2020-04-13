@@ -1,0 +1,13 @@
+<section class="msg-flash-area">
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    <div class="msg-flash {{ category }}" role="alert">  {# error info #}
+      <p>{{ message }}</p>
+
+      <img class="btn-close" width="25" height="20" alt="" src="{{ url_for('static', filename='img/close.svg') }}">
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+</section>
