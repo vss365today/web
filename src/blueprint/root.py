@@ -10,7 +10,7 @@ from src.core.helpers import group_month_list_of_hosts
 
 
 @root.route("/subscribe", methods=["POST"])
-def subscribe() -> str:
+def subscribe():
     addition_success = False
     email = request.form.get("email")
 
@@ -60,7 +60,7 @@ def unsubscribe():
 
 
 @root.route("/about")
-def about() -> str:
+def about():
     render_opts = {"form_subscribe": SubscribeForm()}
     return render_template("root/about.html", **render_opts)
 
@@ -71,14 +71,14 @@ def privacy():
 
 
 @root.route("/browse")
-def browse() -> str:
-    prompt_years: list = api.get("browse", "years")
+def browse():
+    prompt_years = api.get("browse", "years")
     render_opts = {"form_subscribe": SubscribeForm(), "years": prompt_years}
     return render_template("root/browse.html", **render_opts)
 
 
 @root.route("/browse/<year>")
-def browse_by_year(year: str) -> str:
+def browse_by_year(year: str):
     # Get the host's list and group them up if needed
     try:
         hosts_in_year: dict = api.get("browse", params={"year": year})
@@ -116,14 +116,14 @@ def browse_by_year_month(year: str, month: str) -> str:
 
 
 @root.route("/donate")
-def donate() -> str:
+def donate():
     return render_template("root/donate.html")
 
 
 @root.route("/")
-def index() -> str:
+def index():
     # Get the latest prompt and go ahead and make a proper date object
-    prompts: list = api.get("prompt")
+    prompts = api.get("prompt")
     prompts[0]["date"] = create_api_date(prompts[0]["date"])
 
     render_opts = {
@@ -136,10 +136,10 @@ def index() -> str:
 
 
 @root.route("/view/<date>")
-def view_date(date: str) -> str:
+def view_date(date: str):
     # Try to get the prompt for this day
     try:
-        api_prompts: list = api.get(
+        api_prompts = api.get(
             "prompt", params={"date": str(filters.create_datetime(date))}
         )
 
