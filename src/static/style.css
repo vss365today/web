@@ -143,7 +143,7 @@ details {
   max-width: 50em;
   margin: 2em auto 1em auto;
 
-  background-color: #e9e9e9;
+  background-color: var(--details-bg);
   border-radius: 3px;
   font-size: 0.8em;
 }
@@ -343,7 +343,7 @@ button:focus { background-color: #e9e9e9; }
   position: relative;
   border-radius: 3px;
 
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   text-align: left;
 
   opacity: 1;
@@ -355,11 +355,17 @@ button:focus { background-color: #e9e9e9; }
 }
 
 .msg-flash.info {
-
+  background-color: var(--details-bg);
+  color: black;
+  /* tailwindcss v1.2.0 shadow-md */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .msg-flash.error {
-
+  background-color: #FBD38D;  /* tailwindcss v1.2.0 orange-300 */
+  color: black;
+  /* tailwindcss v1.2.0 shadow-md */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .msg-flash p {
@@ -459,13 +465,14 @@ button:focus { background-color: #e9e9e9; }
 
 .dark .msg-flash.info {
   background-color: var(--primary-nav-bg);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-  color: #fff;
+  color: black;
+  box-shadow: none;
 }
 
 .dark .msg-flash.error {
-  background-color: var(--primary-link);
-  color: var(--body-background);
+  background-color: #FBD38D;  /* tailwindcss v1.2.0 orange-300 */
+  color: black;
+  box-shadow: none;
 }
 
 
