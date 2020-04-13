@@ -1,0 +1,17 @@
+{
+  "env": [],
+  "secrets": [
+    "SECRET_KEY",
+    "JWT_SECRET_KEY",
+    "TWITTER_APP_KEY",
+    "TWITTER_APP_SECRET",
+    "TWITTER_KEY",
+    "TWITTER_SECRET"
+  ],
+  "appConfig": {
+    "APP_NAME": "#vss365 today",
+    "APP_DOMAIN": "vss365today.com",
+    "FLASK_APP": "wsgi.py",
+    "API_DOMAIN": "http://127.0.0.1:5000/v1"
+  }
+}
