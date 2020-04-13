@@ -1,0 +1,9 @@
+{
+  "secrets": [],
+  "appConfig": {
+    "FLASK_SKIP_DOTENV": 1,
+    "SESSION_COOKIE_SECURE": true,
+    "SESSION_COOKIE_HTTPONLY": true,
+    "SESSION_COOKIE_SAMESITE": "Strict"
+  }
+}

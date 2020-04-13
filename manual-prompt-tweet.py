@@ -7,7 +7,7 @@ from requests.exceptions import HTTPError
 from src.core import api
 from src.core.filters import create_datetime
 from src.core.helpers import (
-    create_twitter_connection,
+    connect_to_twitter,
     find_prompt_word,
     get_tweet_media,
     get_tweet_text,
@@ -27,7 +27,7 @@ def extract_tweet_id(url: str) -> str:
 
 
 # Connect to the Twitter API
-twitter_api = create_twitter_connection()
+twitter_api = connect_to_twitter()
 
 # Keep prompting for tweets until told to stop
 while True:

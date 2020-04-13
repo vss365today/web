@@ -1,18 +1,8 @@
 from json import load, dumps
 from typing import Literal
 
-from dotenv import dotenv_values, find_dotenv
 
-__all__ = ["load_app_config", "load_json_config", "save_json_config"]
-
-
-def load_app_config() -> dict:
-    """Load the env variables from file."""
-    vals = {}
-    env_vals = dotenv_values(find_dotenv())
-    for key, value in env_vals.items():
-        vals[key] = value if value != "" else None
-    return vals
+__all__ = ["load_json_config", "save_json_config"]
 
 
 def load_json_config() -> dict:

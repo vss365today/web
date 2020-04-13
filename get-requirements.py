@@ -7,17 +7,22 @@ def get_package(package_info: dict) -> str:
     """Construct the package name and exact version to install."""
     package_tag = f"{package_info['name']}=={package_info['version']}"
 
-    # However, if the package is a local file,
-    # we need to use that instead
-    if package_info.setdefault("source", {}).get("url"):
+    # If the package is from a local file, use the file path
+    source = package_info.setdefault("source", {})
+    if source.get("type") == "file":
+        # Trim off the app root path
+        package_tag = package_info["source"]["url"]
+        package_tag = package_tag[package_tag.find("/") + 1 :]  # skipcq: FLK-E203
+
+    # If the package is from a URL use the URL
+    elif source.get("type") == "url":
         package_tag = package_info["source"]["url"]
 
-        # Trim off the app root path
-        package_tag = package_tag[package_tag.find("/") + 1 :]  # skipcq: FLK-E203
     return package_tag
 
 
 def filter_packages(packages: list, key: str) -> list:
+    """Get only the packages in the requested category."""
     return list(filter(lambda p: p["category"] == key, packages))
 
 

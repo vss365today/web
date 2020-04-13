@@ -6,6 +6,7 @@ backup/
 testing/
 prompt-images/
 node_modules/
+secrets/
 
 *.db
 *.ini
@@ -14,3 +15,4 @@ node_modules/
 .env
 requirements.txt
 *.jpg
+!configuration/*.json
