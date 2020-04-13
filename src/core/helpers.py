@@ -85,7 +85,7 @@ def chunk_list(data: List[Any], *, size: int = 50) -> List[List[Any]]:
 
 
 def connect_to_twitter() -> tweepy.API:
-    # Connect to the Twitter API
+    """Connect to the Twitter API."""
     auth = tweepy.OAuthHandler(
         sys_vars.get("TWITTER_APP_KEY"), sys_vars.get("TWITTER_APP_SECRET")
     )

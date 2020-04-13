@@ -22,6 +22,7 @@ def get_package(package_info: dict) -> str:
 
 
 def filter_packages(packages: list, key: str) -> list:
+    """Get only the packages in the requested category."""
     return list(filter(lambda p: p["category"] == key, packages))
 
 
