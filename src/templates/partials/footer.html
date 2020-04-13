@@ -1,9 +1,8 @@
 <footer>
-  {#
   {% if show_form is not defined or show_form == True %}
   {% include "partials/form-subscribe.html" %}
   {% endif -%}
-  #}
+
   <div>
     {{ current_date.year }} <a rel="noopener noreferrer" href="https://codetri.net">Caleb Ely</a> |
     <a href="{{ url_for('root.donate') }}">Donate</a> |
