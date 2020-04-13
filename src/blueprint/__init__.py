@@ -32,6 +32,6 @@ def _factory(
 bp_root = _factory("root", "")
 bp_admin = _factory("admin", "/admin")
 bp_search = _factory("search", "/search")
-bp_shortcuts = _factory("shortcuts", "")
+bp_shortcuts = _factory("shortcuts", "/")
 
 all_blueprints = (bp_root, bp_search, bp_shortcuts)
