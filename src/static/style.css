@@ -319,6 +319,65 @@ button:focus { background-color: #e9e9e9; }
   font-size: 0.9em;
 }
 
+.msg-flash-area {
+  width: 100%;
+  position: fixed;
+  top: 0;
+
+  text-align: center;
+  z-index: 3;
+}
+
+.msg-flash {
+  display: flex;
+  align-items: center;
+
+  width: 25%;
+  height: 2.75em;
+
+  padding: 1.7rem 0.75rem;
+
+  margin-right: auto;
+  margin-left: auto;
+
+  position: relative;
+  border-radius: 3px;
+
+  font-size: 0.875rem;
+  text-align: left;
+
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.msg-flash.hidden {
+  opacity: 0;
+}
+
+.msg-flash.info {
+
+}
+
+.msg-flash.error {
+
+}
+
+.msg-flash p {
+  padding: 0;
+  margin: 0;
+}
+
+.msg-flash .btn-close {
+  margin-left: auto;
+
+  filter: invert(0.2);
+  transition: filter 0.2s ease;
+}
+.msg-flash .btn-close:hover,
+.msg-flash .btn-close:focus {
+  filter: invert(0.4);
+}
+
 
 /* -- Dark theme --*/
 .dark a {
@@ -396,6 +455,17 @@ button:focus { background-color: #e9e9e9; }
 .dark button:hover,
 .dark button:focus {
   background-color: var(--body-background);
+}
+
+.dark .msg-flash.info {
+  background-color: var(--primary-nav-bg);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.dark .msg-flash.error {
+  background-color: var(--primary-link);
+  color: var(--body-background);
 }
 
 
