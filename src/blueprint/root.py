@@ -1,7 +1,6 @@
 from datetime import datetime
 
-from flask import request
-from flask import abort, redirect, render_template, url_for
+from flask import abort, flash, redirect, render_template, request, url_for
 from requests.exceptions import HTTPError
 
 from src.blueprint import bp_root as root
