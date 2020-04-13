@@ -4,6 +4,7 @@ import re
 from typing import Any, Iterable, List, Optional, Tuple
 
 from requests.exceptions import HTTPError
+import sys_vars
 import tweepy
 
 from src.core import api
@@ -12,7 +13,7 @@ from src.core.config import load_json_config
 
 __all__ = [
     "chunk_list",
-    "create_twitter_connection",
+    "connect_to_twitter",
     "find_prompt_tweet",
     "find_prompt_word",
     "get_all_hashtags",
@@ -34,7 +35,7 @@ def __filter_hashtags(hashtags: tuple) -> tuple:
     # Get the words used for this month and remove them from consideration
     right_now = datetime.now()
     try:
-        month_prompts = api.get(
+        month_prompts: dict = api.get(
             "browse", params={"year": right_now.year, "month": right_now.month}
         )
         month_words = [prompt["word"] for prompt in month_prompts["prompts"]]
@@ -83,7 +84,7 @@ def chunk_list(data: List[Any], *, size: int = 50) -> List[List[Any]]:
     return [data[i : i + size] for i in range(0, len(data), size)]  # skipcq: FLK-E203
 
 
-def create_twitter_connection() -> tweepy.API:
+def connect_to_twitter() -> tweepy.API:
     # Connect to the Twitter API
     auth = tweepy.OAuthHandler(
         sys_vars.get("TWITTER_APP_KEY"), sys_vars.get("TWITTER_APP_SECRET")

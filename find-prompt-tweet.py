@@ -8,7 +8,7 @@ import tweepy
 from src.core import api
 from src.core.filters import create_api_date
 from src.core.helpers import (
-    create_twitter_connection,
+    connect_to_twitter,
     find_prompt_tweet,
     find_prompt_word,
     get_tweet_media,
@@ -75,7 +75,7 @@ print("Searching for the latest prompt tweet")
 CURRENT_HOST = api.get("host", "date", params={"date": TODAY})[0]
 
 # Connect to the Twitter API and attempt to find the prompt
-twitter_api = create_twitter_connection()
+twitter_api = connect_to_twitter()
 prompt_tweet = process_tweets(CURRENT_HOST["id"])
 
 # The tweet was not found at all :(
