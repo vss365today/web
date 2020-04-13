@@ -11,37 +11,36 @@ from src.core.helpers import group_month_list_of_hosts
 
 @root.route("/subscribe", methods=["POST"])
 def subscribe():
-    addition_success = False
-    email = request.form.get("email")
-
     # Attempt to record the email
+    email = request.form.get("email")
     try:
         api.post("subscription", params={"email": email})
-        addition_success = True
+        flash(f"Successfully added {email} to the subscription list.", "info")
     except HTTPError:
-        addition_success = False
+        flash(
+            f"We were unable to add {email} to the subscription list. "
+            "Please try again shortly.",
+            "error",
+        )
 
-    render_opts = {
-        "email": email,
-        "form_subscribe": SubscribeForm(),
-        "addition_success": addition_success,
-    }
-    return render_template("root/subscribe.html", **render_opts)
+    return redirect(url_for("root.index"))
 
 
 @root.route("/form-unsubscribe", methods=["POST"])
 def form_unsubscribe():
-    removal_success = False
+    # Attempt to delete the email
     email = request.form.get("email")
-
     try:
         api.delete("subscription", params={"email": email})
-        removal_success = True
+        flash(f"Successfully removed {email} from the subscription list.", "info")
+        return redirect(url_for("root.index"))
     except HTTPError:
-        removal_success = False
-
-    # Go back to the unsub page
-    return redirect(url_for("root.unsubscribe", success=str(removal_success).lower()))
+        flash(
+            f"We were unable to remove {email} to the subscription list. "
+            "Please try again shortly.",
+            "error",
+        )
+        return redirect(url_for("root.unsubscribe"))
 
 
 @root.route("/unsubscribe", methods=["GET"])
