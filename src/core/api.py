@@ -2,23 +2,20 @@ from typing import Any, Dict, Union
 
 import jwt
 import requests
+import sys_vars
 
-from src.core.config import load_app_config
 
 __all__ = ["create_auth_token", "get", "post", "put", "delete"]
-
-
-CONFIG = load_app_config()
 
 
 def __create_api_url(*args: str) -> str:
     """Construct a URL to the given API endpoint."""
     endpoint = "/".join(args)
-    return f"{CONFIG['API_DOMAIN']}/{endpoint}/"
+    return f"{sys_vars.get('API_DOMAIN')}/{endpoint}/"
 
 
 def create_auth_token(payload: Dict[str, Any]) -> dict:
-    token = jwt.encode(payload, CONFIG["JWT_SECRET_KEY"], algorithm="HS256")
+    token = jwt.encode(payload, sys_vars.get("JWT_SECRET_KEY"), algorithm="HS256")
     return {"Authorization": b"Bearer " + token}
 
 

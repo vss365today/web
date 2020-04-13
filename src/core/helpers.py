@@ -7,7 +7,7 @@ from requests.exceptions import HTTPError
 import tweepy
 
 from src.core import api
-from src.core.config import load_app_config, load_json_config
+from src.core.config import load_json_config
 
 
 __all__ = [
@@ -26,7 +26,6 @@ __all__ = [
 ]
 
 
-CONFIG = load_app_config()
 JSON_CONFIG = load_json_config()
 
 
@@ -86,8 +85,10 @@ def chunk_list(data: List[Any], *, size: int = 50) -> List[List[Any]]:
 
 def create_twitter_connection() -> tweepy.API:
     # Connect to the Twitter API
-    auth = tweepy.OAuthHandler(CONFIG["TWITTER_APP_KEY"], CONFIG["TWITTER_APP_SECRET"])
-    auth.set_access_token(CONFIG["TWITTER_KEY"], CONFIG["TWITTER_SECRET"])
+    auth = tweepy.OAuthHandler(
+        sys_vars.get("TWITTER_APP_KEY"), sys_vars.get("TWITTER_APP_SECRET")
+    )
+    auth.set_access_token(sys_vars.get("TWITTER_KEY"), sys_vars.get("TWITTER_SECRET"))
     twitter_api = tweepy.API(auth)
     print("Successfully connected to the Twitter API")
     return twitter_api
