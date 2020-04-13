@@ -112,7 +112,8 @@ def browse_by_year_month(year: str, month: str) -> str:
 
 @root.route("/donate")
 def donate():
-    return render_template("root/donate.html")
+    render_opts = {"form_subscribe": SubscribeForm()}
+    return render_template("root/donate.html", **render_opts)
 
 
 @root.route("/")
