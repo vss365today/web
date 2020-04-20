@@ -155,14 +155,3 @@ def view_date(date: str):
         "form_subscribe": SubscribeForm(),
     }
     return render_template("root/tweet.html", **render_opts)
-
-
-@root.app_errorhandler(404)
-def page_not_found(e) -> tuple:
-    render_opts = {"form_subscribe": SubscribeForm()}
-    return render_template("partials/errors/404.html", **render_opts), 404
-
-
-@root.app_errorhandler(500)
-def server_error(e) -> tuple:
-    return render_template("partials/errors/500.html"), 500

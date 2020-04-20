@@ -1,12 +1,11 @@
 from importlib import import_module
 
-from datetime import datetime
 from flask import Flask
 
 from src.blueprint import all_blueprints
 import src.configuration as config
-from src.extensions import init_extensions
 from src.core.filters import ALL_FILTERS
+from src.extensions import init_extensions
 
 
 def create_app():
@@ -22,6 +21,10 @@ def create_app():
     # Load the extensions
     init_extensions(app)
 
+    # Load any injection/special app handler methods
+    with app.app_context():
+        import_module("app.middleware")
+
     # Register all of the blueprints
     for bp in all_blueprints:
         import_module(bp.import_name)
@@ -30,26 +33,5 @@ def create_app():
     # Register the filters
     for name, method in ALL_FILTERS.items():
         app.add_template_filter(method, name=name)
-
-    @app.context_processor
-    def inject_current_date():
-        return {"current_date": datetime.now()}
-
-    @app.context_processor
-    def nav_cur_page():
-        return {
-            "nav_cur_page": lambda title, has: (
-                "active" if has.strip() in title.strip().lower() else ""
-            )
-        }
-
-    @app.context_processor
-    def create_url():
-        def _make(prompt: dict) -> str:
-            return "https://twitter.com/{0}/status/{1}".format(
-                prompt["writer_handle"], prompt["id"]
-            )
-
-        return {"create_url": _make}
 
     return app
