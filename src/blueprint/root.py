@@ -27,6 +27,7 @@ def subscribe():
 @root.route("/form-unsubscribe", methods=["POST"])
 def form_unsubscribe():
     # Attempt to delete the email
+    # TODO What if we don't get an email here?
     email = request.form.get("email")
     try:
         api.delete("subscription", params={"email": email})
@@ -43,13 +44,7 @@ def form_unsubscribe():
 
 @root.route("/unsubscribe", methods=["GET"])
 def unsubscribe():
-    # Determine from the args if the removal happened or not
-    removal_success = request.args.get("success")
-    if removal_success is not None:
-        removal_success = removal_success == "true"
-
     render_opts = {
-        "removal_success": removal_success,
         "form_subscribe": SubscribeForm(),
         "form_unsubscribe": UnsubscribeForm(),
     }
