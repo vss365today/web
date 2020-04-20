@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from flask import abort, flash, redirect, render_template, request, url_for
 from requests.exceptions import HTTPError
 
@@ -102,7 +100,7 @@ def browse_by_year_month(year: str, month: str) -> str:
 
     render_opts = {
         "form_subscribe": SubscribeForm(),
-        "date": format_month_year(f"{year}-{month}"),
+        "date": filters.format_month_year(f"{year}-{month}"),
         "month_prompts": month_prompts["prompts"],
         "host": ", ".join(host["handle"] for host in month_prompts["hosts"]),
     }
@@ -119,7 +117,7 @@ def donate():
 def index():
     # Get the latest prompt and go ahead and make a proper date object
     prompts = api.get("prompt")
-    prompts[0]["date"] = create_api_date(prompts[0]["date"])
+    prompts[0]["date"] = filters.create_api_date(prompts[0]["date"])
 
     render_opts = {
         "prompts": prompts,
@@ -147,7 +145,7 @@ def view_date(date: str):
     # and we need to handle these special cases
     prompts = []
     for prompt in api_prompts:
-        prompt["date"] = create_api_date(prompt["date"])
+        prompt["date"] = filters.create_api_date(prompt["date"])
         prompts.append(prompt)
 
     render_opts = {
