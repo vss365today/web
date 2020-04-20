@@ -6,6 +6,7 @@ from flask import Flask
 from src.blueprint import all_blueprints
 import src.configuration as config
 from src.extensions import init_extensions
+from src.core.filters import ALL_FILTERS
 
 
 def create_app():
@@ -25,6 +26,10 @@ def create_app():
     for bp in all_blueprints:
         import_module(bp.import_name)
         app.register_blueprint(bp)
+
+    # Register the filters
+    for name, method in ALL_FILTERS.items():
+        app.add_template_filter(method, name=name)
 
     @app.context_processor
     def inject_current_date():

@@ -168,28 +168,3 @@ def page_not_found(e) -> tuple:
 @root.app_errorhandler(500)
 def server_error(e) -> tuple:
     return render_template("partials/errors/500.html"), 500
-
-
-@root.app_template_filter()
-def create_api_date(date_str: str) -> datetime:
-    return filters.create_api_date(date_str)
-
-
-@root.app_template_filter()
-def format_datetime(date_obj: datetime) -> str:
-    return filters.format_datetime(date_obj)
-
-
-@root.app_template_filter()
-def format_date_pretty(date_obj: datetime) -> str:
-    return filters.format_date_pretty(date_obj)
-
-
-@root.app_template_filter()
-def format_content(content: str) -> str:
-    return filters.format_content(content)
-
-
-@root.app_template_filter()
-def format_month_year(date: str) -> str:
-    return filters.format_month_year(date)
