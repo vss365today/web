@@ -7,6 +7,7 @@ testing/
 prompt-images/
 node_modules/
 secrets/
+src/static/build/
 
 *.db
 *.ini
