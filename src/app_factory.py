@@ -23,7 +23,7 @@ def create_app():
 
     # Load any injection/special app handler methods
     with app.app_context():
-        import_module("app.middleware")
+        import_module("src.middleware")
 
     # Register all of the blueprints
     for bp in all_blueprints:
