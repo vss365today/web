@@ -36,7 +36,7 @@ body {
   text-rendering: optimizeSpeed;
 }
 
-h1, h2, h3, h4, h5, h6, strong, label {
+h1, h2, h3, h4, h5, h6, label {
   font-family: var(--font-stack-header);
   font-weight: 700;
 }
