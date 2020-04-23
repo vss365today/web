@@ -1,5 +1,5 @@
 <form class="form-subscribe" method="POST" action="{{ url_for('root.form_unsubscribe') }}">
   {{ form_unsubscribe.csrf_token }}
-  {{ form_unsubscribe.email(placeholder="amwriting@example.com", value="") }}
+  {{ form_unsubscribe.email(value="") }}
   <button type="submit">Unsubscribe</button>
 </form>

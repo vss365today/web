@@ -41,6 +41,8 @@ h1, h2, h3, h4, h5, h6, label {
   font-weight: 700;
 }
 
+strong { font-weight: 700; }
+
 a,
 .nav-link {
   text-decoration: none;

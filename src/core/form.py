@@ -23,6 +23,7 @@ class SubscribeForm(FlaskForm):
         "Subscribe to daily #vss365 notifications",
         id="input-email",
         validators=[DataRequired(), Email()],
+        render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
     )
 
 
@@ -31,4 +32,5 @@ class UnsubscribeForm(FlaskForm):
         "Unsubscribe from daily #vss365 notifications",
         id="input-email",
         validators=[DataRequired(), Email()],
+        render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
     )
