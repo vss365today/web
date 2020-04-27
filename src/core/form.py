@@ -15,7 +15,12 @@ class AdminSignInForm(FlaskForm):
 
 
 class PromptSearchForm(FlaskForm):
-    query = SearchField("", id="input-search-prompt", validators=[DataRequired()])
+    query = SearchField(
+        "",
+        id="input-search-prompt",
+        validators=[DataRequired()],
+        render_kw={"placeholder": "braid"},
+    )
 
 
 class SubscribeForm(FlaskForm):

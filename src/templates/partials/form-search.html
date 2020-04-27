@@ -1,6 +1,6 @@
 <form class="form-archive-search" method="GET" action="{{ url_for('search.query_search') }}">
   {{ form.query.label(class="center") }}
-  {{ form.query(placeholder="braid") }}
+  {{ form.query() }}
   <button type="submit">Search</button>
 </form>
 
