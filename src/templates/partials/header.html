@@ -1,0 +1,11 @@
+<header>
+  <div>
+    <h1 id="site-title"><a href="{{ url_for('root.index') }}">
+      <span id="vss365">#vss365</span><span id="today">today</span></a>
+    </h1>
+
+    <h2 id="page-title">{{ page_title }}</h2>
+  </div>
+
+  {% include "partials/nav.html" %}
+</header>
