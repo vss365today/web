@@ -24,10 +24,6 @@
 
   {% include 'partials/footer.html' %}
 
-  {% if config.ENV == "production" %}
-  {% include "partials/analytics.html" %}
-  {% endif -%}
-
   <script src="{{ url_for('static', filename='details-element-polyfill.js') }}"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   <script src="{{ url_for('static', filename='js/flash-messages.js') }}"></script>
