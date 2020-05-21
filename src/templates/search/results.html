@@ -8,7 +8,7 @@
     <p>It looks like the word prompt "{{ query }}" hasn't been used before. 🤔 Maybe try searching for something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a>?</p>
 
   {% else %}
-  <h2 class="center">Apparently {{ total }} hosts consider "{{ query }}" to be a superb prompt!</h2>
+  <h2 class="center">Say "{{ query }}" {{ 'times fast' if total > 1 else 'time'}}. That's how cool the prompt is!</h2>
   <div class="wrapper">
     {% for prompt in prompts %}
     {% set date = prompt.date|create_api_date %}
