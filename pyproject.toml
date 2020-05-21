@@ -12,7 +12,7 @@ tweepy = "^3.8"
 gunicorn = "^20.0"
 requests = "^2.23"
 pyjwt = "^1.7.1"
-sys-vars = {url = "https://github.com/le717/sys-vars/releases/download/v1.0.0/sys_vars-1.0.0-py3-none-any.whl"}
+sys-vars = {url = "https://github.com/le717/sys-vars/releases/download/v3.0.0/sys_vars-3.0.0-py3-none-any.whl"}
 
 [tool.poetry.dev-dependencies]
 rope = "^0.16.0"
