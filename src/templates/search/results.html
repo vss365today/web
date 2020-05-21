@@ -4,11 +4,11 @@
 {% block content %}
 <section class="page center search-results">
   {% if total == 0 %}
-  <h2 class="center">&OpenCurlyDoubleQuote;The best way to find "{{ query }}" is to write about it yourself.&CloseCurlyDoubleQuote;</h2>
-    <p>Looks like nothing was found for the word prompt "{{ query }}". 🙁 Maybe try searching for something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a> directly?</p>
+  <h2 class="center">&OpenCurlyDoubleQuote;The best way to discover "{{ query }}" is to write about it yourself.&CloseCurlyDoubleQuote;</h2>
+    <p>It looks like the word prompt "{{ query }}" hasn't been used before. 🤔 Maybe try searching for something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a>?</p>
 
   {% else %}
-  <h2 class="center">&OpenCurlyDoubleQuote;Apparently {{ total }} hosts consider "{{ query }}" to be a superb prompt!&CloseCurlyDoubleQuote;</h2>
+  <h2 class="center">Apparently {{ total }} hosts consider "{{ query }}" to be a superb prompt!</h2>
   <div class="wrapper">
     {% for prompt in prompts %}
     {% set date = prompt.date|create_api_date %}
