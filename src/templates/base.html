@@ -6,10 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{ page_title }} | {{ config.APP_NAME }}</title>
   {% include "partials/social-media.html" %}
-  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
-  <link rel="preconnect" crossorigin href="https://fonts.gstatic.com/">
   <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Josefin+Slab:wght@400;600;700&family=Noto+Serif+SC:wght@400;700&display=swap">
+  {{ GoogleFonts('https://fonts.googleapis.com/css2?family=Bad+Script&family=Josefin+Slab:wght@400;600;700&family=Noto+Serif+SC:wght@400;700') }}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
