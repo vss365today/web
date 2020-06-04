@@ -21,7 +21,7 @@
 
 ## Build
 
-1. `docker build -f "docker/Dockerfile" -t vss365today:latest .`
+1. `docker build -f "docker/Dockerfile" -t vss365today-web:latest .`
 
 ## License
 
