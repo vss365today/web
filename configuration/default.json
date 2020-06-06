@@ -4,11 +4,7 @@
   ],
   "secrets": [
     "SECRET_KEY",
-    "JWT_SECRET_KEY",
-    "TWITTER_APP_KEY",
-    "TWITTER_APP_SECRET",
-    "TWITTER_KEY",
-    "TWITTER_SECRET"
+    "JWT_SECRET_KEY"
   ],
   "appConfig": {
     "APP_NAME": "#vss365 today",

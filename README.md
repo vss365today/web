@@ -8,8 +8,6 @@
 * Running instance of [#vss365 today API](https://github.com/le717/vss365today-api/) (domain configurable)
 * Flask secret key
 * JWT secret key
-* Twitter Consumer API keys
-* Twitter access token & access token secret
 
 ## Install
 
