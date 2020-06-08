@@ -4,7 +4,8 @@
   ],
   "secrets": [
     "SECRET_KEY",
-    "JWT_SECRET_KEY"
+    "JWT_SECRET_KEY",
+    "ABUSE_EMAIL_ADDR"
   ],
   "appConfig": {
     "APP_NAME": "#vss365 today",
