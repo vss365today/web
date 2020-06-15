@@ -11,7 +11,6 @@ Flask = "^1.1"
 flask-wtf = "^0.14.3"
 gunicorn = "^20.0"
 requests = "^2.23"
-pyjwt = "^1.7.1"
 email-validator = "^1.1.1"
 sys-vars = {url = "https://github.com/le717/sys-vars/releases/download/v3.0.0/sys_vars-3.0.0-py3-none-any.whl"}
 flask-google-fonts = {url = "https://github.com/le717/flask-google-fonts/releases/download/v1.0.0/flask_google_fonts-1.0.0-py3-none-any.whl"}

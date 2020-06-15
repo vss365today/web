@@ -1,11 +1,10 @@
-from typing import Any, Dict, Union
+from typing import Any, Union
 
-import jwt
 import requests
 import sys_vars
 
 
-__all__ = ["create_auth_token", "create_auth_payload", "get", "post", "put", "delete"]
+__all__ = ["create_auth_token", "get", "post", "put", "delete"]
 
 
 def __create_api_url(*args: str) -> str:
@@ -14,18 +13,9 @@ def __create_api_url(*args: str) -> str:
     return f"{sys_vars.get('API_DOMAIN')}/{endpoint}/"
 
 
-def create_auth_token(payload: Dict[str, Any]) -> dict:
-    """Create a JWT for accessing protected API endpoints."""
-    token = jwt.encode(payload, sys_vars.get("JWT_SECRET_KEY"), algorithm="HS256")
-    return {"Authorization": b"Bearer " + token}
-
-
-def create_auth_payload() -> dict:
-    """Create a authorized user JWT payload."""
-    return {
-        "user": sys_vars.get("API_AUTH_USER"),
-        "token": sys_vars.get("API_AUTH_TOKEN"),
-    }
+def create_auth_token() -> dict:
+    """Create HTTP header for accessing protected API endpoints."""
+    return {"Authorization": f"Bearer {sys_vars.get('API_AUTH_TOKEN')}"}
 
 
 def get(*args: str, **kwargs: Any) -> Union[list, dict]:

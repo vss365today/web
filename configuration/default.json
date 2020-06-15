@@ -1,12 +1,6 @@
 {
-  "env": [
-    "API_DOMAIN"
-  ],
-  "secrets": [
-    "SECRET_KEY",
-    "JWT_SECRET_KEY",
-    "ABUSE_EMAIL_ADDR"
-  ],
+  "env": ["API_DOMAIN"],
+  "secrets": ["SECRET_KEY", "ABUSE_EMAIL_ADDR", "API_AUTH_TOKEN"],
   "appConfig": {
     "APP_NAME": "#vss365 today",
     "APP_DOMAIN": "vss365today.com",

@@ -1,13 +1,12 @@
-  # #vss365 today
+# #vss365 today
 
 > Get the latest #vss365 prompt
 
-
 ## Required Configuration
 
-* Running instance of [#vss365 today API](https://github.com/le717/vss365today-api/) (domain configurable)
-* Flask secret key
-* JWT secret key
+- Running instance of [#vss365 today API](https://github.com/le717/vss365today-api/) (domain configurable)
+  - API key for protected endpoint access
+- Flask secret key
 
 ## Install
 
