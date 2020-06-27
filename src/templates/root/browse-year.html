@@ -3,18 +3,15 @@
 
 {% block content %}
 <section class="page center browse-giver">
+  <h2 class="center">&OpenCurlyDoubleQuote;
+    Actually, years mean nothing. It's what's inside them.&CloseCurlyDoubleQuote;
+    <br>&mdash;<a rel="nofollow noopener noreferrer" href="https://www.goodreads.com/quotes/478606-actually-years-mean-nothing-it-s-what-s-inside-them">Simon Van Booy</a>
+  </h2>
 
-  {%- if not hosts -%}
-  <h2>No {{ year }} #vss365 prompts were found!</h2>
-
-  {%- else %}
   <div class="wrapper">
     {%- for host in hosts %}
-    <dl>
-      {% set host_date = host.date|create_api_date %}
-      <dd><a href="{{ url_for('root.browse_by_year_month', year=host_date.year, month=host_date.strftime('%m')) }}">{{ host.handle }}</a></dd>
-      <dt>{{ host_date|format_datetime|format_month_year }}</dt>
-    </dl>
+    {% set host_date = host.date|create_api_date %}
+    <a class="a-btn" href="{{ url_for('root.browse_by_year_month', year=host_date.year, month=host_date.strftime('%m')) }}">{{ host_date|format_month_year }}</a>
     {%- if loop.index % 6 == 0 %}
   </div>
 
@@ -22,7 +19,5 @@
     {%- endif %}
     {%- endfor %}
   </div>
-  {%- endif %}
-
 </section>
 {% endblock %}

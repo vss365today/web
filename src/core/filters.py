@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Union
 from html import unescape
 
 from src.core.helpers import make_hashtags, make_mentions, make_urls
@@ -37,12 +38,15 @@ def format_date_pretty(date_obj: datetime) -> str:
     return date_obj.strftime("%B %d, %Y")
 
 
-def format_month_year(date: str) -> str:
+def format_month_year(date: Union[str, datetime]) -> str:
     """Format a date as MM YYYY."""
-    # Add in a dummy day if needed
-    if len(date.split("-")) == 2:
-        date = f"{date}-01"
-    return create_datetime(date).strftime("%B %Y")
+    # If the date is provided as a string, conver it to a datetime obj
+    if isinstance(date, str):
+        # Add in a dummy day if needed
+        if len(date.split("-")) == 2:
+            date = f"{date}-01"
+        date = create_datetime(date)
+    return date.strftime("%B %Y")
 
 
 def format_content(text: str) -> str:
