@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% set page_title = date ~ ' prompts from ' ~ host %}
+{% set page_title = date ~ ' prompts' %}
 
 {% block content %}
 <section class="page center browse-giver">
@@ -13,6 +13,7 @@
     <dl>
       <dd><a href="{{ url_for('root.view_date', date=prompt_date|format_datetime) }}">{{ prompt.word }}</a></dd>
       <dt>{{ prompt_date|format_date_pretty }}</dt>
+      <dt>{{ prompt.writer_handle }}</dt>
     </dl>
     {%- if loop.index % 5 == 0 %}
   </div>

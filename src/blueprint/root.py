@@ -72,7 +72,7 @@ def browse_by_year(year: str):
     except HTTPError:
         abort(404)
 
-    grouped_groups = (
+    grouped_hosts = (
         group_month_list_of_hosts(hosts_in_year["hosts"])
         if hosts_in_year["query"] == "2017"
         else hosts_in_year["hosts"]
@@ -80,7 +80,7 @@ def browse_by_year(year: str):
 
     render_opts = {
         "form_subscribe": SubscribeForm(),
-        "hosts": grouped_groups,
+        "hosts": grouped_hosts,
         "year": year,
     }
     return render_template("root/browse-year.html", **render_opts)
@@ -99,7 +99,7 @@ def browse_by_year_month(year: str, month: str) -> str:
         "month_prompts": month_prompts["prompts"],
         "host": ", ".join(host["handle"] for host in month_prompts["hosts"]),
     }
-    return render_template("root/browse-host.html", **render_opts)
+    return render_template("root/browse-month.html", **render_opts)
 
 
 @root.route("/donate")

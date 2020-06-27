@@ -34,7 +34,7 @@ def get_all_hashtags(text: str) -> Optional[tuple]:
 def group_month_list_of_hosts(hosts: Iterable[dict]) -> list:
     """Group multiple Hosts for a single month.
 
-    For some months in 2017, twonon-overlapping Hosts
+    For some months in 2017, three-overlapping Hosts
     gave out the prompts. While these are stored distinctly
     in the database, we need to present these as the same month.
     While it adds some complexity to the app, it makes the
@@ -45,7 +45,7 @@ def group_month_list_of_hosts(hosts: Iterable[dict]) -> list:
 
     # If there are multiple hosts in a single month,
     # lump the two handles together.
-    # Since this will only get git in historical data where
+    # Since this will only get hit in historical data where
     # there's only two hosts in a single month,
     # this doesn't have to be any more ~~complicated~~ extensible
     for this_mo, next_mo in hosts_grouped:
