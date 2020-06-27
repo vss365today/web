@@ -3,10 +3,6 @@
 
 {% block content %}
 <section class="page center browse-giver">
-  {% if not month_prompts -%}
-  <h2>No #vss365 prompts from {{ host }} for {{ date }} were found!</h2>
-
-  {%- else %}
   <div class="wrapper">
     {%- for prompt in month_prompts %}
     {% set prompt_date = prompt.date|create_api_date %}
@@ -22,6 +18,5 @@
     {%- endif %}
     {%- endfor %}
   </div>
-  {%- endif %}
 </section>
 {% endblock %}
