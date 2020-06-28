@@ -1,3 +1,4 @@
+from html import unescape
 from itertools import zip_longest
 import re
 from typing import Iterable, Optional
@@ -6,6 +7,7 @@ from src.core.config import load_json_config
 
 
 __all__ = [
+    "format_content",
     "get_all_hashtags",
     "group_month_list_of_hosts",
     "make_hashtags",
@@ -24,6 +26,24 @@ def __grouper(iterable: Iterable) -> tuple:
     """
     args = [iter(iterable)] * 2
     return tuple(zip_longest(*args, fillvalue={}))
+
+
+def format_content(text: str) -> str:
+    # Wrap all non-blank lines in paragraphs
+    split_text = text.split("\n")
+    split_text = [
+        f"<p>{para.strip()}</p>"
+        for para in split_text
+        if para  # false-y value means blank line
+    ]
+
+    # Rejoin the lines and make all links clickable
+    new_text = "\n".join(split_text)
+    new_text = unescape(new_text)
+    new_text = make_hashtags(new_text)
+    new_text = make_mentions(new_text)
+    new_text = make_urls(new_text)
+    return new_text
 
 
 def get_all_hashtags(text: str) -> Optional[tuple]:

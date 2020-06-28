@@ -1,7 +1,7 @@
 from requests.exceptions import HTTPError
 
 from src.core import api
-from src.core.filters import create_datetime
+from src.core.filters.date import create_datetime
 
 
 try:

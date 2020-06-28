@@ -2,7 +2,9 @@ from flask import abort, flash, redirect, render_template, request, url_for
 from requests.exceptions import HTTPError
 
 from src.blueprint import bp_root as root
-from src.core import api, filters
+from src.core import api
+from src.core.filters import date as date_format
+
 from src.core.form import SubscribeForm, UnsubscribeForm
 from src.core.helpers import group_month_list_of_hosts
 
@@ -68,14 +70,14 @@ def browse():
 def browse_by_year(year: str):
     # Get the host's list and group them up if needed
     try:
-        hosts_in_year: dict = api.get("browse", params={"year": year})
+        year_hosts: dict = api.get("browse", params={"year": year})
     except HTTPError:
         abort(404)
 
     grouped_hosts = (
-        group_month_list_of_hosts(hosts_in_year["hosts"])
-        if hosts_in_year["query"] == "2017"
-        else hosts_in_year["hosts"]
+        group_month_list_of_hosts(year_hosts["hosts"])
+        if year_hosts["query"] == "2017"
+        else year_hosts["hosts"]
     )
 
     render_opts = {
@@ -95,9 +97,8 @@ def browse_by_year_month(year: str, month: str) -> str:
 
     render_opts = {
         "form_subscribe": SubscribeForm(),
-        "date": filters.format_month_year(f"{year}-{month}"),
+        "date": date_format.format_month_year(f"{year}-{month}-01"),
         "month_prompts": month_prompts["prompts"],
-        "host": ", ".join(host["handle"] for host in month_prompts["hosts"]),
     }
     return render_template("root/browse-month.html", **render_opts)
 
@@ -112,7 +113,7 @@ def donate():
 def index():
     # Get the latest prompt and go ahead and make a proper date object
     prompts = api.get("prompt")
-    prompts[0]["date"] = filters.create_api_date(prompts[0]["date"])
+    prompts[0]["date"] = date_format.create_api_date(prompts[0]["date"])
 
     render_opts = {
         "prompts": prompts,
@@ -128,7 +129,7 @@ def view_date(date: str):
     # Try to get the prompt for this day
     try:
         api_prompts = api.get(
-            "prompt", params={"date": str(filters.create_datetime(date))}
+            "prompt", params={"date": str(date_format.create_datetime(date))}
         )
 
     # There is no prompt for this day
@@ -140,7 +141,7 @@ def view_date(date: str):
     # and we need to handle these special cases
     prompts = []
     for prompt in api_prompts:
-        prompt["date"] = filters.create_api_date(prompt["date"])
+        prompt["date"] = date_format.create_api_date(prompt["date"])
         prompts.append(prompt)
 
     render_opts = {
