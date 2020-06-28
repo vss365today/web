@@ -1,25 +1,29 @@
-(function() {
+(function () {
   "use strict";
+  // Remove the old storage key
   const STORAGE_KEY = "is-dark-theme";
-  const userTheme = window.localStorage.getItem(STORAGE_KEY);
+  window.localStorage.removeItem(STORAGE_KEY);
 
-  function isDarkTheme() {
-    return document.body.classList.contains("dark");
+  // Detect if the user wants a dark theme
+  const themeDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function applyLightTheme() {
+    document.body.classList.remove("dark");
   }
 
   function applyDarkTheme() {
-    document.body.classList.toggle("dark", !isDarkTheme());
-    window.localStorage.setItem(STORAGE_KEY, isDarkTheme().toString());
+    document.body.classList.add("dark");
   }
 
-  // Determine the theme to use initially by checking `prefers-color-scheme`,
-  // defaulting to the light theme, but then checking if the user has manually set a theme
-  // and using it instead
-  let wantsDarkTheme = matchMedia("(prefers-color-scheme: dark)").matches;
-  if (userTheme) {
-    wantsDarkTheme = (userTheme === "true");
+  /**
+   * Used to set the dark theme on page load, if needed.
+   */
+  if (themeDark.matches) {
+    applyDarkTheme();
   }
 
-  // Set or remove the `dark` class on page load
-  document.body.classList.toggle("dark", wantsDarkTheme);
-}());
+  // Listen for theme changes
+  themeDark.addListener(function (e) {
+    (e.matches ? applyDarkTheme : applyLightTheme)();
+  });
+})();
