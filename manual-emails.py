@@ -9,7 +9,11 @@ try:
     prompt_date = input("Enter the prompt date (YYYY-MM-DD): ")
 
     # Send out a broadcast
-    api.post("broadcast", params={"date": create_datetime(prompt_date)})
+    api.post(
+        "broadcast",
+        headers=api.create_auth_token(),
+        params={"date": create_datetime(prompt_date)},
+    )
     print(f"Email broadcast for {prompt_date} successfully sent")
 
 # A broadcast for that day couldn't be sent
