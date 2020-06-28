@@ -1,15 +1,15 @@
 from html import unescape
-from itertools import zip_longest
 import re
-from typing import Iterable, Optional
+from typing import List, Optional
 
 from src.core.config import load_json_config
+from src.core.filters.date import create_api_date
 
 
 __all__ = [
     "format_content",
     "get_all_hashtags",
-    "group_month_list_of_hosts",
+    "get_unique_year_months",
     "make_hashtags",
     "make_mentions",
     "make_urls",
@@ -18,14 +18,6 @@ __all__ = [
 
 
 JSON_CONFIG = load_json_config()
-
-
-def __grouper(iterable: Iterable) -> tuple:
-    """Collect data into 2-length chunks or blocks.
-    https://docs.python.org/3/library/itertools.html#itertools-recipes
-    """
-    args = [iter(iterable)] * 2
-    return tuple(zip_longest(*args, fillvalue={}))
 
 
 def format_content(text: str) -> str:
@@ -51,35 +43,26 @@ def get_all_hashtags(text: str) -> Optional[tuple]:
     return tuple(matches) if matches else None
 
 
-def group_month_list_of_hosts(hosts: Iterable[dict]) -> list:
-    """Group multiple Hosts for a single month.
+def get_unique_year_months(year_data: List[dict]) -> List[dict]:
+    """Make all Host dates for a given year into a unique set.
 
-    For some months in 2017, three-overlapping Hosts
-    gave out the prompts. While these are stored distinctly
-    in the database, we need to present these as the same month.
-    While it adds some complexity to the app, it makes the
-    user experience more smooth and easier to navigate."""
-    # Group the months into chunks of two
-    final = []
-    hosts_grouped = __grouper(hosts)
+    For some months in 2017, November 2020, and possibly future times,
+    there were multiple Hosts per month giving out the prompts.
+    While the individual dates are stored distinctly in the database,
+    we need a unique year/month list in order to correctly display the
+    year browsing page. This function creates that unique list."""
+    unique = []
 
-    # If there are multiple hosts in a single month,
-    # lump the two handles together.
-    # Since this will only get hit in historical data where
-    # there's only two hosts in a single month,
-    # this doesn't have to be any more ~~complicated~~ extensible
-    for this_mo, next_mo in hosts_grouped:
-        if next_mo and this_mo["date"] == next_mo["date"]:
-            this_mo["handle"] = f"{this_mo['handle']}, {next_mo['handle']}"
-            # Mark the second host record for removal
-            next_mo["delete"] = True
+    # Go through each host for this year
+    for host in year_data:
+        # Convert the date they are hosting into a month-year group
+        date = create_api_date(host["date"])
+        month_dict = {"year": str(date.year), "month": date.strftime("%m")}
 
-    # Trim the hosts list down to just the ones we need
-    for one, two in hosts_grouped:
-        final.append(one)
-        if two and not two.get("delete"):
-            final.append(two)
-    return final
+        # If we've not already seen this combo, we record it
+        if month_dict not in unique:
+            unique.append(month_dict)
+    return unique
 
 
 def make_hashtags(text: str) -> str:

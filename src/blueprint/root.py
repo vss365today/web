@@ -4,9 +4,8 @@ from requests.exceptions import HTTPError
 from src.blueprint import bp_root as root
 from src.core import api
 from src.core.filters import date as date_format
-
 from src.core.form import SubscribeForm, UnsubscribeForm
-from src.core.helpers import group_month_list_of_hosts
+from src.core.helpers import get_unique_year_months
 
 
 @root.route("/subscribe", methods=["POST"])
@@ -22,7 +21,6 @@ def subscribe():
             "Please try again shortly.",
             "error",
         )
-
     return redirect(url_for("root.index"))
 
 
@@ -74,15 +72,9 @@ def browse_by_year(year: str):
     except HTTPError:
         abort(404)
 
-    grouped_hosts = (
-        group_month_list_of_hosts(year_hosts["hosts"])
-        if year_hosts["query"] == "2017"
-        else year_hosts["hosts"]
-    )
-
     render_opts = {
         "form_subscribe": SubscribeForm(),
-        "hosts": grouped_hosts,
+        "dates": get_unique_year_months(year_hosts["hosts"]),
         "year": year,
     }
     return render_template("root/browse-year.html", **render_opts)
