@@ -103,9 +103,14 @@ def donate():
 
 @root.route("/")
 def index():
-    # Get the latest prompt and go ahead and make a proper date object
-    prompts = api.get("prompt")
-    prompts[0]["date"] = date_format.create_api_date(prompts[0]["date"])
+    # Create a proper date object for each prompt
+    # There are some older days that have multiple prompts,
+    # and we need to handle these special cases
+    api_prompts = api.get("prompt")
+    prompts = []
+    for prompt in api_prompts:
+        prompt["date"] = date_format.create_api_date(prompt["date"])
+        prompts.append(prompt)
 
     render_opts = {
         "prompts": prompts,
