@@ -8,7 +8,7 @@ from src.core.form import SubscribeForm, UnsubscribeForm
 from src.core.helpers import get_unique_year_months
 
 
-@root.route("/subscribe", methods=["POST"])
+@root.route("subscribe", methods=["POST"])
 def subscribe():
     # Attempt to record the email
     email = request.form.get("email")
@@ -24,7 +24,7 @@ def subscribe():
     return redirect(url_for("root.index"))
 
 
-@root.route("/form-unsubscribe", methods=["POST"])
+@root.route("form-unsubscribe", methods=["POST"])
 def form_unsubscribe():
     # Attempt to delete the email
     # TODO What if we don't get an email here?
@@ -42,7 +42,7 @@ def form_unsubscribe():
         return redirect(url_for("root.unsubscribe"))
 
 
-@root.route("/unsubscribe", methods=["GET"])
+@root.route("unsubscribe", methods=["GET"])
 def unsubscribe():
     render_opts = {
         "form_subscribe": SubscribeForm(),
@@ -51,20 +51,20 @@ def unsubscribe():
     return render_template("root/unsubscribe.html", **render_opts)
 
 
-@root.route("/about")
+@root.route("about")
 def about():
     render_opts = {"form_subscribe": SubscribeForm()}
     return render_template("root/about.html", **render_opts)
 
 
-@root.route("/browse")
+@root.route("browse")
 def browse():
     prompt_years = api.get("browse", "years")
     render_opts = {"form_subscribe": SubscribeForm(), "years": prompt_years}
     return render_template("root/browse.html", **render_opts)
 
 
-@root.route("/browse/<year>")
+@root.route("browse/<year>")
 def browse_by_year(year: str):
     # Get the host's list and group them up if needed
     try:
@@ -80,7 +80,7 @@ def browse_by_year(year: str):
     return render_template("root/browse-year.html", **render_opts)
 
 
-@root.route("/browse/<year>/<month>")
+@root.route("browse/<year>/<month>")
 def browse_by_year_month(year: str, month: str) -> str:
     try:
         month_prompts: dict = api.get("browse", params={"year": year, "month": month})
@@ -95,7 +95,7 @@ def browse_by_year_month(year: str, month: str) -> str:
     return render_template("root/browse-month.html", **render_opts)
 
 
-@root.route("/donate")
+@root.route("donate")
 def donate():
     render_opts = {"form_subscribe": SubscribeForm()}
     return render_template("root/donate.html", **render_opts)
@@ -116,7 +116,7 @@ def index():
     return render_template("root/tweet.html", **render_opts)
 
 
-@root.route("/view/<date>")
+@root.route("view/<date>")
 def view_date(date: str):
     # Try to get the prompt for this day
     try:

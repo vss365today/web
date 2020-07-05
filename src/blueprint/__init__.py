@@ -29,7 +29,7 @@ def _factory(
     return blueprint
 
 
-bp_root = _factory("root", "")
+bp_root = _factory("root", "/")
 bp_admin = _factory("admin", "/admin")
 bp_search = _factory("search", "/search")
 bp_shortcuts = _factory("shortcuts", "/")
