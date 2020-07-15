@@ -7,13 +7,24 @@
     Those who forget history are doomed to repeat it.&CloseCurlyDoubleQuote;
     <br>&mdash; Edmund Burke
   </h2>
-  <p>Did you miss a #vss365 prompt? Do you want to view the previous prompts and perhaps gain some writing inspriation? You've come to the right place, as this is where you'll find all the daily prompts! Happy browsing!</p>
+  <p>Did you miss a <strong>#vss365</strong> prompt? Do you want to view the previous prompts and perhaps gain some writing inspriation? You've come to the right place, as this is where you'll find all the daily prompts! Happy browsing!</p>
 
   <div class="wrapper">
     <h2>Browse by year</h2>
     {% for year in years -%}
     <a class="a-btn" href="{{ url_for('root.browse_by_year', year=year) }}">{{ year }}</a>
     {% endfor %}
+  </div>
+
+  <h2 class="center">Download the complete word archive!</h2>
+  <p>For the first time ever, the complete <strong>#vss365</strong> word archive is available in a single location! Download a spreadsheet with every word ever used since the beginning of the game, perfect for data analysis, hosting preparation, or writing inspriation! Updated daily so you always have the latest words.</p>
+
+  <div class="wrapper">
+    {% if not archive %}
+    <div class="a-btn">Archive currently unavailable! :(</div>
+    {% else %}
+    <a class="a-btn" download href="{{ archive.file }}">Download the archive</a>
+    {% endif %}
   </div>
 </section>
 {% endblock %}

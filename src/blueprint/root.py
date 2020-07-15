@@ -59,8 +59,18 @@ def about():
 
 @root.route("browse")
 def browse():
-    prompt_years = api.get("browse", "years")
-    render_opts = {"form_subscribe": SubscribeForm(), "years": prompt_years}
+    # Handle the archive file possibly being unavailable
+    try:
+        # archive_name = api.get("archive")
+        archive_name = False
+    except HTTPError:
+        archive_name = False
+
+    render_opts = {
+        "form_subscribe": SubscribeForm(),
+        "years": api.get("browse", "years"),
+        "archive": archive_name,
+    }
     return render_template("root/browse.html", **render_opts)
 
 
