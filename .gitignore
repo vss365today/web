@@ -8,6 +8,7 @@ prompt-images/
 node_modules/
 secrets/
 src/static/build/
+src/static/downloads
 
 *.db
 *.ini

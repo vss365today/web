@@ -20,11 +20,10 @@
   <p>For the first time ever, the complete <strong>#vss365</strong> word archive is available in a single location! Download a spreadsheet with every word ever used since the beginning of the game, perfect for data analysis, hosting preparation, or writing inspriation! Updated daily so you always have the latest words.</p>
 
   <div class="wrapper">
-    {% if not archive %}
-    <div class="a-btn">Archive currently unavailable 😕</div>
+    {% if archive %}
+    <a class="a-btn" download="{{ archive.file }}" href="{{ url_for('static', filename='downloads/' ~ archive.file) }}">Download the archive!</a>
     {% else %}
-    {# TODO Add full URL to file #}
-    <a class="a-btn" download href="{{ archive.file }}">Download the archive</a>
+    <div class="a-btn">Archive currently unavailable 😕</div>
     {% endif %}
   </div>
 </section>
