@@ -1,24 +1,31 @@
 :root {
   --body-background: #fff;
-  --body-background-accent: #BEE3F8;  /* tailwindcss v1.2.0 blue-200 */
+  --body-background-accent: #bee3f8; /* tailwindcss v1.2.0 blue-200 */
   --primary-text: #353333;
   --primary-nav-bg: #353333;
   --primary-link: #3ab879;
-  --details-bg: #E2E8F0;  /* tailwindcss v1.2.0 gray-300 */
-  --font-stack-header: "Josefin Slab", "Noto Serif SC", sans-serif;
+  --details-bg: #e2e8f0; /* tailwindcss v1.2.0 gray-300 */
+  --font-stack-header: "Josefin Slab", "Karla", sans-serif;
+  --font-stack-primary: "Karla", sans-serif;
 }
 
 body.dark {
-  --body-background: #2F3136;
+  --body-background: #2f3136;
   --body-background-accent: #352c44;
   --primary-text: #d3d3d3;
   --primary-link: #f6f0f0;
-  --primary-nav-bg: #667EEA; /* tailwindcss v1.2.0 indigo-500 */
+  --primary-nav-bg: #667eea; /* tailwindcss v1.2.0 indigo-500 */
 }
 
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-html { min-width: 320px; }
+html {
+  min-width: 320px;
+}
 
 body {
   margin: 0;
@@ -28,20 +35,28 @@ body {
   flex-direction: column;
   min-height: 100vh;
 
-  font-family: "Noto Serif SC", serif;
+  font-family: var(--font-stack-primary);
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.65;
   font-weight: 400;
   color: var(--primary-text);
   text-rendering: optimizeSpeed;
 }
 
-h1, h2, h3, h4, h5, h6, label {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
   font-family: var(--font-stack-header);
   font-weight: 700;
 }
 
-strong { font-weight: 700; }
+strong {
+  font-weight: 700;
+}
 
 a,
 .nav-link {
@@ -78,8 +93,12 @@ header {
   align-items: center;
 }
 
-header a { color: inherit; }
-header #site-title { display: inline; }
+header a {
+  color: inherit;
+}
+header #site-title {
+  display: inline;
+}
 
 header #vss365 {
   font-family: var(--font-stack-header);
@@ -100,7 +119,7 @@ header #page-title {
   font-size: 1.15em;
   font-weight: 400;
   cursor: default;
-  font-family:  var(--font-stack-header);
+  font-family: var(--font-stack-header);
 }
 
 nav.primary {
@@ -138,7 +157,9 @@ section {
   border-radius: 6px;
 }
 
-.tweet a { font-size: 0.8em; }
+.tweet a {
+  font-size: 0.8em;
+}
 
 details {
   padding: 1em 1.5em;
@@ -168,23 +189,31 @@ footer {
   background-color: var(--body-background-accent);
 }
 
-footer a { color: inherit; }
+footer a {
+  color: inherit;
+}
 
 footer > div {
   margin-top: 1em;
-  font-size: 0.8em;
+  font-size: 0.85rem;
 }
 
-.center { text-align: center; }
+.center {
+  text-align: center;
+}
 .center-block {
   display: block;
   margin-right: auto;
   margin-left: auto;
 }
 
-.page { width: 65%; }
+.page {
+  width: 65%;
+}
 .page h3,
-.page h4 { margin-bottom: -0.5em; }
+.page h4 {
+  margin-bottom: -0.5em;
+}
 
 .btns-prev-next {
   text-align: center;
@@ -193,13 +222,13 @@ footer > div {
 
 .btns-prev-next a {
   margin: 0.75em 1.75em;
-  font-family:  var(--font-stack-header);
+  font-family: var(--font-stack-header);
   font-weight: 400;
   font-size: 1.2em;
 }
 
 .content .prompt-highlight {
-  font-family: "Bad Script", "Noto Serif SC", serif;
+  font-family: "Bad Script", "Karla", serif;
   font-size: 1.5em;
   font-weight: 400;
 }
@@ -247,8 +276,12 @@ footer > div {
   border-bottom-color: inherit;
 }
 
-.browse-page > .wrapper { text-align: center; }
-.browse-page > .wrapper h2 { margin-bottom: 0em; }
+.browse-page > .wrapper {
+  text-align: center;
+}
+.browse-page > .wrapper h2 {
+  margin-bottom: 0em;
+}
 
 .browse-giver .wrapper,
 .search-results .wrapper {
@@ -277,7 +310,8 @@ form {
   flex-direction: column;
 }
 
-input, button {
+input,
+button {
   font-family: inherit;
   border: 1px solid lightgrey;
   border-radius: 3px;
@@ -291,8 +325,9 @@ button {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 button:hover,
-button:focus { background-color: #e9e9e9; }
-
+button:focus {
+  background-color: #e9e9e9;
+}
 
 .form-subscribe {
   width: 20rem;
@@ -358,14 +393,16 @@ button:focus { background-color: #e9e9e9; }
   background-color: var(--details-bg);
   color: black;
   /* tailwindcss v1.2.0 shadow-md */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .msg-flash.error {
-  background-color: #FBD38D;  /* tailwindcss v1.2.0 orange-300 */
+  background-color: #fbd38d; /* tailwindcss v1.2.0 orange-300 */
   color: black;
   /* tailwindcss v1.2.0 shadow-md */
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .msg-flash p {
@@ -385,7 +422,6 @@ button:focus { background-color: #e9e9e9; }
 .msg-flash .btn-close:focus {
   filter: invert(0.4);
 }
-
 
 /* -- Dark theme --*/
 .dark a {
@@ -431,7 +467,9 @@ button:focus { background-color: #e9e9e9; }
 }
 .dark .content .word:hover,
 .dark .content .word:focus,
-.dark .content .word:active { text-decoration-color: transparent; }
+.dark .content .word:active {
+  text-decoration-color: transparent;
+}
 
 .dark .content img {
   border-color: transparent;
@@ -472,11 +510,10 @@ button:focus { background-color: #e9e9e9; }
 }
 
 .dark .msg-flash.error {
-  background-color: #FBD38D;  /* tailwindcss v1.2.0 orange-300 */
+  background-color: #fbd38d; /* tailwindcss v1.2.0 orange-300 */
   color: black;
   box-shadow: none;
 }
-
 
 /* -- Smaller screens -- */
 @media (max-width: 1100px) {
@@ -485,7 +522,9 @@ button:focus { background-color: #e9e9e9; }
     display: block;
   }
 
-  .msg-flash { width: 100%; }
+  .msg-flash {
+    width: 100%;
+  }
 
   nav.primary {
     flex: 1;
@@ -499,14 +538,27 @@ button:focus { background-color: #e9e9e9; }
 }
 
 @media (max-width: 800px) {
-  .page { width: 85%; }
+  .page {
+    width: 85%;
+  }
 }
 
 @media (max-width: 500px) {
-  header { justify-content: center; }
-  header > div { text-align: center; }
-  nav.primary { padding-top: 1em; flex-wrap: wrap; }
+  header {
+    justify-content: center;
+  }
+  header > div {
+    text-align: center;
+  }
+  nav.primary {
+    padding-top: 1em;
+    flex-wrap: wrap;
+  }
 
-  .content { width: 87%; }
-  form { width: auto !important; }
+  .content {
+    width: 87%;
+  }
+  form {
+    width: auto !important;
+  }
 }
