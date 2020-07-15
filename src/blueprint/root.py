@@ -61,7 +61,8 @@ def about():
 def browse():
     # Handle the archive file possibly being unavailable
     try:
-        archive_name = api.get("archive")
+        # archive_name = api.get("archive")
+        archive_name = False
     except HTTPError:
         archive_name = False
 
