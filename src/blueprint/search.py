@@ -1,10 +1,10 @@
-from flask import request
+from flask import session
 from flask import flash, redirect, render_template, url_for
 import requests
 
 from src.blueprint import bp_search as search
 from src.core import api, forms
-from src.core.filters.date import create_api_date, create_datetime
+from src.core.filters.date import create_api_date, format_datetime
 
 
 @search.route("/", methods=["GET"])
@@ -37,26 +37,7 @@ def by_date():
 def by_word():
     form = forms.PromptSearchByWord()
     if form.validate_on_submit():
-        return redirect("search.results", query=form.data["query"])
-    return "error"
-
-
-@search.route("/results", methods=["GET"])
-def query_search():
-    # We got a valid form submission
-    search_form = forms.PromptSearchByWord()
-    query = request.args.get("query").strip()
-
-    try:
-        # We recieved an exact (and valid) date, redirect to it
-        create_datetime(query)  # noqa
-        return redirect(url_for("root.view_date", date=query))
-
-    # We got a word or partial word to search
-    except ValueError:
-        # Populate the input with the search term (so... it's a sticky form)
-        search_form.query.data = query
-        render_opts = {"form": search_form, "form_subscribe": forms.SubscribeForm()}
+        query = form.data["query"]
 
         # Connect to the API to search
         try:
@@ -64,21 +45,31 @@ def query_search():
 
         # The search was not successful
         except requests.exceptions.HTTPError:
-            render_opts["query"] = query
-            render_opts["total"] = 0
-            return render_template("search/results.html", **render_opts)
+            session["query"] = query
+            session["total"] = 0
+            return redirect(url_for("search.results", query=query))
 
         # We got many search results
+        session.update(response)
         if response["total"] >= 2:
-            render_opts.update(response)
-            return render_template("search/results.html", **render_opts)
+            return redirect(url_for("search.results", query=query))
 
         # We got a single response back, go directly to the prompt
         if response["total"] == 1:
             date = create_api_date(response["prompts"][0]["date"])
-            date = date.strftime("%Y-%m-%d")
-            return redirect(url_for("root.view_date", date=date))
+            return redirect(url_for("root.view_date", date=format_datetime(date)))
 
-        # No search results were returned
-        render_opts.update(response)
-        return render_template("search/results.html", **render_opts)
+    # No search results were returned
+    flash("A search term must be entered in order to search for Prompts.", "error")
+    return redirect(url_for("search.index"))
+
+
+@search.route("/results", methods=["GET"])
+def results():
+    render_opts = {
+        "form_date": forms.PromptSearchByDate(),
+        "form_word": forms.PromptSearchByWord(),
+        "form_subscribe": forms.SubscribeForm(),
+    }
+    render_opts.update(session)
+    return render_template("search/results.html", **render_opts)

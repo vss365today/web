@@ -1,4 +1,4 @@
-<form class="form-archive-search" method="GET" action="{{ url_for('search.by_word') }}">
+<form class="form-archive-search" method="POST" action="{{ url_for('search.by_word') }}">
   {{ form_word.csrf_token }}
   {{ form_word.query.label(class="center") }}
   {{ form_word.query() }}
