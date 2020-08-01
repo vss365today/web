@@ -1,5 +1,5 @@
 from flask import request
-from flask import redirect, render_template, url_for
+from flask import flash, redirect, render_template, url_for
 import requests
 
 from src.blueprint import bp_search as search
@@ -10,7 +10,8 @@ from src.core.filters.date import create_api_date, create_datetime
 @search.route("/", methods=["GET"])
 def index():
     render_opts = {
-        "form": forms.PromptSearchForm(),
+        "form_date": forms.PromptSearchByDate(),
+        "form_word": forms.PromptSearchByWord(),
         "form_subscribe": forms.SubscribeForm(),
     }
     return render_template("search/search.html", **render_opts)
@@ -18,13 +19,32 @@ def index():
 
 @search.route("/date", methods=["POST"])
 def by_date():
-    form = forms.PromptSearchDate()
+    # We got a date to search by
+    form = forms.PromptSearchByDate()
+    if form.validate_on_submit():
+        return redirect(url_for("root.view_date", date=form.data["query"]))
+
+    # Something didn't happen so we can't search
+    flash(
+        f"We were unable to search for Prompts using {form.data['query']}. "
+        "Please try using a different term.",
+        "error",
+    )
+    return redirect(url_for("search.index"))
+
+
+@search.route("/word", methods=["POST"])
+def by_word():
+    form = forms.PromptSearchByWord()
+    if form.validate_on_submit():
+        return redirect("search.results", query=form.data["query"])
+    return "error"
 
 
 @search.route("/results", methods=["GET"])
 def query_search():
     # We got a valid form submission
-    search_form = forms.PromptSearchForm()
+    search_form = forms.PromptSearchByWord()
     query = request.args.get("query").strip()
 
     try:

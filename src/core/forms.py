@@ -1,3 +1,6 @@
+from datetime import datetime
+from src.core.filters.date import format_datetime
+
 from flask_wtf import FlaskForm
 from wtforms import Field, PasswordField
 from wtforms.fields.html5 import EmailField, SearchField, DateField
@@ -6,8 +9,8 @@ from wtforms.validators import DataRequired, Email
 
 __all__ = [
     "AdminSignInForm",
-    "PromptSearchForm",
     "PromptSearchByDate",
+    "PromptSearchByWord",
     "SubscribeForm",
     "UnsubscribeForm",
 ]
@@ -20,21 +23,25 @@ class AdminSignInForm(FlaskForm):
     )
 
 
-class PromptSearchForm(FlaskForm):
-    query = SearchField(
-        "",
-        id="input-search-prompt",
-        validators=[DataRequired()],
-        render_kw={"placeholder": "braid"},
-    )
-
-
 class PromptSearchByDate(FlaskForm):
     query = DateField(
         "Search by date",
         id="input-search-date",
         validators=[DataRequired()],
-        render_kw={"placeholder": "2020-07-02"},
+        render_kw={
+            "placeholder": "2020-07-02",
+            "pattern": r"\d{4}-\d{2}-\d{2}",
+            "max": format_datetime(datetime.now()),
+        },
+    )
+
+
+class PromptSearchByWord(FlaskForm):
+    query = SearchField(
+        "Search by word",
+        id="input-search-prompt",
+        validators=[DataRequired()],
+        render_kw={"placeholder": "braid"},
     )
 
 
