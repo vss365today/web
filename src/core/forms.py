@@ -39,7 +39,7 @@ class PromptSearchByDate(FlaskForm):
 class PromptSearchByWord(FlaskForm):
     query = SearchField(
         "Search by word",
-        id="input-search-prompt",
+        id="input-search-word",
         validators=[DataRequired()],
         render_kw={"placeholder": "braid"},
     )

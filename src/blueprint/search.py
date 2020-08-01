@@ -26,7 +26,7 @@ def by_date():
 
     # Something didn't happen so we can't search
     flash(
-        f"We were unable to search for Prompts using {form.data['query']}. "
+        f"We were unable to search for prompts using {form.data['query']}. "
         "Please try using a different term.",
         "error",
     )
@@ -60,7 +60,7 @@ def by_word():
             return redirect(url_for("root.view_date", date=format_datetime(date)))
 
     # No search results were returned
-    flash("A search term must be entered in order to search for Prompts.", "error")
+    flash("A search term must be entered in order to search for prompts.", "error")
     return redirect(url_for("search.index"))
 
 
