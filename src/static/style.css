@@ -48,13 +48,12 @@ h2,
 h3,
 h4,
 h5,
-h6,
-label {
+h6 {
   font-family: var(--font-stack-header);
   font-weight: 700;
 }
 
-strong {
+label {
   font-weight: 700;
 }
 
@@ -339,6 +338,10 @@ button:focus {
   margin-top: 0.2em;
   padding: 0.2em;
   font-size: 0.85em;
+}
+
+.form-subscribe label {
+  font-size: 1rem;
 }
 
 .form-archive-search {
