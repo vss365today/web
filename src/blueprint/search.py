@@ -3,21 +3,28 @@ from flask import redirect, render_template, url_for
 import requests
 
 from src.blueprint import bp_search as search
-from src.core import api
+from src.core import api, forms
 from src.core.filters.date import create_api_date, create_datetime
-from src.core.form import PromptSearchForm, SubscribeForm
 
 
 @search.route("/", methods=["GET"])
 def index():
-    render_opts = {"form": PromptSearchForm(), "form_subscribe": SubscribeForm()}
+    render_opts = {
+        "form": forms.PromptSearchForm(),
+        "form_subscribe": forms.SubscribeForm(),
+    }
     return render_template("search/search.html", **render_opts)
+
+
+@search.route("/date", methods=["POST"])
+def by_date():
+    form = forms.PromptSearchDate()
 
 
 @search.route("/results", methods=["GET"])
 def query_search():
     # We got a valid form submission
-    search_form = PromptSearchForm()
+    search_form = forms.PromptSearchForm()
     query = request.args.get("query").strip()
 
     try:
@@ -29,7 +36,7 @@ def query_search():
     except ValueError:
         # Populate the input with the search term (so... it's a sticky form)
         search_form.query.data = query
-        render_opts = {"form": search_form, "form_subscribe": SubscribeForm()}
+        render_opts = {"form": search_form, "form_subscribe": forms.SubscribeForm()}
 
         # Connect to the API to search
         try:

@@ -4,7 +4,7 @@ from requests.exceptions import HTTPError
 from src.blueprint import bp_root as root
 from src.core import api
 from src.core.filters import date as date_format
-from src.core.form import SubscribeForm, UnsubscribeForm
+from src.core.forms import SubscribeForm, UnsubscribeForm
 from src.core.helpers import get_unique_year_months
 
 
