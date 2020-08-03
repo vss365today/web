@@ -628,4 +628,8 @@ button:focus {
   form {
     width: auto !important;
   }
+
+  .form-search-tabs {
+    width: auto !important;
+  }
 }
