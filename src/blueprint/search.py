@@ -1,6 +1,5 @@
-from flask import session
-from flask import flash, redirect, render_template, url_for
-import requests
+from flask import flash, redirect, render_template, session, url_for
+from requests.exceptions import HTTPError
 
 from src.blueprint import bp_search as search
 from src.core import api, forms
@@ -11,6 +10,7 @@ from src.core.filters.date import create_api_date, format_datetime
 def index():
     render_opts = {
         "form_date": forms.PromptSearchByDate(),
+        "form_host": forms.PromptSearchByHost(),
         "form_word": forms.PromptSearchByWord(),
         "form_subscribe": forms.SubscribeForm(),
     }
@@ -19,7 +19,9 @@ def index():
 
 @search.route("/date", methods=["POST"])
 def by_date():
+    """Search for a specific day's Prompt."""
     # We got a date to search by
+    session["search_type"] = "date"
     form = forms.PromptSearchByDate()
     if form.validate_on_submit():
         return redirect(url_for("root.view_date", date=form.data["query"]))
@@ -33,8 +35,37 @@ def by_date():
     return redirect(url_for("search.index"))
 
 
+@search.route("/host", methods=["POST"])
+def by_host():
+    """Search for Prompts from a specific Host."""
+    session["search_type"] = "host"
+    form = forms.PromptSearchByHost()
+    if form.validate_on_submit():
+        query = form.data["query"]
+
+        # Connect to the API to search
+        try:
+            response = api.get("search", params={"host": query})
+
+        # The search was not successful
+        except HTTPError:
+            session["query"] = query
+            session["total"] = 0
+            return redirect(url_for("search.results", query=query))
+
+        # Display the results
+        session.update(response)
+        return redirect(url_for("search.results", query=query))
+
+    # That Host was not provided
+    flash("A Host name must be provided to search.", "error")
+    return redirect(url_for("search.index"))
+
+
 @search.route("/word", methods=["POST"])
 def by_word():
+    """Search for Prompts by a specific word."""
+    session["search_type"] = "word"
     form = forms.PromptSearchByWord()
     if form.validate_on_submit():
         query = form.data["query"]
@@ -44,12 +75,12 @@ def by_word():
             response = api.get("search", params={"prompt": query})
 
         # The search was not successful
-        except requests.exceptions.HTTPError:
+        except HTTPError:
             session["query"] = query
             session["total"] = 0
             return redirect(url_for("search.results", query=query))
 
-        # We got many search results
+        # We got multiple search results
         session.update(response)
         if response["total"] >= 2:
             return redirect(url_for("search.results", query=query))
@@ -60,7 +91,7 @@ def by_word():
             return redirect(url_for("root.view_date", date=format_datetime(date)))
 
     # No search results were returned
-    flash("A search term must be entered in order to search for prompts.", "error")
+    flash("A word or series of letters must be provided to search.", "error")
     return redirect(url_for("search.index"))
 
 
@@ -68,6 +99,7 @@ def by_word():
 def results():
     render_opts = {
         "form_date": forms.PromptSearchByDate(),
+        "form_host": forms.PromptSearchByHost(),
         "form_word": forms.PromptSearchByWord(),
         "form_subscribe": forms.SubscribeForm(),
     }
