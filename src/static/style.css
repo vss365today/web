@@ -347,7 +347,7 @@ button:focus {
 
 /* --- Search form ---*/
 .form-search {
-  width: 30rem;
+  width: auto;
   display: none;
 }
 
@@ -356,7 +356,6 @@ button:focus {
 }
 
 .form-search input {
-  margin-top: 1rem;
   padding: 0.7rem 0.3em;
   font-size: 1rem;
 }
@@ -625,6 +624,7 @@ button:focus {
   .content {
     width: 87%;
   }
+
   form {
     width: auto !important;
   }
