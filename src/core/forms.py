@@ -25,7 +25,7 @@ class AdminSignInForm(FlaskForm):
 
 class PromptSearchByDate(FlaskForm):
     query = DateField(
-        "Search by date",
+        "Date search",
         id="input-search-date",
         validators=[DataRequired()],
         render_kw={
@@ -38,7 +38,7 @@ class PromptSearchByDate(FlaskForm):
 
 class PromptSearchByWord(FlaskForm):
     query = SearchField(
-        "Search by word",
+        "Word search",
         id="input-search-word",
         validators=[DataRequired()],
         render_kw={"placeholder": "braid"},
