@@ -266,14 +266,14 @@ footer > div {
   border: 2px solid lightgray;
   border-radius: 3px;
   font-size: 1.2em;
-  transition: 0.2s border-color ease;
+  transition: border-color 0.2s ease;
 }
 .a-btn:hover,
 .a-btn:focus,
 .a-btn:active {
   border-radius: 0;
   border-color: transparent;
-  border-bottom-color: inherit;
+  border-bottom-color: currentColor;
 }
 
 .browse-page > .wrapper {
@@ -329,6 +329,7 @@ button:focus {
   background-color: #e9e9e9;
 }
 
+/* --- Email subscription form ---*/
 .form-subscribe {
   width: 20rem;
 }
@@ -344,22 +345,63 @@ button:focus {
   font-size: 1rem;
 }
 
-.form-archive-search {
+/* --- Search form ---*/
+.form-search {
   width: 30rem;
+  display: none;
 }
 
-.form-archive-search input {
-  margin-top: 0.2em;
-  padding: 0.4em 0.3em;
-  font-size: 0.95em;
+.form-search.active {
+  display: flex;
 }
 
-.form-archive-search button {
+.form-search input {
+  margin-top: 1rem;
+  padding: 0.7rem 0.3em;
+  font-size: 1rem;
+}
+
+.form-search button {
   margin-top: 0.2em;
   padding: 0.3em;
   font-size: 0.9em;
 }
 
+/* --- Tabbed search form control --*/
+.form-search-tabs {
+  width: 50%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.form-search-tabs .tab-wrapper {
+  display: flex;
+}
+.form-search-tabs .tab {
+  width: 100%;
+  padding: 0.25rem;
+  margin: auto 0.2rem;
+  border: 2px solid lightgrey;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.form-search-tabs .tab.active,
+.form-search-tabs .tab:hover,
+.form-search-tabs .tab:focus {
+  background-color: #e9e9e9;
+  border-color: lightgray;
+}
+
+.form-search-tabs label {
+  cursor: pointer;
+}
+
+/* --- Flash messages --- */
 .msg-flash-area {
   width: 100%;
   position: fixed;
@@ -499,12 +541,27 @@ button:focus {
 
 .dark button {
   background-color: var(--primary-nav-bg);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
   color: #fff;
+  font-weight: 700;
+  border: 2px solid transparent;
 }
 .dark button:hover,
 .dark button:focus {
+  background-color: transparent;
+  border-bottom-color: currentColor;
+}
+
+.dark .form-search-tabs .tab {
+  border-color: transparent;
+  background-color: var(--primary-nav-bg);
+  color: #fff;
+}
+
+.dark .form-search-tabs .tab.active,
+.dark .form-search-tabs .tab:hover,
+.dark .form-search-tabs .tab:focus {
   background-color: var(--body-background);
+  border-bottom-color: lightgray;
 }
 
 .dark .msg-flash.info {

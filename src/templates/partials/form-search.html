@@ -1,15 +1,25 @@
-<p>You can search for words, like <strong>braid</strong>, or by exact dates (I personally like <strong>July 2, 2019</strong> 😉). You can search by exact and partial word matches (e.g., "ai" will match all words containing those two letters.). If one result is found, you will be taken directly to the prompt.</p>
+<p>You can search for words, like <strong>braid</strong>, or by exact dates (I personally like <strong>July 2, 2019</strong> 😉). You can search by exact and partial word matches (e.g., "ai" will match all words containing those two letters.). If a single result is found, you will be taken directly to the prompt.</p>
 
-<form class="form-archive-search" method="POST" action="{{ url_for('search.by_word') }}">
-  {{ form_word.csrf_token }}
-  {{ form_word.query.label(class="center") }}
-  {{ form_word.query() }}
-  <button type="submit">Search</button>
-</form>
 
-<form class="form-archive-search" method="POST" action="{{ url_for('search.by_date') }}">
-  {{ form_date.csrf_token }}
-  {{ form_date.query.label(class="center") }}
-  {{ form_date.query() }}
-  <button type="submit">Search</button>
-</form>
+<div class="form-search-tabs center-block">
+  <div class="tab-wrapper">
+    <div class="tab word active">{{ form_word.query.label }}</div>
+    <div class="tab date">{{ form_date.query.label }}</div>
+  </div>
+
+  <form class="form-search word active" method="POST" action="{{ url_for('search.by_word') }}">
+    {{ form_word.csrf_token }}
+    {{ form_word.query() }}
+    <button type="submit">Search</button>
+  </form>
+
+  <form class="form-search date" method="POST" action="{{ url_for('search.by_date') }}">
+    {{ form_date.csrf_token }}
+    {{ form_date.query() }}
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+{% endblock %}
