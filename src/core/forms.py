@@ -10,6 +10,7 @@ from wtforms.validators import DataRequired, Email
 __all__ = [
     "AdminSignInForm",
     "PromptSearchByDate",
+    "PromptSearchByHost",
     "PromptSearchByWord",
     "SubscribeForm",
     "UnsubscribeForm",
@@ -33,6 +34,15 @@ class PromptSearchByDate(FlaskForm):
             "pattern": r"\d{4}-\d{2}-\d{2}",
             "max": format_datetime(datetime.now()),
         },
+    )
+
+
+class PromptSearchByHost(FlaskForm):
+    query = SearchField(
+        "Host search",
+        id="input-search-host",
+        validators=[DataRequired()],
+        render_kw={"placeholder": "ArthurUnkTweets"},
     )
 
 
