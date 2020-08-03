@@ -172,7 +172,7 @@ details {
 
 summary {
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 details img {
@@ -337,8 +337,8 @@ button:focus {
 .form-subscribe input,
 .form-subscribe button {
   margin-top: 0.2em;
-  padding: 0.2em;
-  font-size: 0.85em;
+  padding: 0.3rem;
+  font-size: 1rem;
 }
 
 .form-subscribe label {
@@ -382,10 +382,11 @@ button:focus {
   padding: 0.25rem;
   margin: auto 0.2rem;
   border: 2px solid lightgrey;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
 
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+
   cursor: pointer;
   text-align: center;
 }
@@ -540,10 +541,11 @@ button:focus {
 }
 
 .dark button {
-  background-color: var(--primary-nav-bg);
-  color: #fff;
-  font-weight: 700;
   border: 2px solid transparent;
+  background-color: var(--primary-nav-bg);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .dark button:hover,
 .dark button:focus {
@@ -562,6 +564,10 @@ button:focus {
 .dark .form-search-tabs .tab:focus {
   background-color: var(--body-background);
   border-bottom-color: lightgray;
+}
+
+.dark .form-search-tabs label {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .dark .msg-flash.info {
