@@ -28,8 +28,8 @@ def by_date():
 
     # Something didn't happen so we can't search
     flash(
-        f"We were unable to search for prompts using {form.data['query']}. "
-        "Please try using a different term.",
+        f"We were unable to find a prompt for {form.data['query']}. "
+        "Please select a different date.",
         "error",
     )
     return redirect(url_for("search.index"))
@@ -47,11 +47,14 @@ def by_host():
         try:
             response = api.get("search", params={"host": query})
 
+            # There doesn't appear any prompts from that Host
+            if response["total"] == 0:
+                raise HTTPError
+
         # The search was not successful
         except HTTPError:
-            session["query"] = query
-            session["total"] = 0
-            return redirect(url_for("search.results", query=query))
+            flash(f"No prompts from {query} could be found.", "error")
+            return redirect(url_for("search.index"))
 
         # Display the results
         session.update(response)
@@ -74,11 +77,14 @@ def by_word():
         try:
             response = api.get("search", params={"prompt": query})
 
+            # There doesn't appear any prompts with that word
+            if response["total"] == 0:
+                raise HTTPError
+
         # The search was not successful
         except HTTPError:
-            session["query"] = query
-            session["total"] = 0
-            return redirect(url_for("search.results", query=query))
+            flash(f"No prompts containing {query} could be found.", "error")
+            return redirect(url_for("search.index"))
 
         # We got multiple search results
         session.update(response)
@@ -91,7 +97,11 @@ def by_word():
             return redirect(url_for("root.view_date", date=format_datetime(date)))
 
     # No search results were returned
-    flash("A word or series of letters must be provided to search.", "error")
+    flash(
+        f"We were unable to find prompts containing {form.data['query']}. "
+        "Please try using a different term.",
+        "error",
+    )
     return redirect(url_for("search.index"))
 
 

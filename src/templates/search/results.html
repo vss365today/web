@@ -3,18 +3,6 @@
 
 {% block content %}
 <section class="page search-results">
-  {% if total == 0 %}
-    {% if search_type == 'word' %}
-    <h2 class="center">&OpenCurlyDoubleQuote;The best way to discover "{{ query }}" is to write about it yourself.&CloseCurlyDoubleQuote;</h2>
-      <p>It looks like the prompt <strong>{{ query }}</strong> hasn't been used before. 🤔 Maybe try searching something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a>?</p>
-
-    {%- else -%}
-
-    <h2 class="center">&OpenCurlyDoubleQuote;{{ query }}? Never heard of 'em.&CloseCurlyDoubleQuote;</h2>
-    <p>It would appear <strong>{{ query }}</strong> has not hosted #vss365 yet. 🤔 Double-check the spelling to make sure it's correct. If nothing comes up, try searching for a word or <a href="{{ url_for('root.browse') }}">browsing the archive</a>.</p>
-    {% endif %}
-
-  {% else %}
   <h2 class="center">Say "{{ query }}" {{ total }} {{ 'times fast' if total > 1 else 'time' }}. That's how cool the prompt is!</h2>
   <div class="wrapper">
     {% for prompt in prompts %}
@@ -31,7 +19,6 @@
     {%- endif %}
     {%- endfor %}
   </div>
-  {% endif %}
 
   {% include "partials/form-search.html" %}
 </section>
