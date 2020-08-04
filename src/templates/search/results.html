@@ -3,7 +3,12 @@
 
 {% block content %}
 <section class="page search-results">
+  {% if search_type == 'host' %}
+  <h2 class="center">{{ query }} has given us {{ total }} awesome {{ 'words' if total > 1 else 'word' }}!</h2>
+  {% else %}
   <h2 class="center">Say "{{ query }}" {{ total }} {{ 'times fast' if total > 1 else 'time' }}. That's how cool the prompt is!</h2>
+  {% endif %}
+
   <div class="wrapper">
     {% for prompt in prompts %}
     {% set date = prompt.date|create_api_date %}
