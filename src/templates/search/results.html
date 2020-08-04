@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="page search-results">
+<section class="page search-results center">
   {% if search_type == 'host' %}
   <h2 class="center">{{ query }} has given us {{ total }} awesome {{ 'words' if total > 1 else 'word' }}!</h2>
   {% else %}
