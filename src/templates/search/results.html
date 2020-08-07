@@ -2,13 +2,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="page center search-results">
-  {% if total == 0 %}
-  <h2 class="center">&OpenCurlyDoubleQuote;The best way to discover "{{ query }}" is to write about it yourself.&CloseCurlyDoubleQuote;</h2>
-    <p>It looks like the word prompt "{{ query }}" hasn't been used before. 🤔 Maybe try searching for something else or <a href="{{ url_for('root.browse') }}">browsing the archive</a>?</p>
-
+<section class="page search-results center">
+  {% if search_type == 'host' %}
+  <h2 class="center">{{ query }} has given us {{ total }} awesome {{ 'words' if total > 1 else 'word' }}!</h2>
   {% else %}
   <h2 class="center">Say "{{ query }}" {{ total }} {{ 'times fast' if total > 1 else 'time' }}. That's how cool the prompt is!</h2>
+  {% endif %}
+
   <div class="wrapper">
     {% for prompt in prompts %}
     {% set date = prompt.date|create_api_date %}
@@ -24,7 +24,6 @@
     {%- endif %}
     {%- endfor %}
   </div>
-  {% endif %}
 
   {% include "partials/form-search.html" %}
 </section>

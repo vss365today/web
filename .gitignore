@@ -14,7 +14,7 @@ src/static/downloads
 *.ini
 *.json
 *.log
-.env
+*.psd
 requirements.txt
 *.jpg
 !configuration/*.json
