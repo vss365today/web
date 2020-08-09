@@ -1,27 +1,20 @@
 from datetime import datetime
+from src.core import api
 from src.core.filters.date import format_datetime
 
 from flask_wtf import FlaskForm
-from wtforms import Field, PasswordField
 from wtforms.fields.html5 import EmailField, SearchField, DateField
 from wtforms.validators import DataRequired, Email
+from wtforms_components import SelectField
 
 
 __all__ = [
-    "AdminSignInForm",
     "PromptSearchByDate",
     "PromptSearchByHost",
     "PromptSearchByWord",
     "SubscribeForm",
     "UnsubscribeForm",
 ]
-
-
-class AdminSignInForm(FlaskForm):
-    username = Field("Username", id="input-username", validators=[DataRequired()])
-    password = PasswordField(
-        "Password", id="input-password", validators=[DataRequired()]
-    )
 
 
 class PromptSearchByDate(FlaskForm):
@@ -38,11 +31,11 @@ class PromptSearchByDate(FlaskForm):
 
 
 class PromptSearchByHost(FlaskForm):
-    query = SearchField(
+    query = SelectField(
         "Host search",
         id="input-search-host",
         validators=[DataRequired()],
-        render_kw={"placeholder": "ArthurUnkTweets"},
+        choices=[(host["handle"], host["handle"]) for host in api.get("host", params={"all": True})],
     )
 
 

@@ -8,6 +8,7 @@
   {% include "partials/social-media.html" %}
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
   {{ GoogleFonts('https://fonts.googleapis.com/css2?family=Bad+Script&family=Josefin+Slab:wght@400;600;700&family=Karla:ital,wght@0,400;0,700;1,400;1,700') }}
+  {%- block styles %}{% endblock %}
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 

@@ -18,8 +18,8 @@
     }
   }
 
+  // Create the ability to toggle among search tabs
   const qSearchTabs = document.querySelector(".form-search-tabs");
-
   qSearchTabs.addEventListener("click", function (e) {
     // Find the clicked tab
     let ele = findParentElement(
@@ -40,5 +40,11 @@
         .querySelector(".form-search." + searchType)
         .classList.add("active");
     }
+  });
+
+  // Create a prettier select element
+  tail.select(document.querySelector("#input-search-host"), {
+    search: true,
+    placeholder: "ArthurUnkTweets",
   });
 })();
