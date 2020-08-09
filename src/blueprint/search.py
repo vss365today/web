@@ -56,8 +56,13 @@ def by_host():
             flash(f"No prompts from {query} could be found.", "error")
             return redirect(url_for("search.index"))
 
-        # Display the results
+        # We got a single result, go directly to the prompt
         session.update(response)
+        if response["total"] == 1:
+            date = create_api_date(response["prompts"][0]["date"])
+            return redirect(url_for("root.view_date", date=format_datetime(date)))
+
+        # More than one result came back, display them all
         return redirect(url_for("search.results", query=query))
 
     # That Host was not provided
