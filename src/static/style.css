@@ -339,8 +339,8 @@ button:focus {
 
 .form-subscribe input,
 .form-subscribe button {
-  margin-top: 0.2em;
-  padding: 0.3rem;
+  margin-top: 0.2rem;
+  padding: 0.4rem 0.3rem;
   font-size: 1rem;
 }
 
@@ -444,7 +444,7 @@ button:focus {
   position: relative;
   border-radius: 3px;
 
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 
   opacity: 1;
   transition: opacity 0.25s ease;
@@ -456,18 +456,18 @@ button:focus {
 
 .msg-flash.info {
   background-color: var(--details-bg);
-  color: black;
   /* tailwindcss v1.2.0 shadow-md */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: black;
 }
 
 .msg-flash.error {
   background-color: #fbd38d; /* tailwindcss v1.2.0 orange-300 */
-  color: black;
   /* tailwindcss v1.2.0 shadow-md */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: black;
 }
 
 .msg-flash p {
@@ -482,6 +482,7 @@ button:focus {
 
   filter: invert(0.2);
   transition: filter 0.2s ease;
+  cursor: pointer;
 }
 .msg-flash .btn-close:hover,
 .msg-flash .btn-close:focus {
@@ -590,13 +591,12 @@ button:focus {
 
 .dark .msg-flash.info {
   background-color: var(--primary-nav-bg);
-  color: black;
   box-shadow: none;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 
 .dark .msg-flash.error {
-  background-color: #fbd38d; /* tailwindcss v1.2.0 orange-300 */
-  color: black;
   box-shadow: none;
 }
 
