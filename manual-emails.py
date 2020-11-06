@@ -47,11 +47,7 @@ try:
         prompt_index = int(selected_prompt) - 1
 
     # Send out the broadcast
-    api.post(
-        "broadcast",
-        headers=api.create_auth_token(),
-        params={"date": prompt_date, "which": prompt_index},
-    )
+    api.post("broadcast", params={"date": prompt_date, "which": prompt_index})
     print(f"Email broadcast for {prompt_date} successfully sent")
 
 # A broadcast for that day couldn't be sent
