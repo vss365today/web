@@ -13,10 +13,8 @@ def create_app():
     app = Flask(__name__)
 
     # Load the app configuration
-    app.config.update(config.get_app_config("default.json"))
-    app.config.update(
-        config.get_app_config(config.get_app_config_file(app.config["ENV"]))
-    )
+    app.config.update(config.get_app_config("default"))
+    app.config.update(config.get_app_config(app.config["ENV"]))
 
     # Put the app secret key into the expected key
     app.config["SECRET_KEY"] = app.config["SECRET_KEY_WEB"]
