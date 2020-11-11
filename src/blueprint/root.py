@@ -27,7 +27,6 @@ def subscribe():
 @root.route("form-unsubscribe", methods=["POST"])
 def form_unsubscribe():
     # Attempt to delete the email
-    # TODO What if we don't get an email here?
     email = request.form.get("email")
     try:
         api.delete("subscription", params={"email": email})
@@ -35,7 +34,7 @@ def form_unsubscribe():
         return redirect(url_for("root.index"))
     except HTTPError:
         flash(
-            f"We were unable to remove {email} to the subscription list. "
+            f"We were unable to remove {email} from the subscription list. "
             "Please try again shortly.",
             "error",
         )
