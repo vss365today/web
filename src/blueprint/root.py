@@ -121,8 +121,8 @@ def index():
         prompts.append(prompt)
 
     flash(
-        """#vss365 today is under maintenance due to an unexpected server crash.
-        For updates on the rebuild, follow this <a href="https://twitter.com/cely717/status/1329849371538694145">Twitter thread.</a>.""",
+        """<strong>#vss365 today</strong> is under maintenance due to an unexpected server crash.
+        For continuing updates on the rebuild, follow this <a href="https://twitter.com/cely717/status/1329849371538694145">Twitter thread</a>.""",
         "error",
     )
     render_opts = {
@@ -155,8 +155,8 @@ def view_date(date: str):
         prompts.append(prompt)
 
     flash(
-        """#vss365 today is under maintenance due to an unexpected server crash.
-        For updates on the rebuild, follow this <a href="https://twitter.com/cely717/status/1329849371538694145">Twitter thread.</a>.""",
+        """<strong>#vss365 today</strong> is under maintenance due to an unexpected server crash.
+        For continuing updates on the rebuild, follow this <a href="https://twitter.com/cely717/status/1329849371538694145">Twitter thread</a>.""",
         "error",
     )
     render_opts = {
