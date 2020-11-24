@@ -120,11 +120,6 @@ def index():
         prompt["date"] = date_format.create_api_date(prompt["date"])
         prompts.append(prompt)
 
-    flash(
-        """<strong>#vss365 today</strong> is under maintenance due to an unexpected server crash.
-        For continuing updates on the rebuild, follow this <a href="https://twitter.com/cely717/status/1329849371538694145">Twitter thread</a>.""",
-        "error",
-    )
     render_opts = {
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
@@ -154,11 +149,6 @@ def view_date(date: str):
         prompt["date"] = date_format.create_api_date(prompt["date"])
         prompts.append(prompt)
 
-    flash(
-        """<strong>#vss365 today</strong> is under maintenance due to an unexpected server crash.
-        For continuing updates on the rebuild, follow this <a href="https://twitter.com/cely717/status/1329849371538694145">Twitter thread</a>.""",
-        "error",
-    )
     render_opts = {
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
