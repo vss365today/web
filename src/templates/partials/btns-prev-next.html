@@ -1,8 +1,8 @@
 <nav class="btns-prev-next">
   {% if previous_day is not none -%}
-  <a href="{{ url_for('root.view_date', date=prompts[0].previous_day|create_api_date|format_datetime) }}">⬅️ Yesterday</a>
+  <a href="{{ url_for('root.view_date', date=prompts[0].previous_day|create_api_date|format_datetime_ymd) }}">⬅️ Yesterday</a>
   {% endif -%}
   {% if next_day is not none -%}
-  <a href="{{ url_for('root.view_date', date=prompts[0].next_day|create_api_date|format_datetime) }}">Tomorrow ➡️</a>
+  <a href="{{ url_for('root.view_date', date=prompts[0].next_day|create_api_date|format_datetime_ymd) }}">Tomorrow ➡️</a>
   {% endif -%}
 </nav>
