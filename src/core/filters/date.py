@@ -15,9 +15,9 @@ def create_datetime(date_str: str) -> datetime:
     return datetime.fromisoformat(date_str.strip())
 
 
-def format_date_pretty(date_obj: datetime) -> str:
+def format_date_pretty(datetime_obj: datetime) -> str:
     """Pretty format a date in MM DD, YYYY."""
-    return date_obj.strftime("%B %d, %Y")
+    return datetime_obj.strftime("%B %d, %Y")
 
 
 def format_month_year(date: Union[str, datetime]) -> str:
