@@ -43,7 +43,6 @@ def by_host():
     if form.validate_on_submit():
         query = form.data["query"]
 
-        # Connect to the API to search
         try:
             response = api.get("search", params={"host": query})
 
