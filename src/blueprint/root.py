@@ -117,7 +117,7 @@ def index():
     available_prompts = api.get("prompt")
     prompts = []
     for prompt in available_prompts:
-        prompt["date"] = date_format.create_api_date(prompt["date"])
+        prompt["date"] = date_format.create_datetime(prompt["date"])
         prompts.append(prompt)
 
     render_opts = {
@@ -134,7 +134,7 @@ def view_date(date: str):
     # Try to get the prompt for this day
     try:
         available_prompts = api.get(
-            "prompt", params={"date": str(date_format.create_datetime(date))}
+            "prompt", params={"date": date_format.create_datetime(date).isoformat()}
         )
 
     # There is no prompt for this day
@@ -146,7 +146,7 @@ def view_date(date: str):
     # and we need to handle these special cases
     prompts = []
     for prompt in available_prompts:
-        prompt["date"] = date_format.create_api_date(prompt["date"])
+        prompt["date"] = date_format.create_datetime(prompt["date"])
         prompts.append(prompt)
 
     render_opts = {

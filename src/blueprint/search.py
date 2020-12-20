@@ -3,7 +3,7 @@ from requests.exceptions import HTTPError
 
 from src.blueprint import bp_search as search
 from src.core import api, forms
-from src.core.filters.date import create_api_date, format_datetime
+from src.core.filters.date import create_datetime, format_datetime_ymd
 
 
 @search.route("/", methods=["GET"])
@@ -43,7 +43,6 @@ def by_host():
     if form.validate_on_submit():
         query = form.data["query"]
 
-        # Connect to the API to search
         try:
             response = api.get("search", params={"host": query})
 
@@ -59,8 +58,8 @@ def by_host():
         # We got a single result, go directly to the prompt
         session.update(response)
         if response["total"] == 1:
-            date = create_api_date(response["prompts"][0]["date"])
-            return redirect(url_for("root.view_date", date=format_datetime(date)))
+            date = create_datetime(response["prompts"][0]["date"])
+            return redirect(url_for("root.view_date", date=format_datetime_ymd(date)))
 
         # More than one result came back, display them all
         return redirect(url_for("search.results", query=query))
@@ -98,8 +97,8 @@ def by_word():
 
         # We got a single response back, go directly to the prompt
         if response["total"] == 1:
-            date = create_api_date(response["prompts"][0]["date"])
-            return redirect(url_for("root.view_date", date=format_datetime(date)))
+            date = create_datetime(response["prompts"][0]["date"])
+            return redirect(url_for("root.view_date", date=format_datetime_ymd(date)))
 
     # No search results were returned
     flash(

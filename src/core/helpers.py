@@ -3,7 +3,7 @@ import re
 from typing import List, Optional
 
 from src.core.config import load_json_config
-from src.core.filters.date import create_api_date
+from src.core.filters.date import create_datetime
 
 
 __all__ = [
@@ -46,9 +46,9 @@ def get_all_hashtags(text: str) -> Optional[tuple]:
 def get_unique_year_months(year_data: List[dict]) -> List[dict]:
     """Make all Host dates for a given year into a unique set.
 
-    For some months in 2017, November 2020, and possibly future times,
-    there were multiple Hosts per month giving out the prompts.
-    While the individual dates are stored distinctly in the database,
+    For some months in 2017, November 2020, and in 2021 and beyond,
+    there are multiple Hosts per month giving out the prompts.
+    While the individual dates are stored distinctly,
     we need a unique year/month list in order to correctly display the
     year browsing page. This function creates that unique list."""
     unique = []
@@ -56,7 +56,7 @@ def get_unique_year_months(year_data: List[dict]) -> List[dict]:
     # Go through each host for this year
     for host in year_data:
         # Convert the date they are hosting into a month-year group
-        date = create_api_date(host["date"])
+        date = create_datetime(host["date"])
         month_dict = {"year": str(date.year), "month": date.strftime("%m")}
 
         # If we've not already seen this combo, we record it

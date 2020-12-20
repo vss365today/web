@@ -11,9 +11,9 @@
 
   <div class="wrapper">
     {% for prompt in prompts %}
-    {% set date = prompt.date|create_api_date %}
+    {% set date = prompt.date|create_datetime %}
     <dl>
-      <dd><a href="{{ url_for('root.view_date', date=date|format_datetime) }}">{{ prompt.word }}</a></dd>
+      <dd><a href="{{ url_for('root.view_date', date=date|format_datetime_ymd) }}">{{ prompt.word }}</a></dd>
       <dt>{{ date|format_date_pretty }}</dt>
       <dt>{{ prompt.host }}</dt>
     </dl>
