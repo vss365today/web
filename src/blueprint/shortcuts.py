@@ -5,7 +5,7 @@ from src.blueprint import bp_shortcuts as shortcuts
 
 @shortcuts.route("today")
 def today():
-    """Shortcut link to latest prompt."""
+    """Shortcut link to latest Prompt."""
     return redirect(url_for("root.index"))
 
 
