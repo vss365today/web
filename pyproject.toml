@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "vss365today"
 version = "1.0.0"
-description = ""
+description = "#vss365 today website"
 authors = ["Caleb Ely <le717@users.noreply.github.com>"]
 license = "MIT"
 
