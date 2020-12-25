@@ -5,7 +5,6 @@ from src.blueprint import bp_root as root
 from src.core import api
 from src.core.filters import date as date_format
 from src.core.forms import SubscribeForm, UnsubscribeForm
-from src.core.helpers import get_unique_year_months
 
 
 @root.route("subscribe", methods=["POST"])
@@ -76,13 +75,13 @@ def browse():
 def browse_by_year(year: str):
     # Get the host's list and group them up if needed
     try:
-        year_hosts: dict = api.get("browse", params={"year": year})
+        prompt_months: list = api.get("browse", "months", params={"year": year})
     except HTTPError:
         abort(404)
 
     render_opts = {
         "form_subscribe": SubscribeForm(),
-        "dates": get_unique_year_months(year_hosts["hosts"]),
+        "months": prompt_months,
         "year": year,
     }
     return render_template("root/browse-year.html", **render_opts)

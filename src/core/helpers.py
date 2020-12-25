@@ -1,15 +1,13 @@
 from html import unescape
 import re
-from typing import List, Optional
+from typing import Optional
 
 from src.core.config import load_json_config
-from src.core.filters.date import create_datetime
 
 
 __all__ = [
     "format_content",
     "get_all_hashtags",
-    "get_unique_year_months",
     "make_hashtags",
     "make_mentions",
     "make_urls",
@@ -41,28 +39,6 @@ def format_content(text: str) -> str:
 def get_all_hashtags(text: str) -> Optional[tuple]:
     matches = re.findall(r"(#\w+)", text, re.I)
     return tuple(matches) if matches else None
-
-
-def get_unique_year_months(year_data: List[dict]) -> List[dict]:
-    """Make all Host dates for a given year into a unique set.
-
-    For some months in 2017, November 2020, and in 2021 and beyond,
-    there are multiple Hosts per month giving out the prompts.
-    While the individual dates are stored distinctly,
-    we need a unique year/month list in order to correctly display the
-    year browsing page. This function creates that unique list."""
-    unique = []
-
-    # Go through each host for this year
-    for host in year_data:
-        # Convert the date they are hosting into a month-year group
-        date = create_datetime(host["date"])
-        month_dict = {"year": str(date.year), "month": date.strftime("%m")}
-
-        # If we've not already seen this combo, we record it
-        if month_dict not in unique:
-            unique.append(month_dict)
-    return unique
 
 
 def make_hashtags(text: str) -> str:

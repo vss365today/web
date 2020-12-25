@@ -9,9 +9,9 @@
   </h2>
 
   <div class="wrapper">
-    {%- for date in dates %}
-    {% set pretty_date = (date.year ~ '-' ~ date.month)|format_month_year %}
-    <a class="a-btn" href="{{ url_for('root.browse_by_year_month', year=date.year, month=date.month) }}">{{ pretty_date }}</a>
+    {%- for month in months %}
+    {% set pretty_date = (year ~ '-' ~ month)|format_month_year %}
+    <a class="a-btn" href="{{ url_for('root.browse_by_year_month', year=year, month=month) }}">{{ pretty_date }}</a>
     {%- if loop.index % 6 == 0 %}
   </div>
 
