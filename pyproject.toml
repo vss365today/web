@@ -6,21 +6,20 @@ authors = ["Caleb Ely <le717@users.noreply.github.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.8"
-Flask = "^1.1"
+python = "^3.9"
+Flask = "^1.1.2"
 flask-wtf = "^0.14.3"
-gunicorn = "^20.0"
-requests = "^2.23"
-email-validator = "^1.1.1"
+gunicorn = "^20.0.4"
+requests = "^2.25.1"
+email-validator = "^1.1.2"
+WTForms-Components = "^0.10.4"
 sys-vars = {url = "https://github.com/le717/sys-vars/releases/download/v3.0.0/sys_vars-3.0.0-py3-none-any.whl"}
 flask-google-fonts = {url = "https://github.com/le717/flask-google-fonts/releases/download/v1.0.0/flask_google_fonts-1.0.0-py3-none-any.whl"}
-WTForms-Components = "^0.10.4"
 
 [tool.poetry.dev-dependencies]
-rope = "^0.16.0"
-flake8 = "^3.7"
-mypy = "^0.770"
-black = "^19.10b0"
+flake8 = "^3.8.4"
+mypy = "^0.790"
+black = "^20.8b1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
