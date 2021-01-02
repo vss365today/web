@@ -9,7 +9,7 @@
   <h3 class="prompt-highlight center">Today's writing prompt{{ ' is' if number_of_prompts == 1 else 's are' }}:</h3>
     <p class="word-wrapper center">
       {% for prompt in prompts %}
-      <a class="prompt-highlight word commas center" target="_blank" href="https://www.dictionary.com/browse/{{ prompt.word|lower }}">{{ prompt.word }}</a>
+      <a class="prompt-highlight word commas center" target="_blank" href="https://www.merriam-webster.com/dictionary/{{ prompt.word|lower }}">{{ prompt.word }}</a>
       {% endfor %}
     </p>
 </section>
