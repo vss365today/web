@@ -559,7 +559,8 @@ button:focus {
   border-bottom-color: currentColor;
 }
 
-.dark button {
+.dark button,
+.dark input[type="submit"] {
   border: 2px solid transparent;
   background-color: var(--primary-nav-bg);
   font-weight: 700;
@@ -567,7 +568,9 @@ button:focus {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
 }
 .dark button:hover,
-.dark button:focus {
+.dark button:focus,
+.dark input[type="submit"] :hover,
+.dark input[type="submit"] :focus {
   background-color: transparent;
   border-bottom-color: currentColor;
 }
