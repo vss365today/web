@@ -320,7 +320,8 @@ button {
   border-radius: 3px;
 }
 
-button {
+button,
+input[type="submit"] {
   margin-top: 1em;
   background-image: none;
   background-color: var(--body-background);
@@ -328,7 +329,9 @@ button {
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 button:hover,
-button:focus {
+button:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus {
   background-color: #e9e9e9;
 }
 
@@ -569,8 +572,8 @@ button:focus {
 }
 .dark button:hover,
 .dark button:focus,
-.dark input[type="submit"] :hover,
-.dark input[type="submit"] :focus {
+.dark input[type="submit"]:hover,
+.dark input[type="submit"]:focus {
   background-color: transparent;
   border-bottom-color: currentColor;
 }
