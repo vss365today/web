@@ -1,0 +1,3 @@
+{% macro calculate_cost(site_costs, type) -%}
+  {{ site_costs[type].cost * site_costs[type].month_freq }}
+{%- endmacro %}

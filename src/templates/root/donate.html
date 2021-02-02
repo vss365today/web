@@ -1,5 +1,11 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% set page_title = 'Support #vss365 today' %}
+
+{% from 'partials/calculate_cost.jinja2' import calculate_cost %}
+{% set cost_domain = calculate_cost(site_costs, "domain")|float %}
+{% set cost_email = calculate_cost(site_costs, "email")|float %}
+{% set cost_server = calculate_cost(site_costs, "server")|float %}
+{% set total_cost = cost_domain + cost_email + cost_server %}
 
 {% block content %}
 <section class="page">
@@ -17,16 +23,16 @@
     some form of payment to access everything.</p>
 
   <p>That said, you can help financially support #vss365 today. It
-    currently costs <strong>$152.00 USD</strong> a year to keep the site online.
+    currently costs <strong>${{ "%.2f"|format(total_cost) }} USD</strong> a year to keep the site online.
     Here's how the costs break down.</p>
 
   <ul>
-    <li>Domain name: $8.00/year</li>
-    <li>Email sending: $9.00/month</li>
-    <li>Server hosting: $3.00/month</li>
+    <li>Domain name: ${{ "%.2f"|format(site_costs["domain"].cost) }}/year</li>
+    <li>Email sending: ${{ "%.2f"|format(site_costs["email"].cost) }}/month</li>
+    <li>Server hosting: ${{ "%.2f"|format(site_costs["server"].cost) }}/month</li>
   </ul>
 
-  <p>Obviously, this is not pocket change. If you were to contribute <strong>$12.70 USD</strong>,
+  <p>Obviously, this is not pocket change. If you were to contribute <strong>${{ "%.2f"|format(total_cost / 12) }} USD</strong>,
     which is about the same price as two McDonald's Big Mac meals,
     you can keep the site online for a full month. You could always contribute less than the
     monthly cost. I am appreciative of any amount sent to keep this resource
