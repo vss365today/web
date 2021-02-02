@@ -3,6 +3,7 @@ from src.core import api
 from src.core.filters.date import format_datetime_ymd
 
 from flask_wtf import FlaskForm
+from wtforms.fields.simple import SubmitField
 from wtforms.fields.html5 import EmailField, SearchField, DateField
 from wtforms.validators import DataRequired, Email
 from wtforms_components import SelectField
@@ -52,18 +53,24 @@ class PromptSearchByWord(FlaskForm):
 
 
 class SubscribeForm(FlaskForm):
+    """Notification email subscribe form."""
+
     email = EmailField(
         "Subscribe to daily #vss365 notifications",
         id="input-email",
         validators=[DataRequired(), Email()],
         render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
     )
+    submit = SubmitField("Subscribe")
 
 
 class UnsubscribeForm(FlaskForm):
+    """Notification email unsubscribe form."""
+
     email = EmailField(
         "Unsubscribe from daily #vss365 notifications",
         id="input-email",
         validators=[DataRequired(), Email()],
         render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
     )
+    submit = SubmitField("Unsubscribe")
