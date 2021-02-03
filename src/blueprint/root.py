@@ -15,10 +15,13 @@ def subscribe():
     email = request.form.get("email")
     try:
         api.post("subscription", params={"email": email})
-        flash(f"Successfully added {email} to the subscription list.", "info")
+        flash(
+            f"{email} has been added to the #vss365 notifications! Tomorrow's word will be in your inbox!",
+            "info",
+        )
     except HTTPError:
         flash(
-            f"We were unable to add {email} to the subscription list. "
+            f"We were unable to add {email} to the notification list. "
             "Please try again shortly.",
             "error",
         )
@@ -31,11 +34,14 @@ def form_unsubscribe():
     email = request.form.get("email")
     try:
         api.delete("subscription", params={"email": email})
-        flash(f"Successfully removed {email} from the subscription list.", "info")
+        flash(
+            f"{email} has been removed from the #vss365 notifications. It was great knowing you!",
+            "info",
+        )
         return redirect(url_for("root.index"))
     except HTTPError:
         flash(
-            f"We were unable to remove {email} from the subscription list. "
+            f"We were unable to remove {email} from the notification list. "
             "Please try again shortly.",
             "error",
         )
