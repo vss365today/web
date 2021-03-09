@@ -10,7 +10,7 @@
 
 ## Install
 
-1. Install Python 3.8+ and [Poetry](https://python-poetry.org/) 1.0.0+
+1. Install Python 3.9+ and [Poetry](https://python-poetry.org/) 1.0.0+
 1. Set missing configuration keys in appropriate `configuration/*.json` files
 1. Create secret files in appropriate place (default: `/app/secrets`)
 1. `poetry install`
@@ -22,6 +22,6 @@
 
 ## License
 
-2019-2020 Caleb Ely
+2019-2021 Caleb Ely
 
 [MIT](LICENSE)

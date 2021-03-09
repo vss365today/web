@@ -2,8 +2,6 @@ from html import unescape
 import re
 from typing import Optional
 
-from src.core.config import load_json_config
-
 
 __all__ = [
     "format_content",
@@ -12,9 +10,6 @@ __all__ = [
     "make_mentions",
     "make_urls",
 ]
-
-
-JSON_CONFIG = load_json_config()
 
 
 def format_content(text: str) -> str:
