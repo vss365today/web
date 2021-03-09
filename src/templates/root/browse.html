@@ -20,7 +20,7 @@
 
   <div class="wrapper">
     {% if archive %}
-    <a class="a-btn" download="{{ archive.file }}" href="{{ url_for('static', filename='downloads/' ~ archive.file) }}">Download the archive!</a>
+    <a class="a-btn" download="{{ archive.file }}" href="{{ get_static_url('downloads/' ~ archive.file) }}">Download the archive!</a>
     {% else %}
     <div class="a-btn">Archive currently unavailable 😕</div>
     {% endif %}

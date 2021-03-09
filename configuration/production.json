@@ -4,6 +4,7 @@
     "FLASK_SKIP_DOTENV": 1,
     "SESSION_COOKIE_SECURE": true,
     "SESSION_COOKIE_HTTPONLY": true,
-    "SESSION_COOKIE_SAMESITE": "Strict"
+    "SESSION_COOKIE_SAMESITE": "Strict",
+    "STATIC_FILES_URL": "https://static.vss365today.com"
   }
 }
