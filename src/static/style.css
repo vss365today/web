@@ -83,8 +83,6 @@ header {
   width: 100%;
   padding: 0.5em 2em;
   background-color: var(--body-background-accent);
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-  z-index: 2;
 
   display: flex;
   flex-wrap: wrap;
@@ -443,9 +441,6 @@ input[type="submit"]:focus {
 }
 
 .msg-alert.info {
-  /* background-color: var(--details-bg);
-  color: black; */
-
   background-color: var(--primary-nav-bg);
   color: #fff;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -472,9 +467,13 @@ input[type="submit"]:focus {
   filter: invert(0.9);
 }
 
-.msg-alert .btn-close:hover,
-.msg-alert .btn-close:focus {
+.msg-alert.info .btn-close:hover,
+.msg-alert.info .btn-close:focus {
   filter: invert(0.7);
+}
+.msg-alert.error .btn-close:hover,
+.msg-alert.error .btn-close:focus {
+  filter: invert(0.35);
 }
 
 /* -- Dark theme --*/
@@ -584,15 +583,16 @@ input[type="submit"]:focus {
   filter: invert(0.9) drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
 }
 
+.dark .msg-alert.info .btn-close:hover,
+.dark .msg-alert.info .btn-close:focus {
+  filter: invert(0.8) drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.2));
+}
+
 /* -- Smaller screens -- */
 @media (max-width: 1100px) {
   header #page-title {
     margin: initial;
     display: block;
-  }
-
-  .msg-alert {
-    width: 100%;
   }
 
   nav.primary {
