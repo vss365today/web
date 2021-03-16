@@ -1,10 +1,10 @@
 (function () {
   "use strict";
 
-  const qFlashMessagesContainer = document.querySelector(".msg-flash-area");
+  const qAreaAlerts = document.querySelector(".area-alerts");
 
-  qFlashMessagesContainer.addEventListener("click", function (e) {
-    if (e.target.matches(".msg-flash .btn-close")) {
+  qAreaAlerts.addEventListener("click", function (e) {
+    if (e.target.matches(".msg-alert .btn-close")) {
       let thisNotif = e.target.parentElement;
       thisNotif.classList.add("hidden");
 
@@ -16,8 +16,8 @@
             e.target.remove();
 
             // Delete the container once all messages are dismissed
-            if (qFlashMessagesContainer.childElementCount === 0) {
-              qFlashMessagesContainer.remove();
+            if (qAreaAlerts.childElementCount === 0) {
+              qAreaAlerts.remove();
             }
           }
         },

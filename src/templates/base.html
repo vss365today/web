@@ -13,7 +13,7 @@
 </head>
 
 <body>
-  {% include 'partials/flash-messages.jinja2' %}
+  {% include 'partials/alerts.jinja2' %}
 
   {% include 'partials/header.html' %}
 
@@ -25,7 +25,7 @@
 
   <script src="{{ url_for('static', filename='details-element-polyfill.js') }}"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/flash-messages.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/alerts.js') }}"></script>
   <script defer
           data-cf-beacon='{"token": "bb0e55af8f6848408e26cdef270c58fe"}'
           src='https://static.cloudflareinsights.com/beacon.min.js'></script>
