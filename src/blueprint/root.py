@@ -115,8 +115,8 @@ def donate():
     Costs = namedtuple("Costs", ["cost", "month_freq"])
     site_costs = {
         "domain": Costs(8, 1),
-        "email": Costs(9, 12),
-        "server": Costs(3, 12),
+        "email": Costs(9.25, 12),
+        "server": Costs(4, 12),
     }
     render_opts = {"form_subscribe": SubscribeForm(), "site_costs": site_costs}
     return render_template("root/donate.html", **render_opts)
