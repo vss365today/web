@@ -13,8 +13,8 @@ gunicorn = "^20.0.4"
 requests = "^2.25.1"
 email-validator = "^1.1.2"
 WTForms-Components = "^0.10.4"
-sys-vars = {url = "https://github.com/le717/sys-vars/releases/download/v3.0.0/sys_vars-3.0.0-py3-none-any.whl"}
 flask-google-fonts = {url = "https://github.com/le717/flask-google-fonts/releases/download/v1.0.0/flask_google_fonts-1.0.0-py3-none-any.whl"}
+sys-vars = "^4.0.0"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.8.4"

@@ -8,7 +8,7 @@ from src.core.filters import ALL_FILTERS
 from src.extensions import init_extensions
 
 
-def create_app():
+def create_app() -> Flask:
     """Create an instance of the app."""
     app = Flask(__name__)
 
