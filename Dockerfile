@@ -5,7 +5,6 @@ ENV PYTHONPATH=/app
 
 # Copy the app files into the container
 RUN mkdir -p /app
-COPY ./docker /app/docker
 COPY [ "get-requirements.py", "poetry.lock", "pyproject.toml", "run-app.sh", "/app/" ]
 WORKDIR /app
 
