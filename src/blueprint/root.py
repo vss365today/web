@@ -14,7 +14,7 @@ def subscribe():
     # Attempt to record the email
     email = request.form.get("email")
     try:
-        api.post("subscription", params={"email": email})
+        api.post("subscription/", params={"email": email})
         flash(
             f"{email} has been added to #vss365 notifications! Tomorrow's prompt will be in your inbox!",
             "info",
@@ -33,7 +33,7 @@ def form_unsubscribe():
     # Attempt to delete the email
     email = request.form.get("email")
     try:
-        api.delete("subscription", params={"email": email})
+        api.delete("subscription/", params={"email": email})
         flash(f"{email} has been removed from #vss365 notifications.", "info")
         return redirect(url_for("root.index"))
     except HTTPError:
