@@ -30,8 +30,9 @@ def create_url() -> Dict[str, Callable]:
 
 @current_app.context_processor
 def get_static_url() -> Dict[str, Callable]:
+    """Generate a URL to static assets based on dev/prod status."""
+
     def _func(filename: str) -> str:
-        # TODO Docstring
         # If this config key is present, we are running in prod,
         # which means we should pull the files from a URL
         if (static_url := current_app.config.get("STATIC_FILES_URL")) is not None:

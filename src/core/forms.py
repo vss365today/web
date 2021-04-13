@@ -5,7 +5,7 @@ from src.core.filters.date import format_datetime_ymd
 from flask_wtf import FlaskForm
 from wtforms.fields.simple import SubmitField
 from wtforms.fields.html5 import EmailField, SearchField, DateField
-from wtforms.validators import DataRequired, Email
+from wtforms.validators import InputRequired, Email
 from wtforms_components import SelectField
 
 
@@ -22,7 +22,7 @@ class PromptSearchByDate(FlaskForm):
     query = DateField(
         "Date search",
         id="input-search-date",
-        validators=[DataRequired()],
+        validators=[InputRequired()],
         render_kw={
             "placeholder": "2020-07-02",
             "pattern": r"\d{4}-\d{2}-\d{2}",
@@ -35,7 +35,7 @@ class PromptSearchByHost(FlaskForm):
     query = SelectField(
         "Host search",
         id="input-search-host",
-        validators=[DataRequired()],
+        validators=[InputRequired()],
         choices=[
             (host["handle"], host["handle"])
             for host in api.get("host", params={"all": True})
@@ -47,7 +47,7 @@ class PromptSearchByWord(FlaskForm):
     query = SearchField(
         "Word search",
         id="input-search-word",
-        validators=[DataRequired()],
+        validators=[InputRequired()],
         render_kw={"placeholder": "braid"},
     )
 
@@ -58,7 +58,7 @@ class SubscribeForm(FlaskForm):
     email = EmailField(
         "Subscribe to daily #vss365 notifications",
         id="input-email",
-        validators=[DataRequired(), Email()],
+        validators=[InputRequired(), Email()],
         render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
     )
     submit = SubmitField("Subscribe")
@@ -70,7 +70,7 @@ class UnsubscribeForm(FlaskForm):
     email = EmailField(
         "Unsubscribe from daily #vss365 notifications",
         id="input-email",
-        validators=[DataRequired(), Email()],
+        validators=[InputRequired(), Email()],
         render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
     )
     submit = SubmitField("Unsubscribe")
