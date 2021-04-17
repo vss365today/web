@@ -36,7 +36,7 @@ body {
   min-height: 100vh;
 
   font-family: var(--font-stack-primary);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.65;
   font-weight: 400;
   color: var(--primary-text);
