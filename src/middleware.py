@@ -40,8 +40,7 @@ def get_static_url() -> Dict[str, Callable]:
 
         # Otherwise, we're running locally, so we pull the files
         # from the local filesystem
-        else:
-            return url_for("static", filename=filename)
+        return url_for("static", filename=filename)
 
     return {"get_static_url": _func}
 
