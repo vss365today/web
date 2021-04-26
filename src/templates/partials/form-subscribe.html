@@ -1,4 +1,4 @@
-<form class="form-subscribe" method="POST" action="{{ url_for('root.subscribe') }}">
+<form class="form-subscribe" method="POST" action="{{ url_for('root.form_subscribe') }}">
   {{ form_subscribe.csrf_token }}
   {{ form_subscribe.email.label(class="center") }}
   {{ form_subscribe.email(value="") }}

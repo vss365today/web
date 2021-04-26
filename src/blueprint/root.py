@@ -9,8 +9,8 @@ from src.core.filters import date as date_format
 from src.core.forms import SubscribeForm, UnsubscribeForm
 
 
-@root.route("subscribe", methods=["POST"])
-def subscribe():
+@root.route("form-subscribe", methods=["POST"])
+def form_subscribe():
     # Attempt to record the email
     email = request.form.get("email")
     try:
