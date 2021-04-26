@@ -1,6 +1,8 @@
 from collections import namedtuple
+from random import randrange
 
-from flask import abort, flash, redirect, render_template, request, url_for
+from flask import abort, flash, redirect, render_template, request, session, url_for
+from num2words import num2words
 from requests.exceptions import HTTPError
 
 from src.blueprint import bp_root as root
@@ -26,6 +28,23 @@ def form_subscribe():
             "error",
         )
     return redirect(url_for("root.index"))
+
+
+@root.route("subscribe")
+def subscribe():
+    # Generate two random numbers to use for a basic "is human" check.
+    # Once generated, add them to the session for confirmation on form submit.
+    # We generate these numbers on every page load unconditionally
+    # so we don't persist anything
+    second_num = randrange(15)
+    random_nums = [randrange(20), second_num, num2words(second_num)]
+    session["SUBSCRIBE_NUM"] = random_nums
+
+    # Build up the input label to contain the math equation to be solved
+    form = SubscribeForm()
+    form.number.label.text = f"{random_nums[0]} + {random_nums[2]} ="
+    render_opts = {"form_subscribe": form}
+    return render_template("root/subscribe.html", **render_opts)
 
 
 @root.route("form-unsubscribe", methods=["POST"])

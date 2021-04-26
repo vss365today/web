@@ -4,7 +4,7 @@ from src.core.filters.date import format_datetime_ymd
 
 from flask_wtf import FlaskForm
 from wtforms.fields.simple import SubmitField
-from wtforms.fields.html5 import EmailField, SearchField, DateField
+from wtforms.fields.html5 import EmailField, IntegerField, SearchField, DateField
 from wtforms.validators import InputRequired, Email
 from wtforms_components import SelectField
 
@@ -21,7 +21,6 @@ __all__ = [
 class PromptSearchByDate(FlaskForm):
     query = DateField(
         "Date search",
-        id="input-search-date",
         validators=[InputRequired()],
         render_kw={
             "placeholder": "2020-07-02",
@@ -46,7 +45,6 @@ class PromptSearchByHost(FlaskForm):
 class PromptSearchByWord(FlaskForm):
     query = SearchField(
         "Word search",
-        id="input-search-word",
         validators=[InputRequired()],
         render_kw={"placeholder": "braid"},
     )
@@ -56,10 +54,17 @@ class SubscribeForm(FlaskForm):
     """Notification email subscribe form."""
 
     email = EmailField(
-        "Subscribe to daily #vss365 notifications",
-        id="input-email",
+        "Email",
         validators=[InputRequired(), Email()],
-        render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
+        render_kw={
+            "placeholder": "amwriting@vss365today.com",
+            "autocomplete": "email",
+            "inputmode": "email",
+        },
+    )
+    number = IntegerField(
+        validators=[InputRequired()],
+        render_kw={"inputmode": "numeric"},
     )
     submit = SubmitField("Subscribe")
 
@@ -69,8 +74,11 @@ class UnsubscribeForm(FlaskForm):
 
     email = EmailField(
         "Unsubscribe from daily #vss365 notifications",
-        id="input-email",
         validators=[InputRequired(), Email()],
-        render_kw={"placeholder": "amwriting@vss365today.com", "autocomplete": "email"},
+        render_kw={
+            "placeholder": "amwriting@vss365today.com",
+            "autocomplete": "email",
+            "inputmode": "email",
+        },
     )
     submit = SubmitField("Unsubscribe")

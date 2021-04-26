@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% set page_title = 'Get email notifications' %}
+
+{% block content %}
+<section class="page center">
+  <h3>&OpenCurlyDoubleQuote;Knowledge is a weapon. I intend to be formidably armed.&CloseCurlyDoubleQuote;
+    <br>&mdash;Terry Goodkind
+  </h3>
+
+  <p>It looks like you're wanting to subscribe to the daily #vss365 email notifications. That's awesome! 😀
+    <br>Fill out this quick form and you'll recieve the prompt in your inbox starting tomorrow!
+  </p>
+
+  {% include "partials/form-subscribe.html" %}
+</section>
+{% endblock %}

@@ -1,6 +1,11 @@
 <form class="form-subscribe" method="POST" action="{{ url_for('root.form_subscribe') }}">
   {{ form_subscribe.csrf_token }}
-  {{ form_subscribe.email.label(class="center") }}
+  {{ form_subscribe.email.label }}
   {{ form_subscribe.email(value="") }}
+
+  <p>Please answer this quick question to prove you're human.</p>
+  {{ form_subscribe.number.label }}
+  {{ form_subscribe.number() }}
+
   {{ form_subscribe.submit() }}
 </form>
