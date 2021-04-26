@@ -1,7 +1,7 @@
 from collections import namedtuple
 from random import randrange
 
-from flask import abort, flash, redirect, render_template, request, session, url_for
+from flask import abort, flash, redirect, render_template, session, url_for
 from num2words import num2words
 from requests.exceptions import HTTPError
 
