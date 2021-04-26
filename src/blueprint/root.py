@@ -13,8 +13,19 @@ from src.core.forms import SubscribeForm, UnsubscribeForm
 
 @root.route("form-subscribe", methods=["POST"])
 def form_subscribe():
+    form = SubscribeForm()
+    # The magic "is human" numbers do not exist, don't continue on
+    if "SUBSCRIBE_NUM" not in session or not form.validate_on_submit():
+        flash("We were unable to add you to #vss365 notifications.", "error")
+        return redirect(url_for("root.index"))
+
+    # The magic numbers were not summed correctly
+    if form.number.data != session["SUBSCRIBE_NUM"][0] + session["SUBSCRIBE_NUM"][1]:
+        flash("We were unable to add you to #vss365 notifications.", "error")
+        return redirect(url_for("root.index"))
+
     # Attempt to record the email
-    email = request.form.get("email")
+    email = form.email.data
     try:
         api.post("subscription/", params={"email": email})
         flash(
@@ -22,11 +33,7 @@ def form_subscribe():
             "info",
         )
     except HTTPError:
-        flash(
-            f"We were unable to add {email} to #vss365 notifications. "
-            "Please try again shortly.",
-            "error",
-        )
+        flash(f"We were unable to add {email} to #vss365 notifications.", "error")
     return redirect(url_for("root.index"))
 
 
@@ -36,12 +43,14 @@ def subscribe():
     # Once generated, add them to the session for confirmation on form submit.
     # We generate these numbers on every page load unconditionally
     # so we don't persist anything
-    second_num = randrange(15)
-    random_nums = [randrange(20), second_num, num2words(second_num)]
+    second_num = randrange(16)
+    random_nums = [randrange(1, 21), second_num, num2words(second_num)]
     session["SUBSCRIBE_NUM"] = random_nums
 
     # Build up the input label to contain the math equation to be solved
+    # and remove any prior input the browser might have preserved (*@ Firefox...*)
     form = SubscribeForm()
+    form.number.data = None
     form.number.label.text = f"{random_nums[0]} + {random_nums[2]} ="
     render_opts = {"form_subscribe": form}
     return render_template("root/subscribe.html", **render_opts)
@@ -56,11 +65,7 @@ def form_unsubscribe():
         flash(f"{email} has been removed from #vss365 notifications.", "info")
         return redirect(url_for("root.index"))
     except HTTPError:
-        flash(
-            f"We were unable to remove {email} from #vss365 notifications. "
-            "Please try again shortly.",
-            "error",
-        )
+        flash(f"We were unable to remove {email} from #vss365 notifications.", "error")
         return redirect(url_for("root.unsubscribe"))
 
 
