@@ -47,16 +47,13 @@ def form_unsubscribe():
 
 @root.route("unsubscribe", methods=["GET"])
 def unsubscribe():
-    render_opts = {
-        "form_subscribe": SubscribeForm(),
-        "form_unsubscribe": UnsubscribeForm(),
-    }
+    render_opts = {"form_unsubscribe": UnsubscribeForm()}
     return render_template("root/unsubscribe.html", **render_opts)
 
 
 @root.route("about")
 def about():
-    render_opts = {"form_subscribe": SubscribeForm()}
+    render_opts = {}
     return render_template("root/about.html", **render_opts)
 
 
@@ -69,7 +66,6 @@ def browse():
         archive_name = None
 
     render_opts = {
-        "form_subscribe": SubscribeForm(),
         "years": api.get("browse", "years"),
         "archive": archive_name,
     }
@@ -84,11 +80,7 @@ def browse_by_year(year: str):
     except HTTPError:
         abort(404)
 
-    render_opts = {
-        "form_subscribe": SubscribeForm(),
-        "months": prompt_months,
-        "year": year,
-    }
+    render_opts = {"months": prompt_months, "year": year}
     return render_template("root/browse-year.html", **render_opts)
 
 
@@ -100,7 +92,6 @@ def browse_by_year_month(year: str, month: str) -> str:
         abort(404)
 
     render_opts = {
-        "form_subscribe": SubscribeForm(),
         "date": date_format.format_month_year(f"{year}-{month}-01"),
         "month_prompts": month_prompts["prompts"],
     }
@@ -115,7 +106,7 @@ def donate():
         "email": Costs(10, 12),
         "server": Costs(4, 12),
     }
-    render_opts = {"form_subscribe": SubscribeForm(), "site_costs": site_costs}
+    render_opts = {"site_costs": site_costs}
     return render_template("root/donate.html", **render_opts)
 
 
@@ -134,7 +125,6 @@ def index():
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
         "next_day": None,
-        "form_subscribe": SubscribeForm(),
     }
     return render_template("root/tweet.html", **render_opts)
 
@@ -163,6 +153,5 @@ def view_date(date: str):
         "prompts": prompts,
         "previous_day": prompts[0]["previous_day"],
         "next_day": prompts[0]["next_day"],
-        "form_subscribe": SubscribeForm(),
     }
     return render_template("root/tweet.html", **render_opts)
