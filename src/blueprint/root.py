@@ -58,8 +58,13 @@ def subscribe():
 
 @root.route("form-unsubscribe", methods=["POST"])
 def form_unsubscribe():
+    form = UnsubscribeForm()
+    if not form.validate_on_submit():
+        flash("We were unable to remove you from #vss365 notifications.", "error")
+        return redirect(url_for("root.unsubscribe"))
+
     # Attempt to delete the email
-    email = request.form.get("email")
+    email = form.email.data
     try:
         api.delete("subscription/", params={"email": email})
         flash(f"{email} has been removed from #vss365 notifications.", "info")
