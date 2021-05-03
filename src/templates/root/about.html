@@ -53,12 +53,11 @@
   <ul>
     <li><a rel="noopener noreferrer" href="https://twitter.com/Making_Fiction">Making_Fiction</a>, prompt originator</li>
     <li><a rel="noopener noreferrer" href="https://twitter.com/voimaoy">Voimaoy</a>, former Host Moderator</li>
-    <li><a rel="noopener noreferrer" href="https://twitter.com/cely717">cely717</a>, vss365today.com creator</li>
+    <li><a rel="noopener noreferrer" href="https://codetri.net">Caleb</a>, vss365today.com creator</li>
   </ul>
 
   <h2>About #vss365 today</h2>
-  <p><strong>#vss365 today</strong> is a hobby project created by
-    <a rel="noopener noreferrer" href="https://codetri.net">Caleb Ely</a>, an IT professional,
+  <p><strong>#vss365 today</strong> is a hobby project created by Caleb, an IT professional,
     poet, and participant in #vss365. It was initially created to assist getting the #vss365 prompt
     into the hands and minds of more writers more easily. You can read more about this site on his
     <a rel="noopener noreferrer" href="https://blog.codetri.net">blog</a>.</p>
@@ -74,6 +73,7 @@
 
   <p>If you have a question or would like to report a complaint about the email subscriptions,
     you may reach out at
-    <a href="{{ url_for('shortcuts.abuse') }}">abuse&commat;email&period;codetri&period;net</a>.</p>
+    <a href="{{ url_for('shortcuts.abuse') }}">{{ config["ABUSE_EMAIL_ADDR"]|escape }}</a>.
+  </p>
 </section>
 {% endblock %}

@@ -22,6 +22,6 @@
 
 ## License
 
-2019-2021 Caleb Ely
+2019-2021 Caleb
 
 [MIT](LICENSE)
