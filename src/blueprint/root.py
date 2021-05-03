@@ -133,7 +133,7 @@ def donate():
     site_costs = {
         "domain": Costs(8, 1),
         "email": Costs(10, 12),
-        "server": Costs(4, 12),
+        "server": Costs(4.5, 12),
     }
     render_opts = {"site_costs": site_costs}
     return render_template("root/donate.html", **render_opts)
