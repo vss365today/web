@@ -152,8 +152,8 @@ def index():
 
     render_opts = {
         "prompts": prompts,
-        "previous_day": prompts[0]["previous"],
-        "next_day": None,
+        "previous": prompts[0]["previous"],
+        "next": None,
     }
     return render_template("root/tweet.html", **render_opts)
 
@@ -180,7 +180,7 @@ def view_date(date: str):
 
     render_opts = {
         "prompts": prompts,
-        "previous_day": prompts[0]["previous"],
-        "next_day": prompts[0]["next"],
+        "previous": prompts[0]["previous"],
+        "next": prompts[0]["next"],
     }
     return render_template("root/tweet.html", **render_opts)
