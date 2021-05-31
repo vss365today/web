@@ -128,16 +128,19 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-wtf"
-version = "0.14.3"
+version = "0.15.1"
 description = "Simple integration of Flask and WTForms."
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">= 3.6"
 
 [package.dependencies]
 Flask = "*"
 itsdangerous = "*"
 WTForms = "*"
+
+[package.extras]
+email = ["email-validator"]
 
 [[package]]
 name = "gunicorn"
@@ -429,7 +432,7 @@ timezone = ["python-dateutil"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "46d2a47b99f066ca93c6e47d1abcfe7a5d462601dfd2d56a80a26996175196d9"
+content-hash = "72246a994cefd7699301449bb45988bb5e744785100a189fa4855db122f33215"
 
 [metadata.files]
 appdirs = [
@@ -476,8 +479,8 @@ flask = [
     {file = "Flask-1.1.2.tar.gz", hash = "sha256:4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060"},
 ]
 flask-wtf = [
-    {file = "Flask-WTF-0.14.3.tar.gz", hash = "sha256:d417e3a0008b5ba583da1763e4db0f55a1269d9dd91dcc3eb3c026d3c5dbd720"},
-    {file = "Flask_WTF-0.14.3-py2.py3-none-any.whl", hash = "sha256:57b3faf6fe5d6168bda0c36b0df1d05770f8e205e18332d0376ddb954d17aef2"},
+    {file = "Flask-WTF-0.15.1.tar.gz", hash = "sha256:ff177185f891302dc253437fe63081e7a46a4e99aca61dfe086fb23e54fff2dc"},
+    {file = "Flask_WTF-0.15.1-py2.py3-none-any.whl", hash = "sha256:6ff7af73458f182180906a37a783e290bdc8a3817fe4ad17227563137ca285bf"},
 ]
 gunicorn = [
     {file = "gunicorn-20.1.0-py3-none-any.whl", hash = "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e"},
