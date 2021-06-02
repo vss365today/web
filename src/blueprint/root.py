@@ -155,6 +155,10 @@ def index():
         "previous": prompts[0]["previous"],
         "next": None,
     }
+    flash(
+        "New prompt recording and notification emails temporarily are paused (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>)",
+        "info",
+    )
     return render_template("root/tweet.html", **render_opts)
 
 
