@@ -105,7 +105,7 @@ def browse():
     except HTTPError:
         archive_name = None
 
-    flashz(
+    flash(
         "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
