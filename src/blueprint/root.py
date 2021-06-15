@@ -53,7 +53,7 @@ def subscribe():
     form.number.data = None
     form.number.label.text = f"{random_nums[0]} + {random_nums[2]} ="
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     render_opts = {"form_subscribe": form}
@@ -82,7 +82,7 @@ def form_unsubscribe():
 def unsubscribe():
     render_opts = {"form_unsubscribe": UnsubscribeForm()}
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     return render_template("root/unsubscribe.html", **render_opts)
@@ -91,7 +91,7 @@ def unsubscribe():
 @root.route("about")
 def about():
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     return render_template("root/about.html")
@@ -106,7 +106,7 @@ def browse():
         archive_name = None
 
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     render_opts = {
@@ -125,7 +125,7 @@ def browse_by_year(year: str):
         abort(404)
 
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     render_opts = {"months": prompt_months, "year": year}
@@ -140,7 +140,7 @@ def browse_by_year_month(year: str, month: str) -> str:
         abort(404)
 
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     render_opts = {
@@ -160,7 +160,7 @@ def donate():
     }
 
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     render_opts = {"site_costs": site_costs}
@@ -184,7 +184,7 @@ def index():
         "next": None,
     }
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     return render_template("root/tweet.html", **render_opts)
@@ -211,7 +211,7 @@ def view_date(date: str):
         prompts.append(prompt)
 
     flash(
-        "New prompt recording and notification emails are temporarily paused but will resume soon (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+        "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "info",
     )
     render_opts = {
