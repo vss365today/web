@@ -54,7 +54,7 @@ def subscribe():
     form.number.label.text = f"{random_nums[0]} + {random_nums[2]} ="
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     render_opts = {"form_subscribe": form}
     return render_template("root/subscribe.html", **render_opts)
@@ -83,7 +83,7 @@ def unsubscribe():
     render_opts = {"form_unsubscribe": UnsubscribeForm()}
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     return render_template("root/unsubscribe.html", **render_opts)
 
@@ -92,7 +92,7 @@ def unsubscribe():
 def about():
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     return render_template("root/about.html")
 
@@ -107,7 +107,7 @@ def browse():
 
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     render_opts = {
         "years": api.get("browse", "years"),
@@ -126,7 +126,7 @@ def browse_by_year(year: str):
 
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     render_opts = {"months": prompt_months, "year": year}
     return render_template("root/browse-year.html", **render_opts)
@@ -141,7 +141,7 @@ def browse_by_year_month(year: str, month: str) -> str:
 
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     render_opts = {
         "date": date_format.format_month_year(f"{year}-{month}-01"),
@@ -161,7 +161,7 @@ def donate():
 
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     render_opts = {"site_costs": site_costs}
     return render_template("root/donate.html", **render_opts)
@@ -185,7 +185,7 @@ def index():
     }
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     return render_template("root/tweet.html", **render_opts)
 
@@ -212,7 +212,7 @@ def view_date(date: str):
 
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
-        "info",
+        "error",
     )
     render_opts = {
         "prompts": prompts,
