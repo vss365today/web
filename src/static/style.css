@@ -406,15 +406,16 @@ input[type="submit"]:focus {
 }
 
 .tail-select {
-  width: 100%;
-  font-size: 1rem;
+  width: 100% !important;
+  font-size: 1rem !important;
 }
 
 .tail-select .select-label {
-  height: 2.55rem;
-  max-height: none;
-  padding: 0.6rem 0.4rem;
-  border-radius: 3px;
+  height: 2.55rem !important;
+  max-height: none !important;
+  padding-top: 0.6rem !important;
+  border-radius: 3px !important;
+  color: black !important;
 }
 
 .tail-select .select-dropdown ul li {
@@ -448,6 +449,10 @@ input[type="submit"]:focus {
 
 .msg-alert.error {
   background-color: #fbd38d; /* tailwindcss v1.2.0 orange-300 */
+  color: black;
+}
+
+.msg-alert.error a {
   color: black;
 }
 
