@@ -4,17 +4,18 @@
 
 ## Required Configuration
 
-- Running instance of [#vss365 today API](https://github.com/le717/vss365today-api/) (domain configurable)
-  - API key for protected endpoint access
-- Flask secret key
+- Flask secret key (`SECRET_KEY_WEB`)
+- Running instance of [#vss365 today API](https://github.com/le717/vss365today-api/) (`API_DOMAIN`)
+  - API key for protected endpoint access (`API_AUTH_TOKEN`)
+- Mailgun abuse email address (`ABUSE_EMAIL_ADDR`)
 
 ## Install
 
-1. Install Python 3.9+ and [Poetry](https://python-poetry.org/) 1.0.0+
+1. Install Python 3.9+ and [Poetry](https://python-poetry.org/) 1.1.0+
 1. Set missing configuration keys in appropriate `configuration/*.json` files
 1. Create secret files in appropriate place (default: `/app/secrets`)
-1. `poetry install`
-1. `poetry run flask run`
+1. Run `poetry install`
+1. Launch the app using the provided VS Code launch configuration
 
 ## Build
 
