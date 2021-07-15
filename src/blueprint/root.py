@@ -156,7 +156,7 @@ def donate():
     site_costs = {
         "domain": Costs(8, 1),
         "email": Costs(11, 12),
-        "server": Costs(5, 12),
+        "server": Costs(6, 12),
     }
 
     flash(
