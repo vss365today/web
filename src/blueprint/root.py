@@ -8,12 +8,12 @@ from requests.exceptions import HTTPError
 from src.blueprint import bp_root as root
 from src.core import api
 from src.core.filters import date as date_format
-from src.core.forms import SubscribeForm, UnsubscribeForm
+from src.core import forms
 
 
 @root.route("form-subscribe", methods=["POST"])
 def form_subscribe():
-    form = SubscribeForm()
+    form = forms.SubscribeForm()
     # The magic "is human" numbers do not exist, don't continue on
     if "SUBSCRIBE_NUM" not in session or not form.validate_on_submit():
         flash("We were unable to add you to #vss365 notifications.", "error")
@@ -49,7 +49,7 @@ def subscribe():
 
     # Build up the input label to contain the math equation to be solved
     # and remove any prior input the browser might have preserved (*@ Firefox...*)
-    form = SubscribeForm()
+    form = forms.SubscribeForm()
     form.number.data = None
     form.number.label.text = f"{random_nums[0]} + {random_nums[2]} ="
     flash(
@@ -62,7 +62,7 @@ def subscribe():
 
 @root.route("form-unsubscribe", methods=["POST"])
 def form_unsubscribe():
-    form = UnsubscribeForm()
+    form = forms.UnsubscribeForm()
     if not form.validate_on_submit():
         flash("We were unable to remove you from #vss365 notifications.", "error")
         return redirect(url_for("root.unsubscribe"))
@@ -80,7 +80,7 @@ def form_unsubscribe():
 
 @root.route("unsubscribe", methods=["GET"])
 def unsubscribe():
-    render_opts = {"form_unsubscribe": UnsubscribeForm()}
+    render_opts = {"form_unsubscribe": forms.UnsubscribeForm()}
     flash(
         "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
         "error",

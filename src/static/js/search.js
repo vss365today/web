@@ -1,5 +1,4 @@
 function findParentElement(element, selector) {
-  "use strict";
   // The desired element was not found on the page
   if (element === null) {
     return null;

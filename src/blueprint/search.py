@@ -12,7 +12,6 @@ def index():
         "form_date": forms.PromptSearchByDate(),
         "form_host": forms.PromptSearchByHost(),
         "form_word": forms.PromptSearchByWord(),
-        "form_subscribe": forms.SubscribeForm(),
     }
     return render_template("search/search.html", **render_opts)
 
@@ -115,7 +114,6 @@ def results():
         "form_date": forms.PromptSearchByDate(),
         "form_host": forms.PromptSearchByHost(),
         "form_word": forms.PromptSearchByWord(),
-        "form_subscribe": forms.SubscribeForm(),
     }
     render_opts.update(session)
     return render_template("search/results.html", **render_opts)
