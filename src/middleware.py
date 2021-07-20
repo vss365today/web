@@ -1,7 +1,21 @@
 from datetime import datetime
 from typing import Callable, Dict
 
-from flask import current_app, render_template, url_for
+from flask import current_app, flash, render_template, request, url_for
+
+
+@current_app.before_request
+def global_alert():
+    # Display a global alert message if
+    # 1. We have one to display
+    # 2. We are loading a route and not anything else
+    # 3. We aren't coming from a shortcut (which are redirects)
+    if (
+        (alert_msg := current_app.config.get("GLOBAL_ALERT")) is not None
+        and request.blueprint
+        and request.blueprint != "shortcuts"
+    ):
+        flash(alert_msg[0], alert_msg[1])
 
 
 @current_app.context_processor

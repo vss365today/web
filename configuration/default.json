@@ -10,6 +10,10 @@
   "appConfig": {
     "APP_NAME": "#vss365 today",
     "APP_DOMAIN": "vss365today.com",
-    "FLASK_APP": "wsgi.py"
+    "FLASK_APP": "wsgi.py",
+    "GLOBAL_ALERT": [
+      "New prompt recording and notification emails may be temporarily delayed or incorrect until further notice (<a href='https://twitter.com/cely717/status/1395695343782801408'>details</a>).",
+      "error"
+    ]
   }
 }
