@@ -5,7 +5,7 @@ from flask import abort, flash, redirect, render_template, session, url_for
 from num2words import num2words
 from requests.exceptions import HTTPError
 
-from src.blueprint import bp_root as root
+from src.blueprints import root
 from src.core import api
 from src.core.filters import date as date_format
 from src.core import forms

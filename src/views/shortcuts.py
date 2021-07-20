@@ -1,6 +1,6 @@
 from flask import current_app, redirect, url_for
 
-from src.blueprint import bp_shortcuts as shortcuts
+from src.blueprints import shortcuts
 
 
 @shortcuts.route("today")

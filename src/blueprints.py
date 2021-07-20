@@ -12,7 +12,7 @@ def _factory(
     # Create the blueprint
     blueprint = Blueprint(
         partial_module_string,
-        f"src.blueprint.{partial_module_string}",
+        f"src.views.{partial_module_string}",
         url_prefix=url_prefix,
     )
 
@@ -29,8 +29,8 @@ def _factory(
     return blueprint
 
 
-bp_root = _factory("root", "/")
-bp_search = _factory("search", "/search")
-bp_shortcuts = _factory("shortcuts", "/")
+root = _factory("root", "/")
+search = _factory("search", "/search")
+shortcuts = _factory("shortcuts", "/")
 
-all_blueprints = (bp_root, bp_search, bp_shortcuts)
+all_blueprints = (root, search, shortcuts)

@@ -1,7 +1,7 @@
 from flask import flash, redirect, render_template, session, url_for
 from requests.exceptions import HTTPError
 
-from src.blueprint import bp_search as search
+from src.blueprints import search
 from src.core import api, forms
 from src.core.filters.date import create_datetime, format_datetime_ymd
 

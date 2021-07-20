@@ -2,7 +2,7 @@ from importlib import import_module
 
 from flask import Flask
 
-from src.blueprint import all_blueprints
+from src.blueprints import all_blueprints
 import src.configuration as config
 from src.core.filters import ALL_FILTERS
 from src.extensions import init_extensions
