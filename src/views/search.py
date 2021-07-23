@@ -6,7 +6,7 @@ from src.core import api, forms
 from src.core.filters.date import create_datetime, format_datetime_ymd
 
 
-@search.route("/", methods=["GET"])
+@search.get("/")
 def index():
     render_opts = {
         "form_date": forms.PromptSearchByDate(),
@@ -16,7 +16,7 @@ def index():
     return render_template("search/search.html", **render_opts)
 
 
-@search.route("/date", methods=["POST"])
+@search.post("/date")
 def by_date():
     """Search for a specific day's Prompt."""
     # We got a date to search by
@@ -34,7 +34,7 @@ def by_date():
     return redirect(url_for("search.index"))
 
 
-@search.route("/host", methods=["POST"])
+@search.post("/host")
 def by_host():
     """Search for Prompts from a specific Host."""
     session["search_type"] = "host"
@@ -68,7 +68,7 @@ def by_host():
     return redirect(url_for("search.index"))
 
 
-@search.route("/word", methods=["POST"])
+@search.post("/word")
 def by_word():
     """Search for Prompts by a specific word."""
     session["search_type"] = "word"
@@ -108,7 +108,7 @@ def by_word():
     return redirect(url_for("search.index"))
 
 
-@search.route("/results", methods=["GET"])
+@search.get("/results")
 def results():
     render_opts = {
         "form_date": forms.PromptSearchByDate(),
