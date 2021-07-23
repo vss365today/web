@@ -158,8 +158,20 @@ def index():
 
     return render_template("root/tweet.html", **render_opts)
 
+
+def view_one_year():
+    """Build out the special 1 year anniversary prompt page."""
+    render_opts = {}
+    return render_template("root/one-year.html", **render_opts)
+
+
 @root.get("view/<date>")
 def view_date(date: str):
+    """Build out the daily prompt page."""
+    # Load the special 1 year prompt archive page
+    if date == "2017-09-05":
+        return view_one_year()
+
     # Try to get the prompt for this day
     try:
         available_prompts = api.get(
