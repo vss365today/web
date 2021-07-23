@@ -11,7 +11,7 @@ from src.core.filters import date as date_format
 from src.core import forms
 
 
-@root.route("form-subscribe", methods=["POST"])
+@root.post("form-subscribe")
 def form_subscribe():
     form = forms.SubscribeForm()
     # The magic "is human" numbers do not exist, don't continue on
@@ -37,7 +37,7 @@ def form_subscribe():
     return redirect(url_for("root.index"))
 
 
-@root.route("subscribe")
+@root.get("subscribe")
 def subscribe():
     # Generate two random numbers to use for a basic "is human" check.
     # Once generated, add them to the session for confirmation on form submit.
@@ -56,7 +56,7 @@ def subscribe():
     return render_template("root/subscribe.html", **render_opts)
 
 
-@root.route("form-unsubscribe", methods=["POST"])
+@root.post("form-unsubscribe")
 def form_unsubscribe():
     form = forms.UnsubscribeForm()
     if not form.validate_on_submit():
@@ -74,18 +74,18 @@ def form_unsubscribe():
         return redirect(url_for("root.unsubscribe"))
 
 
-@root.route("unsubscribe", methods=["GET"])
+@root.get("unsubscribe")
 def unsubscribe():
     render_opts = {"form_unsubscribe": forms.UnsubscribeForm()}
     return render_template("root/unsubscribe.html", **render_opts)
 
 
-@root.route("about")
+@root.get("about")
 def about():
     return render_template("root/about.html")
 
 
-@root.route("browse")
+@root.get("browse")
 def browse():
     # Handle the archive file possibly being unavailable
     try:
@@ -100,7 +100,7 @@ def browse():
     return render_template("root/browse.html", **render_opts)
 
 
-@root.route("browse/<year>")
+@root.get("browse/<year>")
 def browse_by_year(year: str):
     # Get the host's list and group them up if needed
     try:
@@ -112,7 +112,7 @@ def browse_by_year(year: str):
     return render_template("root/browse-year.html", **render_opts)
 
 
-@root.route("browse/<year>/<month>")
+@root.get("browse/<year>/<month>")
 def browse_by_year_month(year: str, month: str) -> str:
     try:
         month_prompts: dict = api.get("browse", params={"year": year, "month": month})
@@ -126,7 +126,7 @@ def browse_by_year_month(year: str, month: str) -> str:
     return render_template("root/browse-month.html", **render_opts)
 
 
-@root.route("donate")
+@root.get("donate")
 def donate():
     Costs = namedtuple("Costs", ["cost", "month_freq"])
     site_costs = {
@@ -139,7 +139,7 @@ def donate():
     return render_template("root/donate.html", **render_opts)
 
 
-@root.route("/")
+@root.get("/")
 def index():
     # Create a proper date object for each prompt
     # There are some older days that have multiple prompts,
@@ -158,8 +158,7 @@ def index():
 
     return render_template("root/tweet.html", **render_opts)
 
-
-@root.route("view/<date>")
+@root.get("view/<date>")
 def view_date(date: str):
     # Try to get the prompt for this day
     try:
