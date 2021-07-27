@@ -16,7 +16,7 @@
       }
     },
     {
-      "name": "Python: Flask",
+      "name": "Flask",
       "type": "python",
       "request": "launch",
       "module": "flask",

@@ -3,6 +3,8 @@
 
 {% block content %}
 <section class="page center one-year">
+  {% include "partials/btns-prev-next.html" %}
+
   <h2>#vss365 One Year Anniversary</h2>
   <p>September 05, 2017 is a special day in #vss365 history. It is the one year anniversary of the writing prompt!
     To celebrate, prompt originator Mark A. King
@@ -12,29 +14,10 @@
 </section>
 
 <section>
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-01.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-02.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-03.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-04.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-05.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-06.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-07.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-08.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-09.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-10.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-11.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-12.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-13.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-14.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-15.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-16.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-17.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-18.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-19.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-20.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-21.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-22.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-23.jpg') }}" alt="">
-  <img width="100" src="{{ get_static_url('images/' ~ 'one-year-24.jpg') }}" alt="">
+  {% for prompt in prompts.prompts %}
+  <h2>#{{ loop.index }}</h2>
+  <img width="100" src="{{ get_static_url('images/' ~ prompt.media) }}" alt="">
+  <p style="font-size: 0.85em;"><a href="{{ prompt.url }}">Prompt by {{ host }}</a></p>
+  {% endfor %}
 </section>
 {% endblock %}

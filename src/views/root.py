@@ -159,19 +159,20 @@ def index():
     return render_template("root/tweet.html", **render_opts)
 
 
-def view_one_year():
+def view_one_year(prompt_info: dict):
     """Build out the special 1 year anniversary prompt page."""
-    render_opts = {}
+    render_opts = {
+        "prompts": prompt_info["prompts"],
+        "previous": prompt_info["previous"],
+        "next": prompt_info["next"],
+        "host": prompt_info["writer_handle"],
+    }
     return render_template("root/one-year.html", **render_opts)
 
 
 @root.get("view/<date>")
 def view_date(date: str):
     """Build out the daily prompt page."""
-    # Load the special 1 year prompt archive page
-    if date == "2017-09-05":
-        return view_one_year()
-
     # Try to get the prompt for this day
     try:
         available_prompts = api.get(
@@ -181,6 +182,10 @@ def view_date(date: str):
     # There is no prompt for this day
     except HTTPError:
         abort(404)
+
+    # Load the special 1 year prompt archive page
+    if date == "2017-09-05":
+        return view_one_year(available_prompts)
 
     # Create a proper date object for each prompt
     # There are some older days that have multiple prompts,
