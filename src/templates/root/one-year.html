@@ -14,7 +14,7 @@
 </section>
 
 <section>
-  {% for prompt in prompts.prompts %}
+  {% for prompt in prompts %}
   <h2>#{{ loop.index }}</h2>
   <img width="100" src="{{ get_static_url('images/' ~ prompt.media) }}" alt="">
   <p style="font-size: 0.85em;"><a href="{{ prompt.url }}">Prompt by {{ host }}</a></p>
