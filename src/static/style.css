@@ -215,20 +215,30 @@ footer > div {
   margin-bottom: -0.5em;
 }
 
-/* --- Special one year anniversary page --- */
-.page.one-year {
-}
-
 .btns-prev-next {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   margin-top: 1.2em;
+  text-align: center;
 }
 
 .btns-prev-next a {
-  margin: 0.75em 1.75em;
+  display: flex;
+  align-items: center;
+  margin: 0rem 1.75rem 0.25rem 1.75rem;
+
   font-family: var(--font-stack-header);
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1.3rem;
+}
+
+.btns-prev-next .previous span {
+  margin-left: 0.5rem;
+}
+.btns-prev-next .next span {
+  margin-right: 0.5rem;
 }
 
 .content .prompt-highlight {
@@ -281,6 +291,7 @@ footer > div {
   border-bottom-color: currentColor;
 }
 
+/* --- Special one year anniversary page --- */
 .one-year-wrapper {
   display: flex;
   flex-wrap: wrap;
