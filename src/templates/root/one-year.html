@@ -2,7 +2,7 @@
 {% set page_title = 'September 05, 2017' %}
 
 {% block content %}
-<section class="page center one-year">
+<section class="page center">
   {% include "partials/btns-prev-next.html" %}
 
   <h2>#vss365 One Year Anniversary</h2>
@@ -12,14 +12,18 @@
     <a rel="noopener noreferrer" href="https://makingfiction.com/2017/07/20/vs365-one-year-on/">announced</a>
     that a picture prompt would be posted every hour for 24 hours on the
     anniversary. Here, you will find those images for continued writing inspiration!
+    Interact with any image to view at full size.
   </p>
 </section>
 
-<section>
+<section class="one-year-wrapper">
   {% for prompt in prompts %}
-  <h2>#{{ loop.index }}</h2>
-  <img width="100" src="{{ get_static_url('images/' ~ prompt.media) }}" alt="">
-  <p style="font-size: 0.85em;"><a href="{{ prompt.url }}">Prompt by {{ host }}</a></p>
+  <div class="prompt-image">
+    <h2>#{{ loop.index }}</h2>
+    <a class="a-img" href="{{ prompt.url }}">
+      <img width="275" src="{{ get_static_url('images/' ~ prompt.media) }}">
+    </a>
+  </div>
   {% endfor %}
 </section>
 {% endblock %}

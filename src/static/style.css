@@ -281,6 +281,38 @@ footer > div {
   border-bottom-color: currentColor;
 }
 
+.one-year-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.prompt-image {
+  height: 100%;
+  flex-grow: 1;
+  margin: 0.5rem;
+  text-align: center;
+}
+
+.prompt-image h2 {
+  margin-bottom: 0;
+}
+
+.a-img {
+  border-bottom: none;
+}
+
+.a-img > img {
+  margin-top: 0;
+  border: 3px solid var(--primary-link);
+  border-radius: 3px;
+  transition: 0.2s border-color ease;
+}
+.a-img:hover > img {
+  border-color: transparent;
+  border-bottom-color: currentColor;
+}
+
 .browse-page > .wrapper {
   text-align: center;
 }

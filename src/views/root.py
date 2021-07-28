@@ -183,7 +183,7 @@ def view_date(date: str):
     except HTTPError:
         abort(404)
 
-    # Load the special 1 year prompt archive page
+    # Load the special 1 year prompt archive page if requested
     if date == "2017-09-05":
         return view_one_year(available_prompts)
 
