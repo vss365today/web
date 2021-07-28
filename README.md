@@ -5,9 +5,10 @@
 ## Required Configuration
 
 - Flask secret key (`SECRET_KEY_WEB`)
-- Running instance of [#vss365 today API](https://github.com/le717/vss365today-api/) (`API_DOMAIN`)
-  - API key for protected endpoint access (`API_AUTH_TOKEN`)
 - Mailgun abuse email address (`ABUSE_EMAIL_ADDR`)
+- Running instance of [#vss365 today API](https://github.com/le717/vss365today-api)
+  - Operating domain (`API_DOMAIN`)
+  - API key with `has_archive`, `has_broadcast`, `has_host`, `has_prompt`, `has_settings`, and `has_subscription` permissions (`API_AUTH_TOKEN`)
 
 ## Install
 
