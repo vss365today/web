@@ -1,8 +1,8 @@
-# #vss365 today
+# #vss365 today Web
 
 > Get the latest #vss365 prompt
 
-## Required Configuration
+## Required Secrets
 
 - Flask secret key (`SECRET_KEY_WEB`)
 - Mailgun abuse email address (`ABUSE_EMAIL_ADDR`)
@@ -10,15 +10,20 @@
   - Operating domain (`API_DOMAIN`)
   - API key with `has_archive`, `has_broadcast`, `has_host`, `has_prompt`, `has_settings`, and `has_subscription` permissions (`API_AUTH_TOKEN`)
 
-## Install
+## Development
 
-1. Install Python 3.9+ and [Poetry](https://python-poetry.org/) 1.1.0+
-1. Set missing configuration keys in appropriate `configuration/*.json` files
-1. Create secret files in appropriate place (default: `/app/secrets`)
+1. Install [Python](https://www.python.org/) 3.9+, [Poetry](https://poetry.eustace.io/) 1.1.0+, and VS Code
+1. Create required secret keys in appropriate place (default: `/app/../secrets`)
+1. Adjust configuration values in appropriate `configuration/*.json` files as necessary
 1. Run `poetry install`
 1. Launch the app using the provided VS Code launch configuration
 
+SVG icons sourced from [Heroicons](https://heroicons.com/).
+
 ## Build
+
+Creating a Docker image will install all required components.
+Creating an image is a one-line command:
 
 1. `docker build -t vss365today-web:latest .`
 
