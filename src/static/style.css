@@ -259,7 +259,6 @@ footer > div {
   text-decoration-style: dashed;
   text-decoration-line: underline;
   text-decoration-color: #d1caca;
-  text-transform: lowercase;
   transition: 0.2s text-decoration-color ease;
 }
 .content .word:hover,
