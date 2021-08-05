@@ -11,9 +11,6 @@
     "APP_NAME": "#vss365 today",
     "APP_DOMAIN": "vss365today.com",
     "FLASK_APP": "wsgi.py",
-    "GLOBAL_ALERT": [
-      "New prompt recording and notification emails may be temporarily delayed or incorrect due to internal updates.",
-      "error"
-    ]
+    "GLOBAL_ALERT": null
   }
 }
