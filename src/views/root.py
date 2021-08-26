@@ -29,7 +29,8 @@ def form_subscribe():
     try:
         api.post("subscription/", params={"email": email})
         flash(
-            f"{email} has been added to #vss365 notifications! Tomorrow's prompt will be in your inbox!",
+            f"{email} has been added to #vss365 notifications! "
+            "Tomorrow's prompt will be in your inbox!",
             "info",
         )
     except HTTPError:
