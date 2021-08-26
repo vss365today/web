@@ -34,7 +34,7 @@ def format_content(text: str) -> str:
 
 def get_all_hashtags(text: str) -> tuple:
     matches = re.findall(r"(#\w+)", text, re.I)
-    return tuple(matches) if matches else tuple()
+    return tuple(matches) if matches else ()
 
 
 def make_hashtags(text: str) -> str:
