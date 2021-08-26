@@ -1,8 +1,7 @@
-from html import unescape
 import re
-from typing import Optional
+from html import unescape
 
-from flask import Markup
+import markupsafe
 
 
 __all__ = [
@@ -33,21 +32,15 @@ def format_content(text: str) -> str:
 
 
 def get_all_hashtags(text: str) -> tuple:
-    matches = re.findall(r"(#\w+)", text, re.I)
-    return tuple(matches) if matches else ()
+    return tuple(re.findall(r"(#\w+)", text, re.I))
 
 
 def make_hashtags(text: str) -> str:
-    # Start by finding all hashtags
-    hashtags = get_all_hashtags(text)
-    if not hashtags:
-        return text
-
     # Go through each hashtag and make it a clickable link
-    for ht in hashtags:
+    for ht in get_all_hashtags(text):
         html = f'<a href="https://twitter.com/hashtag/{ht[1:]}">{ht}</a>'
         text = re.sub(fr"({ht})\b", html, text)
-    return Markup(text)
+    return markupsafe.soft_str(markupsafe.Markup(text))
 
 
 def make_mentions(text: str) -> str:
@@ -58,9 +51,11 @@ def make_mentions(text: str) -> str:
 
     # Go through each mention and make it a clickable link
     for mention in mentions:
-        html = f'<a href="https://twitter.com/{mention[1:]}">{mention}</a>'
+        html = markupsafe.Markup(
+            f'<a href="https://twitter.com/{mention[1:]}">{mention}</a>'
+        )
         text = text.replace(mention, html)
-    return Markup(text)
+    return markupsafe.soft_str(text)
 
 
 def make_urls(text: str) -> str:
@@ -72,6 +67,6 @@ def make_urls(text: str) -> str:
 
     # Go through each url and make it a clickable link
     for link in links:
-        html = f'<a href="{link}">{link}</a>'
+        html = markupsafe.Markup(f'<a href="{link}">{link}</a>')
         text = text.replace(link, html)
-    return Markup(text)
+    return markupsafe.soft_str(text)
