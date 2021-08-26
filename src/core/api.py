@@ -20,7 +20,7 @@ def __create_auth_token() -> dict:
 
 def __make_request(method: Callable, *args: str, **kwargs: Any) -> dict:
     """Make a request to the API."""
-    kwargs["headers"].extend(__create_auth_token())
+    kwargs["headers"] = __create_auth_token()
     url = __create_api_url(*args)
     r = method(url, **kwargs)
     r.raise_for_status()
