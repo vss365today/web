@@ -65,7 +65,7 @@ def make_urls(text: str) -> str:
     """Convert all text links in a tweet into an HTML link."""
     # Start by finding all possible t.co text links
     links = re.findall(r"(https://t\.co/[a-z0-9]+)", text, re.I)
-    if links is None:
+    if not links:
         return text
 
     # Go through each url and make it a clickable link
