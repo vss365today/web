@@ -36,7 +36,7 @@
   <details>
     <summary>View tweet{{ 's' if number_of_prompts > 1 }}</summary>
     {% for prompt in prompts %}
-    {{ prompt.content|format_content|safe }}
+    {{ prompt.content|format_content }}
     {% if prompt.media %}
     <img width="250" alt="" src="{{ get_static_url('images/' ~ prompt.media) }}">
     {% endif %}

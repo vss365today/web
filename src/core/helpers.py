@@ -2,6 +2,8 @@ from html import unescape
 import re
 from typing import Optional
 
+from flask import Markup
+
 
 __all__ = [
     "format_content",
@@ -30,35 +32,35 @@ def format_content(text: str) -> str:
     return new_text
 
 
-def get_all_hashtags(text: str) -> Optional[tuple]:
+def get_all_hashtags(text: str) -> tuple:
     matches = re.findall(r"(#\w+)", text, re.I)
-    return tuple(matches) if matches else None
+    return tuple(matches) if matches else tuple()
 
 
 def make_hashtags(text: str) -> str:
     # Start by finding all hashtags
     hashtags = get_all_hashtags(text)
-    if hashtags is None:
+    if not hashtags:
         return text
 
     # Go through each hashtag and make it a clickable link
     for ht in hashtags:
         html = f'<a href="https://twitter.com/hashtag/{ht[1:]}">{ht}</a>'
         text = re.sub(fr"({ht})\b", html, text)
-    return text
+    return Markup(text)
 
 
 def make_mentions(text: str) -> str:
     # Start by finding all possible @mentions
     mentions = re.findall(r"(@\w+)", text, re.I)
-    if mentions is None:
+    if not mentions:
         return text
 
     # Go through each mention and make it a clickable link
     for mention in mentions:
         html = f'<a href="https://twitter.com/{mention[1:]}">{mention}</a>'
         text = text.replace(mention, html)
-    return text
+    return Markup(text)
 
 
 def make_urls(text: str) -> str:
@@ -72,4 +74,4 @@ def make_urls(text: str) -> str:
     for link in links:
         html = f'<a href="{link}">{link}</a>'
         text = text.replace(link, html)
-    return text
+    return Markup(text)
