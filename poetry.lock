@@ -337,7 +337,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "sys-vars"
-version = "4.0.1"
+version = "4.0.2"
 description = "Access system variables in your code as native Python data types."
 category = "main"
 optional = false
@@ -446,7 +446,7 @@ timezone = ["python-dateutil"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "b53782c8be6bbb3d93f1ec348cb51df783d823d81e3919fa1b5ce9fbe60ba647"
+content-hash = "4f1ab57f729179a696b6660093a20d59baf9d9b219dbb74f9efa456277fd4e3d"
 
 [metadata.files]
 appdirs = [
@@ -696,8 +696,8 @@ six = [
     {file = "six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
 ]
 sys-vars = [
-    {file = "sys-vars-4.0.1.tar.gz", hash = "sha256:13fe73c682da4dc1eb4afa640dd33e86f42a22ffe2317131b066208fb7b7eef5"},
-    {file = "sys_vars-4.0.1-py3-none-any.whl", hash = "sha256:0b6eb5d686bbe576aa422088f7019dd704a455f0701e3edb159bacf4fc054894"},
+    {file = "sys-vars-4.0.2.tar.gz", hash = "sha256:11ed6fa190d7eda23f5f2f80a5fa9da96309b30ed92cbb6482c84960aa6f9776"},
+    {file = "sys_vars-4.0.2-py3-none-any.whl", hash = "sha256:e8da23732fd29be1cc919e16c8dc7cb838a758e99e58bb0fc984000228f348f3"},
 ]
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
