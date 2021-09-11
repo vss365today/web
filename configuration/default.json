@@ -11,9 +11,6 @@
     "APP_NAME": "#vss365 today",
     "APP_DOMAIN": "vss365today.com",
     "FLASK_APP": "wsgi.py",
-    "GLOBAL_ALERT": [
-      "There may be an interruption in site access and up-to-date prompts while some server maintenance is performed. Thank you for your patience! 😊",
-      "info"
-    ]
+    "GLOBAL_ALERT": null
   }
 }
