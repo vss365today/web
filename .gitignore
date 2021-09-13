@@ -4,7 +4,7 @@ __pycache__
 .vscode/
 backup/
 testing/
-prompt-images/
+src/static/images/
 node_modules/
 secrets/
 src/static/build/
