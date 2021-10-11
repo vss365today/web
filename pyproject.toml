@@ -17,7 +17,7 @@ sys-vars = "^4.0.3"
 num2words = "^0.5.10"
 
 [tool.poetry.dev-dependencies]
-flake8 = "^3.9.2"
+flake8 = "^4.0.0"
 mypy = "^0.910"
 black = "^21.9b0"
 
