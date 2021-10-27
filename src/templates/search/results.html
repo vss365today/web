@@ -4,7 +4,7 @@
 {% block content %}
 <section class="page search-results center">
   {% if search_type == 'host' %}
-  <h2 class="center">{{ query }} has given us {{ total }} awesome {{ 'words' if total > 1 else 'word' }}!</h2>
+  <h2 class="center">{{ query }} has given us {{ total }} awesome {{ 'prompts' if total > 1 else 'prompt' }}!</h2>
   {% else %}
   <h2 class="center">Say "{{ query }}" {{ total }} {{ 'times fast' if total > 1 else 'time' }}. That's how cool the prompt is!</h2>
   {% endif %}

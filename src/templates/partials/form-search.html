@@ -5,7 +5,6 @@
   <li>If a single result is found, you will be taken directly to the prompt.</li>
 </ul>
 
-
 <div class="form-search-tabs center-block">
   <div class="tab-wrapper">
     <div class="tab word active">{{ form_word.query.label }}</div>
@@ -13,20 +12,21 @@
     <div class="tab host">{{ form_host.query.label }}</div>
   </div>
 
-  <form class="form-search word active" method="POST" action="{{ url_for('search.by_word') }}">
-    {{ form_word.csrf_token }}
+  <form class="form-search word active" method="POST" action="{{ url_for('search.do_search') }}">
+    {{ form_word.hidden_tag() }}
     {{ form_word.query() }}
     <button type="submit">Search</button>
   </form>
 
-  <form class="form-search date" method="POST" action="{{ url_for('search.by_date') }}">
-    {{ form_date.csrf_token }}
+  <form class="form-search date" method="POST" action="{{ url_for('search.do_search') }}">
+    {{ form_date.hidden_tag() }}
     {{ form_date.query() }}
     <button type="submit">Search</button>
   </form>
 
-  <form class="form-search host" method="POST" action="{{ url_for('search.by_host') }}">
-    {{ form_host.csrf_token }}
+  <form class="form-search host" method="POST" action="{{ url_for('search.do_search') }}">
+    {{ form_host.hidden_tag() }}
+
     <select name="{{ form_host.query.name }}" id="{{ form_host.query.id }}">
       <option value=""></option>
       {% for host in form_host.query.choices %}

@@ -3,7 +3,7 @@ from src.core import api
 from src.core.filters.date import format_datetime_ymd
 
 from flask_wtf import FlaskForm
-from wtforms.fields.simple import SubmitField
+from wtforms.fields.simple import HiddenField, SubmitField
 from wtforms.fields.html5 import EmailField, IntegerField, SearchField, DateField
 from wtforms.validators import InputRequired, Email
 from wtforms_components import SelectField
@@ -19,6 +19,7 @@ __all__ = [
 
 
 class PromptSearchByDate(FlaskForm):
+    type = HiddenField(default="date")
     query = DateField(
         "Date search",
         validators=[InputRequired()],
@@ -31,6 +32,7 @@ class PromptSearchByDate(FlaskForm):
 
 
 class PromptSearchByHost(FlaskForm):
+    type = HiddenField(default="host")
     query = SelectField(
         "Host search",
         id="input-search-host",
@@ -43,6 +45,7 @@ class PromptSearchByHost(FlaskForm):
 
 
 class PromptSearchByWord(FlaskForm):
+    type = HiddenField(default="word")
     query = SearchField(
         "Word search",
         validators=[InputRequired()],
