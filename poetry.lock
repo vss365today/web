@@ -139,11 +139,11 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "flask-wtf"
-version = "0.15.1"
-description = "Simple integration of Flask and WTForms."
+version = "1.0.0"
+description = "Form rendering, validation, and CSRF protection for Flask with WTForms."
 category = "main"
 optional = false
-python-versions = ">= 3.6"
+python-versions = ">=3.6"
 
 [package.dependencies]
 Flask = "*"
@@ -469,7 +469,7 @@ timezone = ["python-dateutil"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "64098df5b58640c47c4bb8a0e8e6dd71d034b4a39863bc7d866270dbd76aeaf5"
+content-hash = "09553b1208d834afed7a9a5751e3ff9947731e1117a21608cf260eb6c5b63b5a"
 
 [metadata.files]
 black = [
@@ -516,8 +516,8 @@ flask = [
     {file = "Flask-2.0.2.tar.gz", hash = "sha256:7b2fb8e934ddd50731893bdcdb00fc8c0315916f9fcd50d22c7cc1a95ab634e2"},
 ]
 flask-wtf = [
-    {file = "Flask-WTF-0.15.1.tar.gz", hash = "sha256:ff177185f891302dc253437fe63081e7a46a4e99aca61dfe086fb23e54fff2dc"},
-    {file = "Flask_WTF-0.15.1-py2.py3-none-any.whl", hash = "sha256:6ff7af73458f182180906a37a783e290bdc8a3817fe4ad17227563137ca285bf"},
+    {file = "Flask-WTF-1.0.0.tar.gz", hash = "sha256:872fbb17b5888bfc734edbdcf45bc08fb365ca39f69d25dc752465a455517b28"},
+    {file = "Flask_WTF-1.0.0-py3-none-any.whl", hash = "sha256:01feccfc395405cea48a3f36c23f0d766e2cc6fd2a5a065ad50ad3e5827ec797"},
 ]
 gunicorn = [
     {file = "gunicorn-20.1.0-py3-none-any.whl", hash = "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e"},
