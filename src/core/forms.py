@@ -1,12 +1,19 @@
 from datetime import datetime
-from src.core import api
-from src.core.filters.date import format_datetime_ymd
 
 from flask_wtf import FlaskForm
-from wtforms.fields.simple import HiddenField, SubmitField
-from wtforms.fields.html5 import EmailField, IntegerField, SearchField, DateField
-from wtforms.validators import InputRequired, Email
-from wtforms_components import SelectField
+from wtforms.fields import (
+    DateField,
+    EmailField,
+    HiddenField,
+    IntegerField,
+    SearchField,
+    SelectField,
+    SubmitField,
+)
+from wtforms.validators import Email, InputRequired
+
+from src.core import api
+from src.core.filters.date import format_datetime_ymd
 
 
 __all__ = [
