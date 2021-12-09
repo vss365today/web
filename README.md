@@ -12,7 +12,7 @@
 
 ## Development
 
-1. Install [Python](https://www.python.org/) 3.9+, [Poetry](https://poetry.eustace.io/) 1.1.0+, and VS Code
+1. Install [Python](https://www.python.org/) 3.10+, [Poetry](https://poetry.eustace.io/) 1.1.0+, and VS Code
 1. Create required secret keys in appropriate place (default: `/app/../secrets`)
 1. Adjust configuration values in appropriate `configuration/*.json` files as necessary
 1. Run `poetry install`

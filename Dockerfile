@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM python:3.10-slim
 
 # Set any env values we need
 ENV PYTHONPATH=/app
@@ -15,6 +15,6 @@ RUN python3 -m pip install pip --upgrade && \
     pip3 install --no-cache-dir -r requirements.txt && \
     rm ./requirements.txt && \
     chmod u+x ./run-app.sh
-    
+
 # Start the app
 ENTRYPOINT [ "sh", "./run-app.sh" ]
