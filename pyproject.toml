@@ -17,7 +17,7 @@ num2words = "^0.5.10"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
-mypy = "^0.910"
+mypy = "^0.920"
 black = "^21.12b0"
 
 [build-system]
