@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "vss365today"
+name = "vss365today-web"
 version = "1.0.0"
 description = "#vss365 today website"
 authors = ["Caleb <le717@users.noreply.github.com>"]
