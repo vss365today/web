@@ -19,6 +19,7 @@ num2words = "^0.5.10"
 flake8 = "^4.0.1"
 mypy = "^0.920"
 black = "^21.12b0"
+types-requests = "^2.26.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
