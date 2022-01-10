@@ -289,7 +289,7 @@ cli = ["click (>=5.0)"]
 
 [[package]]
 name = "requests"
-version = "2.26.0"
+version = "2.27.1"
 description = "Python HTTP for Humans."
 category = "main"
 optional = false
@@ -381,7 +381,7 @@ email = ["email-validator"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "36058ec391b42a87836f745172a705136e42d4b0482cf029b08a5ece381bd674"
+content-hash = "e1e47a1cc8dfabf0dab60d7be8e71429b885866b5231eefa94015c3aad9acd83"
 
 [metadata.files]
 black = [
@@ -569,8 +569,8 @@ python-dotenv = [
     {file = "python_dotenv-0.19.1-py2.py3-none-any.whl", hash = "sha256:bbd3da593fc49c249397cbfbcc449cf36cb02e75afc8157fcc6a81df6fb7750a"},
 ]
 requests = [
-    {file = "requests-2.26.0-py2.py3-none-any.whl", hash = "sha256:6c1246513ecd5ecd4528a0906f910e8f0f9c6b8ec72030dc9fd154dc1a6efd24"},
-    {file = "requests-2.26.0.tar.gz", hash = "sha256:b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7"},
+    {file = "requests-2.27.1-py2.py3-none-any.whl", hash = "sha256:f22fa1e554c9ddfd16e6e41ac79759e17be9e492b3587efa038054674760e72d"},
+    {file = "requests-2.27.1.tar.gz", hash = "sha256:68d7c56fd5a8999887728ef304a6d12edc7be74f1cfa47714fc8b414525c9a61"},
 ]
 sys-vars = [
     {file = "sys-vars-4.0.3.tar.gz", hash = "sha256:608d6bfce1c7e3faff37f0ff806a41f3d3c90641bedfd80390035949f59a860f"},
