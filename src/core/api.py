@@ -1,5 +1,6 @@
 from typing import Any, Callable
 
+from flask import current_app
 import requests
 import sys_vars
 
@@ -22,6 +23,7 @@ def __make_request(method: Callable, *args: str, **kwargs: Any) -> dict:
     """Make a request to the API."""
     kwargs["headers"] = __create_auth_token()
     url = __create_api_url(*args)
+    current_app.logger.debug(f"Making {method.__name__.upper()} request to API {url}")
     r = method(url, **kwargs)
     r.raise_for_status()
     return r.json() if r.text else {}
