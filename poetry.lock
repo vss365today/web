@@ -388,7 +388,7 @@ email = ["email-validator"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "4b8b20e3ac4c450b3feff7d3e9de98783ff52f2110ea01d0c4fb66c5f0eefd36"
+content-hash = "ad21944cba500d533d32dd2c5110211f1312f9ef8c2e9ab8db6bb07b88b29006"
 
 [metadata.files]
 black = [
@@ -456,6 +456,7 @@ flask-wtf = [
     {file = "Flask_WTF-1.0.0-py3-none-any.whl", hash = "sha256:01feccfc395405cea48a3f36c23f0d766e2cc6fd2a5a065ad50ad3e5827ec797"},
 ]
 gunicorn = [
+    {file = "gunicorn-20.1.0-py3-none-any.whl", hash = "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e"},
     {file = "gunicorn-20.1.0.tar.gz", hash = "sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8"},
 ]
 idna = [
