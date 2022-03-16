@@ -180,8 +180,8 @@ def view_date(date: str):
             "prompt", params={"date": date_format.create_datetime(date).isoformat()}
         )
 
-    # There is no prompt for this day
-    except HTTPError:
+    # There is no prompt for this day or we got a bad date string
+    except (ValueError, HTTPError):
         abort(404)
 
     # Load the special 1 year prompt archive page if requested
