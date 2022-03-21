@@ -17,7 +17,7 @@ num2words = "^0.5.10"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"
-mypy = "^0.940"
+mypy = "^0.941"
 black = "^22.1"
 types-requests = "^2.27.14"
 
