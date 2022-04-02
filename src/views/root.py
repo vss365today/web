@@ -157,7 +157,7 @@ def index():
         "next": None,
     }
 
-    return render_template("root/tweet.html", **render_opts)
+    return render_template("root/index.html", **render_opts)
 
 
 def view_one_year(prompt_info: dict):
@@ -201,4 +201,4 @@ def view_date(date: str):
         "previous": prompts[0]["previous"],
         "next": prompts[0]["next"],
     }
-    return render_template("root/tweet.html", **render_opts)
+    return render_template("root/index.html", **render_opts)
