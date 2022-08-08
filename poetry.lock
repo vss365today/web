@@ -228,7 +228,7 @@ python-versions = "*"
 
 [[package]]
 name = "num2words"
-version = "0.5.10"
+version = "0.5.11"
 description = "Modules to convert numbers to words. Easily extensible."
 category = "main"
 optional = false
@@ -389,7 +389,7 @@ email = ["email-validator"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ee2f7744a05c66b639764291995fa78e3a10777ca8ef51a7646a9039b1464faf"
+content-hash = "a26d788dfa043868c5965b5614fe505d40499109ce585afe2012aeeae674b7ed"
 
 [metadata.files]
 black = [
@@ -548,8 +548,8 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
 num2words = [
-    {file = "num2words-0.5.10-py3-none-any.whl", hash = "sha256:0b6e5f53f11d3005787e206d9c03382f459ef048a43c544e3db3b1e05a961548"},
-    {file = "num2words-0.5.10.tar.gz", hash = "sha256:37cd4f60678f7e1045cdc3adf6acf93c8b41bf732da860f97d301f04e611cc57"},
+    {file = "num2words-0.5.11-py3-none-any.whl", hash = "sha256:0cabf605a9a0161282affc98ed682c32559963f73b05a23fd5f049b6fa8a2603"},
+    {file = "num2words-0.5.11.tar.gz", hash = "sha256:6c684e2220d8adb3612d2c807a9772cc3269963fbcd77f7979b689a77f6043d4"},
 ]
 pathspec = [
     {file = "pathspec-0.9.0-py2.py3-none-any.whl", hash = "sha256:7d15c4ddb0b5c802d161efc417ec1a2558ea2653c2e8ad9c19098201dc1c993a"},
