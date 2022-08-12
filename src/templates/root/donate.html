@@ -2,9 +2,9 @@
 {% set page_title = 'Support the site' %}
 
 {% from 'partials/calculate_cost.jinja2' import calculate_cost %}
-{% set cost_domain = calculate_cost(site_costs, "domain") %}
-{% set cost_email = calculate_cost(site_costs, "email") %}
-{% set cost_server = calculate_cost(site_costs, "server") %}
+{% set cost_domain = calculate_cost(site_costs, "domain")|float %}
+{% set cost_email = calculate_cost(site_costs, "email")|float %}
+{% set cost_server = calculate_cost(site_costs, "server")|float %}
 {% set total_cost = cost_domain + cost_email + cost_server %}
 
 {% block content %}
