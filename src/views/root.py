@@ -131,7 +131,7 @@ def browse_by_year_month(year: str, month: str) -> str:
 def donate():
     Costs = namedtuple("Costs", ["cost", "month_freq"])
     site_costs = {
-        "domain": Costs(8, 1),
+        "domain": Costs(9.15, 1),
         "email": Costs(21, 12),
         "server": Costs(7.2, 12),
     }
