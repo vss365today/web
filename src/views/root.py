@@ -132,7 +132,7 @@ def donate():
     Costs = namedtuple("Costs", ["cost", "month_freq"])
     site_costs = {
         "domain": Costs(9.15, 1),
-        "email": Costs(21, 12),
+        "email": Costs(22, 12),
         "server": Costs(7.2, 12),
     }
 
