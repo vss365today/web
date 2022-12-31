@@ -12,7 +12,7 @@
     "APP_DOMAIN": "vss365today.com",
     "FLASK_APP": "wsgi.py",
     "GLOBAL_ALERT": [
-      "Check out the <a href=\"https://blog.codetri.net/vss365-wrapped-2022/\"><em>#vss365 2022 Wrapped</em></a> for cool info about #vss365 in 2022!",
+      "Check out the <a href=\"https://blog.codetri.net/vss365-wrapped-2022/\"><em>#vss365 Wrapped 2022</em></a> for cool info about #vss365 in 2022!",
       "info"
     ]
   }
