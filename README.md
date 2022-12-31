@@ -29,6 +29,6 @@ Creating an image is a one-line command:
 
 ## License
 
-2019-2021 Caleb
+2019-2023 Caleb
 
 [MIT](LICENSE)
