@@ -44,7 +44,7 @@ def subscribe():
     # Once generated, add them to the session for confirmation on form submit.
     # We generate these numbers on every page load unconditionally
     # so we don't persist anything
-    second_num = randrange(16)
+    second_num = randrange(20)
     random_nums = [randrange(1, 21), second_num, num2words(second_num)]
     session["SUBSCRIBE_NUM"] = random_nums
 
