@@ -6,9 +6,9 @@ from num2words import num2words
 from requests.exceptions import HTTPError
 
 from src.blueprints import root
-from src.core import api
+from src.core import api, forms
+from src.core.api import v2
 from src.core.filters import date as date_format
-from src.core import forms
 
 
 @root.post("form-subscribe")
@@ -27,7 +27,7 @@ def form_subscribe():
     # Attempt to record the email
     email = form.email.data
     try:
-        api.post("subscription/", params={"email": email})
+        v2.post("emails/", json={"address": [email]})
         flash(
             f"{email} has been added to #vss365 notifications! "
             "Tomorrow's prompt will be in your inbox!",
@@ -67,7 +67,7 @@ def form_unsubscribe():
     # Attempt to delete the email
     email = form.email.data
     try:
-        api.delete("subscription/", params={"email": email})
+        v2.delete("emails/", json={"address": [email]})
         flash(f"{email} has been removed from #vss365 notifications.", "info")
         return redirect(url_for("root.index"))
     except HTTPError:
