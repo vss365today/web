@@ -12,7 +12,7 @@
 body.dark {
   --body-background: #2f3136;
   --body-background-accent: #352c44;
-  --primary-text: #d3d3d3;
+  --primary-text: #e2dfdf;
   --primary-link: #f6f0f0;
   --primary-nav-bg: #667eea; /* tailwindcss v1.2.0 indigo-500 */
 }
