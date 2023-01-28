@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% set page_title = 'Yearly Stats' %}
+
+{% block content %}
+<section class="page browse-page">
+  <h2 class="center">&OpenCurlyDoubleQuote;Do not trust any statistics you did not fake yourself.&CloseCurlyDoubleQuote;
+    <br>&mdash; Winston Churchill <small>(supposedly)</small>
+  </h2>
+
+  <p>While 98% of statistics are made up on the spot, rest assured, these statistics are not a fabrication! While it is fun to look through the <a href="{{ url_for('root.browse')}}">#vss365 archive</a> and read all of the prompts, sometimes, you just want a nice overview of and some cool facts about the year's prompts. That's the whole purpose of <em>#vss365 Wrapped</em>! So sit back, grab you favorite hot beverage (I'm a coffee guy myself), and discover all of the real-life, year-by-year, statistics of #vss365!
+  </p>
+
+  <div class="wrapper">
+    {% for year in years -%}
+    <a class="a-btn" href="{{ url_for('stats.year', year=year) }}">{{ year }}</a>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

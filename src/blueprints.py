@@ -32,5 +32,6 @@ def _factory(
 root = _factory("root", "/")
 search = _factory("search", "/search")
 shortcuts = _factory("shortcuts", "/")
+stats = _factory("stats", "/stats")
 
-all_blueprints = (root, search, shortcuts)
+all_blueprints = (root, search, shortcuts, stats)
