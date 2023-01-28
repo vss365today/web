@@ -1,0 +1,7 @@
+{% macro link_to_host(handle) -%}
+  <a href="{{ url_for('search.results', type='host', query=handle) }}">{{ handle }}</a>
+{%- endmacro %}
+
+{% macro link_to_prompt(date) -%}
+<a href="{{ url_for('root.view_date', date=date) }}">{{ date|format_date_pretty }}</a>
+{%- endmacro %}
