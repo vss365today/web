@@ -1,5 +1,3 @@
-from flask import current_app, redirect, url_for
-
 from src.blueprints import feed
 
 
