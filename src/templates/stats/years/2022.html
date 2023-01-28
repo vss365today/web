@@ -1,9 +1,52 @@
 {% extends 'base.html' %}
 {% set page_title = '2022 Stats' %}
+{% from 'partials/stats_helpers.jinja2' import link_to_host, link_to_prompt %}
 
 
 {% block content %}
-<section class="content">
+<section class="page">
   <h2 class="center">#vss365 Wrapped 2022</h2>
+
+  <div class="wrapper">
+    <h3 class="center" id="prompts">Prompts</h3>
+    <p><strong>Note:</strong> "Media Prompts" are defined as having an image or video attached to the tweet. Embedded media, such as YouTube embeds, are not considered media prompts.</p>
+
+    <ul>
+      <li><strong>365</strong> prompts where given out</li>
+      <li>The shortest prompt was <strong>go</strong>, given by {{ link_to_host('ArthurUnkTweets') }} on {{ link_to_prompt('2022-04-08') }}</li>
+      <li>Two prompts tied for the longest prompt
+        <ol>
+          <li><strong>excommunicate</strong>, given by {{ link_to_host('writes_jo') }} on {{ link_to_prompt('2022-03-03') }}</li>
+          <li><strong>materfamilias</strong>, given by {{ link_to_host('DesiWilloughby') }} on {{ link_to_prompt('2022-07-15') }}</li>
+        </ol>
+      </li>
+
+      <li>The most common length of a prompt was <strong>5 letters</strong></li>
+      <li>The average length of a prompt was <strong>6.1452 letters</strong>, (breakdown below)</li>
+      <li>All <strong>26 letters</strong> of the English alphabet were used at least once</li>
+      <li>The most used letter was "<strong>e</strong>", with <strong>256 uses</strong></li>
+      <li>The least used letter (but used more than once) was "<strong>z</strong>", with <strong>4 uses</strong></li>
+      <li>The most common starting letter was "<strong>s</strong>", with <strong>45 uses</strong></li>
+      <li>The most common ending letter was "<strong>e</strong>", with <strong>77 uses</strong></li>
+      <li><strong>4 prompts</strong> were repeated (breakdown below)</li>
+      <li>There were <strong>165</strong> (<strong>45.2%</strong>) media prompts</li>
+      <li><strong>133</strong> (<strong>80.6%</strong>) of media prompts did not have alt text to help visually impaired writers know what content or information the media portrayed</li>
+    </ul>
+
+    <table></table>
+    <table></table>
+    <table></table>
+  </div>
+
+  <div class="wrapper">
+    <h3 class="center" id="hosts">Hosts</h3>
+    <ul>
+      <li><strong>9 hosts</strong> had previously hosted</li>
+      <li><strong>15 hosts</strong> were first time hosts</li>
+    </ul>
+
+    <table></table>
+    <table></table>
+  </div>
 </section>
 {% endblock %}
