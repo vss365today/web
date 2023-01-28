@@ -548,7 +548,7 @@ input[type="submit"]:focus {
 .table > caption > .subcaption {
   font-weight: 400;
   font-style: italic;
-  display: inline-block;
+  display: block;
 }
 
 .table th {
