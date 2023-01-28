@@ -8,7 +8,7 @@ from src.blueprints import stats
 def get_years() -> list[int]:
     """Get all available statistics years."""
     path = (Path() / "src" / "templates" / "stats" / "years").resolve()
-    return [int(f.stem) for f in path.iterdir()]
+    return sorted([int(f.stem) for f in path.iterdir()])
 
 
 @stats.get("/")
