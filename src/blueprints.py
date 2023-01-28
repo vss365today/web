@@ -29,6 +29,7 @@ def _factory(
     return blueprint
 
 
+feed = _factory("feed", "/feed")
 root = _factory("root", "/")
 search = _factory("search", "/search")
 shortcuts = _factory("shortcuts", "/")
