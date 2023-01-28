@@ -529,6 +529,39 @@ input[type="submit"]:focus {
   filter: invert(0.35);
 }
 
+/* -- Tables--*/
+.table {
+  border-collapse: collapse;
+
+  width: 50%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.table > caption {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.table th {
+  font-weight: 400;
+  font-style: italic;
+  padding-bottom: 0.5rem;
+}
+
+.table tr {
+  border-bottom: 1px solid var(--primary-text);
+}
+
+.table td {
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0.3rem;
+}
+
 /* -- Dark theme --*/
 .dark a {
   border-bottom-width: 2px;
@@ -657,6 +690,10 @@ input[type="submit"]:focus {
     margin: 0.2em 0.5em;
     font-size: 1.25em;
   }
+
+  .table {
+    width: 70%;
+  }
 }
 
 @media (max-width: 800px) {
@@ -687,5 +724,9 @@ input[type="submit"]:focus {
 
   .form-search-tabs {
     width: auto !important;
+  }
+
+  .table {
+    width: 100%;
   }
 }
