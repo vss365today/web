@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% set page_title = '2020 Stats' %}
+{% set page_title = '2020 Wrapped' %}
 {% from 'partials/stats_helpers.jinja2' import link_to_host, link_to_prompt %}
 
 
@@ -10,18 +10,612 @@
   <div class="wrapper">
     <p><strong>Note:</strong> "Media Prompts" are defined as having an image or video attached to the tweet. Embedded media, such as YouTube embeds, are not considered media prompts.</p>
 
-    <h2 class="center">Statistics coming soon</h2>
     <ul>
-
-
-
-
-
-
-
-      <li><strong>5 hosts</strong> were a veteran host</li>
+      <li><strong>367</strong> prompts were given out</li>
+      <li><strong>12</strong> prompts reigned as the shortest prompt, with <strong>3 letters</strong></li>
+      <li><strong>1</strong> prompt reigned as the longest prompt, with <strong>18 letters</strong></li>
+      <li>The most common length of a prompt was <strong>7 letters</strong>, with <strong>64 prompts</strong></li>
+      <li>The average length of a prompt was <strong>7.0954 letters</strong></li>
+      <li>All <strong>26 letters</strong> of the English alphabet were used at least once</li>
+      <li>There was <strong>1 non-English alphabet letter</strong> used, an <strong>&#x03AD;</strong> (<a href="https://unicodeplus.com/U+03AD">Greek Small Letter Epsilon With Tonos</a>)</li>
+      <li>There was <strong>1 special character</strong> used, a <strong><a href="https://unicodeplus.com/U+002D">Hyphen-Minus</a></strong></li>
+      <li>The most common letter was "<strong>e</strong>", with <strong>298 uses</strong></li>
+      <li>The least common letter was "<strong>j</strong>", with <strong>5 uses</strong></li>
+      <li>The most common starting letter was "<strong>s</strong>", with <strong>39 uses</strong></li>
+      <li>The most common ending letter was "<strong>e</strong>", with <strong>82 uses</strong></li>
+      <li><strong>2 prompts</strong> were repeated</li>
+      <li>There were <strong>205</strong> (<strong>55.8583%</strong>) media prompts</li>
+      <li><strong>170</strong> (<strong>82.9268%</strong>) media prompts did not have alt text to help visually impaired
+        writers know what content or information the media portrayed</li>
+      <li>To be fair, Twitter had little support for alt text until 2022</li>
+      <li><strong>5 hosts</strong> were veteran hosts</li>
       <li><strong>45 hosts</strong> were first time hosts</li>
     </ul>
+
+    <table class="table">
+      <caption>Shortest prompts</caption>
+      <tr>
+        <th>Prompt</th>
+        <th>Host</th>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <td>yip</td>
+        <td>{{ link_to_host('RozLevens') }}</td>
+        <td>{{ link_to_prompt('2020-01-06') }}</td>
+      </tr>
+      <tr>
+        <td>dab</td>
+        <td>{{ link_to_host('zevonesque') }}</td>
+        <td>{{ link_to_prompt('2020-04-20') }}</td>
+      </tr>
+      <tr>
+        <td>bee</td>
+        <td>{{ link_to_host('fhaedra') }}</td>
+        <td>{{ link_to_prompt('2020-05-20') }}</td>
+      </tr>
+      <tr>
+        <td>nix</td>
+        <td>{{ link_to_host('kara_goughnour') }}</td>
+        <td>{{ link_to_prompt('2020-06-30') }}</td>
+      </tr>
+      <tr>
+        <td>iff</td>
+        <td>{{ link_to_host('49JDBlood') }}</td>
+        <td>{{ link_to_prompt('2020-08-07') }}</td>
+      </tr>
+      <tr>
+        <td>one</td>
+        <td>{{ link_to_host('49JDBlood') }}</td>
+        <td>{{ link_to_prompt('2020-08-16') }}</td>
+      </tr>
+      <tr>
+        <td>set</td>
+        <td>{{ link_to_host('49JDBlood') }}</td>
+        <td>{{ link_to_prompt('2020-08-27') }}</td>
+      </tr>
+      <tr>
+        <td>cat</td>
+        <td>{{ link_to_host('EvitaGrazia') }}</td>
+        <td>{{ link_to_prompt('2020-10-07') }}</td>
+      </tr>
+      <tr>
+        <td>ink</td>
+        <td>{{ link_to_host('perilousreading') }}</td>
+        <td>{{ link_to_prompt('2020-11-02') }}</td>
+      </tr>
+      <tr>
+        <td>jam</td>
+        <td>{{ link_to_host('writerzoe') }}</td>
+        <td>{{ link_to_prompt('2020-11-17') }}</td>
+      </tr>
+      <tr>
+        <td>wax</td>
+        <td>{{ link_to_host('mordoc1') }}</td>
+        <td>{{ link_to_prompt('2020-11-24') }}</td>
+      </tr>
+      <tr>
+        <td>sex</td>
+        <td>{{ link_to_host('DelilahDoe') }}</td>
+        <td>{{ link_to_prompt('2020-11-29') }}</td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <caption>Longest prompts</caption>
+      <tr>
+        <th>Prompt</th>
+        <th>Host</th>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <td>kakorrhaphiophobia</td>
+        <td>{{ link_to_host('TheWritingKind') }}</td>
+        <td>{{ link_to_prompt('2020-09-07') }}</td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <caption>Repeated prompts</caption>
+      <tr>
+        <th>Prompt</th>
+        <th>Occurrences</th>
+      </tr>
+      <tr>
+        <td>languor</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>obstreperous</td>
+        <td>2</td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <caption>
+        Prompt lengths and occurrences
+        <span class="subcaption">Ordered by most common occurrence first</span>
+      </caption>
+      <tr>
+        <th>Number of letters</th>
+        <th>Prompts</th>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>64</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>62</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>56</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>44</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>37</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>35</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>18</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>18</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>15</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>1</td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <caption>
+        Average number of letters in each prompt for each host
+        <span class="subcaption">Ordered by largest average length first</span>
+      </caption>
+      <tr>
+        <th>Host</th>
+        <th>Average letters in prompts</th>
+      </tr>
+      <tr>
+        <td>Pablo_M_Pereyra</td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <td>ThatBurntWriter</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <td>atreya2112</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <td>deft_notes</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <td>JayHeltzerWrite</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <td>JonathanGChew</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <td>TheWritingKind</td>
+        <td>10.4</td>
+      </tr>
+      <tr>
+        <td>ArthurUnkTweets</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td>nreillyjohnson</td>
+        <td>9</td>
+      </tr>
+      <tr>
+        <td>janalynnjenks</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>debbieiancu</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>SistersUKUS</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>mapdevil</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>kara_goughnour</td>
+        <td>7.5667</td>
+      </tr>
+      <tr>
+        <td>EdHaiku575</td>
+        <td>7.3226</td>
+      </tr>
+      <tr>
+        <td>RozLevens</td>
+        <td>7.2581</td>
+      </tr>
+      <tr>
+        <td>XifosPress</td>
+        <td>7.25</td>
+      </tr>
+      <tr>
+        <td>jshaw_six</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>ProsSpeaks</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>UlaneVuorio</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>ESWarriorPoet</td>
+        <td>6.8387</td>
+      </tr>
+      <tr>
+        <td>fhaedra</td>
+        <td>6.8065</td>
+      </tr>
+      <tr>
+        <td>zevonesque</td>
+        <td>6.8</td>
+      </tr>
+      <tr>
+        <td>49JDBlood</td>
+        <td>6.6129</td>
+      </tr>
+      <tr>
+        <td>katz49226703</td>
+        <td>6.2759</td>
+      </tr>
+      <tr>
+        <td>moomooseum</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>Hortonious101</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>ImuraJohn</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>CBethAnderson</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>1Baroque</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>blsamaddar</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>nancyd_writes</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>LeChatGris3</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>senselessrenee</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>EvitaGrazia</td>
+        <td>5.6129</td>
+      </tr>
+      <tr>
+        <td>MKBeker</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>esthervdheuvel1</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>jaime_dill</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>JanetWaters13</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>RoweWrites</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>LaraRouseWrites</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>CallMeChel_324</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>fuller_edward</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>cely717</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>LotusTongue</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>writerzoe</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>DelilahDoe</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>mordoc1</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>perilousreading</td>
+        <td>3</td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <caption>Veteran hosts</caption>
+      <tr>
+        <th>Host</th>
+        <th>Hosting period start date</th>
+      </tr>
+      <tr>
+        <td>RozLevens</td>
+        <td>{{ '2020-01-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>zevonesque</td>
+        <td>{{ '2020-04-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>fhaedra</td>
+        <td>{{ '2020-05-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>ArthurUnkTweets</td>
+        <td>{{ '2020-07-15'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>TheWritingKind</td>
+        <td>{{ '2020-09-01'|format_date_pretty }}</td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <caption>First time hosts</caption>
+      <tr>
+        <th>Host</th>
+        <th>Hosting period start date</th>
+      </tr>
+      <tr>
+        <td>katz49226703</td>
+        <td>{{ '2020-02-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>EdHaiku575</td>
+        <td>{{ '2020-03-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>kara_goughnour</td>
+        <td>{{ '2020-06-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>XifosPress</td>
+        <td>{{ '2020-07-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>cely717</td>
+        <td>{{ '2020-07-21'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>debbieiancu</td>
+        <td>{{ '2020-07-22'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>moomooseum</td>
+        <td>{{ '2020-07-23'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>Hortonious101</td>
+        <td>{{ '2020-07-24'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>nancyd_writes</td>
+        <td>{{ '2020-07-26'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>atreya2112</td>
+        <td>{{ '2020-07-28'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>LaraRouseWrites</td>
+        <td>{{ '2020-07-29'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>MKBeker</td>
+        <td>{{ '2020-07-30'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>49JDBlood</td>
+        <td>{{ '2020-08-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>EvitaGrazia</td>
+        <td>{{ '2020-10-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>ProsSpeaks</td>
+        <td>{{ '2020-11-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>perilousreading</td>
+        <td>{{ '2020-11-02'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>fuller_edward</td>
+        <td>{{ '2020-11-03'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>JonathanGChew</td>
+        <td>{{ '2020-11-04'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>ImuraJohn</td>
+        <td>{{ '2020-11-05'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>CallMeChel_324</td>
+        <td>{{ '2020-11-06'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>LeChatGris3</td>
+        <td>{{ '2020-11-07'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>JanetWaters13</td>
+        <td>{{ '2020-11-08'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>UlaneVuorio</td>
+        <td>{{ '2020-11-09'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>mapdevil</td>
+        <td>{{ '2020-11-10'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>jaime_dill</td>
+        <td>{{ '2020-11-11'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>nreillyjohnson</td>
+        <td>{{ '2020-11-12'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>ThatBurntWriter</td>
+        <td>{{ '2020-11-13'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>Pablo_M_Pereyra</td>
+        <td>{{ '2020-11-14'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>senselessrenee</td>
+        <td>{{ '2020-11-15'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>janalynnjenks</td>
+        <td>{{ '2020-11-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>writerzoe</td>
+        <td>{{ '2020-11-17'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>JayHeltzerWrite</td>
+        <td>{{ '2020-11-18'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>RoweWrites</td>
+        <td>{{ '2020-11-19'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>SistersUKUS</td>
+        <td>{{ '2020-11-20'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>LotusTongue</td>
+        <td>{{ '2020-11-21'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>deft_notes</td>
+        <td>{{ '2020-11-22'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>blsamaddar</td>
+        <td>{{ '2020-11-23'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>mordoc1</td>
+        <td>{{ '2020-11-24'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>CBethAnderson</td>
+        <td>{{ '2020-11-25'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>1Baroque</td>
+        <td>{{ '2020-11-26'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>esthervdheuvel1</td>
+        <td>{{ '2020-11-27'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>jshaw_six</td>
+        <td>{{ '2020-11-28'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>DelilahDoe</td>
+        <td>{{ '2020-11-29'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>XifosPress</td>
+        <td>{{ '2020-11-30'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>ESWarriorPoet</td>
+        <td>{{ '2020-12-01'|format_date_pretty }}</td>
+      </tr>
+    </table>
   </div>
 </section>
 {% endblock %}
