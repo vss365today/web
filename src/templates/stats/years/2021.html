@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% set page_title = '2021 Stats' %}
+{% set page_title = '2021 Wrapped' %}
 {% from 'partials/stats_helpers.jinja2' import link_to_host, link_to_prompt %}
 
 
@@ -10,18 +10,447 @@
   <div class="wrapper">
     <p><strong>Note:</strong> "Media Prompts" are defined as having an image or video attached to the tweet. Embedded media, such as YouTube embeds, are not considered media prompts.</p>
 
-    <h2 class="center">Statistics coming soon</h2>
     <ul>
-
-
-
-
-
-
-
-      <li><strong>9 hosts</strong> were a veteran host</li>
+      <li><strong>366</strong> prompts were given out</li>
+      <li><strong>13</strong> prompts reigned as the shortest prompt, with <strong>3 letters</strong></li>
+      <li><strong>1</strong> prompt reigned as the longest prompt, with <strong>15 letters</strong></li>
+      <li>The most common length of a prompt was <strong>5 letters</strong>, with <strong>69 prompts</strong></li>
+      <li>The average length of a prompt was <strong>6.4399 letters</strong></li>
+      <li>All <strong>26 letters</strong> of the English alphabet were used at least once</li>
+      <li>There was <strong>1 non-English alphabet letter</strong> used, an <strong>&#x00E9;</strong> (<a href="https://unicodeplus.com/U+00E9">Latin Small Letter E With Acute</a>)</li>
+      <li>The most common letter was "<strong>e</strong>", with <strong>275 uses</strong></li>
+      <li>There were <strong>2 letters</strong> that were the least common</li>
+      <li>The most common starting letter was "<strong>s</strong>", with <strong>54 uses</strong></li>
+      <li>The most common ending letter was "<strong>e</strong>", with <strong>94 uses</strong></li>
+      <li><strong>6 prompts</strong> were repeated</li>
+      <li>There were <strong>186</strong> (<strong>50.8197%</strong>) media prompts</li>
+      <li><strong>166</strong> (<strong>89.24738%</strong>) media prompts did not have alt text to help visually impaired
+        writers know what content or information the media portrayed</li>
+      <li><strong>9 hosts</strong> were veteran hosts</li>
       <li><strong>16 hosts</strong> were first time hosts</li>
     </ul>
   </div>
+
+  <table class="table">
+    <caption>Shortest prompts</caption>
+    <tr>
+      <th>Prompt</th>
+      <th>Host</th>
+      <th>Date</th>
+    </tr>
+    <tr>
+      <td>vex</td>
+      <td>{{ link_to_host('misskeelahrose') }}</td>
+      <td>{{ link_to_prompt('2021-01-05') }}</td>
+    </tr>
+    <tr>
+      <td>ego</td>
+      <td>{{ link_to_host('WritingDreamer') }}</td>
+      <td>{{ link_to_prompt('2021-01-19') }}</td>
+    </tr>
+    <tr>
+      <td>run</td>
+      <td>{{ link_to_host('WritingDreamer') }}</td>
+      <td>{{ link_to_prompt('2021-01-29') }}</td>
+    </tr>
+    <tr>
+      <td>hug</td>
+      <td>{{ link_to_host('debbieiancu') }}</td>
+      <td>{{ link_to_prompt('2021-02-03') }}</td>
+    </tr>
+    <tr>
+      <td>fog</td>
+      <td>{{ link_to_host('ms_took') }}</td>
+      <td>{{ link_to_prompt('2021-03-25') }}</td>
+    </tr>
+    <tr>
+      <td>egg</td>
+      <td>{{ link_to_host('EvitaGrazia') }}</td>
+      <td>{{ link_to_prompt('2021-04-05') }}</td>
+    </tr>
+    <tr>
+      <td>nod</td>
+      <td>{{ link_to_host('starfish_72') }}</td>
+      <td>{{ link_to_prompt('2021-04-30') }}</td>
+    </tr>
+    <tr>
+      <td>Art</td>
+      <td>{{ link_to_host('flossybunny') }}</td>
+      <td>{{ link_to_prompt('2021-07-30') }}</td>
+    </tr>
+    <tr>
+      <td>sea</td>
+      <td>{{ link_to_host('blsamaddar') }}</td>
+      <td>{{ link_to_prompt('2021-08-20') }}</td>
+    </tr>
+    <tr>
+      <td>war</td>
+      <td>{{ link_to_host('ErinQuill8') }}</td>
+      <td>{{ link_to_prompt('2021-09-09') }}</td>
+    </tr>
+    <tr>
+      <td>Aim</td>
+      <td>{{ link_to_host('SRoseWrites') }}</td>
+      <td>{{ link_to_prompt('2021-09-29') }}</td>
+    </tr>
+    <tr>
+      <td>ebb</td>
+      <td>{{ link_to_host('firdausp') }}</td>
+      <td>{{ link_to_prompt('2021-10-15') }}</td>
+    </tr>
+    <tr>
+      <td>fun</td>
+      <td>{{ link_to_host('cely717') }}</td>
+      <td>{{ link_to_prompt('2021-10-16') }}</td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <caption>Longest prompts</caption>
+    <tr>
+      <th>Prompt</th>
+      <th>Host</th>
+      <th>Date</th>
+    </tr>
+    <tr>
+      <td>Contemporaneous</td>
+      <td>{{ link_to_host('SRoseWrites') }}</td>
+      <td>{{ link_to_prompt('2021-09-21') }}</td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <caption>Repeated prompts</caption>
+    <tr>
+      <th>Prompt</th>
+      <th>Occurrences</th>
+    </tr>
+    <tr>
+      <td>conversation</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>dream</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>idol</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>river</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>shadow</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>stuck</td>
+      <td>2</td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <caption>Least common letters</caption>
+    <tr>
+      <th>Letter</th>
+      <th>Occurrences</th>
+    </tr>
+    <tr>
+      <td>z</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>j</td>
+      <td>5</td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <caption>
+      Prompt lengths and occurrences
+      <span class="subcaption">Ordered by most common occurrence first</span>
+    </caption>
+    <tr>
+      <th>Number of letters</th>
+      <th>Prompts</th>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>69</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>1</td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <caption>
+      Average number of letters in each prompt for each host
+      <span class="subcaption">Ordered by largest average length first</span>
+    </caption>
+    <tr>
+      <th>Host</th>
+      <th>Average letters in prompts</th>
+    </tr>
+    <tr>
+      <td>Creatrix_Guru</td>
+      <td>8.8125</td>
+    </tr>
+    <tr>
+      <td>rachelnewcombe8</td>
+      <td>8.5333</td>
+    </tr>
+    <tr>
+      <td>misskeelahrose</td>
+      <td>8.2857</td>
+    </tr>
+    <tr>
+      <td>_Irene_Dreams_</td>
+      <td>8.2</td>
+    </tr>
+    <tr>
+      <td>Neelt2001</td>
+      <td>7.6250</td>
+    </tr>
+    <tr>
+      <td>CBethAnderson</td>
+      <td>6.9333</td>
+    </tr>
+    <tr>
+      <td>flossybunny</td>
+      <td>6.8750</td>
+    </tr>
+    <tr>
+      <td>ms_took</td>
+      <td>6.6875</td>
+    </tr>
+    <tr>
+      <td>F_J_MacGregor</td>
+      <td>6.6875</td>
+    </tr>
+    <tr>
+      <td>starfish_72</td>
+      <td>6.6667</td>
+    </tr>
+    <tr>
+      <td>cely717</td>
+      <td>6.5</td>
+    </tr>
+    <tr>
+      <td>firdausp</td>
+      <td>6.3333</td>
+    </tr>
+    <tr>
+      <td>SRoseWrites</td>
+      <td>6.3333</td>
+    </tr>
+    <tr>
+      <td>WritingDreamer</td>
+      <td>6.0625</td>
+    </tr>
+    <tr>
+      <td>auntie_social</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>vss365official</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>AlisaWillemse</td>
+      <td>5.8</td>
+    </tr>
+    <tr>
+      <td>sarikajaswani</td>
+      <td>5.7333</td>
+    </tr>
+    <tr>
+      <td>boredwizard</td>
+      <td>5.6429</td>
+    </tr>
+    <tr>
+      <td>debbieiancu</td>
+      <td>5.6429</td>
+    </tr>
+    <tr>
+      <td>EvitaGrazia</td>
+      <td>5.5333</td>
+    </tr>
+    <tr>
+      <td>spoonerwrites</td>
+      <td>5.2</td>
+    </tr>
+    <tr>
+      <td>blsamaddar</td>
+      <td>5.1250</td>
+    </tr>
+    <tr>
+      <td>KelvinROfficial</td>
+      <td>4.9333</td>
+    </tr>
+    <tr>
+      <td>ErinQuill8</td>
+      <td>4.2667</td>
+    </tr>
+    </table>
+
+    <table class="table">
+      <caption>Veteran hosts</caption>
+      <tr>
+        <th>Host</th>
+        <th>Hosting period start date</th>
+      </tr>
+      <tr>
+        <td>misskeelahrose</td>
+        <td>{{ '2021-01-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>debbieiancu</td>
+        <td>{{ '2021-02-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>EvitaGrazia</td>
+        <td>{{ '2021-04-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>starfish_72</td>
+        <td>{{ '2021-04-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>blsamaddar</td>
+        <td>{{ '2021-08-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>firdausp</td>
+        <td>{{ '2021-10-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>cely717</td>
+        <td>{{ '2021-10-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>_Irene_Dreams_</td>
+        <td>{{ '2021-11-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>CBethAnderson</td>
+        <td>{{ '2021-11-16'|format_date_pretty }}</td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <caption>First time hosts</caption>
+      <tr>
+        <th>Host</th>
+        <th>Hosting period start date</th>
+      </tr>
+      <tr>
+        <td>vss365official</td>
+        <td>{{ '2021-01-15'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>WritingDreamer</td>
+        <td>{{ '2021-01-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>boredwizard</td>
+        <td>{{ '2021-02-15'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>KelvinROfficial</td>
+        <td>{{ '2021-03-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>ms_took</td>
+        <td>{{ '2021-03-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>Creatrix_Guru</td>
+        <td>{{ '2021-05-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>Neelt2001</td>
+        <td>{{ '2021-05-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>sarikajaswani</td>
+        <td>{{ '2021-06-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>spoonerwrites</td>
+        <td>{{ '2021-06-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>rachelnewcombe8</td>
+        <td>{{ '2021-07-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>flossybunny</td>
+        <td>{{ '2021-07-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>AlisaWillemse</td>
+        <td>{{ '2021-08-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>ErinQuill8</td>
+        <td>{{ '2021-09-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>SRoseWrites</td>
+        <td>{{ '2021-09-16'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>auntie_social</td>
+        <td>{{ '2021-12-01'|format_date_pretty }}</td>
+      </tr>
+      <tr>
+        <td>F_J_MacGregor</td>
+        <td>{{ '2021-12-16'|format_date_pretty }}</td>
+      </tr>
+    </table>
 </section>
 {% endblock %}
