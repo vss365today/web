@@ -12,8 +12,8 @@
     "APP_DOMAIN": "vss365today.com",
     "FLASK_APP": "wsgi.py",
     "GLOBAL_ALERT": [
-      "Check out <a href=\"https://vss365today.com/stats/\"><em>#vss365 Wrapped</em></a> for cool yearly stats about #vss365!",
-      "info"
+      "#vss365 today has entered read-only mode due to extraneous circumstances. <a href=\"https://notes.codetri.net/\"><em>Find out more</em></a>.",
+      "error"
     ]
   }
 }

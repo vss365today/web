@@ -13,6 +13,8 @@ from src.core.filters import date as date_format
 
 @root.post("form-subscribe")
 def form_subscribe():
+    abort(404)
+
     form = forms.SubscribeForm()
     # The magic "is human" numbers do not exist, don't continue on
     if "SUBSCRIBE_NUM" not in session or not form.validate_on_submit():
@@ -40,6 +42,8 @@ def form_subscribe():
 
 @root.get("subscribe")
 def subscribe():
+    abort(404)
+
     # Generate two random numbers to use for a basic "is human" check.
     # Once generated, add them to the session for confirmation on form submit.
     # We generate these numbers on every page load unconditionally
@@ -59,6 +63,8 @@ def subscribe():
 
 @root.post("form-unsubscribe")
 def form_unsubscribe():
+    abort(404)
+
     form = forms.UnsubscribeForm()
     if not form.validate_on_submit():
         flash("We were unable to remove you from #vss365 notifications.", "error")
@@ -77,6 +83,8 @@ def form_unsubscribe():
 
 @root.get("unsubscribe")
 def unsubscribe():
+    abort(404)
+
     render_opts = {"form_unsubscribe": forms.UnsubscribeForm()}
     return render_template("root/unsubscribe.html", **render_opts)
 
