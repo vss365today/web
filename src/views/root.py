@@ -63,8 +63,6 @@ def subscribe():
 
 @root.post("form-unsubscribe")
 def form_unsubscribe():
-    abort(404)
-
     form = forms.UnsubscribeForm()
     if not form.validate_on_submit():
         flash("We were unable to remove you from #vss365 notifications.", "error")
@@ -83,8 +81,6 @@ def form_unsubscribe():
 
 @root.get("unsubscribe")
 def unsubscribe():
-    abort(404)
-
     render_opts = {"form_unsubscribe": forms.UnsubscribeForm()}
     return render_template("root/unsubscribe.html", **render_opts)
 
