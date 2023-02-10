@@ -5,7 +5,8 @@
 {% set cost_domain = calculate_cost(site_costs, "domain")|float %}
 {% set cost_email = calculate_cost(site_costs, "email")|float %}
 {% set cost_server = calculate_cost(site_costs, "server")|float %}
-{% set total_cost = cost_domain + cost_email + cost_server %}
+{% set cost_twitter = calculate_cost(site_costs, "twitter")|float %}
+{% set total_cost = cost_domain + cost_email + cost_server + cost_twitter %}
 
 {% block content %}
 <section class="page">
