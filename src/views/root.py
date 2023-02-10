@@ -13,8 +13,6 @@ from src.core.filters import date as date_format
 
 @root.post("form-subscribe")
 def form_subscribe():
-    abort(404)
-
     form = forms.SubscribeForm()
     # The magic "is human" numbers do not exist, don't continue on
     if "SUBSCRIBE_NUM" not in session or not form.validate_on_submit():
@@ -42,8 +40,6 @@ def form_subscribe():
 
 @root.get("subscribe")
 def subscribe():
-    abort(404)
-
     # Generate two random numbers to use for a basic "is human" check.
     # Once generated, add them to the session for confirmation on form submit.
     # We generate these numbers on every page load unconditionally
@@ -138,6 +134,7 @@ def donate():
         "domain": Costs(9.15, 1),
         "email": Costs(22, 12),
         "server": Costs(7.2, 12),
+        "twitter": Costs(100, 12),
     }
 
     render_opts = {"site_costs": site_costs}

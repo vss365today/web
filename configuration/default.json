@@ -10,10 +10,6 @@
   "appConfig": {
     "APP_NAME": "#vss365 today",
     "APP_DOMAIN": "vss365today.com",
-    "FLASK_APP": "wsgi.py",
-    "GLOBAL_ALERT": [
-      "#vss365 today has entered read-only mode due to extraneous circumstances. <a href=\"https://notes.codetri.net/\"><em>Find out more</em></a>.",
-      "error"
-    ]
+    "FLASK_APP": "wsgi.py"
   }
 }
