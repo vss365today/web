@@ -21,7 +21,7 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
 mypy = "^0.991"
-black = "^22.12"
+black = "^23.1"
 types-requests = "^2.28.11"
 
 [build-system]
