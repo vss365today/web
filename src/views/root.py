@@ -1,15 +1,14 @@
-from collections import namedtuple
 from datetime import date
 from random import randrange
+from typing import NamedTuple
 
 from flask import abort, flash, redirect, render_template, session, url_for
 from num2words import num2words
 from requests.exceptions import HTTPError
 
 from src.blueprints import root
-from src.core import api, forms
+from src.core import forms
 from src.core.api import v2
-from src.core.filters import date as date_format
 
 
 @root.post("form-subscribe")
@@ -137,7 +136,10 @@ def browse_by_year_month(year: int, month: int) -> str:
 
 @root.get("donate")
 def donate() -> str:
-    Costs = namedtuple("Costs", ["cost", "month_freq"])
+    class Costs(NamedTuple):
+        cost: float | int
+        month_freq: int
+
     site_costs = {
         "domain": Costs(9.15, 1),
         "email": Costs(22, 12),

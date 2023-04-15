@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 import sys_vars
 
@@ -19,7 +19,7 @@ def get_app_config(config_file: str) -> dict:
 
     # Immediately add the app-specific values to the final values
     # because there is no need to fetch these from an outside source
-    app_config: Dict[str, Any] = {}
+    app_config: dict[str, Any] = {}
     app_config.update(file_content["appConfig"])
 
     # Now fetch the system variable stored in a outside source

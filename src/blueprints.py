@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from typing import Callable
 
 from flask import Blueprint
 
@@ -7,7 +7,7 @@ def _factory(
     partial_module_string: str,
     url_prefix: str,
     protected: bool = False,
-    auth_function: Optional[Callable] = None,
+    auth_function: Callable | None = None,
 ) -> Blueprint:
     # Create the blueprint
     blueprint = Blueprint(
