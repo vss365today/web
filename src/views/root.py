@@ -91,45 +91,50 @@ def about():
 def browse():
     # Handle the archive file possibly being unavailable
     try:
-        archive_name = api.get("archive")
+        archive_name = v2.get("archive/")
     except HTTPError:
         archive_name = None
 
     render_opts = {
-        "years": api.get("browse", "years"),
+        "years": v2.get("browse", "years")["years"],
         "archive": archive_name,
     }
     return render_template("root/browse.html", **render_opts)
 
 
-@root.get("browse/<year>")
-def browse_by_year(year: str):
-    # Get the host's list and group them up if needed
+@root.get("browse/<int:year>")
+def browse_by_year(year: int):
+    """View the months in a year Prompts have been recorded."""
     try:
-        prompt_months: list = api.get("browse", "months", params={"year": year})
-    except HTTPError:
-        abort(404)
-
-    render_opts = {"months": prompt_months, "year": year}
-    return render_template("root/browse-year.html", **render_opts)
-
-
-@root.get("browse/<year>/<month>")
-def browse_by_year_month(year: str, month: str) -> str:
-    try:
-        month_prompts: dict = api.get("browse", params={"year": year, "month": month})
+        # Get the host's list and group them up if needed
+        prompt_months = v2.get("browse", "years", str(year))["months"]
     except HTTPError:
         abort(404)
 
     render_opts = {
-        "date": date_format.format_month_year(f"{year}-{month}-01"),
+        "months": [date(year, m, 1) for m in prompt_months],
+        "year": year,
+    }
+    return render_template("root/browse-year.html", **render_opts)
+
+
+@root.get("browse/<int:year>/<int:month>")
+def browse_by_year_month(year: int, month: int) -> str:
+    """View Prompts in a calendar month."""
+    try:
+        month_prompts: dict = v2.get("browse", str(year), str(month))
+    except HTTPError:
+        abort(404)
+
+    render_opts = {
+        "date": date(year, month, 1),
         "month_prompts": month_prompts["prompts"],
     }
     return render_template("root/browse-month.html", **render_opts)
 
 
 @root.get("donate")
-def donate():
+def donate() -> str:
     Costs = namedtuple("Costs", ["cost", "month_freq"])
     site_costs = {
         "domain": Costs(9.15, 1),

@@ -1,15 +1,14 @@
 {% extends 'base.html' %}
-{% set page_title = date ~ ' prompts' %}
+{% set page_title = date|format_month_year ~ ' prompts' %}
 
 {% block content %}
 <section class="page center browse-giver">
   <div class="wrapper">
     {%- for prompt in month_prompts %}
-    {% set prompt_date = prompt.date|create_datetime %}
     <dl>
-      <dd><a href="{{ url_for('root.view_date', date=prompt_date|format_datetime_ymd) }}">{{ prompt.word }}</a></dd>
-      <dt>{{ prompt_date|format_date_pretty }}</dt>
-      <dt>{{ prompt.writer_handle }}</dt>
+      <dd><a href="{{ url_for('root.view_date', d=prompt.date) }}">{{ prompt.word }}</a></dd>
+      <dt>{{ prompt.date|format_date_pretty }}</dt>
+      <dt>{{ prompt.host.handle }}</dt>
     </dl>
     {%- if loop.index % 5 == 0 %}
   </div>
