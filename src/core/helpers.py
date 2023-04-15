@@ -39,7 +39,7 @@ def make_hashtags(text: str) -> str:
     # Go through each hashtag and make it a clickable link
     for ht in get_all_hashtags(text):
         html = f'<a href="https://twitter.com/hashtag/{ht[1:]}">{ht}</a>'
-        text = re.sub(fr"({ht})\b", html, text)
+        text = re.sub(rf"({ht})\b", html, text)
     return markupsafe.soft_str(markupsafe.Markup(text))
 
 

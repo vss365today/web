@@ -30,8 +30,10 @@ def form_subscribe():
     try:
         v2.post("emails/", json={"address": [email]})
         flash(
-            f"{email} has been added to #vss365 notifications! "
-            "Tomorrow's prompt will be in your inbox!",
+            (
+                f"{email} has been added to #vss365 notifications! "
+                "Tomorrow's prompt will be in your inbox!"
+            ),
             "info",
         )
     except HTTPError:

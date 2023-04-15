@@ -24,8 +24,10 @@ def by_date(query: str) -> SearchResult:
 
     # Something didn't happen so we can't search
     return SearchResult(
-        msg=f"We were unable to find a prompt for {query}. "
-        "Please select a different date.",
+        msg=(
+            f"We were unable to find a prompt for {query}. "
+            "Please select a different date."
+        ),
         url=url_for("search.index"),
         error=True,
     )
@@ -101,8 +103,10 @@ def by_word(query: str) -> SearchResult:
 
     # No search results were returned
     return SearchResult(
-        msg=f"We were unable to find prompts containing '{query}'. "
-        "Please try using a different term.",
+        msg=(
+            f"We were unable to find prompts containing '{query}'. "
+            "Please try using a different term."
+        ),
         url=url_for("search.index"),
         error=True,
     )
