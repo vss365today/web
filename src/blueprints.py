@@ -35,4 +35,4 @@ search = _factory("search", "/search")
 shortcuts = _factory("shortcuts", "/")
 stats = _factory("stats", "/stats")
 
-all_blueprints = (root, search, shortcuts, stats)
+all_blueprints = (feed, root, search, shortcuts, stats)

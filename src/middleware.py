@@ -1,6 +1,7 @@
 from datetime import date
 
-from flask import current_app, flash, render_template, request, url_for
+from flask import current_app, flash, render_template, request
+from src.core.helpers import get_static_url
 
 
 @current_app.before_request
@@ -15,18 +16,6 @@ def global_alert():
         and request.blueprint != "shortcuts"
     ):
         flash(alert_msg[0], alert_msg[1])
-
-
-def get_static_url(filename: str) -> str:
-    """Generate a URL to static assets based on dev/prod status."""
-    # If this config key is present, we are running in prod,
-    # which means we should pull the files from a URL
-    if (static_url := current_app.config.get("STATIC_FILES_URL")) is not None:
-        return f"{static_url}/{filename}"
-
-    # Otherwise, we're running locally, so we pull the files
-    # from the local filesystem
-    return url_for("static", filename=filename)
 
 
 @current_app.context_processor
