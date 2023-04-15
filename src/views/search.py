@@ -1,11 +1,12 @@
+from datetime import date
 from typing import TypedDict
 
 from flask import flash, redirect, render_template, request, url_for
 from requests.exceptions import HTTPError
 
 from src.blueprints import search
-from src.core import api, forms
-from src.core.filters.date import create_datetime, format_datetime_ymd
+from src.core import forms
+from src.core.api import v2
 
 
 class SearchResult(TypedDict, total=False):
@@ -19,7 +20,7 @@ def by_date(query: str) -> SearchResult:
     """Search for a specific day's Prompt."""
     # We got a date to search by
     if query:
-        return SearchResult(url=url_for("root.view_date", date=query), error=False)
+        return SearchResult(url=url_for("root.view_date", d=query), error=False)
 
     # Something didn't happen so we can't search
     return SearchResult(
@@ -34,7 +35,7 @@ def by_host(query: str) -> SearchResult:
     """Search for Prompts from a specific Host."""
     if query:
         try:
-            response = api.get("search", params={"host": query})
+            response = v2.get("search", "host", query)
 
             # There doesn't appear any prompts from that Host
             if response["total"] == 0:
@@ -50,10 +51,9 @@ def by_host(query: str) -> SearchResult:
 
         # We got a single result, go directly to the prompt
         if response["total"] == 1:
-            date = create_datetime(response["prompts"][0]["date"])
+            d = date.fromisoformat(response["prompts"][0]["date"])
             return SearchResult(
-                url=url_for("root.view_date", date=format_datetime_ymd(date)),
-                error=False,
+                url=url_for("root.view_date", d=d.isoformat()), error=False
             )
 
         # More than one result came back, display them all
@@ -74,7 +74,7 @@ def by_word(query: str) -> SearchResult:
     if query and len(query) >= 2:
         # Connect to the API to search
         try:
-            response = api.get("search", params={"prompt": query})
+            response = v2.get("search", "query", query)
 
             # There doesn't appear any prompts with that word
             if response["total"] == 0:
@@ -94,10 +94,9 @@ def by_word(query: str) -> SearchResult:
 
         # We got a single response back, go directly to the prompt
         if response["total"] == 1:
-            date = create_datetime(response["prompts"][0]["date"])
+            d = date.fromisoformat(response["prompts"][0]["date"])
             return SearchResult(
-                url=url_for("root.view_date", date=format_datetime_ymd(date)),
-                error=False,
+                url=url_for("root.view_date", d=d.isoformat()), error=False
             )
 
     # No search results were returned

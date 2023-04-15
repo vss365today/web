@@ -9,9 +9,9 @@ __all__ = [
 ]
 
 
-def create_datetime(date_str: str) -> datetime:
-    """Create a datetime object from an ISO 8601 date string."""
-    return datetime.fromisoformat(date_str.strip())
+def create_datetime(date_str: str) -> date:
+    """Create a date object from an ISO 8601 date string."""
+    return date.fromisoformat(date_str.strip())
 
 
 def format_date_pretty(obj: date | datetime | str) -> str:
