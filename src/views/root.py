@@ -1,4 +1,5 @@
 from collections import namedtuple
+from datetime import date
 from random import randrange
 
 from flask import abort, flash, redirect, render_template, session, url_for
@@ -146,15 +147,19 @@ def index():
     # Create a proper date object for each prompt
     # There are some older days that have multiple prompts,
     # and we need to handle these special cases
-    available_prompts = api.get("prompt")
+    available_prompts = v2.get("prompts/")
     prompts = []
     for prompt in available_prompts:
-        prompt["date"] = date_format.create_datetime(prompt["date"])
+        prompt["date"] = date.fromisoformat(prompt["date"])
         prompts.append(prompt)
 
     render_opts = {
         "prompts": prompts,
-        "previous": prompts[0]["previous"],
+        "previous": (
+            date.fromisoformat(prompts[0]["navigation"]["previous"])
+            if prompts[0]["navigation"]["previous"]
+            else None
+        ),
         "next": None,
     }
 
@@ -172,34 +177,41 @@ def view_one_year(prompt_info: dict):
     return render_template("root/one-year.html", **render_opts)
 
 
-@root.get("view/<date>")
-def view_date(date: str):
+@root.get("view/<d>")
+def view_date(d: str):
     """Build out the daily prompt page."""
     # Try to get the prompt for this day
     try:
-        available_prompts = api.get(
-            "prompt", params={"date": date_format.create_datetime(date).isoformat()}
-        )
+        available_prompts = v2.get("prompts", "date", date.fromisoformat(d).isoformat())
 
     # There is no prompt for this day or we got a bad date string
     except (ValueError, HTTPError):
         abort(404)
 
     # Load the special 1 year prompt archive page if requested
-    if date == "2017-09-05":
-        return view_one_year(available_prompts)
+    # TODO: This should be removed
+    # if d == "2017-09-05":
+    #     return view_one_year(available_prompts)
 
-    # Create a proper date object for each prompt
-    # There are some older days that have multiple prompts,
+    # Create a proper date object for each prompt.
+    # There are some older days that have multiple prompts
     # and we need to handle these special cases
     prompts = []
     for prompt in available_prompts:
-        prompt["date"] = date_format.create_datetime(prompt["date"])
+        prompt["date"] = date.fromisoformat(prompt["date"])
         prompts.append(prompt)
 
     render_opts = {
         "prompts": prompts,
-        "previous": prompts[0]["previous"],
-        "next": prompts[0]["next"],
+        "previous": (
+            date.fromisoformat(prompts[0]["navigation"]["previous"])
+            if prompts[0]["navigation"]["previous"]
+            else None
+        ),
+        "next": (
+            date.fromisoformat(prompts[0]["navigation"]["next"])
+            if prompts[0]["navigation"]["next"]
+            else None
+        ),
     }
     return render_template("root/index.html", **render_opts)

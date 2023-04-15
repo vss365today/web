@@ -1,5 +1,4 @@
-from datetime import datetime
-from typing import Union
+from datetime import date, datetime
 
 
 __all__ = [
@@ -15,26 +14,26 @@ def create_datetime(date_str: str) -> datetime:
     return datetime.fromisoformat(date_str.strip())
 
 
-def format_date_pretty(datetime_obj: Union[datetime, str]) -> str:
+def format_date_pretty(obj: date | datetime | str) -> str:
     """Pretty format a date in MM DD, YYYY."""
-    if not isinstance(datetime_obj, datetime):
-        datetime_obj = create_datetime(datetime_obj)
-    return datetime_obj.strftime("%B %d, %Y")
+    if isinstance(obj, str):
+        obj = date.fromisoformat(obj.strip())
+    return obj.strftime("%B %d, %Y")
 
 
-def format_month_year(date: Union[str, datetime]) -> str:
+def format_month_year(obj: date | datetime | str) -> str:
     """Format a date as MM YYYY."""
-    # If the date is provided as a string, conver it to a datetime obj
-    if not isinstance(date, datetime):
+    # If the date is provided as a string, convert it to a datetime obj
+    if isinstance(obj, str):
         # Add in a dummy day if needed
-        if len(date.split("-")) == 2:
-            date = f"{date}-01"
-        date = create_datetime(date)
-    return date.strftime("%B %Y")
+        if len(obj.split("-")) == 2:
+            obj = f"{obj}-01"
+        obj = date.fromisoformat(obj.strip())
+    return obj.strftime("%B %Y")
 
 
-def format_datetime_ymd(datetime_obj: Union[datetime, str]) -> str:
+def format_datetime_ymd(obj: date | datetime | str) -> str:
     """Format a date as YYYY-MM-DD."""
-    if not isinstance(datetime_obj, datetime):
-        datetime_obj = create_datetime(datetime_obj)
-    return datetime_obj.strftime("%Y-%m-%d")
+    if isinstance(obj, str):
+        obj = date.fromisoformat(obj.strip())
+    return obj.isoformat()

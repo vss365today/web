@@ -18,17 +18,17 @@
   {% for prompt in prompts %}
   <div class="tweet">
     {% if prompt.media %}
-    <img width="400" alt="{{ prompt.media_alt_text if prompt.media_alt_text }}" src="{{ get_static_url('images/' ~ prompt.media) }}">
+    <img width="400" alt="{{ prompt.media.alt_text if prompt.media[0].alt_text }}" src="{{ get_static_url('images/' ~ prompt.media[0].media) }}">
     {% endif %}
   </div>
   {% endfor %}
 
   {% if prompts|length > 1 %}
   <p class="center" style="font-size: 0.85em;">Prompt {% for prompt in prompts %}
-    <a class="commas" href="{{ create_url(prompt) }}">{{ loop.index }}</a>
-  {% endfor %} by {{ prompts[0].writer_handle }}</p>
+    <a class="commas" href="{{ prompt.url }}">{{ loop.index }}</a>
+  {% endfor %} by {{ prompts[0].host.handle }}</p>
   {% else %}
-  <p class="center" style="font-size: 0.85em;"><a href="{{ create_url(prompts[0]) }}">Prompt by {{ prompts[0].writer_handle }}</a></p>
+  <p class="center" style="font-size: 0.85em;"><a href="{{ prompts[0].url }}">Prompt by {{ prompts[0].host.handle }}</a></p>
   {% endif %}
 </section>
 

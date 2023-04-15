@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 
 from flask_wtf import FlaskForm
 from wtforms.fields import (
@@ -12,8 +12,7 @@ from wtforms.fields import (
 )
 from wtforms.validators import Email, InputRequired
 
-from src.core import api
-from src.core.filters.date import format_datetime_ymd
+from src.core.api import v2
 
 
 __all__ = [
@@ -25,6 +24,10 @@ __all__ = [
 ]
 
 
+def get_all_hosts() -> list[tuple[str, str]]:
+    return [(host["handle"], host["handle"]) for host in v2.get("hosts/")]
+
+
 class PromptSearchByDate(FlaskForm):
     type = HiddenField(default="date")
     query = DateField(
@@ -33,7 +36,7 @@ class PromptSearchByDate(FlaskForm):
         render_kw={
             "placeholder": "2020-07-02",
             "pattern": r"\d{4}-\d{2}-\d{2}",
-            "max": format_datetime_ymd(datetime.now()),
+            "max": date.today().isoformat(),
         },
     )
 
@@ -44,10 +47,7 @@ class PromptSearchByHost(FlaskForm):
         "Host search",
         id="input-search-host",
         validators=[InputRequired()],
-        choices=[
-            (host["handle"], host["handle"])
-            for host in api.get("host", params={"all": True})
-        ],
+        choices=get_all_hosts,
     )
 
 
