@@ -6,7 +6,7 @@
 {% set cost_email = calculate_cost(site_costs, "email")|float %}
 {% set cost_server = calculate_cost(site_costs, "server")|float %}
 {% set cost_twitter = calculate_cost(site_costs, "twitter")|float %}
-{% set total_cost = cost_domain + cost_email + cost_server %}
+{% set total_cost = cost_domain + cost_email + cost_server + cost_twitter %}
 
 {% block content %}
 <section class="page">
@@ -31,6 +31,7 @@
     <li>Domain name: ${{ "%.2f"|format(site_costs["domain"].cost) }}/year</li>
     <li>Email sending: ${{ "%.2f"|format(site_costs["email"].cost) }}/month</li>
     <li>Server hosting: ${{ "%.2f"|format(site_costs["server"].cost) }}/month</li>
+    <li>Twitter API: ${{ "%.2f"|format(site_costs["twitter"].cost) }}/month</li>
     <li>Total monthly cost: ${{ "%.2f"|format(total_cost / 12) }}</li>
   </ul>
 
