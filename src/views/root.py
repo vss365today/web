@@ -175,13 +175,15 @@ def index():
     return render_template("root/index.html", **render_opts)
 
 
-def view_one_year(prompt_info: dict):
+@root.get("view/2017-09-05")
+def view_one_year():
     """Build out the special 1 year anniversary prompt page."""
+    prompt: dict = v2.get("prompts", "date", "2017-09-05")[0]
     render_opts = {
-        "prompts": prompt_info["prompts"],
-        "previous": prompt_info["previous"],
-        "next": prompt_info["next"],
-        "host": prompt_info["writer_handle"],
+        "prompt": prompt,
+        "previous": date.fromisoformat(prompt["navigation"]["previous"]),
+        "next": date.fromisoformat(prompt["navigation"]["next"]),
+        # "host": prompt["writer_handle"],
     }
     return render_template("root/one-year.html", **render_opts)
 
@@ -191,16 +193,17 @@ def view_date(d: str):
     """Build out the daily prompt page."""
     # Try to get the prompt for this day
     try:
-        available_prompts = v2.get("prompts", "date", date.fromisoformat(d).isoformat())
+        available_prompts: list[dict] = v2.get(
+            "prompts", "date", date.fromisoformat(d).isoformat()
+        )
 
     # There is no prompt for this day or we got a bad date string
     except (ValueError, HTTPError):
         abort(404)
 
     # Load the special 1 year prompt archive page if requested
-    # TODO: This should be removed
-    # if d == "2017-09-05":
-    #     return view_one_year(available_prompts)
+    if d == "2017-09-05":
+        return view_one_year(available_prompts[0])
 
     # Create a proper date object for each prompt.
     # There are some older days that have multiple prompts

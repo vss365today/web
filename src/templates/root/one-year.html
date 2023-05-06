@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% set page_title = 'September 05, 2017' %}
+{% set page_title = prompt.date|format_date_pretty %}
 
 {% block content %}
 <section class="page center">
@@ -17,10 +17,10 @@
 </section>
 
 <section class="one-year-wrapper">
-  {% for prompt in prompts %}
+  {% for media in prompt.media %}
   <div class="prompt-image">
     <h2>#{{ loop.index }}</h2>
-    <a class="a-img" href="{{ prompt.url }}">
+    <a class="a-img" href="{{ get_static_url('images/' ~ prompt.media) }}">
       <img width="275" src="{{ get_static_url('images/' ~ prompt.media) }}">
     </a>
   </div>
