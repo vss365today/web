@@ -12,14 +12,19 @@
       <a class="prompt-highlight word commas center" target="_blank" href="https://www.merriam-webster.com/dictionary/{{ prompt.word|lower }}">{{ prompt.word }}</a>
       {% endfor %}
     </p>
-</section>
+  </section>
 
-<section class="content">
-  {% for prompt in prompts %}
-  <div class="tweet">
-    {% if prompt.media %}
-    <img width="400" alt="{{ prompt.media.alt_text if prompt.media[0].alt_text }}" src="{{ get_static_url('images/' ~ prompt.media[0].media) }}">
-    {% endif %}
+  <section class="content">
+    {% for prompt in prompts %}
+    <div class="tweet">
+      {% for media in prompts.media %}
+      <img width="400" alt="{{ prompt.media.alt_text if media.alt_text }}" src="{{ get_static_url('images/' ~ media.media) }}">
+      {% endfor %}
+      {#
+      {% if prompt.media %}
+      <img width="400" alt="{{ prompt.media.alt_text if prompt.media[0].alt_text }}" src="{{ get_static_url('images/' ~ prompt.media[0].media) }}">
+      {% endif %}
+      #}
   </div>
   {% endfor %}
 
