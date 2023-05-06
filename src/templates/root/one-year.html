@@ -20,8 +20,8 @@
   {% for media in prompt.media %}
   <div class="prompt-image">
     <h2>#{{ loop.index }}</h2>
-    <a class="a-img" href="{{ get_static_url('images/' ~ prompt.media) }}">
-      <img width="275" src="{{ get_static_url('images/' ~ prompt.media) }}">
+    <a class="a-img" href="{{ get_static_url('images/' ~ media.media) }}">
+      <img width="275" alt="{{ media.alt_text if media.alt_text }}" src="{{ get_static_url('images/' ~ media.media) }}">
     </a>
   </div>
   {% endfor %}
