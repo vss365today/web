@@ -183,7 +183,6 @@ def view_one_year():
         "prompt": prompt,
         "previous": date.fromisoformat(prompt["navigation"]["previous"]),
         "next": date.fromisoformat(prompt["navigation"]["next"]),
-        # "host": prompt["writer_handle"],
     }
     return render_template("root/one-year.html", **render_opts)
 
@@ -200,10 +199,6 @@ def view_date(d: str):
     # There is no prompt for this day or we got a bad date string
     except (ValueError, HTTPError):
         abort(404)
-
-    # Load the special 1 year prompt archive page if requested
-    if d == "2017-09-05":
-        return view_one_year(available_prompts[0])
 
     # Create a proper date object for each prompt.
     # There are some older days that have multiple prompts
