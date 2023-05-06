@@ -158,6 +158,13 @@ section {
   font-size: 0.8em;
 }
 
+/* .tweet > img::before {
+  content: "ALT";
+  color: green;
+  display: inline-block;
+  font-size: 5rem;
+} */
+
 details {
   padding: 1em 1.5em;
   max-width: 50em;
@@ -171,12 +178,6 @@ details {
 summary {
   cursor: pointer;
   font-size: 1.1rem;
-}
-
-details img {
-  margin-right: auto;
-  margin-bottom: 1em;
-  margin-left: auto;
 }
 
 footer {
