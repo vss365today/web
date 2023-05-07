@@ -20,6 +20,8 @@ def by_date(query: str) -> SearchResult:
     """Search for a specific day's Prompt."""
     # We got a date to search by
     if query:
+        if query == "2017-09-05":
+            return SearchResult(url=url_for("root.view_one_year", d=query), error=False)
         return SearchResult(url=url_for("root.view_date", d=query), error=False)
 
     # Something didn't happen so we can't search
