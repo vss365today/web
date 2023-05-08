@@ -17,8 +17,8 @@
   <section class="content">
     {% for prompt in prompts %}
     <div class="tweet">
-      {% for media in prompts.media %}
-      <img width="400" alt="{{ prompt.media.alt_text if media.alt_text }}" src="{{ get_static_url('images/' ~ media.media) }}">
+      {% for media in prompt.media %}
+      <img width="400" alt="{{ media.alt_text if media.alt_text }}" src="{{ get_static_url('images/' ~ media.media) }}">
       {% endfor %}
       {#
       {% if prompt.media %}
