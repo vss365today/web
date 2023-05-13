@@ -3,5 +3,5 @@
 {%- endmacro %}
 
 {% macro link_to_prompt(date) -%}
-<a href="{{ url_for('root.view_date', date=date) }}">{{ date|format_date_pretty }}</a>
+<a href="{{ url_for('root.view_date', d=date) }}">{{ date|format_date_pretty }}</a>
 {%- endmacro %}
