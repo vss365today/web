@@ -20,7 +20,7 @@
       "type": "python",
       "request": "launch",
       "module": "flask",
-      "console": "integratedTerminal",
+      "console": "internalConsole",
       "env": {
         "FLASK_APP": "wsgi.py",
         "FLASK_ENV": "development",

@@ -18,11 +18,11 @@
     {% for prompt in prompts %}
     <div class="tweet">
       {% for media in prompt.media %}
-      <img width="400" alt="{{ media.alt_text if media.alt_text }}" src="{{ get_static_url('images/' ~ media.media) }}">
+      <img width="400" alt="{{ media.alt_text if media.alt_text }}" src="{{ get_static_url('images/' ~ media.file) }}">
       {% endfor %}
       {#
       {% if prompt.media %}
-      <img width="400" alt="{{ prompt.media.alt_text if prompt.media[0].alt_text }}" src="{{ get_static_url('images/' ~ prompt.media[0].media) }}">
+      <img width="400" alt="{{ prompt.media.alt_text if prompt.media[0].alt_text }}" src="{{ get_static_url('images/' ~ prompt.media[0].file) }}">
       {% endif %}
       #}
   </div>
