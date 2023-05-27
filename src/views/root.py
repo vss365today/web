@@ -3,8 +3,8 @@ from random import randrange
 from typing import NamedTuple
 
 from flask import abort, flash, redirect, render_template, session, url_for
+from httpx import HTTPError
 from num2words import num2words
-from requests.exceptions import HTTPError
 
 from src.blueprints import root
 from src.core import forms

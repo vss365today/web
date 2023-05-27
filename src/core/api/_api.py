@@ -1,9 +1,8 @@
 from typing import Any, Callable
 
-from flask import current_app
-import requests
+import httpx
 import sys_vars
-
+from flask import current_app
 
 __all__ = ["delete", "get", "post", "put"]
 
@@ -31,19 +30,19 @@ def __make_request(method: Callable, url: str, **kwargs: Any) -> dict:
 
 def delete(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a DELETE request."""
-    return __make_request(requests.delete, url, **kwargs)
+    return __make_request(httpx.delete, url, **kwargs)
 
 
 def get(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a GET request."""
-    return __make_request(requests.get, url, **kwargs)
+    return __make_request(httpx.get, url, **kwargs)
 
 
 def post(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a POST request."""
-    return __make_request(requests.post, url, **kwargs)
+    return __make_request(httpx.post, url, **kwargs)
 
 
 def put(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a PUT request."""
-    return __make_request(requests.put, url, **kwargs)
+    return __make_request(httpx.put, url, **kwargs)

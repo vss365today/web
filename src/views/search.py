@@ -2,7 +2,7 @@ from datetime import date
 from typing import TypedDict
 
 from flask import flash, redirect, render_template, request, url_for
-from requests.exceptions import HTTPError
+from httpx import HTTPError
 
 from src.blueprints import search
 from src.core import forms
