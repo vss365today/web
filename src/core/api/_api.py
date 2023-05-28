@@ -1,3 +1,4 @@
+from functools import partial
 from typing import Any, Callable
 
 import httpx
@@ -23,14 +24,16 @@ def __make_request(method: Callable, url: str, **kwargs: Any) -> dict:
             f"Making {method.__name__.upper()} request to API {url}"
         )
 
-    r = method(url, **kwargs)
+    r = method(url=url, **kwargs)
     r.raise_for_status()
     return r.json() if r.text else {}
 
 
 def delete(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a DELETE request."""
-    return __make_request(httpx.delete, url, **kwargs)
+    func = partial(httpx.request, method="DELETE")
+    func.__name__ = "delete"
+    return __make_request(func, url, **kwargs)
 
 
 def get(url: str, **kwargs: Any) -> dict:
