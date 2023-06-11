@@ -12,7 +12,7 @@
     "APP_DOMAIN": "vss365today.com",
     "FLASK_APP": "wsgi.py",
     "GLOBAL_ALERT": [
-      "As of June 10, 2023, <em>#vss365</em> today is in read-only mode until Twitter API access is restored. No prompts or emails will be sent out in the mean time.",
+      "As of June 10, 2023, <em>#vss365 today</em> is in read-only mode until Twitter API access is restored. No prompts or emails will be sent out in the mean time.",
       "error"
     ]
   }
