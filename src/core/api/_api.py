@@ -31,21 +31,21 @@ def __make_request(method: Callable, url: str, **kwargs: Any) -> dict:
 
 def delete(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a DELETE request."""
-    func = partial(httpx.request, method="DELETE")
+    func = partial(httpx.request, method="DELETE", timeout=None)
     func.__name__ = "delete"
     return __make_request(func, url, **kwargs)
 
 
 def get(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a GET request."""
-    return __make_request(httpx.get, url, **kwargs)
+    return __make_request(httpx.get, url, timeout=None, **kwargs)
 
 
 def post(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a POST request."""
-    return __make_request(httpx.post, url, **kwargs)
+    return __make_request(httpx.post, url, timeout=None, **kwargs)
 
 
 def put(url: str, **kwargs: Any) -> dict:
     """Helper function for performing a PUT request."""
-    return __make_request(httpx.put, url, **kwargs)
+    return __make_request(httpx.put, url, timeout=None, **kwargs)
