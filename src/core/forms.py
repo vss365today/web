@@ -91,4 +91,8 @@ class UnsubscribeForm(FlaskForm):
             "inputmode": "email",
         },
     )
+    number = IntegerField(
+        validators=[InputRequired()],
+        render_kw={"inputmode": "numeric"},
+    )
     submit = SubmitField("Unsubscribe")

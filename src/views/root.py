@@ -29,10 +29,8 @@ def form_subscribe():
     try:
         v2.post("emails/", json={"address": [email]})
         flash(
-            (
-                f"{email} has been added to #vss365 notifications! "
-                "Tomorrow's prompt will be in your inbox!"
-            ),
+            f"{email} has been added to #vss365 notifications! "
+            "Tomorrow's prompt will be in your inbox!",
             "info",
         )
     except HTTPError:
@@ -62,7 +60,16 @@ def subscribe():
 @root.post("form-unsubscribe")
 def form_unsubscribe():
     form = forms.UnsubscribeForm()
-    if not form.validate_on_submit():
+    # The magic "is human" numbers do not exist, don't continue on
+    if "UNSUBSCRIBE_NUM" not in session or not form.validate_on_submit():
+        flash("We were unable to remove you from #vss365 notifications.", "error")
+        return redirect(url_for("root.unsubscribe"))
+
+    # The magic numbers were not summed correctly
+    if (
+        form.number.data
+        != session["UNSUBSCRIBE_NUM"][0] + session["UNSUBSCRIBE_NUM"][1]
+    ):
         flash("We were unable to remove you from #vss365 notifications.", "error")
         return redirect(url_for("root.unsubscribe"))
 
@@ -79,7 +86,21 @@ def form_unsubscribe():
 
 @root.get("unsubscribe")
 def unsubscribe():
-    render_opts = {"form_unsubscribe": forms.UnsubscribeForm()}
+    # Generate two random numbers to use for a basic "is human" check.
+    # Once generated, add them to the session for confirmation on form submit.
+    # We generate these numbers on every page load unconditionally
+    # so we don't persist anything
+    second_num = randrange(20)
+    random_nums = [randrange(1, 21), second_num, num2words(second_num)]
+    session["UNSUBSCRIBE_NUM"] = random_nums
+
+    # Build up the input label to contain the math equation to be solved
+    # and remove any prior input the browser might have preserved (*@ Firefox...*)
+    form = forms.UnsubscribeForm()
+    form.number.data = None
+    form.number.label.text = f"{random_nums[0]} + {random_nums[2]} ="
+
+    render_opts = {"form_unsubscribe": form}
     return render_template("root/unsubscribe.html", **render_opts)
 
 
