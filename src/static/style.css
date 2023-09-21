@@ -257,16 +257,6 @@ footer > div {
   font-size: 2.75em;
   font-weight: 700;
   color: inherit;
-  text-decoration-style: dashed;
-  text-decoration-line: underline;
-  text-decoration-color: #d1caca;
-  transition: 0.2s text-decoration-color ease;
-}
-.content .word:hover,
-.content .word:focus,
-.content .word:active {
-  border-bottom-color: transparent;
-  text-decoration-color: inherit;
 }
 
 .commas:not(:last-of-type)::after {
@@ -607,13 +597,7 @@ input[type="submit"]:focus {
 }
 
 .dark .content .word {
-  border-bottom-color: transparent;
   color: var(--primary-link);
-}
-.dark .content .word:hover,
-.dark .content .word:focus,
-.dark .content .word:active {
-  text-decoration-color: transparent;
 }
 
 .dark .content img {
