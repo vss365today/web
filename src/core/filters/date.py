@@ -1,10 +1,6 @@
 from datetime import date
 
-
-__all__ = [
-    "format_date_pretty",
-    "format_month_year",
-]
+__all__ = ["format_date_pretty", "format_month_year"]
 
 
 def format_date_pretty(obj: date | str) -> str:
