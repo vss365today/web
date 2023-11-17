@@ -24,4 +24,5 @@ def year(year: int) -> str:
     # Handle not having stats for the requested year
     if year not in get_years():
         abort(404)
+
     return render_template(f"stats/years/{year}.html")
