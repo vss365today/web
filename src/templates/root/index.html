@@ -15,8 +15,8 @@
       {% for prompt in prompts %}
       <div class="center">
         {{ '<span>'|safe ~ prompt.word ~ ':</span>'|safe if number_of_prompts >= 2 }}
-        <a class="center commas" target="_blank" href="https://www.dictionary.com/browse/{{ prompt.word|lower }}">Dictionary.com</a>
-        <a class="center commas" target="_blank" href="https://www.merriam-webster.com/dictionary/{{ prompt.word|lower }}">Merriam-Webster</a>
+        <a class="center" target="_blank" href="https://www.dictionary.com/browse/{{ prompt.word|lower }}">Dictionary.com</a>
+        <a class="center" target="_blank" href="https://www.merriam-webster.com/dictionary/{{ prompt.word|lower }}">Merriam-Webster</a>
       </div>
       {% endfor %}
     </p>
