@@ -10,8 +10,7 @@
 
   <div class="wrapper">
     {%- for date in months %}
-    {% set month = date.month|string if date.month >= 10 else '0' ~ date.month|string %}
-    <a class="a-btn" href="{{ url_for('root.browse_by_year_month', year=date.year, month=month) }}">{{ date|format_month_year }}</a>
+    <a class="a-btn" href="{{ url_for('root.browse_by_year_month', year=date.year, month=date.month) }}">{{ date|format_month_year }}</a>
     {%- if loop.index % 6 == 0 %}
   </div>
 
