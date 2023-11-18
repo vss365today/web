@@ -43,7 +43,7 @@ def by_host(query: str) -> SearchResult:
 
             # There doesn't appear any prompts from that Host
             if response["total"] == 0:
-                raise HTTPError
+                raise HTTPError("no results found")
 
         # The search was not successful
         except HTTPError:
@@ -82,7 +82,7 @@ def by_word(query: str) -> SearchResult:
 
             # There doesn't appear any prompts with that word
             if response["total"] == 0:
-                raise HTTPError
+                raise HTTPError("no results found")
 
         # The search was not successful
         except HTTPError:
