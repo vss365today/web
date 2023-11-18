@@ -14,7 +14,7 @@
     <dl>
       <dd><a href="{{ url_for('root.view_date', d=prompt.date) }}">{{ prompt.word }}</a></dd>
       <dt>{{ prompt.date|format_date_pretty }}</dt>
-      <dt>{{ prompt.host }}</dt>
+      <dt>{{ prompt.handle }}</dt>
     </dl>
     {%- if loop.index % 5 == 0 %}
   </div>
