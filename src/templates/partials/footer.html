@@ -1,6 +1,8 @@
 <footer>
+  {% set cutoff_date = current_date.replace(year=2023, month=12, day=17) -%}
+  {% if current_date < cutoff_date -%}
   <a class="a-btn" href="{{ url_for('root.subscribe') }}">Subscribe to daily #vss365 notifications</a>
-
+  {% endif -%}
   <div>
     2019 - {{ current_date.year }} <a rel="noopener noreferrer" href="https://codetri.net">Caleb</a> |
     <a href="{{ url_for('shortcuts.privacy') }}">Privacy</a> |
