@@ -13,6 +13,11 @@ from src.core.api import v2
 
 @root.post("form-subscribe")
 def form_subscribe():
+    # Cutoff date
+    if date.today() >= date(2023, 12, 17):
+        flash("We were unable to add you to #vss365 notifications.", "error")
+        return redirect(url_for("root.index"))
+
     form = forms.SubscribeForm()
     # The magic "is human" numbers do not exist, don't continue on
     if "SUBSCRIBE_NUM" not in session or not form.validate_on_submit():
