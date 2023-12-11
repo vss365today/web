@@ -12,7 +12,7 @@
     "APP_DOMAIN": "vss365today.com",
     "FLASK_APP": "wsgi.py",
     "GLOBAL_ALERT": [
-      "<em>#vss365 today</em> is entering permanent archival on December 31, 2023. <a href='http://web.archive.org/web/20231125134859/https://blog.codetri.net/vss365today-permanent-archive/'>Learn more</a>.",
+      "<em>#vss365 today</em> is entering permanent archival on December 31, 2023. <a href='https://web.archive.org/web/20231129013355/https://blog.codetri.net/vss365today-permanent-archive/'>Learn more</a>.",
       "error"
     ]
   }
